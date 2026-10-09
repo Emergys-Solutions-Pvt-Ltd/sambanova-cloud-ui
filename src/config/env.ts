@@ -18,11 +18,16 @@ const publicEnvSchema = z.object({
     .enum(["true", "false"])
     .default("false")
     .transform((value) => value === "true"),
+  NEXT_PUBLIC_QUERY_DEVTOOLS: z
+    .enum(["true", "false"])
+    .default("false")
+    .transform((value) => value === "true"),
 });
 
 const parsed = publicEnvSchema.safeParse({
   NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
   NEXT_PUBLIC_USE_MOCKS: process.env.NEXT_PUBLIC_USE_MOCKS,
+  NEXT_PUBLIC_QUERY_DEVTOOLS: process.env.NEXT_PUBLIC_QUERY_DEVTOOLS,
 });
 
 if (!parsed.success) {
@@ -34,5 +39,6 @@ if (!parsed.success) {
 export const env = {
   apiBaseUrl: parsed.data.NEXT_PUBLIC_API_BASE_URL.replace(/\/+$/, ""),
   useMocks: parsed.data.NEXT_PUBLIC_USE_MOCKS,
+  queryDevtools: parsed.data.NEXT_PUBLIC_QUERY_DEVTOOLS,
   isDev: process.env.NODE_ENV === "development",
 } as const;

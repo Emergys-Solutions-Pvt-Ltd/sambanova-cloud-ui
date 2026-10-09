@@ -51,15 +51,16 @@ The pre-commit hook runs `lint-staged`: ESLint (`--fix`, zero warnings) and Pret
 
 Copy `.env.example` to `.env.local`. Public variables are validated with Zod in `src/config/env.ts`; the app fails fast with a readable message if one is missing or malformed. Always read them through `env` from `@/config/env`, never through `process.env` directly.
 
-| Variable                   | Scope  | Description                                                                              |
-| -------------------------- | ------ | ---------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_API_BASE_URL` | public | API base URL. An absolute URL, or a path such as `/api` when mocking.                    |
-| `NEXT_PUBLIC_USE_MOCKS`    | public | `true` starts the MSW worker and serves all API calls from `src/mocks`. Default `false`. |
-| `AUTH0_DOMAIN`             | server | Auth0 tenant domain. Placeholder, not used until auth is integrated.                     |
-| `AUTH0_CLIENT_ID`          | server | Auth0 application client ID (placeholder).                                               |
-| `AUTH0_CLIENT_SECRET`      | server | Auth0 application client secret (placeholder).                                           |
-| `AUTH0_SECRET`             | server | 32-byte hex secret for encrypting the session cookie (placeholder).                      |
-| `APP_BASE_URL`             | server | Public URL of this app, used for Auth0 callbacks (placeholder).                          |
+| Variable                     | Scope  | Description                                                                              |
+| ---------------------------- | ------ | ---------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_API_BASE_URL`   | public | API base URL. An absolute URL, or a path such as `/api` when mocking.                    |
+| `NEXT_PUBLIC_QUERY_DEVTOOLS` | public | `true` shows the TanStack Query devtools button in development. Default `false`.         |
+| `NEXT_PUBLIC_USE_MOCKS`      | public | `true` starts the MSW worker and serves all API calls from `src/mocks`. Default `false`. |
+| `AUTH0_DOMAIN`               | server | Auth0 tenant domain. Placeholder, not used until auth is integrated.                     |
+| `AUTH0_CLIENT_ID`            | server | Auth0 application client ID (placeholder).                                               |
+| `AUTH0_CLIENT_SECRET`        | server | Auth0 application client secret (placeholder).                                           |
+| `AUTH0_SECRET`               | server | 32-byte hex secret for encrypting the session cookie (placeholder).                      |
+| `APP_BASE_URL`               | server | Public URL of this app, used for Auth0 callbacks (placeholder).                          |
 
 `NEXT_PUBLIC_*` values are inlined at build time, so changing them requires a rebuild (or a dev-server restart).
 
@@ -148,7 +149,7 @@ The account menu’s Logout does the same through `useLogout` (a stub until Auth
 - **TanStack Query** (`src/lib/query-client.ts`)
   - Defaults: `staleTime` 60 s, `refetchOnWindowFocus` off.
   - `retry` is off, because the Axios client already handles retries.
-  - Devtools load in development only.
+  - Devtools are off by default; set `NEXT_PUBLIC_QUERY_DEVTOOLS=true` to show them in development.
 - **Query keys** (`src/lib/query-keys.ts`)
   - Keys are hierarchical, so a whole domain can be invalidated at once.
   - Project-scoped data lives under `queryKeys.project(id)`. `useSwitchProject()` invalidates the previous project's data on switch.
