@@ -14,9 +14,19 @@ import { Icon, type IconName } from "./icon/icon";
  *   cancel       outlined in muted text
  *   destructive  red fill
  *   control      form-control look used by the project selector and "Sign Up for Free"
+ *   glass        translucent pill used on the hero banner
+ *   outline      strong outline (white on dark, purple on light), e.g. "Compare Models"
  */
 export type ButtonVariant =
-  "primary" | "secondary" | "tertiary" | "link" | "cancel" | "destructive" | "control";
+  | "primary"
+  | "secondary"
+  | "tertiary"
+  | "link"
+  | "cancel"
+  | "destructive"
+  | "control"
+  | "glass"
+  | "outline";
 export type ButtonSize = "md" | "sm";
 
 const base =
@@ -46,6 +56,12 @@ const variants: Record<ButtonVariant, string> = {
     "rounded-sm bg-button-destructive font-medium text-button-destructive-fg hover:bg-button-destructive-hover " +
     "disabled:bg-button-destructive-disabled disabled:text-button-destructive-disabled-fg " +
     "aria-disabled:bg-button-destructive-disabled aria-disabled:text-button-destructive-disabled-fg",
+  glass:
+    "h-9 rounded-full border border-brand-subtle-border bg-brand-subtle px-3 text-caption font-semibold " +
+    "text-button-glass-fg hover:bg-hover",
+  outline:
+    "rounded-sm border border-button-outline-strong font-semibold text-button-outline-fg hover:bg-hover " +
+    "disabled:border-disabled disabled:text-disabled aria-disabled:border-disabled aria-disabled:text-disabled",
   control:
     "rounded-sm border border-control bg-button-secondary font-medium text-primary " +
     "hover:bg-button-secondary-hover disabled:text-disabled aria-disabled:text-disabled",
@@ -58,6 +74,13 @@ const sizes: Record<ButtonSize, string> = {
 };
 
 const bareSizes = "px-2 py-2 text-body";
+
+/** Link and glass carry their own sizing; tertiary is compact; the rest follow `size`. */
+function sizeClasses(variant: ButtonVariant, size: ButtonSize) {
+  if (variant === "link" || variant === "glass") return "";
+  if (variant === "tertiary") return bareSizes;
+  return sizes[size];
+}
 
 interface CommonProps {
   variant?: ButtonVariant;
@@ -108,11 +131,7 @@ export function Button(props: ButtonProps) {
   const classes = cn(
     base,
     variants[variant],
-    variant === "tertiary" || variant === "link"
-      ? variant === "link"
-        ? ""
-        : bareSizes
-      : sizes[size],
+    sizeClasses(variant, size),
     fullWidth && "w-full",
     className,
   );

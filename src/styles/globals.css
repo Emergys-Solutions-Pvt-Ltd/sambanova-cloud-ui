@@ -29,6 +29,9 @@
   --background-color-menu: var(--sn-bg-menu);
   --background-color-menu-line: var(--sn-border-menu);
   --background-color-profile: var(--sn-bg-profile);
+  --background-color-chip: var(--sn-bg-chip);
+  --background-color-tint-promo: var(--sn-tint-promo);
+  --background-color-dot: var(--sn-border-strong);
 
   /* border-* (also used by divide-*) */
   --border-color-default: var(--sn-border-default);
@@ -39,6 +42,7 @@
   --border-color-menu: var(--sn-border-menu);
   --border-color-profile: var(--sn-border-profile);
   --border-color-disabled: var(--sn-border-disabled);
+  --border-color-input: var(--sn-border-input);
 
   /* text-* */
   --text-color-primary: var(--sn-text-primary);
@@ -52,6 +56,7 @@
   --text-color-nav-active: var(--sn-text-nav-active);
   --text-color-menu-label: var(--sn-text-menu-label);
   --text-color-disabled: var(--sn-text-disabled);
+  --text-color-accent: var(--sn-text-accent);
 
   /* Shared across bg-/text-/border-/ring-/fill-/stroke- */
   --color-brand: var(--sn-brand-primary);
@@ -66,6 +71,8 @@
   --color-button-primary-hover: var(--sn-button-primary-hover);
   --color-button-outline: var(--sn-button-outline-border);
   --color-button-outline-fg: var(--sn-button-outline-fg);
+  --color-button-glass-fg: var(--sn-button-glass-fg);
+  --color-button-outline-strong: var(--sn-button-outline-strong-border);
   --color-button-primary-disabled: var(--sn-button-primary-disabled-bg);
   --color-button-primary-disabled-fg: var(--sn-button-primary-disabled-fg);
   --color-button-secondary: var(--sn-button-secondary-bg);
@@ -371,4 +378,25 @@
 
 @utility z-tooltip {
   z-index: var(--sn-z-tooltip);
+}
+
+/* ---- Gradients and decorative fills (tokens.css --sn-gradient-*) ------------ */
+@utility bg-hero {
+  background-image: var(--sn-gradient-hero);
+}
+
+@utility bg-promo {
+  background-image: var(--sn-gradient-promo);
+}
+
+@utility bg-badge-gradient {
+  background-image: var(--sn-gradient-badge);
+}
+
+/* Gradient-filled text, e.g. "Sambanova." in the hero title. */
+@utility text-hero-accent {
+  background-image: var(--sn-gradient-hero-accent);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }

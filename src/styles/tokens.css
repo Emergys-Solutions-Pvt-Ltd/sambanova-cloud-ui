@@ -107,6 +107,8 @@
   --sn-viz-orange: #fd9516;
   --sn-viz-cyan: #79fffd;
   --sn-viz-indigo: #506cfb;
+  --sn-viz-sky: #7cc6ff;
+  --sn-viz-teal: #0f9e7d;
 
   /* Code syntax (Developer Quickstart). */
   --sn-syntax-green-dark: #00ef64;
@@ -149,6 +151,9 @@
   --sn-sidebar-width: 248px;
   --sn-sidebar-width-collapsed: 72px; /* GUESS: tablet icon rail, not in Figma */
 
+  --sn-blur-glow: 55px; /* recommended-model card corner glow */
+  --sn-tint-promo: rgb(157 53 240 / 0.22); /* purple wash over the webinar photo */
+
   /* Layers. Not in Figma; ordered for the shell (D) and overlays. */
   --sn-z-base: 0;
   --sn-z-raised: 10;
@@ -170,6 +175,18 @@
   --sn-ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --sn-ease-emphasized: cubic-bezier(0.3, 0, 0, 1.3);
   --sn-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+
+  /* Recommended-model card glows (blurred corner light, per brand) */
+  --sn-model-glow-indigo: var(--sn-viz-indigo);
+  --sn-model-glow-sky: var(--sn-viz-sky);
+  --sn-model-glow-teal: var(--sn-viz-teal);
+  --sn-model-glow-gemma: linear-gradient(
+    -33deg,
+    #df5566 0%,
+    #f1bf1a 29%,
+    #3085fd 63%,
+    #30b87a 100%
+  );
 }
 
 /* ---------------------------------------------------------------------- */
@@ -316,6 +333,13 @@
   --sn-button-destructive-hover: var(--sn-red-400); /* GUESS: no hover in Figma */
   --sn-button-destructive-disabled-bg: var(--sn-red-900);
   --sn-button-destructive-disabled-fg: var(--sn-red-950);
+
+  /* Dashboard */
+  --sn-text-accent: var(--sn-purple-500);
+  --sn-border-input: var(--sn-ink-stroke-2);
+  --sn-button-glass-fg: var(--sn-neutral-0);
+  --sn-button-outline-strong-border: var(--sn-neutral-0);
+  --sn-bg-chip: rgb(244 234 253 / 0.2);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -427,7 +451,13 @@
   --sn-button-destructive-fg: var(--sn-neutral-0); /* GUESS */
   --sn-button-destructive-hover: var(--sn-red-700); /* GUESS */
   --sn-button-destructive-disabled-bg: var(--sn-red-200); /* GUESS */
-  --sn-button-destructive-disabled-fg: var(--sn-red-400); /* GUESS */
+  --sn-button-destructive-disabled-fg: var(--sn-red-400);
+
+  --sn-text-accent: var(--sn-purple-700);
+  --sn-border-input: var(--sn-gray-300);
+  --sn-button-glass-fg: var(--sn-purple-900);
+  --sn-button-outline-strong-border: var(--sn-purple-400);
+  --sn-bg-chip: rgb(255 255 255 / 0.2); /* GUESS */
 }
 
 @media (prefers-color-scheme: light) {
@@ -534,7 +564,13 @@
     --sn-button-destructive-fg: var(--sn-neutral-0); /* GUESS */
     --sn-button-destructive-hover: var(--sn-red-700); /* GUESS */
     --sn-button-destructive-disabled-bg: var(--sn-red-200); /* GUESS */
-    --sn-button-destructive-disabled-fg: var(--sn-red-400); /* GUESS */
+    --sn-button-destructive-disabled-fg: var(--sn-red-400);
+
+    --sn-text-accent: var(--sn-purple-700);
+    --sn-border-input: var(--sn-gray-300);
+    --sn-button-glass-fg: var(--sn-purple-900);
+    --sn-button-outline-strong-border: var(--sn-purple-400);
+    --sn-bg-chip: rgb(255 255 255 / 0.2); /* GUESS */
   }
 }
 
