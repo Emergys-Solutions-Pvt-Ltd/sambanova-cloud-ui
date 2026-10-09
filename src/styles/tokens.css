@@ -143,6 +143,8 @@
   --sn-radius-lg: 12px;
   --sn-radius-xl: 16px;
   --sn-radius-full: 9999px;
+  --sn-steps-pill-width: 93px; /* Figma: Steps Animation, collapsed pill */
+  --sn-steps-pill-height: 27px;
 
   --sn-border-thin: 0.5px;
   --sn-border-default: 1px;
@@ -172,6 +174,7 @@
   --sn-duration-fast: 120ms;
   --sn-duration-base: 200ms;
   --sn-duration-slow: 320ms;
+  --sn-duration-collapse: 400ms; /* Figma smart-animate: Steps Animation */
   --sn-ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --sn-ease-emphasized: cubic-bezier(0.3, 0, 0, 1.3);
   --sn-ease-exit: cubic-bezier(0.4, 0, 1, 1);
@@ -337,6 +340,8 @@
   /* Dashboard */
   --sn-text-accent: var(--sn-purple-500);
   --sn-border-input: var(--sn-ink-stroke-2);
+  --sn-border-dashed: var(--sn-gray-800);
+  --sn-border-pill: var(--sn-purple-800);
   --sn-button-glass-fg: var(--sn-neutral-0);
   --sn-button-outline-strong-border: var(--sn-neutral-0);
   --sn-bg-chip: rgb(244 234 253 / 0.2);
@@ -456,6 +461,8 @@
 
   --sn-text-accent: var(--sn-purple-700);
   --sn-border-input: var(--sn-gray-300);
+  --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-border-pill: var(--sn-purple-400); /* GUESS */
   --sn-button-glass-fg: var(--sn-purple-900);
   --sn-button-outline-strong-border: var(--sn-purple-400);
   --sn-bg-chip: rgb(255 255 255 / 0.2);
@@ -570,6 +577,8 @@
 
     --sn-text-accent: var(--sn-purple-700);
     --sn-border-input: var(--sn-gray-300);
+    --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-border-pill: var(--sn-purple-400); /* GUESS */
     --sn-button-glass-fg: var(--sn-purple-900);
     --sn-button-outline-strong-border: var(--sn-purple-400);
     --sn-bg-chip: rgb(255 255 255 / 0.2);
@@ -582,5 +591,6 @@
     --sn-duration-fast: 0ms;
     --sn-duration-base: 0ms;
     --sn-duration-slow: 0ms;
+    --sn-duration-collapse: 0ms;
   }
 }

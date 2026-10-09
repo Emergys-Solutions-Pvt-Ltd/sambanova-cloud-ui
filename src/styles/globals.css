@@ -44,6 +44,9 @@
   --border-color-profile: var(--sn-border-profile);
   --border-color-disabled: var(--sn-border-disabled);
   --border-color-input: var(--sn-border-input);
+  --border-color-pill: var(--sn-border-pill);
+  --width-steps-pill: var(--sn-steps-pill-width);
+  --height-steps-pill: var(--sn-steps-pill-height);
 
   /* text-* */
   --text-color-primary: var(--sn-text-primary);
@@ -427,6 +430,17 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+/* Onboarding steps: the card's content is clipped to its box; the pill box is centered at the top. */
+@utility steps-clip-open {
+  clip-path: inset(0 0 0 0 round var(--sn-radius-lg));
+}
+@utility steps-clip-pill {
+  clip-path: inset(
+    0 calc(50% - var(--sn-steps-pill-width) / 2) calc(100% - var(--sn-steps-pill-height))
+      calc(50% - var(--sn-steps-pill-width) / 2) round var(--sn-radius-full)
+  );
 }
 
 /* Slim scrollbar with the themed thumb (Figma: Compare Models dropdown). */
