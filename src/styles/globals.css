@@ -1,26 +1,241 @@
 @import "tailwindcss";
+@import "./tokens.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/*
+ * Tailwind is wired to the semantic tokens in tokens.css and nothing else.
+ * The default palette, font sizes, radii and shadows are cleared, so a class
+ * like `bg-red-500` or `text-lg` simply doesn't exist.
+ *
+ * `inline` makes utilities reference var(--sn-*) directly, so they resolve on
+ * the element that uses them. That lets a subtree with data-theme render in
+ * the other theme (used by /dev/tokens).
+ */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* ---- Colors ---------------------------------------------------------- */
+  --color-*: initial;
+
+  /* bg-* */
+  --background-color-canvas: var(--sn-bg-canvas);
+  --background-color-surface: var(--sn-bg-surface);
+  --background-color-surface-raised: var(--sn-bg-surface-raised);
+  --background-color-sidebar: var(--sn-bg-sidebar);
+  --background-color-input: var(--sn-bg-input);
+  --background-color-code: var(--sn-bg-code);
+  --background-color-hover: var(--sn-bg-hover);
+  --background-color-active: var(--sn-bg-active);
+  --background-color-selected: var(--sn-bg-selected);
+  --background-color-overlay: var(--sn-bg-overlay);
+  --background-color-inverse: var(--sn-bg-inverse);
+
+  /* border-* (also used by divide-*) */
+  --border-color-default: var(--sn-border-default);
+  --border-color-subtle: var(--sn-border-subtle);
+  --border-color-strong: var(--sn-border-strong);
+  --border-color-control: var(--sn-border-control);
+  --border-color-focus: var(--sn-border-focus);
+
+  /* text-* */
+  --text-color-primary: var(--sn-text-primary);
+  --text-color-secondary: var(--sn-text-secondary);
+  --text-color-muted: var(--sn-text-muted);
+  --text-color-tab-inactive: var(--sn-text-tab-inactive);
+  --text-color-inverse: var(--sn-text-inverse);
+  --text-color-link: var(--sn-text-link);
+  --text-color-link-hover: var(--sn-text-link-hover);
+  --text-color-on-brand: var(--sn-text-on-brand);
+  --text-color-nav-active: var(--sn-text-nav-active);
+
+  /* Shared across bg-/text-/border-/ring-/fill-/stroke- */
+  --color-brand: var(--sn-brand-primary);
+  --color-brand-hover: var(--sn-brand-primary-hover);
+  --color-brand-secondary: var(--sn-brand-secondary);
+  --color-brand-subtle: var(--sn-brand-subtle);
+  --color-brand-subtle-border: var(--sn-brand-subtle-border);
+  --color-focus: var(--sn-border-focus);
+
+  --color-button-primary: var(--sn-button-primary-bg);
+  --color-button-primary-fg: var(--sn-button-primary-fg);
+  --color-button-primary-hover: var(--sn-button-primary-hover);
+  --color-button-outline: var(--sn-button-outline-border);
+  --color-button-outline-fg: var(--sn-button-outline-fg);
+
+  --color-success: var(--sn-status-success-text);
+  --color-success-bg: var(--sn-status-success-bg);
+  --color-success-border: var(--sn-status-success-border);
+  --color-error: var(--sn-status-error-text);
+  --color-error-bg: var(--sn-status-error-bg);
+  --color-error-border: var(--sn-status-error-border);
+  --color-warning: var(--sn-status-warning-text);
+  --color-warning-bg: var(--sn-status-warning-bg);
+  --color-warning-border: var(--sn-status-warning-border);
+  --color-info: var(--sn-status-info-text);
+  --color-info-bg: var(--sn-status-info-bg);
+  --color-info-border: var(--sn-status-info-border);
+
+  --color-chart-input: var(--sn-chart-input);
+  --color-chart-output: var(--sn-chart-output);
+  --color-chart-cached: var(--sn-chart-cached);
+  --color-chart-prompt: var(--sn-chart-prompt);
+  --color-chart-grid: var(--sn-chart-grid);
+  --color-chart-axis: var(--sn-chart-axis);
+  --color-meter-filled: var(--sn-meter-filled);
+  --color-meter-empty: var(--sn-meter-empty);
+
+  --color-code-text: var(--sn-code-text);
+  --color-code-string: var(--sn-code-string);
+  --color-code-keyword: var(--sn-code-keyword);
+
+  --color-switcher: var(--sn-switcher-bg);
+  --color-switcher-border: var(--sn-switcher-border);
+  --color-switcher-active: var(--sn-switcher-active);
+
+  /* ---- Typography -------------------------------------------------------- */
+  --font-*: initial;
+  --font-sans: var(--sn-font-sans);
+  --font-code: var(--sn-font-code);
+  --font-mono: var(--sn-font-mono);
+
+  --font-weight-*: initial;
+  --font-weight-normal: var(--sn-weight-regular);
+  --font-weight-medium: var(--sn-weight-medium);
+  --font-weight-semibold: var(--sn-weight-semibold);
+  --font-weight-bold: var(--sn-weight-bold);
+
+  /* Type scale (Figma audit, Lato). text-<name> sets size, line height,
+     weight and tracking together; weight can be overridden with font-*. */
+  --text-*: initial;
+  --text-display: 2.625rem; /* 42px: Playground hero */
+  --text-display--line-height: 1.2;
+  --text-display--font-weight: 600;
+  --text-display--letter-spacing: -0.02em;
+  --text-heading-xl: 1.5rem; /* 24px: banner titles */
+  --text-heading-xl--line-height: 1.25;
+  --text-heading-xl--font-weight: 400;
+  --text-heading-lg: 1.375rem; /* 22px: page titles */
+  --text-heading-lg--line-height: 1.3;
+  --text-heading-lg--font-weight: 600;
+  --text-heading-md: 1.25rem; /* 20px: card and modal titles */
+  --text-heading-md--line-height: 1.4;
+  --text-heading-md--font-weight: 600;
+  --text-heading-sm: 1.125rem; /* 18px: section titles */
+  --text-heading-sm--line-height: 1.4;
+  --text-heading-sm--font-weight: 600;
+  --text-heading-xs: 1rem; /* 16px: card titles */
+  --text-heading-xs--line-height: 1.5;
+  --text-heading-xs--font-weight: 700;
+  --text-body-lg: 1rem; /* 16px */
+  --text-body-lg--line-height: 1.5;
+  --text-body: 0.875rem; /* 14px: default body */
+  --text-body--line-height: 1.5;
+  --text-body-sm: 0.8125rem; /* 13px: descriptions, secondary copy */
+  --text-body-sm--line-height: 1.4;
+  --text-label: 0.875rem; /* 14px/20: nav items, form labels */
+  --text-label--line-height: 1.25rem;
+  --text-label--font-weight: 500;
+  --text-caption: 0.75rem; /* 12px: meta, helper text */
+  --text-caption--line-height: 1.5;
+  --text-caption--font-weight: 500;
+  --text-overline: 0.75rem; /* 12px/23 uppercase: model card labels */
+  --text-overline--line-height: 1.4375rem;
+  --text-overline--font-weight: 500;
+  --text-micro: 0.6875rem; /* 11px: badges */
+  --text-micro--line-height: 1.2;
+  --text-micro--font-weight: 600;
+  --text-tiny: 0.625rem; /* 10px: sidebar email, step captions */
+  --text-tiny--line-height: 1.5;
+  --text-table: 0.875rem; /* 14px: table cells */
+  --text-table--line-height: 1.5;
+  --text-table-head: 0.75rem; /* 12px: table headers, uppercase */
+  --text-table-head--line-height: 1.5;
+  --text-table-head--font-weight: 500;
+  --text-table-head--letter-spacing: 0.04em;
+  --text-code: 0.875rem; /* 14px: code samples */
+  --text-code--line-height: 1.5;
+
+  --tracking-*: initial;
+  --tracking-tight: -0.02em;
+  --tracking-snug: -0.01em;
+  --tracking-normal: 0em;
+  --tracking-wide: 0.02em;
+  --tracking-caps: 0.04em;
+
+  --leading-*: initial;
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.4;
+  --leading-normal: 1.5;
+
+  /* ---- Spacing, shape, elevation ----------------------------------------- */
+  --spacing: var(--sn-space-unit);
+
+  --radius-*: initial;
+  --radius-xs: var(--sn-radius-xs);
+  --radius-sm: var(--sn-radius-sm);
+  --radius-md: var(--sn-radius-md);
+  --radius-lg: var(--sn-radius-lg);
+  --radius-xl: var(--sn-radius-xl);
+
+  --shadow-*: initial;
+  --shadow-xs: var(--sn-shadow-xs);
+  --shadow-sm: var(--sn-shadow-sm);
+  --shadow-md: var(--sn-shadow-md);
+  --shadow-lg: var(--sn-shadow-lg);
+  --shadow-card-inset: var(--sn-shadow-card-inset);
+  --shadow-glow-brand: var(--sn-glow-brand);
+  --shadow-glow-focus: var(--sn-glow-focus);
+
+  --ease-*: initial;
+  --ease-standard: var(--sn-ease-standard);
+  --ease-emphasized: var(--sn-ease-emphasized);
+  --ease-exit: var(--sn-ease-exit);
+
+  /* ---- Breakpoints --------------------------------------------------------
+     Figma only has 1440px desktop frames. Assumed ranges:
+       mobile  < 768px   (sidebar hidden, top bar + drawer)
+       tablet  768–1023  (md: collapsible icon rail)
+       desktop 1024–1439 (lg: fixed sidebar)
+       wide    >= 1440   (2xl: the Figma frame width)                  */
+  --breakpoint-*: initial;
+  --breakpoint-sm: 40rem; /* 640px: large phones */
+  --breakpoint-md: 48rem; /* 768px: tablet */
+  --breakpoint-lg: 64rem; /* 1024px: desktop */
+  --breakpoint-xl: 80rem; /* 1280px */
+  --breakpoint-2xl: 90rem; /* 1440px: wide, Figma frame width */
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  html {
+    background-color: var(--sn-bg-canvas);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-body text-primary;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background-color: var(--sn-bg-active);
+  }
+
+  :focus-visible {
+    outline: var(--sn-border-thick) solid var(--sn-border-focus);
+    outline-offset: 2px;
+  }
+
+  code,
+  kbd,
+  pre,
+  samp {
+    font-family: var(--sn-font-code);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Show an element only in one theme; follows the nearest data-theme ancestor. */
+@utility show-in-dark {
+  display: var(--sn-only-dark);
+}
+
+@utility show-in-light {
+  display: var(--sn-only-light);
 }

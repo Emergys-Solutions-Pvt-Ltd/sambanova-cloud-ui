@@ -1,0 +1,480 @@
+/*
+ * SambaNova Cloud design tokens.
+ *
+ * The ONLY file allowed to contain raw color values. Components use semantic
+ * tokens through Tailwind utilities (see globals.css) or var(--sn-*) in CSS.
+ *
+ * Layers
+ *   1. Primitives  --sn-<hue>-<step>    raw palette, never used by components
+ *   2. Semantic    --sn-<role>          what a color is for; differs per theme
+ *
+ * Themes: dark is the default (:root). Light applies via [data-theme="light"],
+ * or via prefers-color-scheme when the user picked "system" (no data-theme).
+ *
+ * Sources: Figma "SambaNova Cloud Redesign" › Developer Screens. Dark reference
+ * frame "Dashboard" (1907:196249), light reference frame "Light" (1907:204371),
+ * plus the "Mode 1" variable collection (Primary, Secondary, P/S scales,
+ * Heading, Stroke Dark 1/2, Button White). Raw audit and merge decisions live
+ * in design-tokens/. Values marked GUESS are not in Figma; confirm with design.
+ */
+
+:root {
+  /* ------------------------------------------------------------------ */
+  /* 1. Primitives                                                       */
+  /* ------------------------------------------------------------------ */
+
+  /* Purple: Figma variables P 50–P 950; 900 = "Primary", 975 = "Heading". */
+  --sn-purple-50: #faf6fe;
+  --sn-purple-100: #f4eafd;
+  --sn-purple-200: #eadafa;
+  --sn-purple-300: #dbbcf6;
+  --sn-purple-400: #c491ef;
+  --sn-purple-500: #ad67e5;
+  --sn-purple-600: #9847d6;
+  --sn-purple-700: #8335bb;
+  --sn-purple-800: #6f3099;
+  --sn-purple-900: #622b86;
+  --sn-purple-950: #3d115a;
+  --sn-purple-975: #290b3c;
+
+  /* Amber: Figma variables S 50–S 950; 400 = "Secondary". */
+  --sn-amber-50: #fffbeb;
+  --sn-amber-100: #fff2c6;
+  --sn-amber-200: #fee689;
+  --sn-amber-300: #fed24b;
+  --sn-amber-400: #fdb913;
+  --sn-amber-500: #f79c09;
+  --sn-amber-600: #db7504;
+  --sn-amber-700: #b65107;
+  --sn-amber-800: #933e0d;
+  --sn-amber-900: #79340e;
+  --sn-amber-950: #461902;
+
+  /* Neutral: pure greys used for dark surfaces. */
+  --sn-neutral-0: #ffffff;
+  --sn-neutral-50: #fafafa; /* Figma "Button White" */
+  --sn-neutral-300: #aaaaaa;
+  --sn-neutral-700: #3c3c3c;
+  --sn-neutral-750: #2e3032;
+  --sn-neutral-800: #262626;
+  --sn-neutral-850: #202020;
+  --sn-neutral-875: #1d1d1d;
+  --sn-neutral-900: #181818;
+  --sn-neutral-950: #131313;
+  --sn-neutral-1000: #000000;
+
+  /* Gray: cool greys (Flowbite/Tailwind scale) used for text and light UI. */
+  --sn-gray-50: #f9fafb;
+  --sn-gray-100: #f3f4f6;
+  --sn-gray-200: #e5e7eb;
+  --sn-gray-300: #d1d5db;
+  --sn-gray-400: #9ca3af;
+  --sn-gray-500: #6b7280;
+  --sn-gray-600: #4b5563;
+  --sn-gray-700: #374151;
+  --sn-gray-800: #1f2a37;
+  --sn-gray-900: #111928;
+
+  /* Purple-tinted dark strokes: Figma "Stroke Dark 1" / "Stroke Dark 2". */
+  --sn-ink-stroke-1: #21192c;
+  --sn-ink-stroke-2: #2b2336;
+  --sn-ink-code: #1d1e28;
+
+  /* Status hues. Dark values come from Figma; light values follow the same
+     Flowbite scale the file already uses (see GUESS notes below). */
+  --sn-green-400: #31c48d;
+  --sn-green-500: #0e9f6e;
+  --sn-green-700: #046c4e;
+  --sn-green-50: #f3faf7;
+  --sn-green-200: #bcf0da;
+  --sn-red-400: #ff5959;
+  --sn-red-500: #f05252;
+  --sn-red-700: #c81e1e;
+  --sn-red-50: #fdf2f2;
+  --sn-red-200: #fbd5d5;
+  --sn-yellow-400: #e3a008;
+  --sn-blue-300: #61abff;
+  --sn-blue-500: #3f83f8;
+  --sn-blue-700: #1a56db;
+  --sn-blue-50: #ebf5ff;
+  --sn-blue-200: #c3ddfd;
+
+  /* Data visualisation (Usage / API key usage charts). */
+  --sn-viz-blue: #5462ff;
+  --sn-viz-green: #4ce670;
+  --sn-viz-orange: #fd9516;
+  --sn-viz-cyan: #79fffd;
+  --sn-viz-indigo: #506cfb;
+
+  /* Code syntax (Developer Quickstart). */
+  --sn-syntax-green-dark: #00ef64;
+  --sn-syntax-purple-dark: #c580ff;
+  --sn-syntax-green-light: #00702e;
+  --sn-syntax-purple-light: #8b02ff;
+
+  /* ------------------------------------------------------------------ */
+  /* 2. Typography, spacing, shape, motion (theme independent)            */
+  /* ------------------------------------------------------------------ */
+
+  --sn-font-sans:
+    var(--font-lato), "Lato", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  /* Code samples use Lato too (product decision); mono stack kept for
+     places that need column alignment. */
+  --sn-font-code: var(--sn-font-sans);
+  --sn-font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+
+  --sn-weight-regular: 400;
+  --sn-weight-medium: 500;
+  --sn-weight-semibold: 600;
+  --sn-weight-bold: 700;
+
+  /* 4px base grid; Tailwind spacing utilities are multiples of this. */
+  --sn-space-unit: 0.25rem;
+
+  --sn-radius-xs: 4px;
+  --sn-radius-sm: 6px;
+  --sn-radius-md: 8px;
+  --sn-radius-lg: 12px;
+  --sn-radius-xl: 16px;
+  --sn-radius-full: 9999px;
+
+  --sn-border-thin: 0.5px;
+  --sn-border-default: 1px;
+  --sn-border-thick: 2px;
+
+  --sn-sidebar-width: 248px;
+  --sn-sidebar-width-collapsed: 72px; /* GUESS: tablet icon rail, not in Figma */
+
+  /* Layers. Not in Figma; ordered for the shell (D) and overlays. */
+  --sn-z-base: 0;
+  --sn-z-raised: 10;
+  --sn-z-sticky: 20;
+  --sn-z-sidebar: 30;
+  --sn-z-header: 40;
+  --sn-z-dropdown: 50;
+  --sn-z-overlay: 60;
+  --sn-z-drawer: 70;
+  --sn-z-modal: 80;
+  --sn-z-popover: 90;
+  --sn-z-toast: 100;
+  --sn-z-tooltip: 110;
+
+  /* Motion. Not in Figma (static frames); conventional values. */
+  --sn-duration-fast: 120ms;
+  --sn-duration-base: 200ms;
+  --sn-duration-slow: 320ms;
+  --sn-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --sn-ease-emphasized: cubic-bezier(0.3, 0, 0, 1.3);
+  --sn-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/* ---------------------------------------------------------------------- */
+/* 3. Semantic tokens: DARK (default). Also applies to any subtree marked */
+/*    data-theme="dark", so both themes can render side by side.          */
+/* ---------------------------------------------------------------------- */
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Visibility switches for theme-specific assets (.show-in-dark / .show-in-light). */
+  --sn-only-dark: block;
+  --sn-only-light: none;
+
+  /* Backgrounds */
+  --sn-bg-canvas: var(--sn-neutral-950);
+  --sn-bg-surface: var(--sn-neutral-950);
+  --sn-bg-surface-raised: var(--sn-neutral-875); /* menus, popovers, segmented control */
+  --sn-bg-sidebar: var(--sn-neutral-900);
+  --sn-bg-input: var(--sn-neutral-850);
+  --sn-bg-code: var(--sn-ink-code);
+  --sn-bg-hover: rgb(255 255 255 / 0.04);
+  --sn-bg-active: rgb(152 71 214 / 0.16);
+  --sn-bg-selected: var(--sn-neutral-700); /* active segment (Curl/Python/Gradio) */
+  --sn-bg-overlay: rgb(0 0 0 / 0.75);
+  --sn-bg-inverse: var(--sn-neutral-50);
+
+  /* Borders */
+  --sn-border-default: var(--sn-ink-stroke-2);
+  --sn-border-subtle: var(--sn-ink-stroke-1);
+  --sn-border-strong: var(--sn-gray-700);
+  --sn-border-control: rgb(156 163 175 / 0.4); /* project selector, guest button */
+  --sn-border-focus: var(--sn-purple-500);
+
+  /* Text */
+  --sn-text-primary: var(--sn-neutral-0);
+  --sn-text-secondary: var(--sn-gray-300);
+  --sn-text-muted: var(--sn-gray-400);
+  --sn-text-tab-inactive: var(--sn-gray-500);
+  --sn-text-inverse: var(--sn-neutral-950);
+  --sn-text-link: var(--sn-neutral-50);
+  --sn-text-link-hover: var(--sn-purple-300); /* GUESS: no hover state in Figma */
+  --sn-text-on-brand: var(--sn-neutral-0);
+  --sn-text-nav-active: var(--sn-purple-200);
+
+  /* Brand */
+  --sn-brand-primary: var(--sn-purple-600);
+  --sn-brand-primary-hover: var(--sn-purple-500);
+  --sn-brand-secondary: var(--sn-amber-400);
+  --sn-brand-subtle: rgb(98 43 134 / 0.12);
+  --sn-brand-subtle-border: rgb(244 234 253 / 0.3);
+
+  /* Buttons */
+  --sn-button-primary-bg: var(--sn-neutral-50);
+  --sn-button-primary-fg: var(--sn-neutral-1000);
+  --sn-button-primary-hover: var(--sn-gray-200); /* GUESS */
+  --sn-button-outline-border: rgb(229 231 235 / 0.2);
+  --sn-button-outline-fg: var(--sn-neutral-0);
+
+  /* Status */
+  --sn-status-success-text: var(--sn-green-400);
+  --sn-status-success-bg: rgb(49 196 141 / 0.08);
+  --sn-status-success-border: rgb(49 196 141 / 0.3); /* GUESS: badges have no border in Figma */
+  --sn-status-error-text: var(--sn-red-400);
+  --sn-status-error-bg: rgb(196 49 49 / 0.08);
+  --sn-status-error-border: rgb(240 82 82 / 0.2);
+  --sn-status-warning-text: var(--sn-yellow-400);
+  --sn-status-warning-bg: rgb(227 160 8 / 0.08);
+  --sn-status-warning-border: rgb(227 160 8 / 0.3); /* GUESS */
+  --sn-status-info-text: var(--sn-blue-300);
+  --sn-status-info-bg: rgb(97 171 255 / 0.07);
+  --sn-status-info-border: rgb(97 171 255 / 0.2);
+
+  /* Charts */
+  --sn-chart-input: var(--sn-viz-blue);
+  --sn-chart-output: var(--sn-viz-green);
+  --sn-chart-cached: var(--sn-viz-orange); /* GUESS: unlabelled 3rd series in Figma */
+  --sn-chart-prompt: var(--sn-viz-cyan); /* GUESS: Figma labels this series "Last 30 days" */
+  --sn-chart-grid: rgb(255 255 255 / 0.15);
+  --sn-chart-axis: rgb(255 255 255 / 0.7);
+  --sn-meter-filled: var(--sn-neutral-300); /* model card reasoning/speed bars */
+  --sn-meter-empty: rgb(80 108 251 / 0.2);
+
+  /* Code */
+  --sn-code-text: var(--sn-neutral-0);
+  --sn-code-string: var(--sn-syntax-green-dark);
+  --sn-code-keyword: var(--sn-syntax-purple-dark);
+
+  /* Gradients */
+  --sn-gradient-hero: linear-gradient(90deg, #131313 0%, #070614 33%, #070714 100%);
+  --sn-gradient-hero-accent: linear-gradient(104deg, #ebab0e 0%, #c881ff 100%);
+  --sn-gradient-promo: radial-gradient(
+    120% 140% at 15% 0%,
+    #3d115a 0%,
+    #090110 31%,
+    #16032c 100%
+  ); /* "Earn Free Credits" card; Figma uses a diamond gradient */
+  --sn-gradient-badge: linear-gradient(90deg, #9f36fb 0%, #6705f1 100%);
+  --sn-gradient-playground:
+    radial-gradient(60% 55% at 30% 0%, rgb(152 71 214 / 0.35) 0%, transparent 70%),
+    radial-gradient(55% 50% at 80% 10%, rgb(253 185 19 / 0.18) 0%, transparent 70%), #000000;
+
+  /* Elevation */
+  --sn-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.08);
+  --sn-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --sn-shadow-md: 0 4px 8px -2px rgb(10 13 18 / 0.1), 0 2px 4px -2px rgb(10 13 18 / 0.06);
+  --sn-shadow-lg: 0 3px 19px 8px rgb(0 0 0 / 0.25);
+  --sn-shadow-card-inset: inset 0 0 11px 6px rgb(37 30 46 / 0.8);
+
+  /* Glows */
+  --sn-glow-brand: 0 0 48px -2px rgb(152 79 208 / 0.08) inset;
+  --sn-glow-chart-input:
+    0 3px 3px rgb(84 98 255 / 0.4), 0 6px 9px rgb(84 98 255 / 0.4), 0 9px 18px rgb(84 98 255 / 0.4);
+  --sn-glow-chart-output:
+    0 3px 3px rgb(76 230 112 / 0.4), 0 6px 9px rgb(76 230 112 / 0.4),
+    0 9px 18px rgb(76 230 112 / 0.4);
+  --sn-glow-focus: 0 0 0 3px rgb(173 103 229 / 0.35); /* GUESS: no focus state in Figma */
+
+  /* Theme switcher pill (sidebar) */
+  --sn-switcher-bg: rgb(255 255 255 / 0.04);
+  --sn-switcher-border: rgb(255 255 255 / 0.08);
+  --sn-switcher-active: rgb(255 255 255 / 0.16);
+}
+
+/* ---------------------------------------------------------------------- */
+/* 4. Semantic tokens: LIGHT                                              */
+/* Kept in one custom-property block, applied twice: explicit light, and  */
+/* system preference when no explicit theme is set.                        */
+/* ---------------------------------------------------------------------- */
+[data-theme="light"] {
+  color-scheme: light;
+
+  --sn-only-dark: none;
+  --sn-only-light: block;
+
+  --sn-bg-canvas: var(--sn-neutral-0);
+  --sn-bg-surface: var(--sn-neutral-0);
+  --sn-bg-surface-raised: var(--sn-purple-100);
+  --sn-bg-sidebar: #fdfbff;
+  --sn-bg-input: var(--sn-gray-50);
+  --sn-bg-code: var(--sn-neutral-50);
+  --sn-bg-hover: rgb(0 0 0 / 0.04);
+  --sn-bg-active: rgb(173 103 229 / 0.22);
+  --sn-bg-selected: var(--sn-purple-900);
+  --sn-bg-overlay: rgb(0 0 0 / 0.5);
+  --sn-bg-inverse: var(--sn-gray-800);
+
+  --sn-border-default: var(--sn-purple-200);
+  --sn-border-subtle: var(--sn-purple-100); /* GUESS */
+  --sn-border-strong: var(--sn-gray-300);
+  --sn-border-control: rgb(156 163 175 / 0.4);
+  --sn-border-focus: var(--sn-purple-600); /* GUESS */
+
+  --sn-text-primary: var(--sn-gray-800);
+  --sn-text-secondary: var(--sn-gray-700);
+  --sn-text-muted: var(--sn-gray-500);
+  --sn-text-tab-inactive: var(--sn-purple-500);
+  --sn-text-inverse: var(--sn-neutral-0);
+  --sn-text-link: var(--sn-purple-800);
+  --sn-text-link-hover: var(--sn-purple-900); /* GUESS */
+  --sn-text-on-brand: var(--sn-neutral-0);
+  --sn-text-nav-active: var(--sn-purple-900);
+
+  --sn-brand-primary: var(--sn-purple-900);
+  --sn-brand-primary-hover: var(--sn-purple-800);
+  --sn-brand-secondary: var(--sn-amber-400);
+  --sn-brand-subtle: rgb(255 255 255 / 0.12);
+  --sn-brand-subtle-border: rgb(152 71 214 / 0.33);
+
+  --sn-button-primary-bg: var(--sn-purple-900);
+  --sn-button-primary-fg: var(--sn-neutral-0);
+  --sn-button-primary-hover: var(--sn-purple-800); /* GUESS */
+  --sn-button-outline-border: var(--sn-gray-200);
+  --sn-button-outline-fg: var(--sn-gray-700);
+
+  /* Status: no light status screens in Figma, all GUESS (Flowbite light scale). */
+  --sn-status-success-text: var(--sn-green-700);
+  --sn-status-success-bg: var(--sn-green-50);
+  --sn-status-success-border: var(--sn-green-200);
+  --sn-status-error-text: var(--sn-red-700);
+  --sn-status-error-bg: var(--sn-red-50);
+  --sn-status-error-border: var(--sn-red-200);
+  --sn-status-warning-text: var(--sn-amber-700);
+  --sn-status-warning-bg: var(--sn-amber-50);
+  --sn-status-warning-border: var(--sn-amber-200);
+  --sn-status-info-text: var(--sn-blue-700);
+  --sn-status-info-bg: var(--sn-blue-50);
+  --sn-status-info-border: var(--sn-blue-200);
+
+  --sn-chart-grid: rgb(0 0 0 / 0.08); /* GUESS */
+  --sn-chart-axis: var(--sn-gray-500); /* GUESS */
+  --sn-meter-filled: var(--sn-viz-indigo);
+  --sn-meter-empty: rgb(80 108 251 / 0.2);
+
+  --sn-code-text: var(--sn-neutral-875);
+  --sn-code-string: var(--sn-syntax-green-light);
+  --sn-code-keyword: var(--sn-syntax-purple-light);
+
+  --sn-gradient-hero: linear-gradient(90deg, #ffffff 0%, #f5ebfe 25%, #f3ebfe 100%);
+  --sn-gradient-hero-accent: linear-gradient(104deg, #db7504 0%, #8335bb 100%);
+  --sn-gradient-promo: linear-gradient(110deg, #ffffff 0%, #ead8ff 100%);
+  --sn-gradient-playground:
+    radial-gradient(60% 55% at 30% 0%, rgb(152 71 214 / 0.14) 0%, transparent 70%),
+    radial-gradient(55% 50% at 80% 10%, rgb(253 185 19 / 0.1) 0%, transparent 70%), #ffffff; /* GUESS */
+
+  --sn-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.06);
+  --sn-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08);
+  --sn-shadow-md: 0 4px 8px -2px rgb(10 13 18 / 0.08), 0 2px 4px -2px rgb(10 13 18 / 0.04);
+  --sn-shadow-lg: 0 3px 19px 8px rgb(0 0 0 / 0.08); /* GUESS: dark value is too heavy on white */
+  --sn-shadow-card-inset: inset 0 0 11px 6px rgb(255 255 255 / 0.8);
+
+  --sn-switcher-bg: rgb(0 0 0 / 0.04);
+  --sn-switcher-border: rgb(0 0 0 / 0.08);
+  --sn-switcher-active: rgb(152 71 214 / 0.22);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    color-scheme: light;
+
+    --sn-only-dark: none;
+    --sn-only-light: block;
+
+    --sn-bg-canvas: var(--sn-neutral-0);
+    --sn-bg-surface: var(--sn-neutral-0);
+    --sn-bg-surface-raised: var(--sn-purple-100);
+    --sn-bg-sidebar: #fdfbff;
+    --sn-bg-input: var(--sn-gray-50);
+    --sn-bg-code: var(--sn-neutral-50);
+    --sn-bg-hover: rgb(0 0 0 / 0.04);
+    --sn-bg-active: rgb(173 103 229 / 0.22);
+    --sn-bg-selected: var(--sn-purple-900);
+    --sn-bg-overlay: rgb(0 0 0 / 0.5);
+    --sn-bg-inverse: var(--sn-gray-800);
+
+    --sn-border-default: var(--sn-purple-200);
+    --sn-border-subtle: var(--sn-purple-100);
+    --sn-border-strong: var(--sn-gray-300);
+    --sn-border-control: rgb(156 163 175 / 0.4);
+    --sn-border-focus: var(--sn-purple-600);
+
+    --sn-text-primary: var(--sn-gray-800);
+    --sn-text-secondary: var(--sn-gray-700);
+    --sn-text-muted: var(--sn-gray-500);
+    --sn-text-tab-inactive: var(--sn-purple-500);
+    --sn-text-inverse: var(--sn-neutral-0);
+    --sn-text-link: var(--sn-purple-800);
+    --sn-text-link-hover: var(--sn-purple-900);
+    --sn-text-on-brand: var(--sn-neutral-0);
+    --sn-text-nav-active: var(--sn-purple-900);
+
+    --sn-brand-primary: var(--sn-purple-900);
+    --sn-brand-primary-hover: var(--sn-purple-800);
+    --sn-brand-secondary: var(--sn-amber-400);
+    --sn-brand-subtle: rgb(255 255 255 / 0.12);
+    --sn-brand-subtle-border: rgb(152 71 214 / 0.33);
+
+    --sn-button-primary-bg: var(--sn-purple-900);
+    --sn-button-primary-fg: var(--sn-neutral-0);
+    --sn-button-primary-hover: var(--sn-purple-800);
+    --sn-button-outline-border: var(--sn-gray-200);
+    --sn-button-outline-fg: var(--sn-gray-700);
+
+    --sn-status-success-text: var(--sn-green-700);
+    --sn-status-success-bg: var(--sn-green-50);
+    --sn-status-success-border: var(--sn-green-200);
+    --sn-status-error-text: var(--sn-red-700);
+    --sn-status-error-bg: var(--sn-red-50);
+    --sn-status-error-border: var(--sn-red-200);
+    --sn-status-warning-text: var(--sn-amber-700);
+    --sn-status-warning-bg: var(--sn-amber-50);
+    --sn-status-warning-border: var(--sn-amber-200);
+    --sn-status-info-text: var(--sn-blue-700);
+    --sn-status-info-bg: var(--sn-blue-50);
+    --sn-status-info-border: var(--sn-blue-200);
+
+    --sn-chart-grid: rgb(0 0 0 / 0.08);
+    --sn-chart-axis: var(--sn-gray-500);
+    --sn-meter-filled: var(--sn-viz-indigo);
+    --sn-meter-empty: rgb(80 108 251 / 0.2);
+
+    --sn-code-text: var(--sn-neutral-875);
+    --sn-code-string: var(--sn-syntax-green-light);
+    --sn-code-keyword: var(--sn-syntax-purple-light);
+
+    --sn-gradient-hero: linear-gradient(90deg, #ffffff 0%, #f5ebfe 25%, #f3ebfe 100%);
+    --sn-gradient-hero-accent: linear-gradient(104deg, #db7504 0%, #8335bb 100%);
+    --sn-gradient-promo: linear-gradient(110deg, #ffffff 0%, #ead8ff 100%);
+    --sn-gradient-playground:
+      radial-gradient(60% 55% at 30% 0%, rgb(152 71 214 / 0.14) 0%, transparent 70%),
+      radial-gradient(55% 50% at 80% 10%, rgb(253 185 19 / 0.1) 0%, transparent 70%), #ffffff;
+
+    --sn-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.06);
+    --sn-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.08), 0 1px 2px -1px rgb(0 0 0 / 0.08);
+    --sn-shadow-md: 0 4px 8px -2px rgb(10 13 18 / 0.08), 0 2px 4px -2px rgb(10 13 18 / 0.04);
+    --sn-shadow-lg: 0 3px 19px 8px rgb(0 0 0 / 0.08);
+    --sn-shadow-card-inset: inset 0 0 11px 6px rgb(255 255 255 / 0.8);
+
+    --sn-switcher-bg: rgb(0 0 0 / 0.04);
+    --sn-switcher-border: rgb(0 0 0 / 0.08);
+    --sn-switcher-active: rgb(152 71 214 / 0.22);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sn-duration-fast: 0ms;
+    --sn-duration-base: 0ms;
+    --sn-duration-slow: 0ms;
+  }
+}
