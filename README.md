@@ -111,6 +111,33 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 - **Preview**: `/dev/tokens` (development only) renders every token in both themes.
 - **Audit and decisions**: `design-tokens/README.md` (merges, guessed values, Figma inconsistencies) and `design-tokens/color-inventory.json`.
 
+## App shell
+
+`src/components/layout/app-shell.tsx` wraps every `(app)` route. Only `<main>` scrolls, so the page never scrolls sideways.
+
+| Viewport            | Layout                                                              |
+| ------------------- | ------------------------------------------------------------------- |
+| < 768px (phone)     | Top bar (hamburger + logo); the sidebar opens as a slide-in drawer  |
+| 768–1023px (tablet) | 72px icon rail with tooltips; its menu button opens the same drawer |
+| ≥ 1024px (desktop)  | Fixed 248px sidebar                                                 |
+
+- **Sidebar**: logo, project selector, navigation (active state follows the route, with `aria-current="page"`), account area. Items live in `src/config/navigation.ts`.
+- **Project selector**: popover with search (combobox: type, ArrowUp/Down, Enter, Escape), a checkmark on the active project, Manage Projects and Create project. Switching updates `useProjectStore` and invalidates the previous project’s queries.
+- **Account area**: signed in shows the profile card with credit badge and the account menu (email, Manage Projects, Theme, Documentation, Help Center, Logout). Signed out shows "Sign Up for Free" and the theme switcher. While `GET /me` loads, a placeholder holds the space.
+- **Drawer**: overlay, focus trap, Escape, closes on navigation, focus returns to the opener.
+- **Page frame**: use `<PageHeader title subtitle actions />` then `<PageContent>`.
+- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control), `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
+- **Accessibility**: skip-to-content link, landmarks (`aside`, `nav`, `main`), visible focus rings, full keyboard operation.
+
+**Toggling signed-in and signed-out** (with mocks on), from the browser console. The app refetches immediately, no reload needed:
+
+```js
+__mocks.set({ scenario: "guest" }); // signed out: GET /me returns 401
+__mocks.reset(); // signed in again
+```
+
+The account menu’s Logout does the same through `useLogout` (a stub until Auth0).
+
 ## Data layer
 
 - **API client** (`src/lib/api/client.ts`)
