@@ -1,0 +1,4521 @@
+{
+  "$description": "Raw color inventory of the SambaNova Cloud Redesign Figma file, page 'Developer Screens' (node 1907:193544): every visible solid paint (fills, text, strokes), gradient and effect across all 127 top-level frames and the Components section.",
+  "source": {
+    "figmaFile": "0LlFQ70339cVroA44H9bP6",
+    "page": "Developer Screens (1907:193544)",
+    "darkReference": "Dashboard (1907:196249)",
+    "lightReference": "Light (1907:204371)",
+    "auditedOn": "2026-10-09"
+  },
+  "legend": {
+    "color": "#RRGGBB or #RRGGBB@alpha (paint opacity)",
+    "uses": "number of paint usages (one node can contribute several)",
+    "usedAs": "fill = shape fill, text = text fill, stroke = border/line",
+    "themes": "which frames the usage sits in: dark/light by frame background; componentsSection = the 'Components' section; unknown = frame without a solid background",
+    "category": "ui = interface color (tokenised); illustration = artwork/logos/images (not tokenised, shipped as assets); data-viz = chart series/grid; code-syntax = syntax highlighting; components-section-only = appears only in the loose Components section",
+    "mergedInto": "near-duplicate folded into another value during normalisation",
+    "token": "primitive / semantic token the value maps to"
+  },
+  "summary": {
+    "uniqueSolids": 239,
+    "byCategory": {
+      "ui": 131,
+      "illustration": 70,
+      "data-viz": 11,
+      "code-syntax": 6,
+      "components-section-only": 21
+    },
+    "merged": 40,
+    "uniqueGradients": 31,
+    "uniqueEffects": 45
+  },
+  "solids": [
+    {
+      "color": "#FFFFFF",
+      "hex": "#FFFFFF",
+      "alpha": 1,
+      "uses": 4481,
+      "usedAs": {
+        "stroke": 2094,
+        "text": 1230,
+        "fill": 1157
+      },
+      "themes": {
+        "dark": 4046,
+        "unknown": 31,
+        "light": 92,
+        "componentsSection": 312
+      },
+      "samples": [
+        "Project Setting - General›Frame 16188746",
+        "Project Setting - General›Tab Label"
+      ],
+      "category": "ui",
+      "token": "neutral-0 · dark: text-primary, text-on-brand · light: bg-canvas, bg-surface"
+    },
+    {
+      "color": "#D1D5DB",
+      "hex": "#D1D5DB",
+      "alpha": 1,
+      "uses": 3421,
+      "usedAs": {
+        "stroke": 1744,
+        "text": 1428,
+        "fill": 249
+      },
+      "themes": {
+        "dark": 3155,
+        "light": 6,
+        "componentsSection": 260
+      },
+      "samples": ["Project Setting - General›Vector", "Project Setting - General›org-GxPIAAjHFp"],
+      "category": "ui",
+      "token": "gray-300 · dark: text-secondary · light: border-strong"
+    },
+    {
+      "color": "#2B2336",
+      "hex": "#2B2336",
+      "alpha": 1,
+      "uses": 1746,
+      "usedAs": {
+        "stroke": 1746
+      },
+      "themes": {
+        "dark": 1705,
+        "componentsSection": 41
+      },
+      "samples": ["Project Setting - General›Frame", "Project Setting - General›Line"],
+      "category": "ui",
+      "token": "border-dark-2 ('Stroke Dark 2') · dark: border-default"
+    },
+    {
+      "color": "#9CA3AF",
+      "hex": "#9CA3AF",
+      "alpha": 1,
+      "uses": 1377,
+      "usedAs": {
+        "text": 1088,
+        "stroke": 285,
+        "fill": 4
+      },
+      "themes": {
+        "dark": 1204,
+        "light": 23,
+        "componentsSection": 150
+      },
+      "samples": [
+        "Project Setting - General›Permanently re",
+        "Project Setting - General›Project ID"
+      ],
+      "category": "ui",
+      "token": "gray-400 · dark: text-muted"
+    },
+    {
+      "color": "#E5E7EB",
+      "hex": "#E5E7EB",
+      "alpha": 1,
+      "uses": 742,
+      "usedAs": {
+        "text": 393,
+        "stroke": 324,
+        "fill": 25
+      },
+      "themes": {
+        "dark": 577,
+        "light": 13,
+        "componentsSection": 152
+      },
+      "samples": [
+        "Project Setting - General›Danger Zone",
+        "Project Setting - General›Manage your pr"
+      ],
+      "category": "ui",
+      "token": "gray-200 · light: border-input"
+    },
+    {
+      "color": "#FAFAFA",
+      "hex": "#FAFAFA",
+      "alpha": 1,
+      "uses": 721,
+      "usedAs": {
+        "stroke": 449,
+        "fill": 132,
+        "text": 140
+      },
+      "themes": {
+        "dark": 677,
+        "light": 2,
+        "componentsSection": 42
+      },
+      "samples": ["Members - All members›Icon", "Members - All members›Primary Button"],
+      "category": "ui",
+      "token": "neutral-50 ('Button White') · dark: button-primary-bg, text-primary-soft · light: bg-code"
+    },
+    {
+      "color": "#F9FAFB",
+      "hex": "#F9FAFB",
+      "alpha": 1,
+      "uses": 685,
+      "usedAs": {
+        "text": 447,
+        "stroke": 230,
+        "fill": 8
+      },
+      "themes": {
+        "dark": 642,
+        "light": 7,
+        "componentsSection": 36
+      },
+      "samples": ["Project Setting - General›Button", "Project Settings›Button"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#FAFAFA",
+        "reason": "ΔE<1; both used as near-white text on dark"
+      }
+    },
+    {
+      "color": "#AD67E5",
+      "hex": "#AD67E5",
+      "alpha": 1,
+      "uses": 683,
+      "usedAs": {
+        "text": 44,
+        "stroke": 611,
+        "fill": 28
+      },
+      "themes": {
+        "dark": 641,
+        "light": 19,
+        "componentsSection": 23
+      },
+      "samples": ["Members - Roles›View Only", "Members - Roles›Vector"],
+      "category": "ui",
+      "token": "purple-500 · dark: border-focus, brand-primary-hover · light: tab text"
+    },
+    {
+      "color": "#11051B",
+      "hex": "#11051B",
+      "alpha": 1,
+      "uses": 658,
+      "usedAs": {
+        "fill": 658
+      },
+      "themes": {
+        "dark": 581,
+        "light": 28,
+        "componentsSection": 49
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#50267C",
+      "hex": "#50267C",
+      "alpha": 1,
+      "uses": 564,
+      "usedAs": {
+        "fill": 564
+      },
+      "themes": {
+        "dark": 498,
+        "light": 24,
+        "componentsSection": 42
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#AAAAAA",
+      "hex": "#AAAAAA",
+      "alpha": 1,
+      "uses": 525,
+      "usedAs": {
+        "fill": 525
+      },
+      "themes": {
+        "dark": 525
+      },
+      "samples": ["Dashboard›Rectangle 39336", "Dashboard›Rectangle 39335"],
+      "category": "data-viz"
+    },
+    {
+      "color": "#000000",
+      "hex": "#000000",
+      "alpha": 1,
+      "uses": 521,
+      "usedAs": {
+        "text": 104,
+        "stroke": 215,
+        "fill": 202
+      },
+      "themes": {
+        "dark": 476,
+        "light": 21,
+        "componentsSection": 24
+      },
+      "samples": ["Members - All members›Invite Member", "Members - Invitations›Invite Member"],
+      "category": "ui",
+      "token": "neutral-1000 · button-primary-fg (dark)"
+    },
+    {
+      "color": "#131313",
+      "hex": "#131313",
+      "alpha": 1,
+      "uses": 435,
+      "usedAs": {
+        "fill": 435
+      },
+      "themes": {
+        "dark": 402,
+        "componentsSection": 33
+      },
+      "samples": ["Project Setting - General›Project Settin", "Project Settings›Project Settings"],
+      "category": "ui",
+      "token": "neutral-950 · dark: bg-canvas, bg-surface"
+    },
+    {
+      "color": "#EADAFA",
+      "hex": "#EADAFA",
+      "alpha": 1,
+      "uses": 426,
+      "usedAs": {
+        "text": 92,
+        "stroke": 310,
+        "fill": 24
+      },
+      "themes": {
+        "dark": 287,
+        "light": 77,
+        "componentsSection": 62
+      },
+      "samples": ["Project Setting - General›Today", "Project Setting - General›Vector"],
+      "category": "ui",
+      "token": "purple-200 · dark: nav active text · light: border-default"
+    },
+    {
+      "color": "#9C9C9C",
+      "hex": "#9C9C9C",
+      "alpha": 1,
+      "uses": 420,
+      "usedAs": {
+        "text": 420
+      },
+      "themes": {
+        "dark": 420
+      },
+      "samples": ["Dashboard›300  450 per 1M", "Dashboard›Pricing"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#9CA3AF",
+        "reason": "muted text (model card meta, dark); ΔE≈3"
+      }
+    },
+    {
+      "color": "#6637B3",
+      "hex": "#6637B3",
+      "alpha": 1,
+      "uses": 376,
+      "usedAs": {
+        "fill": 376
+      },
+      "themes": {
+        "dark": 332,
+        "light": 16,
+        "componentsSection": 28
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#984FD0",
+      "hex": "#984FD0",
+      "alpha": 1,
+      "uses": 376,
+      "usedAs": {
+        "fill": 376
+      },
+      "themes": {
+        "dark": 332,
+        "light": 16,
+        "componentsSection": 28
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#6B7280",
+      "hex": "#6B7280",
+      "alpha": 1,
+      "uses": 336,
+      "usedAs": {
+        "text": 322,
+        "stroke": 14
+      },
+      "themes": {
+        "dark": 284,
+        "light": 26,
+        "componentsSection": 26
+      },
+      "samples": ["Project Setting - General›Tab Label", "Project Settings›Tab Label"],
+      "category": "ui",
+      "token": "gray-500 · light: text-muted · dark: inactive tab text"
+    },
+    {
+      "color": "#374151",
+      "hex": "#374151",
+      "alpha": 1,
+      "uses": 331,
+      "usedAs": {
+        "stroke": 230,
+        "fill": 25,
+        "text": 76
+      },
+      "themes": {
+        "dark": 206,
+        "light": 113,
+        "componentsSection": 12
+      },
+      "samples": ["Project Settings›Input", "Members - All members›Input"],
+      "category": "ui",
+      "token": "gray-700 · light: text-secondary · dark: border-strong"
+    },
+    {
+      "color": "#262626",
+      "hex": "#262626",
+      "alpha": 1,
+      "uses": 230,
+      "usedAs": {
+        "fill": 210,
+        "text": 4,
+        "stroke": 16
+      },
+      "themes": {
+        "dark": 200,
+        "light": 9,
+        "componentsSection": 21
+      },
+      "samples": ["Project Settings›Input", "Members - All members›TablesCell"],
+      "category": "ui",
+      "token": "neutral-800 · dark: bg-input (table/input cells)"
+    },
+    {
+      "color": "#1F2A37",
+      "hex": "#1F2A37",
+      "alpha": 1,
+      "uses": 227,
+      "usedAs": {
+        "stroke": 194,
+        "text": 33
+      },
+      "themes": {
+        "dark": 159,
+        "light": 37,
+        "componentsSection": 31
+      },
+      "samples": [
+        "Project Setting - General›Frame 16188746",
+        "Project Setting - General›Frame 16188742"
+      ],
+      "category": "ui",
+      "token": "gray-800 · light: text-primary"
+    },
+    {
+      "color": "#F3F4F6",
+      "hex": "#F3F4F6",
+      "alpha": 1,
+      "uses": 226,
+      "usedAs": {
+        "stroke": 178,
+        "text": 46,
+        "fill": 2
+      },
+      "themes": {
+        "dark": 204,
+        "light": 2,
+        "componentsSection": 20
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "ui",
+      "token": "gray-100"
+    },
+    {
+      "color": "#5462FF",
+      "hex": "#5462FF",
+      "alpha": 1,
+      "uses": 212,
+      "usedAs": {
+        "fill": 106,
+        "stroke": 106
+      },
+      "themes": {
+        "dark": 184,
+        "light": 28
+      },
+      "samples": ["View API Key Usage›EllipseLine", "View API Key Usage›singleLine0"],
+      "category": "data-viz"
+    },
+    {
+      "color": "#202020",
+      "hex": "#202020",
+      "alpha": 1,
+      "uses": 211,
+      "usedAs": {
+        "fill": 211
+      },
+      "themes": {
+        "dark": 169,
+        "componentsSection": 42
+      },
+      "samples": ["Edit Permission›Pill Selector", "Invite Members›Input"],
+      "category": "ui",
+      "token": "neutral-850 · dark: bg-surface-raised (selects)"
+    },
+    {
+      "color": "#250F36",
+      "hex": "#250F36",
+      "alpha": 1,
+      "uses": 188,
+      "usedAs": {
+        "fill": 188
+      },
+      "themes": {
+        "dark": 166,
+        "light": 8,
+        "componentsSection": 14
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#CC8BF5",
+      "hex": "#CC8BF5",
+      "alpha": 1,
+      "uses": 188,
+      "usedAs": {
+        "fill": 188
+      },
+      "themes": {
+        "dark": 166,
+        "light": 8,
+        "componentsSection": 14
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#6235B1",
+      "hex": "#6235B1",
+      "alpha": 1,
+      "uses": 188,
+      "usedAs": {
+        "fill": 188
+      },
+      "themes": {
+        "dark": 166,
+        "light": 8,
+        "componentsSection": 14
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#4CE670",
+      "hex": "#4CE670",
+      "alpha": 1,
+      "uses": 184,
+      "usedAs": {
+        "fill": 92,
+        "stroke": 92
+      },
+      "themes": {
+        "dark": 184
+      },
+      "samples": ["View API Key Usage›EllipseLine", "View API Key Usage›singleLine1"],
+      "category": "data-viz"
+    },
+    {
+      "color": "#4B5563",
+      "hex": "#4B5563",
+      "alpha": 1,
+      "uses": 183,
+      "usedAs": {
+        "stroke": 119,
+        "fill": 16,
+        "text": 48
+      },
+      "themes": {
+        "dark": 16,
+        "light": 145,
+        "componentsSection": 22
+      },
+      "samples": ["Dropdown Menu›Line 3", "Dashboard›Frame 1618874405"],
+      "category": "ui",
+      "token": "gray-600 · light: text-secondary-strong"
+    },
+    {
+      "color": "#31C48D",
+      "hex": "#31C48D",
+      "alpha": 1,
+      "uses": 179,
+      "usedAs": {
+        "stroke": 95,
+        "text": 84
+      },
+      "themes": {
+        "dark": 174,
+        "light": 3,
+        "componentsSection": 2
+      },
+      "samples": ["Billing›Badge", "Billing›Text"],
+      "category": "ui",
+      "token": "green-400 · dark: status-success-text"
+    },
+    {
+      "color": "#434343",
+      "hex": "#434343",
+      "alpha": 1,
+      "uses": 144,
+      "usedAs": {
+        "fill": 144
+      },
+      "themes": {
+        "light": 144
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FFFFFF@0.08",
+      "hex": "#FFFFFF",
+      "alpha": 0.08,
+      "uses": 136,
+      "usedAs": {
+        "fill": 118,
+        "stroke": 18
+      },
+      "themes": {
+        "dark": 134,
+        "componentsSection": 2
+      },
+      "samples": ["Billing›TablesCell", "Switch Auto Recharge›TablesCell"],
+      "category": "ui",
+      "token": "dark: table cell border, theme switcher border"
+    },
+    {
+      "color": "#9847D6",
+      "hex": "#9847D6",
+      "alpha": 1,
+      "uses": 133,
+      "usedAs": {
+        "text": 38,
+        "fill": 70,
+        "stroke": 25
+      },
+      "themes": {
+        "dark": 110,
+        "light": 21,
+        "componentsSection": 2
+      },
+      "samples": ["Members - All members›Text", "Members - Invitations›Text"],
+      "category": "ui",
+      "token": "purple-600 · dark: brand-primary"
+    },
+    {
+      "color": "#181818",
+      "hex": "#181818",
+      "alpha": 1,
+      "uses": 107,
+      "usedAs": {
+        "fill": 107
+      },
+      "themes": {
+        "dark": 100,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›nav", "Project Settings›nav"],
+      "category": "ui",
+      "token": "neutral-900 · dark: bg-sidebar"
+    },
+    {
+      "color": "#FDB913",
+      "hex": "#FDB913",
+      "alpha": 1,
+      "uses": 102,
+      "usedAs": {
+        "fill": 67,
+        "stroke": 34,
+        "text": 1
+      },
+      "themes": {
+        "dark": 101,
+        "light": 1
+      },
+      "samples": ["Members - Roles›Ellipse 187", "Members - Roles›Ellipse 186"],
+      "category": "ui",
+      "token": "amber-400 ('Secondary') · brand-secondary"
+    },
+    {
+      "color": "#9847D6@0.16",
+      "hex": "#9847D6",
+      "alpha": 0.16,
+      "uses": 97,
+      "usedAs": {
+        "fill": 92,
+        "stroke": 5
+      },
+      "themes": {
+        "dark": 83,
+        "componentsSection": 14
+      },
+      "samples": ["Project Setting - General›Project Settin", "Project Settings›Project Settings"],
+      "category": "ui",
+      "token": "dark: bg-active (sidebar active item)"
+    },
+    {
+      "color": "#9CA3AF@0.4",
+      "hex": "#9CA3AF",
+      "alpha": 0.4,
+      "uses": 95,
+      "usedAs": {
+        "stroke": 95
+      },
+      "themes": {
+        "dark": 83,
+        "light": 5,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›project", "Project Settings›project"],
+      "category": "ui",
+      "token": "dark+light: border of guest sign-up button / project selector"
+    },
+    {
+      "color": "#160A20",
+      "hex": "#160A20",
+      "alpha": 1,
+      "uses": 94,
+      "usedAs": {
+        "fill": 94
+      },
+      "themes": {
+        "dark": 83,
+        "light": 4,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#170723",
+      "hex": "#170723",
+      "alpha": 1,
+      "uses": 94,
+      "usedAs": {
+        "fill": 94
+      },
+      "themes": {
+        "dark": 83,
+        "light": 4,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#1D0A28",
+      "hex": "#1D0A28",
+      "alpha": 1,
+      "uses": 94,
+      "usedAs": {
+        "fill": 94
+      },
+      "themes": {
+        "dark": 83,
+        "light": 4,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#180725",
+      "hex": "#180725",
+      "alpha": 1,
+      "uses": 94,
+      "usedAs": {
+        "fill": 94
+      },
+      "themes": {
+        "dark": 83,
+        "light": 4,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#5330AA",
+      "hex": "#5330AA",
+      "alpha": 1,
+      "uses": 94,
+      "usedAs": {
+        "fill": 94
+      },
+      "themes": {
+        "dark": 83,
+        "light": 4,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›Vector", "Project Settings›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#31C48D@0.08",
+      "hex": "#31C48D",
+      "alpha": 0.08,
+      "uses": 90,
+      "usedAs": {
+        "fill": 90
+      },
+      "themes": {
+        "dark": 87,
+        "light": 3
+      },
+      "samples": ["Billing›Badge", "Switch Auto Recharge›Badge"],
+      "category": "ui",
+      "token": "dark: status-success-bg"
+    },
+    {
+      "color": "#FFFFFF@0.02",
+      "hex": "#FFFFFF",
+      "alpha": 0.02,
+      "uses": 88,
+      "usedAs": {
+        "fill": 88
+      },
+      "themes": {
+        "dark": 88
+      },
+      "samples": ["Members - All members›page-item", "Members - Invitations›page-item"],
+      "category": "ui",
+      "token": "dark: pagination item bg"
+    },
+    {
+      "color": "#CDFFD6@0.2",
+      "hex": "#CDFFD6",
+      "alpha": 0.2,
+      "uses": 86,
+      "usedAs": {
+        "fill": 86
+      },
+      "themes": {
+        "dark": 79,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›Badge", "Project Settings›Badge"],
+      "category": "ui",
+      "token": "status badge bg (Project Settings) — see inconsistencies"
+    },
+    {
+      "color": "#00E91F",
+      "hex": "#00E91F",
+      "alpha": 1,
+      "uses": 86,
+      "usedAs": {
+        "text": 86
+      },
+      "themes": {
+        "dark": 79,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›Text", "Project Settings›Text"],
+      "category": "ui",
+      "token": "status badge text (Project Settings) — see inconsistencies"
+    },
+    {
+      "color": "#1A1A1A",
+      "hex": "#1A1A1A",
+      "alpha": 1,
+      "uses": 86,
+      "usedAs": {
+        "fill": 86
+      },
+      "themes": {
+        "dark": 86
+      },
+      "samples": ["Dropdown Menu›Dropdown Menu", "Dropdown Menu›Option"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#1D1D1D",
+        "reason": "dropdown menu background; ΔE≈1"
+      }
+    },
+    {
+      "color": "#506CFB@0.2",
+      "hex": "#506CFB",
+      "alpha": 0.2,
+      "uses": 80,
+      "usedAs": {
+        "fill": 80
+      },
+      "themes": {
+        "dark": 75,
+        "light": 5
+      },
+      "samples": ["Dashboard›Rectangle 39331", "Dashboard›Rectangle 39336"],
+      "category": "data-viz"
+    },
+    {
+      "color": "#506CFB",
+      "hex": "#506CFB",
+      "alpha": 1,
+      "uses": 73,
+      "usedAs": {
+        "fill": 73
+      },
+      "themes": {
+        "dark": 31,
+        "light": 37,
+        "componentsSection": 5
+      },
+      "samples": ["Dashboard›Vector", "Dashboard›Vector 38"],
+      "category": "data-viz"
+    },
+    {
+      "color": "#FFFFFF@0.7",
+      "hex": "#FFFFFF",
+      "alpha": 0.7,
+      "uses": 72,
+      "usedAs": {
+        "text": 72
+      },
+      "themes": {
+        "dark": 72
+      },
+      "samples": ["View API Key Usage›Jul 24", "View API Key Usage›Jul 22"],
+      "category": "data-viz",
+      "token": "chart axis label (dark)"
+    },
+    {
+      "color": "#E5E7EB@0.2",
+      "hex": "#E5E7EB",
+      "alpha": 0.2,
+      "uses": 60,
+      "usedAs": {
+        "stroke": 60
+      },
+      "themes": {
+        "dark": 60
+      },
+      "samples": ["Dashboard›btn-try", "Create New Project›btn-try"],
+      "category": "ui",
+      "token": "dark: outline button border (model cards)"
+    },
+    {
+      "color": "#622B86",
+      "hex": "#622B86",
+      "alpha": 1,
+      "uses": 60,
+      "usedAs": {
+        "fill": 3,
+        "stroke": 48,
+        "text": 9
+      },
+      "themes": {
+        "light": 60
+      },
+      "samples": ["Light›Tab 1", "Light›Vector"],
+      "category": "ui",
+      "token": "purple-900 ('Primary') · light: brand-primary"
+    },
+    {
+      "color": "#FF5959",
+      "hex": "#FF5959",
+      "alpha": 1,
+      "uses": 58,
+      "usedAs": {
+        "stroke": 29,
+        "text": 29
+      },
+      "themes": {
+        "dark": 58
+      },
+      "samples": ["Members - Invitations›Badge", "Members - Invitations›Text"],
+      "category": "ui",
+      "token": "red-400 · dark: status-error-text"
+    },
+    {
+      "color": "#A778E8",
+      "hex": "#A778E8",
+      "alpha": 1,
+      "uses": 56,
+      "usedAs": {
+        "fill": 56
+      },
+      "themes": {
+        "dark": 56
+      },
+      "samples": ["Billing›Rectangle 39380", "Billing›Rectangle 39379"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FFFFFF@0.2",
+      "hex": "#FFFFFF",
+      "alpha": 0.2,
+      "uses": 54,
+      "usedAs": {
+        "stroke": 46,
+        "fill": 8
+      },
+      "themes": {
+        "dark": 51,
+        "light": 1,
+        "componentsSection": 2
+      },
+      "samples": ["Project Setting - General›Primary Button", "Project Settings›Primary Button"],
+      "category": "ui",
+      "token": "dark: outline button border"
+    },
+    {
+      "color": "#1D1D1D",
+      "hex": "#1D1D1D",
+      "alpha": 1,
+      "uses": 54,
+      "usedAs": {
+        "fill": 50,
+        "text": 4
+      },
+      "themes": {
+        "dark": 42,
+        "light": 4,
+        "componentsSection": 8
+      },
+      "samples": ["Members - All members›Component 107", "Members - All members›Component 108"],
+      "category": "ui",
+      "token": "neutral-875 · dark: bg-segmented, bg-menu"
+    },
+    {
+      "color": "#AD67E5@0.12",
+      "hex": "#AD67E5",
+      "alpha": 0.12,
+      "uses": 53,
+      "usedAs": {
+        "fill": 53
+      },
+      "themes": {
+        "dark": 50,
+        "light": 3
+      },
+      "samples": ["Members - Roles›Frame", "Edit Permissions›Frame"],
+      "category": "ui",
+      "token": "dark: tag/chip bg"
+    },
+    {
+      "color": "#FD9516",
+      "hex": "#FD9516",
+      "alpha": 1,
+      "uses": 52,
+      "usedAs": {
+        "fill": 26,
+        "stroke": 26
+      },
+      "themes": {
+        "dark": 52
+      },
+      "samples": ["View API Key Usage›EllipseLine", "View API Key Usage›singleLine0"],
+      "category": "data-viz"
+    },
+    {
+      "color": "#79FFFD",
+      "hex": "#79FFFD",
+      "alpha": 1,
+      "uses": 52,
+      "usedAs": {
+        "fill": 26,
+        "stroke": 26
+      },
+      "themes": {
+        "dark": 52
+      },
+      "samples": ["View API Key Usage›EllipseLine", "View API Key Usage›singleLine0"],
+      "category": "data-viz"
+    },
+    {
+      "color": "#3C3C3C",
+      "hex": "#3C3C3C",
+      "alpha": 1,
+      "uses": 48,
+      "usedAs": {
+        "fill": 47,
+        "stroke": 1
+      },
+      "themes": {
+        "dark": 40,
+        "componentsSection": 8
+      },
+      "samples": ["Members - All members›Tab 1", "Members - Invitations›Tab 1"],
+      "category": "ui",
+      "token": "neutral-700 · dark: segmented active"
+    },
+    {
+      "color": "#DBBCF6",
+      "hex": "#DBBCF6",
+      "alpha": 1,
+      "uses": 48,
+      "usedAs": {
+        "text": 1,
+        "stroke": 47
+      },
+      "themes": {
+        "dark": 39,
+        "light": 9
+      },
+      "samples": ["Limits›Tier 0", "Billing›Vector"],
+      "category": "ui",
+      "token": "purple-300"
+    },
+    {
+      "color": "#C4B5FD",
+      "hex": "#C4B5FD",
+      "alpha": 1,
+      "uses": 46,
+      "usedAs": {
+        "text": 46
+      },
+      "themes": {
+        "dark": 46
+      },
+      "samples": ["Members - Roles›Projects", "Members - Roles›API Keys"],
+      "category": "ui",
+      "token": "dark: role permission text (violet-300) — see inconsistencies"
+    },
+    {
+      "color": "#622B86@0.12",
+      "hex": "#622B86",
+      "alpha": 0.12,
+      "uses": 45,
+      "usedAs": {
+        "fill": 45
+      },
+      "themes": {
+        "dark": 45
+      },
+      "samples": ["Dashboard›Component 37", "Dashboard›Banner Buttons"],
+      "category": "ui",
+      "token": "dark: banner button bg"
+    },
+    {
+      "color": "#F4EAFD@0.3",
+      "hex": "#F4EAFD",
+      "alpha": 0.3,
+      "uses": 45,
+      "usedAs": {
+        "stroke": 45
+      },
+      "themes": {
+        "dark": 45
+      },
+      "samples": ["Dashboard›Component 37", "Dashboard›Banner Buttons"],
+      "category": "ui",
+      "token": "dark: banner button border"
+    },
+    {
+      "color": "#F05252",
+      "hex": "#F05252",
+      "alpha": 1,
+      "uses": 40,
+      "usedAs": {
+        "text": 7,
+        "stroke": 29,
+        "fill": 4
+      },
+      "themes": {
+        "dark": 39,
+        "componentsSection": 1
+      },
+      "samples": ["Project Setting - General›Delete Project", "Project Setting - General›Vector"],
+      "category": "ui",
+      "token": "red-500 · status-error-border / destructive"
+    },
+    {
+      "color": "#C677FF",
+      "hex": "#C677FF",
+      "alpha": 1,
+      "uses": 40,
+      "usedAs": {
+        "text": 40
+      },
+      "themes": {
+        "dark": 40
+      },
+      "samples": [
+        "Compare Results›type KPICardProps   head",
+        "Compare Results›interface KPIProps  titl"
+      ],
+      "category": "code-syntax",
+      "mergedInto": {
+        "color": "#C580FF",
+        "reason": "code syntax; ΔE≈2"
+      }
+    },
+    {
+      "color": "#FFFFFF@0.15",
+      "hex": "#FFFFFF",
+      "alpha": 0.15,
+      "uses": 40,
+      "usedAs": {
+        "stroke": 40
+      },
+      "themes": {
+        "dark": 40
+      },
+      "samples": ["View API Key Usage›Line", "Usage›Line"],
+      "category": "data-viz",
+      "token": "chart grid line (dark)"
+    },
+    {
+      "color": "#8335BB",
+      "hex": "#8335BB",
+      "alpha": 1,
+      "uses": 38,
+      "usedAs": {
+        "fill": 8,
+        "text": 5,
+        "stroke": 25
+      },
+      "themes": {
+        "dark": 2,
+        "light": 36
+      },
+      "samples": ["Tuning Parameters›bg", "Tuning Parameters Added›bg"],
+      "category": "ui",
+      "token": "purple-700 · light: link (secondary)"
+    },
+    {
+      "color": "#FFFFFF@0.06",
+      "hex": "#FFFFFF",
+      "alpha": 0.06,
+      "uses": 36,
+      "usedAs": {
+        "fill": 36
+      },
+      "themes": {
+        "dark": 35,
+        "componentsSection": 1
+      },
+      "samples": ["Billing›TablesCell", "Switch Auto Recharge›TablesCell"],
+      "category": "ui",
+      "token": "dark: table cell hover"
+    },
+    {
+      "color": "#333233",
+      "hex": "#333233",
+      "alpha": 1,
+      "uses": 36,
+      "usedAs": {
+        "fill": 36
+      },
+      "themes": {
+        "light": 36
+      },
+      "samples": ["Light›Vector", "Normal Chat›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#00EF64",
+      "hex": "#00EF64",
+      "alpha": 1,
+      "uses": 34,
+      "usedAs": {
+        "text": 34
+      },
+      "themes": {
+        "dark": 32,
+        "componentsSection": 2
+      },
+      "samples": [
+        "Dashboard›curl -H Authorization Bearer A",
+        "Create New Project›curl -H Authorization"
+      ],
+      "category": "code-syntax"
+    },
+    {
+      "color": "#C580FF",
+      "hex": "#C580FF",
+      "alpha": 1,
+      "uses": 34,
+      "usedAs": {
+        "text": 34
+      },
+      "themes": {
+        "dark": 32,
+        "componentsSection": 2
+      },
+      "samples": [
+        "Dashboard›curl -H Authorization Bearer A",
+        "Create New Project›curl -H Authorization"
+      ],
+      "category": "code-syntax"
+    },
+    {
+      "color": "#412257",
+      "hex": "#412257",
+      "alpha": 1,
+      "uses": 34,
+      "usedAs": {
+        "fill": 34
+      },
+      "themes": {
+        "dark": 30,
+        "componentsSection": 4
+      },
+      "samples": ["Dashboard›Ellipse", "Create New Project›Ellipse"],
+      "category": "illustration"
+    },
+    {
+      "color": "#F79C09",
+      "hex": "#F79C09",
+      "alpha": 1,
+      "uses": 34,
+      "usedAs": {
+        "text": 34
+      },
+      "themes": {
+        "dark": 24,
+        "light": 10
+      },
+      "samples": [
+        "Compare Results›type KPICardProps   head",
+        "Compare Results›interface KPIProps  titl"
+      ],
+      "category": "ui"
+    },
+    {
+      "color": "#7CC6FF",
+      "hex": "#7CC6FF",
+      "alpha": 1,
+      "uses": 32,
+      "usedAs": {
+        "fill": 32
+      },
+      "themes": {
+        "dark": 30,
+        "light": 2
+      },
+      "samples": ["Dashboard›Vector", "Dashboard›Vector 38"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FFFFFF@0",
+      "hex": "#FFFFFF",
+      "alpha": 0,
+      "uses": 32,
+      "usedAs": {
+        "stroke": 32
+      },
+      "themes": {
+        "dark": 32
+      },
+      "samples": ["View API Key Usage›Line"],
+      "category": "data-viz"
+    },
+    {
+      "color": "#21192C",
+      "hex": "#21192C",
+      "alpha": 1,
+      "uses": 31,
+      "usedAs": {
+        "fill": 10,
+        "stroke": 21
+      },
+      "themes": {
+        "dark": 31
+      },
+      "samples": ["Members - Roles›Frame", "Edit Permissions›Frame"],
+      "category": "ui",
+      "token": "border-dark-1 ('Stroke Dark 1') · dark: border-subtle"
+    },
+    {
+      "color": "#000000@0.75",
+      "hex": "#000000",
+      "alpha": 0.75,
+      "uses": 30,
+      "usedAs": {
+        "fill": 30
+      },
+      "themes": {
+        "dark": 30
+      },
+      "samples": ["Edit Permission›BG", "Members›BG"],
+      "category": "ui",
+      "token": "overlay (modal backdrop)"
+    },
+    {
+      "color": "#D69E53",
+      "hex": "#D69E53",
+      "alpha": 1,
+      "uses": 29,
+      "usedAs": {
+        "fill": 29
+      },
+      "themes": {
+        "light": 29
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#8A38F5",
+      "hex": "#8A38F5",
+      "alpha": 1,
+      "uses": 29,
+      "usedAs": {
+        "stroke": 29
+      },
+      "themes": {
+        "componentsSection": 29
+      },
+      "samples": ["Components›Destructive Buttons", "Components›Cancel Button"],
+      "category": "components-section-only",
+      "token": "components section: destructive/cancel button stroke"
+    },
+    {
+      "color": "#11C93C",
+      "hex": "#11C93C",
+      "alpha": 1,
+      "uses": 28,
+      "usedAs": {
+        "fill": 14,
+        "stroke": 14
+      },
+      "themes": {
+        "light": 28
+      },
+      "samples": ["Normal Chat›EllipseLine", "Normal Chat›singleLine1"],
+      "category": "data-viz"
+    },
+    {
+      "color": "#C43131@0.08",
+      "hex": "#C43131",
+      "alpha": 0.08,
+      "uses": 27,
+      "usedAs": {
+        "fill": 27
+      },
+      "themes": {
+        "dark": 27
+      },
+      "samples": ["Members - Invitations›Badge", "Members›Badge"],
+      "category": "ui",
+      "token": "dark: status-error-bg"
+    },
+    {
+      "color": "#6F3099",
+      "hex": "#6F3099",
+      "alpha": 1,
+      "uses": 26,
+      "usedAs": {
+        "stroke": 19,
+        "fill": 4,
+        "text": 3
+      },
+      "themes": {
+        "dark": 8,
+        "light": 18
+      },
+      "samples": ["Prompt Added›Sample", "prompt added›Sample"],
+      "category": "ui",
+      "token": "purple-800 · light: text-link, brand-primary-hover"
+    },
+    {
+      "color": "#A77B44",
+      "hex": "#A77B44",
+      "alpha": 1,
+      "uses": 25,
+      "usedAs": {
+        "fill": 25
+      },
+      "themes": {
+        "light": 25
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#D9A362",
+      "hex": "#D9A362",
+      "alpha": 1,
+      "uses": 25,
+      "usedAs": {
+        "fill": 25
+      },
+      "themes": {
+        "light": 25
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#AE895D",
+      "hex": "#AE895D",
+      "alpha": 1,
+      "uses": 24,
+      "usedAs": {
+        "fill": 24
+      },
+      "themes": {
+        "light": 24
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#9847D6@0.12",
+      "hex": "#9847D6",
+      "alpha": 0.12,
+      "uses": 21,
+      "usedAs": {
+        "fill": 21
+      },
+      "themes": {
+        "dark": 20,
+        "light": 1
+      },
+      "samples": ["Members - All members›page-item", "Members - Invitations›page-item"],
+      "category": "ui",
+      "token": "dark: pagination active bg"
+    },
+    {
+      "color": "#D3A36D",
+      "hex": "#D3A36D",
+      "alpha": 1,
+      "uses": 21,
+      "usedAs": {
+        "fill": 21
+      },
+      "themes": {
+        "light": 21
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#5C6984",
+      "hex": "#5C6984",
+      "alpha": 1,
+      "uses": 20,
+      "usedAs": {
+        "text": 20
+      },
+      "themes": {
+        "light": 20
+      },
+      "samples": ["Light›Pricing", "Light›Context"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#6B7280",
+        "reason": "muted text (model card meta, light); ΔE≈6"
+      }
+    },
+    {
+      "color": "#C39459",
+      "hex": "#C39459",
+      "alpha": 1,
+      "uses": 19,
+      "usedAs": {
+        "fill": 19
+      },
+      "themes": {
+        "light": 19
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#E3A008",
+      "hex": "#E3A008",
+      "alpha": 1,
+      "uses": 18,
+      "usedAs": {
+        "stroke": 9,
+        "text": 9
+      },
+      "themes": {
+        "dark": 18
+      },
+      "samples": ["Members - Invitations›Badge", "Members - Invitations›Text"],
+      "category": "ui",
+      "token": "yellow-400 · dark: status-warning-text"
+    },
+    {
+      "color": "#111928",
+      "hex": "#111928",
+      "alpha": 1,
+      "uses": 18,
+      "usedAs": {
+        "text": 18
+      },
+      "themes": {
+        "unknown": 2,
+        "dark": 2,
+        "light": 14
+      },
+      "samples": [
+        "Tooltip›For compromised keys always rota",
+        "Tooltip›You will be able to use both the"
+      ],
+      "category": "ui",
+      "token": "gray-900 · tooltip text (light)"
+    },
+    {
+      "color": "#1E1E1E",
+      "hex": "#1E1E1E",
+      "alpha": 1,
+      "uses": 18,
+      "usedAs": {
+        "fill": 18
+      },
+      "themes": {
+        "componentsSection": 18
+      },
+      "samples": ["Components›permission-row", "Components›context-banner"],
+      "category": "components-section-only",
+      "mergedInto": {
+        "color": "#1D1D1D",
+        "reason": "components section; ΔE<1"
+      }
+    },
+    {
+      "color": "#1D1E28",
+      "hex": "#1D1E28",
+      "alpha": 1,
+      "uses": 17,
+      "usedAs": {
+        "fill": 17
+      },
+      "themes": {
+        "dark": 16,
+        "componentsSection": 1
+      },
+      "samples": ["Dashboard›Frame 1618874253", "Create New Project›Frame 1618874253"],
+      "category": "ui",
+      "token": "dark: bg-code"
+    },
+    {
+      "color": "#F4EAFD@0.2",
+      "hex": "#F4EAFD",
+      "alpha": 0.2,
+      "uses": 17,
+      "usedAs": {
+        "fill": 17
+      },
+      "themes": {
+        "dark": 15,
+        "componentsSection": 2
+      },
+      "samples": ["Dashboard›image 38 Vectorized", "Create New Project›image 38 Vectorized"],
+      "category": "illustration"
+    },
+    {
+      "color": "#9D35F0@0.22",
+      "hex": "#9D35F0",
+      "alpha": 0.22,
+      "uses": 17,
+      "usedAs": {
+        "fill": 17
+      },
+      "themes": {
+        "dark": 15,
+        "light": 1,
+        "componentsSection": 1
+      },
+      "samples": [
+        "Dashboard›480_F_606442910_5Pp6XRYu8SFoWn",
+        "Create New Project›480_F_606442910_5Pp6X"
+      ],
+      "category": "illustration"
+    },
+    {
+      "color": "#F1F6FC",
+      "hex": "#F1F6FC",
+      "alpha": 1,
+      "uses": 17,
+      "usedAs": {
+        "text": 17
+      },
+      "themes": {
+        "dark": 17
+      },
+      "samples": ["Dashboard›Heading", "Create New Project›Heading"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#F3F4F6",
+        "reason": "hero heading on dark; ΔE≈1.5"
+      }
+    },
+    {
+      "color": "#484848",
+      "hex": "#484848",
+      "alpha": 1,
+      "uses": 16,
+      "usedAs": {
+        "fill": 16
+      },
+      "themes": {
+        "dark": 13,
+        "componentsSection": 3
+      },
+      "samples": ["Edit Permission›Rectangle 39373", "Billing›Rectangle 39373"],
+      "category": "illustration"
+    },
+    {
+      "color": "#0F9E7D",
+      "hex": "#0F9E7D",
+      "alpha": 1,
+      "uses": 16,
+      "usedAs": {
+        "fill": 16
+      },
+      "themes": {
+        "dark": 15,
+        "light": 1
+      },
+      "samples": ["Dashboard›Vector 38", "Create New Project›Vector 38"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FEFEFE",
+      "hex": "#FEFEFE",
+      "alpha": 1,
+      "uses": 16,
+      "usedAs": {
+        "fill": 16
+      },
+      "themes": {
+        "dark": 15,
+        "light": 1
+      },
+      "samples": ["Dashboard›Vector", "Create New Project›Vector"],
+      "category": "illustration",
+      "mergedInto": {
+        "color": "#FFFFFF",
+        "reason": "illustration white, ΔE<1"
+      }
+    },
+    {
+      "color": "#A35DF8@0",
+      "hex": "#A35DF8",
+      "alpha": 0,
+      "uses": 16,
+      "usedAs": {
+        "fill": 16
+      },
+      "themes": {
+        "dark": 16
+      },
+      "samples": ["add credit›Frame 1618874412", "add credit›Frame 1618874411"],
+      "category": "illustration"
+    },
+    {
+      "color": "#111827",
+      "hex": "#111827",
+      "alpha": 1,
+      "uses": 16,
+      "usedAs": {
+        "fill": 16
+      },
+      "themes": {
+        "componentsSection": 16
+      },
+      "samples": ["Components›switch-thumb"],
+      "category": "components-section-only",
+      "mergedInto": {
+        "color": "#111928",
+        "reason": "Tailwind vs Flowbite gray-900; ΔE<1"
+      }
+    },
+    {
+      "color": "#471F80@0.5",
+      "hex": "#471F80",
+      "alpha": 0.5,
+      "uses": 15,
+      "usedAs": {
+        "fill": 15
+      },
+      "themes": {
+        "dark": 15
+      },
+      "samples": ["Dashboard›Vector 42", "Create New Project›Vector 42"],
+      "category": "illustration"
+    },
+    {
+      "color": "#471F80@0.6",
+      "hex": "#471F80",
+      "alpha": 0.6,
+      "uses": 15,
+      "usedAs": {
+        "fill": 15
+      },
+      "themes": {
+        "dark": 15
+      },
+      "samples": ["Dashboard›Vector 42", "Create New Project›Vector 42"],
+      "category": "illustration"
+    },
+    {
+      "color": "#2C2C2E",
+      "hex": "#2C2C2E",
+      "alpha": 1,
+      "uses": 15,
+      "usedAs": {
+        "stroke": 15
+      },
+      "themes": {
+        "dark": 15
+      },
+      "samples": ["Answer Recieved›Canvas Panel", "Answer Recieved›Line"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#2B2336",
+        "reason": "canvas panel stroke; ΔE≈3"
+      }
+    },
+    {
+      "color": "#B79056",
+      "hex": "#B79056",
+      "alpha": 1,
+      "uses": 15,
+      "usedAs": {
+        "fill": 15
+      },
+      "themes": {
+        "light": 15
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#140C16",
+      "hex": "#140C16",
+      "alpha": 1,
+      "uses": 14,
+      "usedAs": {
+        "fill": 14
+      },
+      "themes": {
+        "dark": 14
+      },
+      "samples": ["Billing›Rectangle 39343", "Billing›Rectangle 39342"],
+      "category": "illustration"
+    },
+    {
+      "color": "#957856",
+      "hex": "#957856",
+      "alpha": 1,
+      "uses": 14,
+      "usedAs": {
+        "fill": 14
+      },
+      "themes": {
+        "light": 14
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FFFFFF@0.04",
+      "hex": "#FFFFFF",
+      "alpha": 0.04,
+      "uses": 13,
+      "usedAs": {
+        "fill": 13
+      },
+      "themes": {
+        "dark": 9,
+        "light": 1,
+        "componentsSection": 3
+      },
+      "samples": ["Billing›Primary Button", "Billing - Add Credits›Primary Button"],
+      "category": "ui",
+      "token": "dark: bg-hover"
+    },
+    {
+      "color": "#FFFFFF@0.1",
+      "hex": "#FFFFFF",
+      "alpha": 0.1,
+      "uses": 13,
+      "usedAs": {
+        "fill": 12,
+        "stroke": 1
+      },
+      "themes": {
+        "dark": 12,
+        "componentsSection": 1
+      },
+      "samples": ["Dashboard›Frame 1618874405", "Dashboard›Frame 1618874404"],
+      "category": "ui",
+      "token": "dark: divider on hero"
+    },
+    {
+      "color": "#957351",
+      "hex": "#957351",
+      "alpha": 1,
+      "uses": 13,
+      "usedAs": {
+        "fill": 13
+      },
+      "themes": {
+        "light": 13
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FFFFFF@0.3",
+      "hex": "#FFFFFF",
+      "alpha": 0.3,
+      "uses": 12,
+      "usedAs": {
+        "stroke": 12
+      },
+      "themes": {
+        "dark": 12
+      },
+      "samples": ["Credit Selected›Frame 1618874523", "Card Error›Frame 1618874523"],
+      "category": "ui",
+      "token": "dark: selected card border"
+    },
+    {
+      "color": "#8B5CF6",
+      "hex": "#8B5CF6",
+      "alpha": 1,
+      "uses": 12,
+      "usedAs": {
+        "stroke": 12
+      },
+      "themes": {
+        "dark": 6,
+        "componentsSection": 6
+      },
+      "samples": ["System Prompt›Vector", "System Prompt Selected›Vector"],
+      "category": "ui",
+      "token": "violet icon stroke (System Prompt)"
+    },
+    {
+      "color": "#FFFFFF@0.05",
+      "hex": "#FFFFFF",
+      "alpha": 0.05,
+      "uses": 12,
+      "usedAs": {
+        "fill": 12
+      },
+      "themes": {
+        "light": 6,
+        "dark": 6
+      },
+      "samples": ["Normal Chat›page-item", "Usage›page-item"],
+      "category": "ui",
+      "token": "pagination item bg"
+    },
+    {
+      "color": "#0E9F6E",
+      "hex": "#0E9F6E",
+      "alpha": 1,
+      "uses": 11,
+      "usedAs": {
+        "fill": 7,
+        "text": 4
+      },
+      "themes": {
+        "light": 9,
+        "dark": 1,
+        "componentsSection": 1
+      },
+      "samples": ["Toast component›vector", "Toast component›File Uploaded Successful"],
+      "category": "ui",
+      "token": "green-600 · light: status-success-text"
+    },
+    {
+      "color": "#85643C",
+      "hex": "#85643C",
+      "alpha": 1,
+      "uses": 11,
+      "usedAs": {
+        "fill": 11
+      },
+      "themes": {
+        "light": 11
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#E1B673",
+      "hex": "#E1B673",
+      "alpha": 1,
+      "uses": 10,
+      "usedAs": {
+        "fill": 10
+      },
+      "themes": {
+        "light": 10
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#E3A008@0.08",
+      "hex": "#E3A008",
+      "alpha": 0.08,
+      "uses": 9,
+      "usedAs": {
+        "fill": 9
+      },
+      "themes": {
+        "dark": 9
+      },
+      "samples": ["Members - Invitations›Badge", "Members›Badge"],
+      "category": "ui",
+      "token": "dark: status-warning-bg"
+    },
+    {
+      "color": "#151515",
+      "hex": "#151515",
+      "alpha": 1,
+      "uses": 9,
+      "usedAs": {
+        "fill": 9
+      },
+      "themes": {
+        "dark": 9
+      },
+      "samples": ["Playground›Sample", "Model Added›Sample"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#131313",
+        "reason": "sample chip background; ΔE<1"
+      }
+    },
+    {
+      "color": "#0F0F0F",
+      "hex": "#0F0F0F",
+      "alpha": 1,
+      "uses": 9,
+      "usedAs": {
+        "fill": 9
+      },
+      "themes": {
+        "dark": 9
+      },
+      "samples": ["History›Dashboard Title", "Compare Results›Frame 1618874254"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#131313",
+        "reason": "panel background; ΔE≈1"
+      }
+    },
+    {
+      "color": "#B8B8B8",
+      "hex": "#B8B8B8",
+      "alpha": 1,
+      "uses": 9,
+      "usedAs": {
+        "fill": 5,
+        "text": 4
+      },
+      "themes": {
+        "componentsSection": 9
+      },
+      "samples": ["Components›switch", "Components›Usage & Analytics"],
+      "category": "components-section-only"
+    },
+    {
+      "color": "#4ADE80",
+      "hex": "#4ADE80",
+      "alpha": 1,
+      "uses": 9,
+      "usedAs": {
+        "text": 9
+      },
+      "themes": {
+        "componentsSection": 9
+      },
+      "samples": ["Components› Allowed"],
+      "category": "components-section-only",
+      "mergedInto": {
+        "color": "#31C48D",
+        "reason": "'Allowed' label; same success role, ΔE≈6"
+      }
+    },
+    {
+      "color": "#3D2D5C",
+      "hex": "#3D2D5C",
+      "alpha": 1,
+      "uses": 8,
+      "usedAs": {
+        "fill": 8
+      },
+      "themes": {
+        "dark": 8
+      },
+      "samples": ["Members - Roles›Rectangle", "Edit Permissions›Rectangle"],
+      "category": "illustration"
+    },
+    {
+      "color": "#8F90A6",
+      "hex": "#8F90A6",
+      "alpha": 1,
+      "uses": 8,
+      "usedAs": {
+        "text": 8
+      },
+      "themes": {
+        "dark": 8
+      },
+      "samples": ["Limits›1000", "Limits›Tier 4"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#9CA3AF",
+        "reason": "muted text (Limits); slightly bluer, ΔE≈6"
+      }
+    },
+    {
+      "color": "#61ABFF",
+      "hex": "#61ABFF",
+      "alpha": 1,
+      "uses": 8,
+      "usedAs": {
+        "text": 4,
+        "stroke": 4
+      },
+      "themes": {
+        "dark": 4,
+        "componentsSection": 4
+      },
+      "samples": ["Edit Permission›Update the permissions a", "Edit Permission›Vector"],
+      "category": "ui",
+      "token": "blue-400 · dark: status-info-text"
+    },
+    {
+      "color": "#34C38F",
+      "hex": "#34C38F",
+      "alpha": 1,
+      "uses": 8,
+      "usedAs": {
+        "stroke": 8
+      },
+      "themes": {
+        "dark": 8
+      },
+      "samples": ["System Prompt›Vector", "System Prompt Selected›Vector"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#31C48D",
+        "reason": "ΔE<1"
+      }
+    },
+    {
+      "color": "#FFFFFF@0.12",
+      "hex": "#FFFFFF",
+      "alpha": 0.12,
+      "uses": 8,
+      "usedAs": {
+        "fill": 3,
+        "stroke": 5
+      },
+      "themes": {
+        "light": 3,
+        "dark": 3,
+        "componentsSection": 2
+      },
+      "samples": ["Light›Component 37", "Light›Banner Buttons"],
+      "category": "ui",
+      "token": "light: banner button bg"
+    },
+    {
+      "color": "#FAF6FE",
+      "hex": "#FAF6FE",
+      "alpha": 1,
+      "uses": 8,
+      "usedAs": {
+        "fill": 8
+      },
+      "themes": {
+        "light": 8
+      },
+      "samples": ["Normal Chat›Primary Button", "Normal Chat›TablesCell"],
+      "category": "ui",
+      "token": "purple-50"
+    },
+    {
+      "color": "#9400FF",
+      "hex": "#9400FF",
+      "alpha": 1,
+      "uses": 8,
+      "usedAs": {
+        "text": 8
+      },
+      "themes": {
+        "light": 8
+      },
+      "samples": [
+        "Normal Chat›type KPICardProps   heading ",
+        "Normal Chat›interface KPIProps  title st"
+      ],
+      "category": "code-syntax",
+      "mergedInto": {
+        "color": "#8B02FF",
+        "reason": "code syntax (light); ΔE≈2"
+      }
+    },
+    {
+      "color": "#2E3032",
+      "hex": "#2E3032",
+      "alpha": 1,
+      "uses": 7,
+      "usedAs": {
+        "fill": 7
+      },
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Billing›Toggle Track", "Switch Auto Recharge›Toggle Track"],
+      "category": "ui",
+      "token": "dark: switch track (off)"
+    },
+    {
+      "color": "#FFFFFF@0.6",
+      "hex": "#FFFFFF",
+      "alpha": 0.6,
+      "uses": 7,
+      "usedAs": {
+        "text": 7
+      },
+      "themes": {
+        "dark": 7
+      },
+      "samples": [
+        "Billing›Your total credit balance includ",
+        "Switch Auto Recharge›Your total credit b"
+      ],
+      "category": "ui",
+      "token": "dark: secondary text on banner"
+    },
+    {
+      "color": "#00FF08@0.12",
+      "hex": "#00FF08",
+      "alpha": 0.12,
+      "uses": 7,
+      "usedAs": {
+        "fill": 7
+      },
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Billing›Badge", "Switch Auto Recharge›Badge"],
+      "category": "ui",
+      "token": "status badge bg (Billing) — see inconsistencies"
+    },
+    {
+      "color": "#00FF09",
+      "hex": "#00FF09",
+      "alpha": 1,
+      "uses": 7,
+      "usedAs": {
+        "text": 7
+      },
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Billing›Text", "Switch Auto Recharge›Text"],
+      "category": "ui",
+      "token": "status badge text (Billing) — see inconsistencies"
+    },
+    {
+      "color": "#2B2336@0.05",
+      "hex": "#2B2336",
+      "alpha": 0.05,
+      "uses": 7,
+      "usedAs": {
+        "stroke": 7
+      },
+      "themes": {
+        "light": 7
+      },
+      "samples": ["Normal Chat›page-item"],
+      "category": "ui",
+      "token": "light: pagination border"
+    },
+    {
+      "color": "#EF4444",
+      "hex": "#EF4444",
+      "alpha": 1,
+      "uses": 7,
+      "usedAs": {
+        "text": 7
+      },
+      "themes": {
+        "componentsSection": 7
+      },
+      "samples": ["Components› Not allowed"],
+      "category": "components-section-only",
+      "mergedInto": {
+        "color": "#F05252",
+        "reason": "error text; ΔE≈1"
+      }
+    },
+    {
+      "color": "#8E8F9E",
+      "hex": "#8E8F9E",
+      "alpha": 1,
+      "uses": 6,
+      "usedAs": {
+        "text": 6
+      },
+      "themes": {
+        "dark": 6
+      },
+      "samples": ["Limits›Spend 50 more to unlock Tier 1 Fo"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#9CA3AF",
+        "reason": "muted text (Limits); ΔE≈6"
+      }
+    },
+    {
+      "color": "#FF6666",
+      "hex": "#FF6666",
+      "alpha": 1,
+      "uses": 6,
+      "usedAs": {
+        "text": 6
+      },
+      "themes": {
+        "dark": 6
+      },
+      "samples": ["Dropdown Menu›System Prompt"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#FF5959",
+        "reason": "ΔE<1"
+      }
+    },
+    {
+      "color": "#FFFFFF@0.4",
+      "hex": "#FFFFFF",
+      "alpha": 0.4,
+      "uses": 6,
+      "usedAs": {
+        "fill": 6
+      },
+      "themes": {
+        "dark": 6
+      },
+      "samples": ["Billing›Toggle Thumb", "Switch Auto Recharge›Toggle Thumb"],
+      "category": "ui",
+      "token": "dark: switch thumb (off)"
+    },
+    {
+      "color": "#2A2A2E",
+      "hex": "#2A2A2E",
+      "alpha": 1,
+      "uses": 6,
+      "usedAs": {
+        "stroke": 6
+      },
+      "themes": {
+        "dark": 6
+      },
+      "samples": ["Answer Recieved›Code Card", "Answer Recieved›Line"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#2B2336",
+        "reason": "code card stroke; ΔE≈3"
+      }
+    },
+    {
+      "color": "#E58F00",
+      "hex": "#E58F00",
+      "alpha": 1,
+      "uses": 6,
+      "usedAs": {
+        "stroke": 6
+      },
+      "themes": {
+        "dark": 6
+      },
+      "samples": ["System Prompt›Vector", "System Prompt Selected›Vector"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#F79C09",
+        "reason": "warning icon; ΔE≈2"
+      }
+    },
+    {
+      "color": "#D68F43",
+      "hex": "#D68F43",
+      "alpha": 1,
+      "uses": 6,
+      "usedAs": {
+        "fill": 6
+      },
+      "themes": {
+        "light": 6
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#18181B",
+      "hex": "#18181B",
+      "alpha": 1,
+      "uses": 6,
+      "usedAs": {
+        "fill": 6
+      },
+      "themes": {
+        "dark": 6
+      },
+      "samples": ["Success Drawer›response-container", "Success Drawer›request-container"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#181818",
+        "reason": "drawer containers; ΔE<1"
+      }
+    },
+    {
+      "color": "#252327",
+      "hex": "#252327",
+      "alpha": 1,
+      "uses": 6,
+      "usedAs": {
+        "fill": 3,
+        "stroke": 3
+      },
+      "themes": {
+        "componentsSection": 6
+      },
+      "samples": ["Components›Content"],
+      "category": "components-section-only",
+      "mergedInto": {
+        "color": "#21192C",
+        "reason": "components section; ΔE≈3"
+      }
+    },
+    {
+      "color": "#21192C@0.4",
+      "hex": "#21192C",
+      "alpha": 0.4,
+      "uses": 5,
+      "usedAs": {
+        "fill": 5
+      },
+      "themes": {
+        "dark": 5
+      },
+      "samples": ["Billing›Frame 1618874504", "Billing - Add Credits›Frame 1618874504"],
+      "category": "illustration"
+    },
+    {
+      "color": "#33214D",
+      "hex": "#33214D",
+      "alpha": 1,
+      "uses": 5,
+      "usedAs": {
+        "fill": 5
+      },
+      "themes": {
+        "dark": 5
+      },
+      "samples": ["Billing›Frame 1618874502", "Billing - Add Credits›Frame 1618874502"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FF9500",
+      "hex": "#FF9500",
+      "alpha": 1,
+      "uses": 5,
+      "usedAs": {
+        "stroke": 5
+      },
+      "themes": {
+        "dark": 5
+      },
+      "samples": ["Switch Auto Recharge›Vector", "Disable Key›Icon"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#F79C09",
+        "reason": "warning icon; ΔE≈2"
+      }
+    },
+    {
+      "color": "#000000@0.15",
+      "hex": "#000000",
+      "alpha": 0.15,
+      "uses": 5,
+      "usedAs": {
+        "stroke": 5
+      },
+      "themes": {
+        "light": 5
+      },
+      "samples": ["Normal Chat›Line"],
+      "category": "ui",
+      "token": "light: divider"
+    },
+    {
+      "color": "#201E25",
+      "hex": "#201E25",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "fill": 4
+      },
+      "themes": {
+        "dark": 4
+      },
+      "samples": ["Limits›Seg 5"],
+      "category": "illustration"
+    },
+    {
+      "color": "#322E3A",
+      "hex": "#322E3A",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "stroke": 4
+      },
+      "themes": {
+        "dark": 4
+      },
+      "samples": ["Limits›Seg 5"],
+      "category": "illustration"
+    },
+    {
+      "color": "#61ABFF@0.07",
+      "hex": "#61ABFF",
+      "alpha": 0.07,
+      "uses": 4,
+      "usedAs": {
+        "fill": 4
+      },
+      "themes": {
+        "dark": 2,
+        "componentsSection": 2
+      },
+      "samples": ["Edit Permission›Warning Banner", "Edit Permissions›Warning Banner"],
+      "category": "ui",
+      "token": "dark: status-info-bg"
+    },
+    {
+      "color": "#61ABFF@0.2",
+      "hex": "#61ABFF",
+      "alpha": 0.2,
+      "uses": 4,
+      "usedAs": {
+        "stroke": 4
+      },
+      "themes": {
+        "dark": 2,
+        "componentsSection": 2
+      },
+      "samples": ["Edit Permission›Warning Banner", "Edit Permissions›Warning Banner"],
+      "category": "ui",
+      "token": "dark: status-info-border"
+    },
+    {
+      "color": "#BF93ED",
+      "hex": "#BF93ED",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "stroke": 4
+      },
+      "themes": {
+        "dark": 4
+      },
+      "samples": ["Dashboard›Line 1", "Dashboard›Line 2"],
+      "category": "illustration"
+    },
+    {
+      "color": "#382D4F",
+      "hex": "#382D4F",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "fill": 4
+      },
+      "themes": {
+        "dark": 2,
+        "componentsSection": 2
+      },
+      "samples": ["System Prompt›icon-container", "System Prompt Selected›icon-container"],
+      "category": "illustration"
+    },
+    {
+      "color": "#22C55E",
+      "hex": "#22C55E",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "text": 2,
+        "fill": 2
+      },
+      "themes": {
+        "dark": 4
+      },
+      "samples": ["View API Key Usage›Active", "View API Key Usage›Ellipse"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#31C48D",
+        "reason": "'Active' chip; same success role, ΔE≈5"
+      }
+    },
+    {
+      "color": "#0A0A0A",
+      "hex": "#0A0A0A",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "text": 4
+      },
+      "themes": {
+        "light": 4
+      },
+      "samples": ["Light›GPT-OSS-120B", "Light›Gemma 3"],
+      "category": "ui",
+      "token": "light: model card title — see inconsistencies"
+    },
+    {
+      "color": "#D69747",
+      "hex": "#D69747",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "fill": 4
+      },
+      "themes": {
+        "light": 4
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#504B63",
+      "hex": "#504B63",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "text": 4
+      },
+      "themes": {
+        "light": 4
+      },
+      "samples": [
+        "Light›Integrate the API into your applic",
+        "Light›Generate your API key to access ou"
+      ],
+      "category": "ui",
+      "token": "light: onboarding step description — see inconsistencies"
+    },
+    {
+      "color": "#FDFBFF",
+      "hex": "#FDFBFF",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "fill": 4
+      },
+      "themes": {
+        "light": 4
+      },
+      "samples": ["Light›nav", "Normal Chat›nav"],
+      "category": "ui",
+      "token": "light: bg-sidebar"
+    },
+    {
+      "color": "#AD67E5@0.22",
+      "hex": "#AD67E5",
+      "alpha": 0.22,
+      "uses": 4,
+      "usedAs": {
+        "fill": 4
+      },
+      "themes": {
+        "light": 4
+      },
+      "samples": ["Light›Dashboard", "Normal Chat›Playground"],
+      "category": "ui",
+      "token": "light: bg-active (sidebar active item)"
+    },
+    {
+      "color": "#2C92FF@0.08",
+      "hex": "#2C92FF",
+      "alpha": 0.08,
+      "uses": 4,
+      "usedAs": {
+        "fill": 4
+      },
+      "themes": {
+        "dark": 2,
+        "componentsSection": 2
+      },
+      "samples": ["Dashboard›Badge", "Components›Badge"],
+      "category": "ui",
+      "token": "dark: info badge bg"
+    },
+    {
+      "color": "#3F83F8",
+      "hex": "#3F83F8",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "stroke": 4
+      },
+      "themes": {
+        "dark": 2,
+        "componentsSection": 2
+      },
+      "samples": ["Dashboard›Badge", "Components›Badge"],
+      "category": "ui",
+      "token": "blue-500 · info badge border"
+    },
+    {
+      "color": "#6CA2FF",
+      "hex": "#6CA2FF",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "text": 4
+      },
+      "themes": {
+        "dark": 2,
+        "componentsSection": 2
+      },
+      "samples": ["Dashboard›Text", "Components›Text"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#61ABFF",
+        "reason": "info text; ΔE≈4"
+      }
+    },
+    {
+      "color": "#111214",
+      "hex": "#111214",
+      "alpha": 1,
+      "uses": 4,
+      "usedAs": {
+        "fill": 4
+      },
+      "themes": {
+        "dark": 4
+      },
+      "samples": ["Success Drawer›Success Drawer", "Error Drawer›Error Drawer"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#131313",
+        "reason": "drawer background; ΔE<1"
+      }
+    },
+    {
+      "color": "#FAFAFA@0.7",
+      "hex": "#FAFAFA",
+      "alpha": 0.7,
+      "uses": 4,
+      "usedAs": {
+        "fill": 4
+      },
+      "themes": {
+        "componentsSection": 4
+      },
+      "samples": ["Components›switch"],
+      "category": "components-section-only",
+      "token": "switch (components section)"
+    },
+    {
+      "color": "#2A2830",
+      "hex": "#2A2830",
+      "alpha": 1,
+      "uses": 3,
+      "usedAs": {
+        "stroke": 3
+      },
+      "themes": {
+        "dark": 1,
+        "componentsSection": 2
+      },
+      "samples": ["Limits›Footer Row", "Components›Divider"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#2B2336",
+        "reason": "divider; ΔE≈2"
+      }
+    },
+    {
+      "color": "#AC0000@0.3",
+      "hex": "#AC0000",
+      "alpha": 0.3,
+      "uses": 3,
+      "usedAs": {
+        "fill": 3
+      },
+      "themes": {
+        "dark": 3
+      },
+      "samples": ["Members›Featured icon", "Switch Auto Recharge›Featured icon"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FF0000@0.1",
+      "hex": "#FF0000",
+      "alpha": 0.1,
+      "uses": 3,
+      "usedAs": {
+        "stroke": 3
+      },
+      "themes": {
+        "dark": 3
+      },
+      "samples": ["Members›Featured icon", "Switch Auto Recharge›Featured icon"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FF6565",
+      "hex": "#FF6565",
+      "alpha": 1,
+      "uses": 3,
+      "usedAs": {
+        "stroke": 3
+      },
+      "themes": {
+        "dark": 3
+      },
+      "samples": ["Members›Icon", "Switch Auto Recharge›Icon"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#FF5959",
+        "reason": "ΔE<1"
+      }
+    },
+    {
+      "color": "#FFFFFF@0.16",
+      "hex": "#FFFFFF",
+      "alpha": 0.16,
+      "uses": 3,
+      "usedAs": {
+        "fill": 3
+      },
+      "themes": {
+        "dark": 2,
+        "componentsSection": 1
+      },
+      "samples": ["Dashboard›Frame 1000003437", "Dark›Frame 1000003437"],
+      "category": "ui",
+      "token": "dark: theme switcher active knob"
+    },
+    {
+      "color": "#111115",
+      "hex": "#111115",
+      "alpha": 1,
+      "uses": 3,
+      "usedAs": {
+        "fill": 3
+      },
+      "themes": {
+        "dark": 3
+      },
+      "samples": ["Answer Recieved›Code Card", "Loading›Code Card"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#131313",
+        "reason": "code card background; ΔE<1"
+      }
+    },
+    {
+      "color": "#9847D6@0.33",
+      "hex": "#9847D6",
+      "alpha": 0.33,
+      "uses": 3,
+      "usedAs": {
+        "stroke": 3
+      },
+      "themes": {
+        "light": 3
+      },
+      "samples": ["Light›Component 37", "Light›Banner Buttons"],
+      "category": "ui",
+      "token": "light: banner button border"
+    },
+    {
+      "color": "#CAFFD4",
+      "hex": "#CAFFD4",
+      "alpha": 1,
+      "uses": 3,
+      "usedAs": {
+        "fill": 3
+      },
+      "themes": {
+        "light": 3
+      },
+      "samples": ["Normal Chat›Badge"],
+      "category": "ui",
+      "token": "light: success badge bg — see inconsistencies"
+    },
+    {
+      "color": "#00C91B",
+      "hex": "#00C91B",
+      "alpha": 1,
+      "uses": 3,
+      "usedAs": {
+        "text": 3
+      },
+      "themes": {
+        "light": 3
+      },
+      "samples": ["Normal Chat›Text"],
+      "category": "ui",
+      "token": "light: success badge text — see inconsistencies"
+    },
+    {
+      "color": "#383838",
+      "hex": "#383838",
+      "alpha": 1,
+      "uses": 3,
+      "usedAs": {
+        "fill": 3
+      },
+      "themes": {
+        "componentsSection": 3
+      },
+      "samples": ["Components›Badge"],
+      "category": "components-section-only",
+      "mergedInto": {
+        "color": "#3C3C3C",
+        "reason": "ΔE≈1"
+      }
+    },
+    {
+      "color": "#771D1D@0.45",
+      "hex": "#771D1D",
+      "alpha": 0.45,
+      "uses": 2,
+      "usedAs": {
+        "stroke": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Project Setting - General›Frame 16188745", "Project Settings›Frame 1618874504"],
+      "category": "ui",
+      "token": "dark: danger zone border"
+    },
+    {
+      "color": "#F05252@0.04",
+      "hex": "#F05252",
+      "alpha": 0.04,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Project Setting - General›Delete Button", "Project Settings›Delete Button"],
+      "category": "ui",
+      "token": "dark: destructive button bg"
+    },
+    {
+      "color": "#F05252@0.2",
+      "hex": "#F05252",
+      "alpha": 0.2,
+      "uses": 2,
+      "usedAs": {
+        "stroke": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Project Setting - General›Delete Button", "Project Settings›Delete Button"],
+      "category": "ui",
+      "token": "dark: destructive button border"
+    },
+    {
+      "color": "#3C3F44",
+      "hex": "#3C3F44",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "text": 2
+      },
+      "themes": {
+        "dark": 1,
+        "componentsSection": 1
+      },
+      "samples": ["Members - All members›Invitations", "Components›Invitations"],
+      "category": "ui"
+    },
+    {
+      "color": "#AC9C00@0.3",
+      "hex": "#AC9C00",
+      "alpha": 0.3,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Switch Auto Recharge›Featured icon", "Disable Key›Featured icon"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FFFF00@0.1",
+      "hex": "#FFFF00",
+      "alpha": 0.1,
+      "uses": 2,
+      "usedAs": {
+        "stroke": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Switch Auto Recharge›Featured icon", "Disable Key›Featured icon"],
+      "category": "illustration"
+    },
+    {
+      "color": "#2A2A2A",
+      "hex": "#2A2A2A",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Dashboard›image 74 Vectorized"],
+      "category": "illustration"
+    },
+    {
+      "color": "#F25022",
+      "hex": "#F25022",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Dashboard›top-left"],
+      "category": "illustration"
+    },
+    {
+      "color": "#7FBA00",
+      "hex": "#7FBA00",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Dashboard›top-right"],
+      "category": "illustration"
+    },
+    {
+      "color": "#00A4EF",
+      "hex": "#00A4EF",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Dashboard›bottom-left"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FFB900",
+      "hex": "#FFB900",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Dashboard›bottom-right"],
+      "category": "illustration"
+    },
+    {
+      "color": "#E590FF",
+      "hex": "#E590FF",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "text": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["History›Compared"],
+      "category": "ui",
+      "token": "'Compared' label (History)"
+    },
+    {
+      "color": "#000000@0.1",
+      "hex": "#000000",
+      "alpha": 0.1,
+      "uses": 2,
+      "usedAs": {
+        "stroke": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Tuning Parameters›Ellipse", "Tuning Parameters Added›Ellipse"],
+      "category": "ui",
+      "token": "tuning slider thumb stroke"
+    },
+    {
+      "color": "#FF8A4C",
+      "hex": "#FF8A4C",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "text": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": [
+        "System Prompt›Note System Prompt changes",
+        "System Prompt Selected›Note System Promp"
+      ],
+      "category": "ui",
+      "token": "orange note text (System Prompt)"
+    },
+    {
+      "color": "#4B3819",
+      "hex": "#4B3819",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["System Prompt›icon-container", "System Prompt Selected›icon-container"],
+      "category": "illustration"
+    },
+    {
+      "color": "#244438",
+      "hex": "#244438",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["System Prompt›icon-container", "System Prompt Selected›icon-container"],
+      "category": "illustration"
+    },
+    {
+      "color": "#22C55E@0.12",
+      "hex": "#22C55E",
+      "alpha": 0.12,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["View API Key Usage›Active Chip"],
+      "category": "ui",
+      "token": "active chip bg"
+    },
+    {
+      "color": "#22C55E@0.3",
+      "hex": "#22C55E",
+      "alpha": 0.3,
+      "uses": 2,
+      "usedAs": {
+        "stroke": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["View API Key Usage›Active Chip"],
+      "category": "ui",
+      "token": "active chip border"
+    },
+    {
+      "color": "#94A3B8",
+      "hex": "#94A3B8",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "text": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["View API Key Usage›sk-prod-XkR9"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#9CA3AF",
+        "reason": "muted text; ΔE≈2"
+      }
+    },
+    {
+      "color": "#F8FAFC",
+      "hex": "#F8FAFC",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "text": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["View API Key Usage›Production API Key"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#FAFAFA",
+        "reason": "ΔE<1"
+      }
+    },
+    {
+      "color": "#FFC832@0.08",
+      "hex": "#FFC832",
+      "alpha": 0.08,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["View API Key Usage›Frame 1618874512"],
+      "category": "illustration"
+    },
+    {
+      "color": "#C491EF",
+      "hex": "#C491EF",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "stroke": 1,
+        "fill": 1
+      },
+      "themes": {
+        "light": 2
+      },
+      "samples": ["Light›btn-add-credits", "Light›Ellipse 191"],
+      "category": "ui",
+      "token": "purple-400 · light: outline button border (Add Credits)"
+    },
+    {
+      "color": "#8A562B",
+      "hex": "#8A562B",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "light": 2
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#00702E",
+      "hex": "#00702E",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "text": 2
+      },
+      "themes": {
+        "light": 2
+      },
+      "samples": ["Light›curl -H Authorization Bearer API_K"],
+      "category": "code-syntax"
+    },
+    {
+      "color": "#8B02FF",
+      "hex": "#8B02FF",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "text": 2
+      },
+      "themes": {
+        "light": 2
+      },
+      "samples": ["Light›curl -H Authorization Bearer API_K"],
+      "category": "code-syntax"
+    },
+    {
+      "color": "#F4EAFD",
+      "hex": "#F4EAFD",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "light": 2
+      },
+      "samples": ["Light›Frame 1618874246", "Light›Component 91"],
+      "category": "ui",
+      "token": "purple-100 · light: bg-segmented"
+    },
+    {
+      "color": "#E0CCEE",
+      "hex": "#E0CCEE",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "light": 2
+      },
+      "samples": ["Light›Ellipse"],
+      "category": "illustration"
+    },
+    {
+      "color": "#E1E1E1",
+      "hex": "#E1E1E1",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "light": 2
+      },
+      "samples": ["Normal Chat›Rectangle 39374", "Normal Chat›Rectangle 39373"],
+      "category": "illustration"
+    },
+    {
+      "color": "#FF5959@0.06",
+      "hex": "#FF5959",
+      "alpha": 0.06,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Error Drawer›response-container"],
+      "category": "ui",
+      "token": "error drawer bg"
+    },
+    {
+      "color": "#FF5959@0.16",
+      "hex": "#FF5959",
+      "alpha": 0.16,
+      "uses": 2,
+      "usedAs": {
+        "stroke": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Error Drawer›response-container"],
+      "category": "ui",
+      "token": "error drawer border"
+    },
+    {
+      "color": "#FF5959@0.08",
+      "hex": "#FF5959",
+      "alpha": 0.08,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Error Drawer›Badge"],
+      "category": "ui",
+      "token": "error badge bg"
+    },
+    {
+      "color": "#343434",
+      "hex": "#343434",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Error Drawer›Rectangle 39374"],
+      "category": "illustration"
+    },
+    {
+      "color": "#3C3E41",
+      "hex": "#3C3E41",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "stroke": 1,
+        "text": 1
+      },
+      "themes": {
+        "componentsSection": 2
+      },
+      "samples": ["Components›Property 1Disable", "Components›button-label"],
+      "category": "components-section-only",
+      "mergedInto": {
+        "color": "#3C3C3C",
+        "reason": "ΔE≈1"
+      }
+    },
+    {
+      "color": "#6F6F6F",
+      "hex": "#6F6F6F",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "text": 1,
+        "fill": 1
+      },
+      "themes": {
+        "componentsSection": 2
+      },
+      "samples": ["Components›Refresh", "Components›Property 1Disable"],
+      "category": "components-section-only",
+      "mergedInto": {
+        "color": "#6B7280",
+        "reason": "components section; ΔE≈2"
+      }
+    },
+    {
+      "color": "#D9D9D9",
+      "hex": "#D9D9D9",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "fill": 2
+      },
+      "themes": {
+        "componentsSection": 1,
+        "light": 1
+      },
+      "samples": ["Components›Vector", "Rectangle 39381›Rectangle 39381"],
+      "category": "illustration"
+    },
+    {
+      "color": "#323241",
+      "hex": "#323241",
+      "alpha": 1,
+      "uses": 2,
+      "usedAs": {
+        "stroke": 2
+      },
+      "themes": {
+        "componentsSection": 2
+      },
+      "samples": ["Components›Role Summary Card"],
+      "category": "components-section-only",
+      "mergedInto": {
+        "color": "#2B2336",
+        "reason": "card stroke (components section); ΔE≈3"
+      }
+    },
+    {
+      "color": "#9000FF@0.45",
+      "hex": "#9000FF",
+      "alpha": 0.45,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "dark": 1
+      },
+      "samples": ["Limits›Seg 6"],
+      "category": "illustration"
+    },
+    {
+      "color": "#9000FF@0.8",
+      "hex": "#9000FF",
+      "alpha": 0.8,
+      "uses": 1,
+      "usedAs": {
+        "stroke": 1
+      },
+      "themes": {
+        "dark": 1
+      },
+      "samples": ["Limits›Seg 6"],
+      "category": "illustration"
+    },
+    {
+      "color": "#A5A6B5",
+      "hex": "#A5A6B5",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "text": 1
+      },
+      "themes": {
+        "dark": 1
+      },
+      "samples": ["Limits›0"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#9CA3AF",
+        "reason": "chart axis label; ΔE≈3"
+      }
+    },
+    {
+      "color": "#000000@0.5",
+      "hex": "#000000",
+      "alpha": 0.5,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "dark": 1
+      },
+      "samples": ["Answer Recieved›Frame 1618874648"],
+      "category": "ui",
+      "token": "overlay (light)"
+    },
+    {
+      "color": "#8A3FD0",
+      "hex": "#8A3FD0",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "dark": 1
+      },
+      "samples": ["Tuning Parameters Added›Rectangle 5"],
+      "category": "illustration"
+    },
+    {
+      "color": "#F05252@0.06",
+      "hex": "#F05252",
+      "alpha": 0.06,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "dark": 1
+      },
+      "samples": ["Insufficient Credits›Content"],
+      "category": "ui",
+      "token": "insufficient credits banner bg"
+    },
+    {
+      "color": "#AF8453",
+      "hex": "#AF8453",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#020202",
+      "hex": "#020202",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Vector"],
+      "category": "illustration"
+    },
+    {
+      "color": "#464646",
+      "hex": "#464646",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "text": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Join our experts to learn best pra"],
+      "category": "ui",
+      "token": "light: webinar description — see inconsistencies"
+    },
+    {
+      "color": "#232220",
+      "hex": "#232220",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "text": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›title"],
+      "category": "ui",
+      "token": "light: webinar title — see inconsistencies"
+    },
+    {
+      "color": "#C884FF@0.5",
+      "hex": "#C884FF",
+      "alpha": 0.5,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Vector 43"],
+      "category": "illustration"
+    },
+    {
+      "color": "#ECD5FF",
+      "hex": "#ECD5FF",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Vector 42"],
+      "category": "illustration"
+    },
+    {
+      "color": "#000000@0.04",
+      "hex": "#000000",
+      "alpha": 0.04,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Component 98"],
+      "category": "ui",
+      "token": "light: bg-hover, theme switcher bg"
+    },
+    {
+      "color": "#000000@0.08",
+      "hex": "#000000",
+      "alpha": 0.08,
+      "uses": 1,
+      "usedAs": {
+        "stroke": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Component 98"],
+      "category": "ui",
+      "token": "light: theme switcher border"
+    },
+    {
+      "color": "#9847D6@0.22",
+      "hex": "#9847D6",
+      "alpha": 0.22,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Frame 1000003439"],
+      "category": "ui",
+      "token": "light: theme switcher active knob"
+    },
+    {
+      "color": "#E4E4E4",
+      "hex": "#E4E4E4",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "stroke": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Line 74"],
+      "category": "ui",
+      "mergedInto": {
+        "color": "#E5E7EB",
+        "reason": "divider (light); ΔE≈1"
+      }
+    },
+    {
+      "color": "#2B2336@0",
+      "hex": "#2B2336",
+      "alpha": 0,
+      "uses": 1,
+      "usedAs": {
+        "stroke": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Normal Chat›Input & Dropdown"],
+      "category": "ui"
+    },
+    {
+      "color": "#2B2336@0.12",
+      "hex": "#2B2336",
+      "alpha": 0.12,
+      "uses": 1,
+      "usedAs": {
+        "stroke": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Normal Chat›Pagination"],
+      "category": "ui",
+      "token": "light: pagination border"
+    },
+    {
+      "color": "#000000@0.3",
+      "hex": "#000000",
+      "alpha": 0.3,
+      "uses": 1,
+      "usedAs": {
+        "stroke": 1
+      },
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Normal Chat›Line"],
+      "category": "ui",
+      "token": "light: divider"
+    },
+    {
+      "color": "#F79C09@0.12",
+      "hex": "#F79C09",
+      "alpha": 0.12,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "dark": 1
+      },
+      "samples": ["Usage›page-item"],
+      "category": "ui",
+      "token": "pagination active (usage)"
+    },
+    {
+      "color": "#444444",
+      "hex": "#444444",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "componentsSection": 1
+      },
+      "samples": ["Components›Components"],
+      "category": "components-section-only"
+    },
+    {
+      "color": "#6B2C2C",
+      "hex": "#6B2C2C",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "componentsSection": 1
+      },
+      "samples": ["Components›Property 1Disable"],
+      "category": "components-section-only"
+    },
+    {
+      "color": "#321919",
+      "hex": "#321919",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "text": 1
+      },
+      "themes": {
+        "componentsSection": 1
+      },
+      "samples": ["Components›Button"],
+      "category": "components-section-only"
+    },
+    {
+      "color": "#585858",
+      "hex": "#585858",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "text": 1
+      },
+      "themes": {
+        "componentsSection": 1
+      },
+      "samples": ["Components›Link"],
+      "category": "components-section-only"
+    },
+    {
+      "color": "#9E9E9E",
+      "hex": "#9E9E9E",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "stroke": 1
+      },
+      "themes": {
+        "componentsSection": 1
+      },
+      "samples": ["Components›Line 90"],
+      "category": "components-section-only"
+    },
+    {
+      "color": "#393939",
+      "hex": "#393939",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "stroke": 1
+      },
+      "themes": {
+        "componentsSection": 1
+      },
+      "samples": ["Components›Property 1Disable"],
+      "category": "components-section-only",
+      "mergedInto": {
+        "color": "#3C3C3C",
+        "reason": "ΔE<1"
+      }
+    },
+    {
+      "color": "#6F6F70",
+      "hex": "#6F6F70",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "text": 1
+      },
+      "themes": {
+        "componentsSection": 1
+      },
+      "samples": ["Components›Button"],
+      "category": "components-section-only",
+      "mergedInto": {
+        "color": "#6B7280",
+        "reason": "components section; ΔE≈2"
+      }
+    },
+    {
+      "color": "#E0DAE6",
+      "hex": "#E0DAE6",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "fill": 1
+      },
+      "themes": {
+        "componentsSection": 1
+      },
+      "samples": ["Components›Property 1Hover"],
+      "category": "components-section-only"
+    },
+    {
+      "color": "#333333",
+      "hex": "#333333",
+      "alpha": 1,
+      "uses": 1,
+      "usedAs": {
+        "text": 1
+      },
+      "themes": {
+        "componentsSection": 1
+      },
+      "samples": ["Components›Button"],
+      "category": "components-section-only"
+    }
+  ],
+  "gradients": [
+    {
+      "value": "s LINEAR a-3 [#CB90FF 0,#9847D6 50,#AD67E5 100] op0.3",
+      "uses": 89,
+      "themes": {
+        "dark": 79,
+        "light": 3,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›Component 79", "Project Settings›Component 79"]
+    },
+    {
+      "value": "f LINEAR a175 [#EADAFA 0,#FFFBEB 100] op0.06",
+      "uses": 86,
+      "themes": {
+        "dark": 79,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›Component 79", "Project Settings›Component 79"]
+    },
+    {
+      "value": "f LINEAR a0 [#131313 25,#9847D6 100] op0.26",
+      "uses": 28,
+      "themes": {
+        "dark": 28
+      },
+      "samples": ["Agentic AI›Badge", "Prompt Added›Badge"]
+    },
+    {
+      "value": "s LINEAR a0 [#331D39 0,#AD67E5 100]",
+      "uses": 28,
+      "themes": {
+        "dark": 28
+      },
+      "samples": ["Agentic AI›Badge", "Prompt Added›Badge"]
+    },
+    {
+      "value": "s LINEAR a90 [#8935FF 0,#5007B5 100]",
+      "uses": 25,
+      "themes": {
+        "dark": 22,
+        "light": 1,
+        "componentsSection": 2
+      },
+      "samples": ["Billing›image 38 Vectorized", "Switch Auto Recharge›image 38 Vectorized"]
+    },
+    {
+      "value": "f LINEAR a90 [#31253B 0,#0E0805 100]",
+      "uses": 21,
+      "themes": {
+        "dark": 21
+      },
+      "samples": ["Billing›Rectangle 39375", "Switch Auto Recharge›Rectangle 39375"]
+    },
+    {
+      "value": "f LINEAR a-180 [#000000 0,#FFFFFF 51,#000000 100]",
+      "uses": 21,
+      "themes": {
+        "dark": 21
+      },
+      "samples": ["Billing›Rectangle 39376", "Switch Auto Recharge›Rectangle 39376"]
+    },
+    {
+      "value": "f LINEAR a90 [#9F36FB 0,#6705F1 100]",
+      "uses": 18,
+      "themes": {
+        "dark": 15,
+        "light": 1,
+        "componentsSection": 2
+      },
+      "samples": ["Dashboard›Frame", "Create New Project›Frame"]
+    },
+    {
+      "value": "f DIAMOND a21 [#3D115A 0,#090110 31,#16032C 100]",
+      "uses": 17,
+      "themes": {
+        "dark": 15,
+        "componentsSection": 2
+      },
+      "samples": ["Dashboard›Component 110", "Create New Project›Component 110"]
+    },
+    {
+      "value": "f LINEAR a-33 [#DF5566 0,#F1BF1A 29,#3085FD 63,#30B87A 100]",
+      "uses": 16,
+      "themes": {
+        "dark": 15,
+        "light": 1
+      },
+      "samples": ["Dashboard›Vector 39", "Create New Project›Vector 39"]
+    },
+    {
+      "value": "f LINEAR a90 [#290B3C 0,#622B86 100]",
+      "uses": 15,
+      "themes": {
+        "unknown": 15
+      },
+      "samples": []
+    },
+    {
+      "value": "f LINEAR a0 [#131313 0,#070614 33,#070714 100]",
+      "uses": 15,
+      "themes": {
+        "dark": 15
+      },
+      "samples": ["Dashboard›Frame 1618874362", "Create New Project›Frame 1618874362"]
+    },
+    {
+      "value": "f LINEAR a14 [#EBAB0E 0,#C881FF 100]",
+      "uses": 15,
+      "themes": {
+        "dark": 15
+      },
+      "samples": ["Dashboard›Heading", "Create New Project›Heading"]
+    },
+    {
+      "value": "f RADIAL a0 [#FFFFFF 0,#9847D6 100]",
+      "uses": 14,
+      "themes": {
+        "dark": 14
+      },
+      "samples": ["Agentic AI›Create with Agentic AI", "Prompt Added›Create with Agentic AI"]
+    },
+    {
+      "value": "s DIAMOND a-174 [#000000@0.1 0,#000000 29,#000000@0.2 72,#FFFFFF@0.08 100] op0.7",
+      "uses": 14,
+      "themes": {
+        "dark": 14
+      },
+      "samples": ["Agentic AI›Vector", "Prompt Added›Vector"]
+    },
+    {
+      "value": "f LINEAR a-174 [#A35DF8@0.6 0,#131313 100] op0.16",
+      "uses": 8,
+      "themes": {
+        "dark": 8
+      },
+      "samples": ["View API Key Usage›Frame 1618874412", "View API Key Usage›Frame 1618874411"]
+    },
+    {
+      "value": "f LINEAR a46 [#9F36FB 0,#6705F1 100] op0.2",
+      "uses": 7,
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Billing›image 38 Vectorized", "Switch Auto Recharge›image 38 Vectorized"]
+    },
+    {
+      "value": "f LINEAR a0 [#3C204F 0,#131313 35,#622B86 100] op0.3",
+      "uses": 7,
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Billing›Variation 2 - Wide Banner", "Switch Auto Recharge›Variation 2 - Wide"]
+    },
+    {
+      "value": "s LINEAR a1 [#CB90FF 0,#FED24B 43,#AD67E5 100] op0.3",
+      "uses": 7,
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Billing›Variation 2 - Wide Banner", "Switch Auto Recharge›Variation 2 - Wide"]
+    },
+    {
+      "value": "f LINEAR a90 [#622B86 0,#000000 41,#260B36 100]",
+      "uses": 7,
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Billing›Frame 1618874658", "Switch Auto Recharge›Frame 1618874658"]
+    },
+    {
+      "value": "f LINEAR a10 [#6F3099@0.5 0,#A23EF3 100]",
+      "uses": 3,
+      "themes": {
+        "dark": 3
+      },
+      "samples": ["Answer Recieved›Icon Box", "Loading›Icon Box"]
+    },
+    {
+      "value": "f LINEAR a175 [#AA55FF 0,#FED530 100] op0.06",
+      "uses": 3,
+      "themes": {
+        "light": 3
+      },
+      "samples": ["Normal Chat›Component 79"]
+    },
+    {
+      "value": "f LINEAR a0 [#FFFFFF 25,#9847D6 100] op0.26",
+      "uses": 2,
+      "themes": {
+        "light": 2
+      },
+      "samples": ["Normal Chat›Badge"]
+    },
+    {
+      "value": "s LINEAR a0 [#EFB5FF 0,#AD67E5 100]",
+      "uses": 2,
+      "themes": {
+        "light": 2
+      },
+      "samples": ["Normal Chat›Badge"]
+    },
+    {
+      "value": "f LINEAR a20 [#FFFFFF 0,#EAD8FF 100]",
+      "uses": 1,
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Component 117"]
+    },
+    {
+      "value": "f LINEAR a0 [#FFFFFF 0,#F5EBFE 25,#F3EBFE 100]",
+      "uses": 1,
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Frame 1618874364"]
+    },
+    {
+      "value": "f LINEAR a14 [#DB7504 0,#8335BB 100]",
+      "uses": 1,
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Light›Heading"]
+    },
+    {
+      "value": "f RADIAL a0 [#21192C 0,#9847D6 100]",
+      "uses": 1,
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Normal Chat›Start Exploring With AI"]
+    },
+    {
+      "value": "s DIAMOND a-173 [#FFFFFF@0.1 0,#FFFFFF 29,#FFFFFF@0.2 72,#7B32B5 100] op0.12",
+      "uses": 1,
+      "themes": {
+        "light": 1
+      },
+      "samples": ["Normal Chat›Vector"]
+    },
+    {
+      "value": "s LINEAR a-3 [#CB90FF 0,#FED24B 50,#AD67E5 100] op0.3",
+      "uses": 1,
+      "themes": {
+        "componentsSection": 1
+      },
+      "samples": ["Components›Property 1Component 109"]
+    },
+    {
+      "value": "f LINEAR a59 [#622B86 0,#AD67E5 100]",
+      "uses": 1,
+      "themes": {
+        "componentsSection": 1
+      },
+      "samples": ["Components›Union"]
+    }
+  ],
+  "effects": [
+    {
+      "value": "BACKGROUND_BLUR r4",
+      "uses": 89,
+      "themes": {
+        "dark": 79,
+        "light": 3,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›Component 79", "Project Settings›Component 79"]
+    },
+    {
+      "value": "DROP_SHADOW #000000@0.08 0,0 r4",
+      "uses": 89,
+      "themes": {
+        "dark": 79,
+        "light": 3,
+        "componentsSection": 7
+      },
+      "samples": ["Project Setting - General›Badge", "Project Settings›Badge"]
+    },
+    {
+      "value": "LAYER_BLUR r55.2",
+      "uses": 64,
+      "themes": {
+        "dark": 60,
+        "light": 4
+      },
+      "samples": ["Dashboard›Vector 38", "Dashboard›Vector 39"]
+    },
+    {
+      "value": "INNER_SHADOW #251E2E@0.8 0,0 r11.3 s6",
+      "uses": 60,
+      "themes": {
+        "dark": 60
+      },
+      "samples": ["Dashboard›Component 29", "Dashboard›Component 28"]
+    },
+    {
+      "value": "GLASS r2",
+      "uses": 48,
+      "themes": {
+        "dark": 45,
+        "light": 3
+      },
+      "samples": ["Dashboard›Component 37", "Dashboard›Banner Buttons"]
+    },
+    {
+      "value": "DROP_SHADOW #000000@0.04 0,0 r4.44",
+      "uses": 45,
+      "themes": {
+        "dark": 42,
+        "light": 3
+      },
+      "samples": ["Agentic AI›messages-square", "Prompt Added›messages-square"]
+    },
+    {
+      "value": "INNER_SHADOW #984FD0@0.08 0,1 r48.3 s-2",
+      "uses": 42,
+      "themes": {
+        "dark": 37,
+        "light": 1,
+        "componentsSection": 4
+      },
+      "samples": ["Billing›Variation 2 - Wide Banner", "Switch Auto Recharge›Variation 2 - Wide"]
+    },
+    {
+      "value": "LAYER_BLUR r74.7",
+      "uses": 32,
+      "themes": {
+        "dark": 30,
+        "light": 2
+      },
+      "samples": ["Dashboard›Vector 42", "Create New Project›Vector 42"]
+    },
+    {
+      "value": "LAYER_BLUR r93.3",
+      "uses": 30,
+      "themes": {
+        "dark": 28,
+        "light": 2
+      },
+      "samples": ["Agentic AI›Ellipse 186", "Agentic AI›Ellipse 185"]
+    },
+    {
+      "value": "LAYER_BLUR r700",
+      "uses": 30,
+      "themes": {
+        "dark": 28,
+        "light": 2
+      },
+      "samples": ["Agentic AI›Polygon 3", "Agentic AI›Polygon 2"]
+    },
+    {
+      "value": "LAYER_BLUR r6.6",
+      "uses": 30,
+      "themes": {
+        "dark": 28,
+        "light": 2
+      },
+      "samples": ["Agentic AI›Ellipse 187", "Prompt Added›Ellipse 187"]
+    },
+    {
+      "value": "DROP_SHADOW #000000@0.08 0,1 r2",
+      "uses": 29,
+      "themes": {
+        "dark": 29
+      },
+      "samples": ["Members - All members›Table", "Members - Invitations›Table"]
+    },
+    {
+      "value": "GLASS r0",
+      "uses": 26,
+      "themes": {
+        "dark": 26
+      },
+      "samples": ["Billing›TablesCell", "Switch Auto Recharge›TablesCell"]
+    },
+    {
+      "value": "INNER_SHADOW #FFFFFF@0.25 0,0 r2.4 s2",
+      "uses": 25,
+      "themes": {
+        "dark": 22,
+        "light": 1,
+        "componentsSection": 2
+      },
+      "samples": ["Billing›image 38 Vectorized", "Switch Auto Recharge›image 38 Vectorized"]
+    },
+    {
+      "value": "GLASS r85",
+      "uses": 18,
+      "themes": {
+        "dark": 15,
+        "light": 1,
+        "componentsSection": 2
+      },
+      "samples": ["Dashboard›image 38 Vectorized", "Create New Project›image 38 Vectorized"]
+    },
+    {
+      "value": "LAYER_BLUR r1.7",
+      "uses": 14,
+      "themes": {
+        "dark": 14
+      },
+      "samples": ["Billing›Rectangle 39343", "Billing›Rectangle 39342"]
+    },
+    {
+      "value": "LAYER_BLUR r76.5",
+      "uses": 14,
+      "themes": {
+        "dark": 14
+      },
+      "samples": ["Billing›Group 1171276688", "Billing›Group 1171276687"]
+    },
+    {
+      "value": "LAYER_BLUR r72.1",
+      "uses": 14,
+      "themes": {
+        "dark": 14
+      },
+      "samples": ["Billing›Rectangle 39380", "Switch Auto Recharge›Rectangle 39380"]
+    },
+    {
+      "value": "LAYER_BLUR r1",
+      "uses": 14,
+      "themes": {
+        "dark": 14
+      },
+      "samples": ["Billing›Frame 1618874660", "Billing›Frame 1618874661"]
+    },
+    {
+      "value": "DROP_SHADOW #000000@0.25 0,3 r19.3 s8",
+      "uses": 9,
+      "themes": {
+        "dark": 7,
+        "componentsSection": 2
+      },
+      "samples": ["Dropdown Menu›Dropdown Menu", "Components›Dropdown Menu"]
+    },
+    {
+      "value": "DROP_SHADOW #000000@0.08 0,2 r10",
+      "uses": 8,
+      "themes": {
+        "dark": 8
+      },
+      "samples": ["History›History item"]
+    },
+    {
+      "value": "DROP_SHADOW #0A0D12@0.06 0,2 r4 s-2",
+      "uses": 7,
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Members›Modal", "Switch Auto Recharge›Modal"]
+    },
+    {
+      "value": "DROP_SHADOW #0A0D12@0.1 0,4 r8 s-2",
+      "uses": 7,
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Members›Modal", "Switch Auto Recharge›Modal"]
+    },
+    {
+      "value": "BACKGROUND_BLUR r11.6",
+      "uses": 7,
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Billing›Badge", "Switch Auto Recharge›Badge"]
+    },
+    {
+      "value": "GLASS r5",
+      "uses": 7,
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Billing›Math", "Switch Auto Recharge›Math"]
+    },
+    {
+      "value": "BACKGROUND_BLUR r24.2",
+      "uses": 7,
+      "themes": {
+        "dark": 7
+      },
+      "samples": ["Billing›Frame 1618874661", "Switch Auto Recharge›Frame 1618874661"]
+    },
+    {
+      "value": "DROP_SHADOW #5462FF@0.4 0,3 r3",
+      "uses": 5,
+      "themes": {
+        "dark": 4,
+        "light": 1
+      },
+      "samples": ["View API Key Usage›singleLine0", "Usage›singleLine0"]
+    },
+    {
+      "value": "DROP_SHADOW #5462FF@0.4 0,6 r9",
+      "uses": 5,
+      "themes": {
+        "dark": 4,
+        "light": 1
+      },
+      "samples": ["View API Key Usage›singleLine0", "Usage›singleLine0"]
+    },
+    {
+      "value": "DROP_SHADOW #5462FF@0.4 0,9 r18",
+      "uses": 5,
+      "themes": {
+        "dark": 4,
+        "light": 1
+      },
+      "samples": ["View API Key Usage›singleLine0", "Usage›singleLine0"]
+    },
+    {
+      "value": "DROP_SHADOW #4CE670@0.4 0,3 r3",
+      "uses": 5,
+      "themes": {
+        "dark": 4,
+        "light": 1
+      },
+      "samples": ["View API Key Usage›singleLine1", "Usage›singleLine1"]
+    },
+    {
+      "value": "DROP_SHADOW #4CE670@0.4 0,6 r9",
+      "uses": 5,
+      "themes": {
+        "dark": 4,
+        "light": 1
+      },
+      "samples": ["View API Key Usage›singleLine1", "Usage›singleLine1"]
+    },
+    {
+      "value": "DROP_SHADOW #4CE670@0.4 0,9 r18",
+      "uses": 5,
+      "themes": {
+        "dark": 4,
+        "light": 1
+      },
+      "samples": ["View API Key Usage›singleLine1", "Usage›singleLine1"]
+    },
+    {
+      "value": "DROP_SHADOW #000000@0.1 0,1 r2 s-1",
+      "uses": 5,
+      "themes": {
+        "dark": 2,
+        "componentsSection": 3
+      },
+      "samples": ["Datepicker Dropdown›Datepicker Dropdown", "Components›Content"]
+    },
+    {
+      "value": "DROP_SHADOW #000000@0.1 0,1 r3",
+      "uses": 5,
+      "themes": {
+        "dark": 2,
+        "componentsSection": 3
+      },
+      "samples": ["Datepicker Dropdown›Datepicker Dropdown", "Components›Content"]
+    },
+    {
+      "value": "INNER_SHADOW #FFFFFF@0.8 0,0 r11.3 s6",
+      "uses": 4,
+      "themes": {
+        "light": 4
+      },
+      "samples": ["Light›Component 29", "Light›Component 28"]
+    },
+    {
+      "value": "BACKGROUND_BLUR r6.1",
+      "uses": 3,
+      "themes": {
+        "dark": 3
+      },
+      "samples": ["History›Component 59", "History›Component 58"]
+    },
+    {
+      "value": "DROP_SHADOW #000000@0.04 0,2 r7.8",
+      "uses": 3,
+      "themes": {
+        "light": 3
+      },
+      "samples": ["Normal Chat›Component 59", "Normal Chat›Component 58"]
+    },
+    {
+      "value": "BACKGROUND_BLUR r22.6",
+      "uses": 3,
+      "themes": {
+        "light": 3
+      },
+      "samples": ["Normal Chat›Component 59", "Normal Chat›Component 58"]
+    },
+    {
+      "value": "BACKGROUND_BLUR r9.4",
+      "uses": 2,
+      "themes": {
+        "light": 2
+      },
+      "samples": ["Toast component›Toast component"]
+    },
+    {
+      "value": "DROP_SHADOW #000000@0.1 0,2 r4",
+      "uses": 2,
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["Tuning Parameters›Ellipse", "Tuning Parameters Added›Ellipse"]
+    },
+    {
+      "value": "DROP_SHADOW #FD9516@0.4 0,3 r3",
+      "uses": 2,
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["View API Key Usage›singleLine0"]
+    },
+    {
+      "value": "DROP_SHADOW #FD9516@0.4 0,6 r9",
+      "uses": 2,
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["View API Key Usage›singleLine0"]
+    },
+    {
+      "value": "DROP_SHADOW #FD9516@0.4 0,9 r18",
+      "uses": 2,
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["View API Key Usage›singleLine0"]
+    },
+    {
+      "value": "DROP_SHADOW #79FFFD@0.4 0,3 r3",
+      "uses": 2,
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["View API Key Usage›singleLine0"]
+    },
+    {
+      "value": "DROP_SHADOW #79FFFD@0.4 0,6 r9",
+      "uses": 2,
+      "themes": {
+        "dark": 2
+      },
+      "samples": ["View API Key Usage›singleLine0"]
+    }
+  ]
+}

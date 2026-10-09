@@ -1,0 +1,9 @@
+{
+  "*.{ts,tsx,js,mjs,cjs}": [
+    "eslint --fix --max-warnings=0",
+    "prettier --write",
+    "node scripts/check-design-tokens.mjs"
+  ],
+  "*.{json,css,md,yml,yaml}": ["prettier --write"],
+  "*.css": ["node scripts/check-design-tokens.mjs"]
+}

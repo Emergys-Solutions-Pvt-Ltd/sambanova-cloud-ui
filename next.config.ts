@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Hide the floating Next.js dev indicator.
+  devIndicators: false,
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
@@ -11,6 +12,12 @@ const nextConfig: NextConfig = {
         as: "*.css",
       },
     },
+  },
+  async redirects() {
+    return [
+      { source: "/", destination: "/dashboard", permanent: false },
+      { source: "/settings", destination: "/settings/general", permanent: false },
+    ];
   },
 };
 

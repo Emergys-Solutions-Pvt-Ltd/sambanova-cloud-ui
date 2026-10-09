@@ -1,0 +1,78 @@
+import axios, { type AxiosError, type InternalAxiosRequestConfig } from "axios";
+
+import { env } from "@/config/env";
+
+import { toApiError } from "./errors";
+
+declare module "axios" {
+  interface AxiosRequestConfig {
+    /** Opt a single request out of automatic retries. */
+    skipRetry?: boolean;
+    /** Internal: number of retries already attempted. */
+    retryCount?: number;
+  }
+}
+
+const MAX_RETRIES = 2;
+const BASE_BACKOFF_MS = 300;
+const IDEMPOTENT_METHODS = new Set(["get", "head", "options"]);
+
+type AuthTokenGetter = () => string | null | Promise<string | null>;
+
+// Stub until Auth0 lands: no token is attached.
+let getAuthToken: AuthTokenGetter = () => null;
+
+/** Plug in the real token source (Auth0) once auth is wired up. */
+export function setAuthTokenGetter(getter: AuthTokenGetter) {
+  getAuthToken = getter;
+}
+
+export const apiClient = axios.create({
+  baseURL: env.apiBaseUrl,
+  timeout: 30_000,
+  headers: { Accept: "application/json" },
+});
+
+apiClient.interceptors.request.use(async (config) => {
+  // Hold every request until the MSW worker is intercepting, so the first
+  // query never races the worker. `env.useMocks` is inlined at build time, so
+  // the mocks chunk is dropped from bundles built with mocks off.
+  if (env.useMocks && typeof window !== "undefined") {
+    const { startMocking } = await import("@/mocks/browser");
+    await startMocking();
+  }
+
+  const token = await getAuthToken();
+  if (token) config.headers.set("Authorization", `Bearer ${token}`);
+  return config;
+});
+
+/** Retry only idempotent requests, and only for network failures or 5xx. Never 4xx. */
+function shouldRetry(error: AxiosError, config: InternalAxiosRequestConfig) {
+  if (config.skipRetry) return false;
+  if (!IDEMPOTENT_METHODS.has((config.method ?? "get").toLowerCase())) return false;
+  if ((config.retryCount ?? 0) >= MAX_RETRIES) return false;
+  if (axios.isCancel(error) || config.signal?.aborted) return false;
+
+  const status = error.response?.status;
+  return status === undefined || status >= 500;
+}
+
+const backoff = (attempt: number) =>
+  new Promise((resolve) =>
+    setTimeout(resolve, BASE_BACKOFF_MS * 2 ** attempt + Math.random() * 100),
+  );
+
+apiClient.interceptors.response.use(
+  (response) => response,
+  async (error: AxiosError) => {
+    const config = error.config;
+    if (config && shouldRetry(error, config)) {
+      const attempt = config.retryCount ?? 0;
+      config.retryCount = attempt + 1;
+      await backoff(attempt);
+      return apiClient.request(config);
+    }
+    throw toApiError(error);
+  },
+);
