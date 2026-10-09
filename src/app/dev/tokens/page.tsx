@@ -2,6 +2,10 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { type ReactNode } from "react";
 
+import { Avatar } from "@/components/ui/avatar";
+import { Badge, type BadgeVariant } from "@/components/ui/badge";
+import { Button, type ButtonVariant } from "@/components/ui/button";
+import { IconButton } from "@/components/ui/icon-button";
 import { emptyStates, illustrations } from "@/config/assets";
 
 import {
@@ -21,6 +25,17 @@ import {
 import { CssValue, IconGallery, Swatch, ThemeSwitch } from "./token-preview-client";
 
 export const metadata: Metadata = { title: "Design tokens" };
+
+const buttonVariants: ButtonVariant[] = [
+  "primary",
+  "secondary",
+  "tertiary",
+  "link",
+  "cancel",
+  "destructive",
+  "control",
+];
+const badgeVariants: BadgeVariant[] = ["success", "error", "warning", "info", "neutral", "brand"];
 
 function Section({
   id,
@@ -252,6 +267,57 @@ export default function TokensPage() {
             </figure>
           ))}
         </div>
+      </Section>
+
+      <Section
+        id="primitives-ui"
+        title="UI primitives"
+        description="Components built for the app shell. Button variants and states follow Figma › Components › Buttons (default, hover, disabled); hover them to see the hover state."
+      >
+        <ThemePair>
+          <div className="flex flex-col gap-4">
+            {buttonVariants.map((variant) => (
+              <div key={variant} className="flex flex-wrap items-center gap-3">
+                <span className="w-24 text-caption text-muted">{variant}</span>
+                <Button variant={variant}>Button</Button>
+                <Button variant={variant} leftIcon="plus">
+                  With icon
+                </Button>
+                <Button variant={variant} disabled>
+                  Disabled
+                </Button>
+                <Button variant={variant} loading>
+                  Loading
+                </Button>
+              </div>
+            ))}
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">icon buttons</span>
+              <IconButton icon="refresh" aria-label="Refresh" />
+              <IconButton icon="edit" aria-label="Edit" variant="outline" />
+              <IconButton icon="plus" aria-label="Add" variant="solid" />
+              <IconButton icon="close" aria-label="Close" disabled />
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">badges</span>
+              {badgeVariants.map((variant) => (
+                <Badge key={variant} variant={variant} size="md">
+                  {variant}
+                </Badge>
+              ))}
+              <Badge variant="success" size="sm">
+                $20
+              </Badge>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">avatars</span>
+              <Avatar name="John Michaels" size="xs" />
+              <Avatar name="John Michaels" size="sm" />
+              <Avatar name="John Michaels" size="md" />
+              <Avatar name="John Michaels" size="lg" />
+            </div>
+          </div>
+        </ThemePair>
       </Section>
 
       <Section
