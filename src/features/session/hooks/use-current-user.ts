@@ -23,7 +23,9 @@ export function useSessionSync() {
   const setGuest = useSessionStore((state) => state.setGuest);
 
   useEffect(() => {
-    if (data) setUser(data);
-    else if (isApiError(error) && error.status === 401) setGuest();
+    // A 401 wins over cached data: react-query keeps the last successful
+    // result when a refetch fails, which would leave a signed-out user "signed in".
+    if (isApiError(error) && error.status === 401) setGuest();
+    else if (data) setUser(data);
   }, [data, error, setUser, setGuest]);
 }

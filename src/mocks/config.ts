@@ -15,6 +15,9 @@ export interface MockConfig {
 }
 
 const STORAGE_KEY = "sn:mocks";
+
+/** Fired on window after every change; the app invalidates its queries. */
+export const MOCKS_CHANGED_EVENT = "sn:mocks-changed";
 const DEFAULT_CONFIG: MockConfig = { scenario: "default", latencyMs: 400 };
 
 export function getMockConfig(): MockConfig {
@@ -29,10 +32,12 @@ export function getMockConfig(): MockConfig {
 export function setMockConfig(patch: Partial<MockConfig>) {
   const next = { ...getMockConfig(), ...patch };
   localStorage.setItem(STORAGE_KEY, JSON.stringify(next));
+  window.dispatchEvent(new Event(MOCKS_CHANGED_EVENT));
   return next;
 }
 
 export function resetMockConfig() {
   localStorage.removeItem(STORAGE_KEY);
+  window.dispatchEvent(new Event(MOCKS_CHANGED_EVENT));
   return DEFAULT_CONFIG;
 }

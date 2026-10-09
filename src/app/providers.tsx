@@ -1,21 +1,24 @@
 "use client";
 
-import { QueryClientProvider } from "@tanstack/react-query";
-import dynamic from "next/dynamic";
-import { type ReactNode, useEffect } from "react";
+import { type QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { lazy, type ReactNode, Suspense, useEffect } from "react";
 
 import { ThemeSync } from "@/components/theme/theme-sync";
 import { useSessionSync } from "@/features/session";
 import { getQueryClient } from "@/lib/query-client";
+import { MOCKS_CHANGED_EVENT } from "@/mocks/config";
 import { useProjectStore } from "@/stores/project-store";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUIStore } from "@/stores/ui-store";
 
-// Loaded only in development; the import is dropped from production bundles.
+// Loaded only in development, on demand: no preload link, and the import is
+// dropped from production bundles.
 const ReactQueryDevtools =
   process.env.NODE_ENV === "development"
-    ? dynamic(() =>
-        import("@tanstack/react-query-devtools").then((module) => module.ReactQueryDevtools),
+    ? lazy(() =>
+        import("@tanstack/react-query-devtools").then((module) => ({
+          default: module.ReactQueryDevtools,
+        })),
       )
     : () => null;
 
@@ -26,6 +29,16 @@ function StoreHydration() {
     void useProjectStore.persist.rehydrate();
     void useUIStore.persist.rehydrate();
   }, []);
+  return null;
+}
+
+/** Refetches everything when the mock scenario changes (e.g. __mocks.set({ scenario: "guest" })). */
+function MockSync({ client }: { client: QueryClient }) {
+  useEffect(() => {
+    const onChange = () => void client.invalidateQueries();
+    window.addEventListener(MOCKS_CHANGED_EVENT, onChange);
+    return () => window.removeEventListener(MOCKS_CHANGED_EVENT, onChange);
+  }, [client]);
   return null;
 }
 
@@ -42,8 +55,11 @@ export function Providers({ children }: { children: ReactNode }) {
       <StoreHydration />
       <ThemeSync />
       <SessionSync />
+      <MockSync client={queryClient} />
       {children}
-      <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+      <Suspense fallback={null}>
+        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
+      </Suspense>
     </QueryClientProvider>
   );
 }
