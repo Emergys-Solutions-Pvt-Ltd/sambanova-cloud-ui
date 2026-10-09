@@ -71,7 +71,7 @@ src/
     (app)/                Signed-in app: dashboard, playground, api-keys, usage,
                           pricing, projects, settings/{general,members,limits,billing}
     (auth)/               Signed-out pages: login, signup
-    dev/                  Developer-only pages (404 in production): /dev/api-demo
+    dev/                  Developer-only pages (404 in production): /dev/api-demo, /dev/tokens
     error.tsx             Route error boundary
     global-error.tsx      Root-layout error boundary
     not-found.tsx         404 page
@@ -88,12 +88,28 @@ src/
     query-keys.ts         Query key factory
   mocks/                  MSW worker, handlers, fixtures, scenario config
   stores/                 Zustand stores
-  styles/                 Global CSS and design tokens
+  styles/                 tokens.css (design tokens), globals.css (Tailwind wiring), fonts/
   types/                  Shared domain types
+assets/icons/             Icon sources exported from Figma (build input for npm run icons)
+design-tokens/            Color audit and token decisions
+scripts/                  check-design-tokens.mjs, build-icons.mjs
   proxy.ts                Request proxy (Next 16's replacement for middleware): auth guard
 ```
 
 Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a feature imports from the feature's `index.ts`, not its internal files.
+
+## Design system
+
+- **Tokens** live in `src/styles/tokens.css` as CSS variables. **Primitives** (`--sn-purple-500`, …) are the raw palette. **Semantic** tokens (`--sn-bg-canvas`, `--sn-text-muted`, …) say what a color is for and change per theme.
+  - Dark is the default. `[data-theme="light"]` switches to light, and `prefers-color-scheme` applies when no theme is set.
+- **Tailwind** is wired to semantic tokens only (`src/styles/globals.css`). The default palette and type scale are removed. Use utilities like `bg-surface`, `text-muted`, `border-default`, `text-heading-sm` and `rounded-lg`.
+  - **Never write a color value in a component.** `npm run check:tokens` enforces this.
+- **Theme**: `useThemeStore` holds `system | light | dark` (persisted). An inline script at the top of `<body>` applies it before first paint, so the wrong theme never flashes. `ThemeSync` keeps `<html data-theme>` in sync with the store and the OS setting.
+- **Typography**: Lato 2.0, self-hosted (`src/styles/fonts/lato`, SIL OFL) at 400/500/600/700.
+- **Icons**: `<Icon name="api-keys" size="md" color="muted" />`. Icons inherit `currentColor`. Add an SVG to `assets/icons/`, then run `npm run icons`.
+- **Illustrations**: `public/illustrations` and `public/brand`, mapped in `src/config/assets.ts`. Use `show-in-dark` / `show-in-light` to swap themed variants.
+- **Preview**: `/dev/tokens` (development only) renders every token in both themes.
+- **Audit and decisions**: `design-tokens/README.md` (merges, guessed values, Figma inconsistencies) and `design-tokens/color-inventory.json`.
 
 ## Data layer
 
