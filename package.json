@@ -6,12 +6,14 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --max-warnings=0",
+    "lint": "eslint . --max-warnings=0 && npm run check:tokens",
     "lint:fix": "eslint . --fix",
     "type-check": "next typegen && tsc --noEmit",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "check:tokens": "node scripts/check-design-tokens.mjs",
+    "icons": "node scripts/build-icons.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "5.9.1",
@@ -46,6 +48,7 @@
     "msw": "3.0.2",
     "prettier": "3.9.9",
     "prettier-plugin-tailwindcss": "0.8.1",
+    "svgo": "4.1.0",
     "tailwindcss": "4.3.3",
     "typescript": "5.9.3"
   },
