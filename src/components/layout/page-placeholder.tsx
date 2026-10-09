@@ -10,8 +10,8 @@ interface PagePlaceholderProps {
 export function PagePlaceholder({ title, description, children }: PagePlaceholderProps) {
   return (
     <section className="flex flex-col gap-2">
-      <h1 className="text-2xl font-semibold">{title}</h1>
-      {description && <p className="opacity-70">{description}</p>}
+      <h1 className="text-heading-lg">{title}</h1>
+      {description && <p className="text-muted">{description}</p>}
       {children}
     </section>
   );

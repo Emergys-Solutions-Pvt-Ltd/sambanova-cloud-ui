@@ -20,7 +20,7 @@ const navItems = [
 export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <div className="flex min-h-screen flex-1">
-      <nav aria-label="Main" className="w-60 shrink-0 border-r p-4">
+      <nav aria-label="Main" className="w-60 shrink-0 border-r border-default bg-sidebar p-4">
         <ul className="flex flex-col gap-2">
           {navItems.map((item) => (
             <li key={item.href}>

@@ -11,7 +11,7 @@ export function SettingsTabs() {
 
   return (
     <nav aria-label="Project settings">
-      <ul className="flex gap-4 border-b">
+      <ul className="flex gap-4 border-b border-default">
         {settingsTabs.map((tab) => {
           const active = pathname === tab.href;
           return (
@@ -19,7 +19,11 @@ export function SettingsTabs() {
               <Link
                 href={tab.href}
                 aria-current={active ? "page" : undefined}
-                className={active ? "block border-b-2 pb-2 font-semibold" : "block pb-2"}
+                className={
+                  active
+                    ? "block border-b-2 border-brand pb-2 font-semibold text-primary"
+                    : "block pb-2 text-muted hover:text-primary"
+                }
               >
                 {tab.label}
               </Link>

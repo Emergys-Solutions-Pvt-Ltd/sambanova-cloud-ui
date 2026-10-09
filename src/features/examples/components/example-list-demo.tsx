@@ -62,7 +62,7 @@ export function ExampleListDemo() {
         <label className="flex items-center gap-2">
           Active project
           <select
-            className="border px-2 py-1"
+            className="rounded-sm border border-default bg-input px-2 py-1"
             value={project?.id ?? ""}
             onChange={(event) => {
               switchProject(event.target.value);
@@ -93,7 +93,7 @@ export function ExampleListDemo() {
           <div className="mt-2 flex items-center gap-3">
             <button
               type="button"
-              className="border px-2 py-1"
+              className="rounded-sm border border-default bg-input px-2 py-1"
               onClick={() => setPage((current) => current - 1)}
               disabled={page <= 1}
             >
@@ -104,7 +104,7 @@ export function ExampleListDemo() {
             </span>
             <button
               type="button"
-              className="border px-2 py-1"
+              className="rounded-sm border border-default bg-input px-2 py-1"
               onClick={() => setPage((current) => current + 1)}
               disabled={page >= examples.data.totalPages || examples.isPlaceholderData}
             >
@@ -120,13 +120,17 @@ export function ExampleListDemo() {
         </h2>
         <form onSubmit={onSubmit} className="flex items-center gap-2">
           <input
-            className="border px-2 py-1"
+            className="rounded-sm border border-default bg-input px-2 py-1"
             value={name}
             onChange={(event) => setName(event.target.value)}
             placeholder="Item name"
             aria-label="Item name"
           />
-          <button type="submit" className="border px-2 py-1" disabled={createExample.isPending}>
+          <button
+            type="submit"
+            className="rounded-sm border border-default bg-input px-2 py-1"
+            disabled={createExample.isPending}
+          >
             {createExample.isPending ? "Creating…" : "Create"}
           </button>
         </form>

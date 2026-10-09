@@ -19,10 +19,14 @@ export default function RouteError({
       role="alert"
       className="flex flex-1 flex-col items-center justify-center gap-4 p-6 text-center"
     >
-      <h1 className="text-2xl font-semibold">Something went wrong</h1>
-      <p className="opacity-70">An unexpected error occurred while loading this page.</p>
-      {error.digest && <p className="font-mono text-sm opacity-50">Reference: {error.digest}</p>}
-      <button type="button" onClick={retry} className="rounded border px-4 py-2">
+      <h1 className="text-heading-lg">Something went wrong</h1>
+      <p className="text-muted">An unexpected error occurred while loading this page.</p>
+      {error.digest && <p className="text-caption text-muted">Reference: {error.digest}</p>}
+      <button
+        type="button"
+        onClick={retry}
+        className="rounded-md border border-default bg-surface px-4 py-2 font-medium hover:bg-hover"
+      >
         Try again
       </button>
     </div>
