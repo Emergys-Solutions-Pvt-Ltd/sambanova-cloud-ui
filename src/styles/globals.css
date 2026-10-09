@@ -26,6 +26,9 @@
   --background-color-selected: var(--sn-bg-selected);
   --background-color-overlay: var(--sn-bg-overlay);
   --background-color-inverse: var(--sn-bg-inverse);
+  --background-color-menu: var(--sn-bg-menu);
+  --background-color-menu-line: var(--sn-border-menu);
+  --background-color-profile: var(--sn-bg-profile);
 
   /* border-* (also used by divide-*) */
   --border-color-default: var(--sn-border-default);
@@ -33,6 +36,9 @@
   --border-color-strong: var(--sn-border-strong);
   --border-color-control: var(--sn-border-control);
   --border-color-focus: var(--sn-border-focus);
+  --border-color-menu: var(--sn-border-menu);
+  --border-color-profile: var(--sn-border-profile);
+  --border-color-disabled: var(--sn-border-disabled);
 
   /* text-* */
   --text-color-primary: var(--sn-text-primary);
@@ -44,6 +50,8 @@
   --text-color-link-hover: var(--sn-text-link-hover);
   --text-color-on-brand: var(--sn-text-on-brand);
   --text-color-nav-active: var(--sn-text-nav-active);
+  --text-color-menu-label: var(--sn-text-menu-label);
+  --text-color-disabled: var(--sn-text-disabled);
 
   /* Shared across bg-/text-/border-/ring-/fill-/stroke- */
   --color-brand: var(--sn-brand-primary);
@@ -58,6 +66,15 @@
   --color-button-primary-hover: var(--sn-button-primary-hover);
   --color-button-outline: var(--sn-button-outline-border);
   --color-button-outline-fg: var(--sn-button-outline-fg);
+  --color-button-primary-disabled: var(--sn-button-primary-disabled-bg);
+  --color-button-primary-disabled-fg: var(--sn-button-primary-disabled-fg);
+  --color-button-secondary: var(--sn-button-secondary-bg);
+  --color-button-secondary-hover: var(--sn-button-secondary-hover-bg);
+  --color-button-destructive: var(--sn-button-destructive-bg);
+  --color-button-destructive-fg: var(--sn-button-destructive-fg);
+  --color-button-destructive-hover: var(--sn-button-destructive-hover);
+  --color-button-destructive-disabled: var(--sn-button-destructive-disabled-bg);
+  --color-button-destructive-disabled-fg: var(--sn-button-destructive-disabled-fg);
 
   --color-success: var(--sn-status-success-text);
   --color-success-bg: var(--sn-status-success-bg);
@@ -172,6 +189,7 @@
   --radius-xs: var(--sn-radius-xs);
   --radius-sm: var(--sn-radius-sm);
   --radius-md: var(--sn-radius-md);
+  --radius-item: var(--sn-radius-item);
   --radius-lg: var(--sn-radius-lg);
   --radius-xl: var(--sn-radius-xl);
 
@@ -238,4 +256,119 @@
 
 @utility show-in-light {
   display: var(--sn-only-light);
+}
+
+/* ---- Motion ---------------------------------------------------------------
+   Durations and easing come from tokens (and drop to 0ms under
+   prefers-reduced-motion). Used with Radix data-state attributes. */
+@keyframes sn-slide-in-left {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes sn-slide-out-left {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes sn-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes sn-fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sn-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(2px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@utility animate-drawer-in {
+  animation: sn-slide-in-left var(--sn-duration-slow) var(--sn-ease-standard);
+}
+
+@utility animate-drawer-out {
+  animation: sn-slide-out-left var(--sn-duration-base) var(--sn-ease-exit) forwards;
+}
+
+@utility animate-overlay-in {
+  animation: sn-fade-in var(--sn-duration-base) var(--sn-ease-standard);
+}
+
+@utility animate-overlay-out {
+  animation: sn-fade-out var(--sn-duration-base) var(--sn-ease-exit) forwards;
+}
+
+@utility animate-pop-in {
+  animation: sn-pop-in var(--sn-duration-fast) var(--sn-ease-standard);
+}
+
+/* Named stacking layers (tokens.css --sn-z-*): z-dropdown, z-drawer, ... */
+@utility z-raised {
+  z-index: var(--sn-z-raised);
+}
+
+@utility z-sticky {
+  z-index: var(--sn-z-sticky);
+}
+
+@utility z-sidebar {
+  z-index: var(--sn-z-sidebar);
+}
+
+@utility z-header {
+  z-index: var(--sn-z-header);
+}
+
+@utility z-dropdown {
+  z-index: var(--sn-z-dropdown);
+}
+
+@utility z-overlay {
+  z-index: var(--sn-z-overlay);
+}
+
+@utility z-drawer {
+  z-index: var(--sn-z-drawer);
+}
+
+@utility z-modal {
+  z-index: var(--sn-z-modal);
+}
+
+@utility z-popover {
+  z-index: var(--sn-z-popover);
+}
+
+@utility z-toast {
+  z-index: var(--sn-z-toast);
+}
+
+@utility z-tooltip {
+  z-index: var(--sn-z-tooltip);
 }

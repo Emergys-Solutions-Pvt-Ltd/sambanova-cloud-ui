@@ -24,8 +24,19 @@ export const semanticGroups: Record<string, string[]> = {
     "bg-selected",
     "bg-overlay",
     "bg-inverse",
+    "bg-menu",
+    "bg-profile",
   ],
-  Border: ["border-default", "border-subtle", "border-strong", "border-control", "border-focus"],
+  Border: [
+    "border-default",
+    "border-subtle",
+    "border-strong",
+    "border-control",
+    "border-focus",
+    "border-menu",
+    "border-profile",
+    "border-disabled",
+  ],
   Text: [
     "text-primary",
     "text-secondary",
@@ -36,6 +47,8 @@ export const semanticGroups: Record<string, string[]> = {
     "text-link-hover",
     "text-on-brand",
     "text-nav-active",
+    "text-menu-label",
+    "text-disabled",
   ],
   Brand: [
     "brand-primary",
@@ -48,6 +61,15 @@ export const semanticGroups: Record<string, string[]> = {
     "button-primary-hover",
     "button-outline-border",
     "button-outline-fg",
+    "button-primary-disabled-bg",
+    "button-primary-disabled-fg",
+    "button-secondary-bg",
+    "button-secondary-hover-bg",
+    "button-destructive-bg",
+    "button-destructive-fg",
+    "button-destructive-hover",
+    "button-destructive-disabled-bg",
+    "button-destructive-disabled-fg",
   ],
   Status: [
     "status-success-text",
@@ -88,6 +110,11 @@ export const guessedTokens = new Set([
   "chart-prompt",
   "border-subtle",
   "border-focus",
+  "border-menu",
+  "border-profile",
+  "text-disabled",
+  "button-secondary-hover-bg",
+  "button-destructive-hover",
 ]);
 
 export const typeScale = [

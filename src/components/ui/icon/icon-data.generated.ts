@@ -348,6 +348,15 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="m15.18 3.52 3.3 3.3a2.8 2.8 0 0 1 .77 1.87 2.7 2.7 0 0 1-.77 1.86l-2.43 2.43a2.6 2.6 0 0 1-1.86.77 2.7 2.7 0 0 1-1.87-.77l-.27-.28-6.01 6.01q-.48.47-1.14.53l-.16.01H3.67a.9.9 0 0 1-.91-.81l-.01-.11v-1.07q0-.66.43-1.18l.11-.12.38-.38H5.5v-1.83h1.83v-1.83L9.3 9.95l-.28-.27a2.8 2.8 0 0 1-.77-1.87 2.7 2.7 0 0 1 .77-1.86l2.43-2.43a2.6 2.6 0 0 1 1.86-.77 2.7 2.7 0 0 1 1.87.77m-1.43 4.73z"/>',
   },
+  "layers-subtract": {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M8 6c0-.53.21-1.04.59-1.41C8.96 4.21 9.47 4 10 4h8c.53 0 1.04.21 1.41.59.38.37.59.88.59 1.41v8c0 .53-.21 1.04-.59 1.41-.37.38-.88.59-1.41.59h-8c-.53 0-1.04-.21-1.41-.59A2 2 0 0 1 8 14z"/><path d="M16 16v2c0 .53-.21 1.04-.59 1.41-.37.38-.88.59-1.41.59H6c-.53 0-1.04-.21-1.41-.59A2 2 0 0 1 4 18v-8c0-.53.21-1.04.59-1.41C4.96 8.21 5.47 8 6 8h2"/>',
+  },
   logout: {
     viewBox: "0 0 18 18",
     fill: "none",
@@ -356,6 +365,15 @@ export const iconData = {
     strokeLinecap: "round",
     strokeLinejoin: "round",
     body: '<path d="M10.5 6V4.5A1.5 1.5 0 0 0 9 3H3.75a1.5 1.5 0 0 0-1.5 1.5v9a1.5 1.5 0 0 0 1.5 1.5H9a1.5 1.5 0 0 0 1.5-1.5V12M5.25 9h10.5m-2.25 2.25L15.75 9 13.5 6.75"/>',
+  },
+  menu: {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M4 6h16M4 12h16M4 18h16"/>',
   },
   minus: {
     viewBox: "0 0 24 24",

@@ -90,6 +90,8 @@
   --sn-red-400: #ff5959;
   --sn-red-500: #f05252;
   --sn-red-700: #c81e1e;
+  --sn-red-900: #6b2c2c;
+  --sn-red-950: #321919;
   --sn-red-50: #fdf2f2;
   --sn-red-200: #fbd5d5;
   --sn-yellow-400: #e3a008;
@@ -135,6 +137,7 @@
   --sn-radius-xs: 4px;
   --sn-radius-sm: 6px;
   --sn-radius-md: 8px;
+  --sn-radius-item: 10px; /* menu options (Figma) */
   --sn-radius-lg: 12px;
   --sn-radius-xl: 16px;
   --sn-radius-full: 9999px;
@@ -289,6 +292,30 @@
   --sn-switcher-bg: rgb(255 255 255 / 0.04);
   --sn-switcher-border: rgb(255 255 255 / 0.08);
   --sn-switcher-active: rgb(255 255 255 / 0.16);
+
+  /* Menus and popovers (Figma: account menu, project dropdown) */
+  --sn-bg-menu: var(--sn-neutral-800);
+  --sn-border-menu: var(--sn-gray-600);
+  --sn-text-menu-label: var(--sn-gray-500);
+
+  /* Sidebar profile card: faint lavender wash with a purple hairline */
+  --sn-bg-profile: rgb(234 218 250 / 0.06);
+  --sn-border-profile: rgb(173 103 229 / 0.3);
+
+  /* Disabled */
+  --sn-text-disabled: var(--sn-gray-500);
+  --sn-border-disabled: var(--sn-neutral-700);
+
+  /* Buttons: states from Figma Components (Active/Hover/Disable) */
+  --sn-button-primary-disabled-bg: var(--sn-gray-500);
+  --sn-button-primary-disabled-fg: var(--sn-neutral-700);
+  --sn-button-secondary-bg: rgb(255 255 255 / 0.04);
+  --sn-button-secondary-hover-bg: rgb(255 255 255 / 0.08);
+  --sn-button-destructive-bg: var(--sn-red-500);
+  --sn-button-destructive-fg: var(--sn-neutral-1000);
+  --sn-button-destructive-hover: var(--sn-red-400); /* GUESS: no hover in Figma */
+  --sn-button-destructive-disabled-bg: var(--sn-red-900);
+  --sn-button-destructive-disabled-fg: var(--sn-red-950);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -381,6 +408,26 @@
   --sn-switcher-bg: rgb(0 0 0 / 0.04);
   --sn-switcher-border: rgb(0 0 0 / 0.08);
   --sn-switcher-active: rgb(152 71 214 / 0.22);
+
+  --sn-bg-menu: var(--sn-neutral-0);
+  --sn-border-menu: var(--sn-gray-200); /* GUESS: no light menu in Figma */
+  --sn-text-menu-label: var(--sn-gray-500);
+
+  --sn-bg-profile: rgb(170 85 255 / 0.06);
+  --sn-border-profile: rgb(152 71 214 / 0.3); /* GUESS: no signed-in light sidebar */
+
+  --sn-text-disabled: var(--sn-gray-400); /* GUESS */
+  --sn-border-disabled: var(--sn-gray-200); /* GUESS */
+
+  --sn-button-primary-disabled-bg: var(--sn-gray-200); /* GUESS */
+  --sn-button-primary-disabled-fg: var(--sn-gray-400); /* GUESS */
+  --sn-button-secondary-bg: transparent; /* GUESS: Figma components are dark only */
+  --sn-button-secondary-hover-bg: rgb(98 43 134 / 0.06); /* GUESS */
+  --sn-button-destructive-bg: var(--sn-red-500);
+  --sn-button-destructive-fg: var(--sn-neutral-0); /* GUESS */
+  --sn-button-destructive-hover: var(--sn-red-700); /* GUESS */
+  --sn-button-destructive-disabled-bg: var(--sn-red-200); /* GUESS */
+  --sn-button-destructive-disabled-fg: var(--sn-red-400); /* GUESS */
 }
 
 @media (prefers-color-scheme: light) {
@@ -468,6 +515,26 @@
     --sn-switcher-bg: rgb(0 0 0 / 0.04);
     --sn-switcher-border: rgb(0 0 0 / 0.08);
     --sn-switcher-active: rgb(152 71 214 / 0.22);
+
+    --sn-bg-menu: var(--sn-neutral-0);
+    --sn-border-menu: var(--sn-gray-200); /* GUESS: no light menu in Figma */
+    --sn-text-menu-label: var(--sn-gray-500);
+
+    --sn-bg-profile: rgb(170 85 255 / 0.06);
+    --sn-border-profile: rgb(152 71 214 / 0.3); /* GUESS: no signed-in light sidebar */
+
+    --sn-text-disabled: var(--sn-gray-400); /* GUESS */
+    --sn-border-disabled: var(--sn-gray-200); /* GUESS */
+
+    --sn-button-primary-disabled-bg: var(--sn-gray-200); /* GUESS */
+    --sn-button-primary-disabled-fg: var(--sn-gray-400); /* GUESS */
+    --sn-button-secondary-bg: transparent; /* GUESS: Figma components are dark only */
+    --sn-button-secondary-hover-bg: rgb(98 43 134 / 0.06); /* GUESS */
+    --sn-button-destructive-bg: var(--sn-red-500);
+    --sn-button-destructive-fg: var(--sn-neutral-0); /* GUESS */
+    --sn-button-destructive-hover: var(--sn-red-700); /* GUESS */
+    --sn-button-destructive-disabled-bg: var(--sn-red-200); /* GUESS */
+    --sn-button-destructive-disabled-fg: var(--sn-red-400); /* GUESS */
   }
 }
 

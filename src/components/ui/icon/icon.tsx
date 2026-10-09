@@ -4,6 +4,8 @@ import { cn } from "@/lib/cn";
 
 import { iconData, type IconName } from "./icon-data.generated";
 
+export type { IconName };
+
 const SIZES = { xs: 12, sm: 16, md: 20, lg: 24, xl: 28 } as const;
 
 const COLORS = {
