@@ -38,3 +38,23 @@ export function formatDate(iso: string) {
 export function formatTime(iso: string) {
   return timeFormat.format(new Date(iso));
 }
+
+const trimZero = (value: number) => String(Number(value.toFixed(1)));
+
+/** 2_000_000 → "2M tok", 128_000 → "128K tok". */
+export function formatTokenCount(tokens: number) {
+  if (tokens >= 1_000_000) return `${trimZero(tokens / 1_000_000)}M tok`;
+  if (tokens >= 1_000) return `${trimZero(tokens / 1_000)}K tok`;
+  return `${tokens} tok`;
+}
+
+const monthYearFormat = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+/** "2026-01" → "Jan 2026". */
+export function formatMonthYear(yearMonth: string) {
+  return monthYearFormat.format(new Date(`${yearMonth}-01T00:00:00Z`));
+}

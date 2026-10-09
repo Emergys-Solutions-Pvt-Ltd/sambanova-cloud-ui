@@ -8,6 +8,7 @@ import { Button, type ButtonVariant } from "@/components/ui/button";
 import { CodeBlock } from "@/components/ui/code-block";
 import { CopyButton } from "@/components/ui/copy-button";
 import { IconButton } from "@/components/ui/icon-button";
+import { RatingIcons } from "@/components/ui/rating-icons";
 import { Meter } from "@/components/ui/meter";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { emptyStates, illustrations } from "@/config/assets";
@@ -26,7 +27,14 @@ import {
   typeScale,
   zLayers,
 } from "./token-catalog";
-import { CssValue, IconGallery, SelectDemo, Swatch, ThemeSwitch } from "./token-preview-client";
+import {
+  ComboboxDemo,
+  CssValue,
+  IconGallery,
+  SelectDemo,
+  Swatch,
+  ThemeSwitch,
+} from "./token-preview-client";
 
 export const metadata: Metadata = { title: "Design tokens" };
 
@@ -339,6 +347,15 @@ export default function TokensPage() {
             <div className="flex flex-wrap items-center gap-3">
               <span className="w-24 text-caption text-muted">select</span>
               <SelectDemo />
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">combobox</span>
+              <ComboboxDemo />
+            </div>
+            <div className="flex flex-wrap items-center gap-6">
+              <span className="w-24 text-caption text-muted">rating</span>
+              <RatingIcons kind="bulb" value={4} label="Reasoning" />
+              <RatingIcons kind="bolt" value={3} label="Speed" />
             </div>
             <div className="flex flex-wrap items-center gap-6">
               <span className="w-24 text-caption text-muted">meter</span>

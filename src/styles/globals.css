@@ -31,6 +31,7 @@
   --background-color-profile: var(--sn-bg-profile);
   --background-color-chip: var(--sn-bg-chip);
   --background-color-tint-promo: var(--sn-tint-promo);
+  --background-color-scrollbar: var(--sn-bg-scrollbar);
   --background-color-dot: var(--sn-border-strong);
 
   /* border-* (also used by divide-*) */
@@ -399,4 +400,10 @@
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+/* Slim scrollbar with the themed thumb (Figma: Compare Models dropdown). */
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sn-bg-scrollbar) transparent;
 }

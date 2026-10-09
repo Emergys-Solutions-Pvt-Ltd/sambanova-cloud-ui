@@ -52,6 +52,20 @@ export interface ModelPricing {
   badge?: string;
 }
 
+export interface ModelFeatures {
+  /** Tokens the model can read in one request. */
+  contextWindow: number;
+  /** Tokens the model can generate in one response. */
+  maxOutput: number;
+  /** 0 to 5. */
+  reasoning: number;
+  speed: number;
+  fastMode: boolean;
+  adaptiveThinking: boolean;
+  /** Year and month as "YYYY-MM". */
+  knowledgeCutoff: string;
+}
+
 export interface CatalogModel {
   id: string;
   /** Value sent as `model` in API requests. */
@@ -61,8 +75,11 @@ export interface CatalogModel {
   /** Key into the brand artwork (deepseek, minimax, gemma, openai); anything else shows an initial. */
   brand: string;
   category: ModelCategory;
+  /** Listed first in model pickers. */
+  popular: boolean;
   description: string;
   pricing: ModelPricing;
+  features: ModelFeatures;
 }
 
 export type ModelGlow = "indigo" | "sky" | "teal" | "gemma";

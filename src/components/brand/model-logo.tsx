@@ -12,6 +12,8 @@ interface ModelLogoProps {
   name: string;
   /** Rendered square size in px. Figma uses 44 on cards and 20 in selects. */
   size?: number;
+  /** "plain" swaps MiniMax's blue badge for the bare red wave used in Compare Models. */
+  variant?: "badge" | "plain";
   className?: string;
 }
 
@@ -96,7 +98,13 @@ function OpenAI(props: SVGProps<SVGSVGElement>) {
 }
 
 /** Model/brand artwork at a square size, with an initial as the fallback. */
-export function ModelLogo({ brand, name, size = 44, className }: ModelLogoProps) {
+export function ModelLogo({
+  brand,
+  name,
+  size = 44,
+  variant = "badge",
+  className,
+}: ModelLogoProps) {
   const common = {
     width: size,
     height: size,
@@ -108,6 +116,17 @@ export function ModelLogo({ brand, name, size = 44, className }: ModelLogoProps)
     case "deepseek":
       return <DeepSeek {...common} />;
     case "minimax":
+      if (variant === "plain") {
+        return (
+          <Image
+            src="/dashboard/logo-minimax.webp"
+            alt=""
+            width={size}
+            height={size}
+            className={cn("shrink-0", className)}
+          />
+        );
+      }
       return <MiniMax {...common} className={cn(common.className, "rounded-md")} />;
     case "openai":
       // The artwork is 36 units inside a 44 frame in Figma, so it sits slightly inset.

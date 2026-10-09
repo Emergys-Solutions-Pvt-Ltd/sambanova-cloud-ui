@@ -340,6 +340,7 @@
   --sn-button-glass-fg: var(--sn-neutral-0);
   --sn-button-outline-strong-border: var(--sn-neutral-0);
   --sn-bg-chip: rgb(244 234 253 / 0.2);
+  --sn-bg-scrollbar: rgb(255 255 255 / 0.22); /* thumb of thin scrollbars (Figma dropdown) */
 }
 
 /* ---------------------------------------------------------------------- */
@@ -457,7 +458,8 @@
   --sn-border-input: var(--sn-gray-300);
   --sn-button-glass-fg: var(--sn-purple-900);
   --sn-button-outline-strong-border: var(--sn-purple-400);
-  --sn-bg-chip: rgb(255 255 255 / 0.2); /* GUESS */
+  --sn-bg-chip: rgb(255 255 255 / 0.2);
+  --sn-bg-scrollbar: rgb(0 0 0 / 0.18); /* GUESS: no light dropdown in Figma */ /* GUESS */
 }
 
 @media (prefers-color-scheme: light) {
@@ -570,7 +572,8 @@
     --sn-border-input: var(--sn-gray-300);
     --sn-button-glass-fg: var(--sn-purple-900);
     --sn-button-outline-strong-border: var(--sn-purple-400);
-    --sn-bg-chip: rgb(255 255 255 / 0.2); /* GUESS */
+    --sn-bg-chip: rgb(255 255 255 / 0.2);
+    --sn-bg-scrollbar: rgb(0 0 0 / 0.18); /* GUESS: no light dropdown in Figma */ /* GUESS */
   }
 }
 
