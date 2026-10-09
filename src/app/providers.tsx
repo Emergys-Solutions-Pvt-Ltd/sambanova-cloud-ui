@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import { type ReactNode, useEffect } from "react";
 
+import { ThemeSync } from "@/components/theme/theme-sync";
 import { useSessionSync } from "@/features/session";
 import { getQueryClient } from "@/lib/query-client";
 import { useProjectStore } from "@/stores/project-store";
@@ -39,6 +40,7 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       <StoreHydration />
+      <ThemeSync />
       <SessionSync />
       {children}
       <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
