@@ -4,14 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { settingsTabs } from "@/config/routes";
+import { cn } from "@/lib/cn";
 
-/** Route-based tabs so each settings section is deep-linkable. Restyled in Work Area D. */
+/** Route-based tabs so each settings section is deep-linkable. */
 export function SettingsTabs() {
   const pathname = usePathname();
 
   return (
-    <nav aria-label="Project settings">
-      <ul className="flex gap-4 border-b border-default">
+    <nav
+      aria-label="Project settings"
+      className="overflow-x-auto border-b border-default px-4 sm:px-6"
+    >
+      <ul className="flex min-w-max gap-6">
         {settingsTabs.map((tab) => {
           const active = pathname === tab.href;
           return (
@@ -19,11 +23,12 @@ export function SettingsTabs() {
               <Link
                 href={tab.href}
                 aria-current={active ? "page" : undefined}
-                className={
+                className={cn(
+                  "-mb-px block border-b-2 px-1 py-3 text-label",
                   active
-                    ? "block border-b-2 border-brand pb-2 font-semibold text-primary"
-                    : "block pb-2 text-muted hover:text-primary"
-                }
+                    ? "border-brand font-semibold text-primary"
+                    : "border-transparent text-muted hover:text-primary",
+                )}
               >
                 {tab.label}
               </Link>

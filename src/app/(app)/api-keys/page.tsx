@@ -1,11 +1,29 @@
 import type { Metadata } from "next";
 
-import { PagePlaceholder } from "@/components/layout/page-placeholder";
+import { ComingSoon } from "@/components/layout/coming-soon";
+import { PageContent, PageHeader } from "@/components/layout/page-header";
+import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = { title: "API Keys" };
 
 export default function ApiKeysPage() {
   return (
-    <PagePlaceholder title="API Keys" description="Create and manage API keys for this project." />
+    <>
+      <PageHeader
+        title="API Keys"
+        subtitle="Create and manage API keys to securely access the Sambanova API."
+        actions={
+          <>
+            <Button variant="tertiary" leftIcon="refresh">
+              Refresh
+            </Button>
+            <Button leftIcon="plus">Create API Key</Button>
+          </>
+        }
+      />
+      <PageContent>
+        <ComingSoon>Key table with search, status filter and pagination.</ComingSoon>
+      </PageContent>
+    </>
   );
 }

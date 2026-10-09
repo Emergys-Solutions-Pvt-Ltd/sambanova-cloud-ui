@@ -1,9 +1,17 @@
 import type { Metadata } from "next";
 
-import { PagePlaceholder } from "@/components/layout/page-placeholder";
+import { ComingSoon } from "@/components/layout/coming-soon";
+import { PageContent, PageHeader } from "@/components/layout/page-header";
 
 export const metadata: Metadata = { title: "Playground" };
 
 export default function PlaygroundPage() {
-  return <PagePlaceholder title="Playground" description="Test prompts and compare models." />;
+  return (
+    <>
+      <PageHeader title="Playground" subtitle="Test prompts and compare models." />
+      <PageContent>
+        <ComingSoon />
+      </PageContent>
+    </>
+  );
 }

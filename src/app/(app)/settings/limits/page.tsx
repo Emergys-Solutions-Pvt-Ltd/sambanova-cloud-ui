@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
+import { ComingSoon } from "@/components/layout/coming-soon";
+import { PageContent } from "@/components/layout/page-header";
+
 export const metadata: Metadata = { title: "Limits · Project Settings" };
 
 export default function SettingsLimitsPage() {
   return (
-    <section aria-labelledby="settings-limits">
-      <h2 id="settings-limits" className="text-heading-sm">
-        Limits
-      </h2>
-      <p className="text-muted">Rate limits for this project.</p>
-    </section>
+    <PageContent>
+      <ComingSoon>Rate limits for this project.</ComingSoon>
+    </PageContent>
   );
 }

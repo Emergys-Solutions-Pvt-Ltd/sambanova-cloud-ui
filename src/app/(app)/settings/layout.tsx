@@ -1,15 +1,19 @@
 import { type ReactNode } from "react";
 
-import { PagePlaceholder } from "@/components/layout/page-placeholder";
+import { PageHeader } from "@/components/layout/page-header";
 
 import { SettingsTabs } from "./settings-tabs";
 
 export default function SettingsLayout({ children }: { children: ReactNode }) {
   return (
-    <div className="flex flex-col gap-6">
-      <PagePlaceholder title="Project Settings" />
+    <>
+      <PageHeader
+        title="Project Settings"
+        subtitle="Manage your project details and settings."
+        className="border-b-0 pb-0"
+      />
       <SettingsTabs />
       {children}
-    </div>
+    </>
   );
 }
