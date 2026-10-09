@@ -1,0 +1,167 @@
+/** Token names rendered by /dev/tokens. Values are read live from CSS variables. */
+
+export const primitiveScales = {
+  purple: ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950", "975"],
+  amber: ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950"],
+  neutral: ["0", "50", "300", "700", "750", "800", "850", "875", "900", "950", "1000"],
+  gray: ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  green: ["50", "200", "400", "500", "700"],
+  red: ["50", "200", "400", "500", "700"],
+  blue: ["50", "200", "300", "500", "700"],
+  viz: ["blue", "green", "orange", "cyan", "indigo"],
+} as const;
+
+export const semanticGroups: Record<string, string[]> = {
+  Background: [
+    "bg-canvas",
+    "bg-surface",
+    "bg-surface-raised",
+    "bg-sidebar",
+    "bg-input",
+    "bg-code",
+    "bg-hover",
+    "bg-active",
+    "bg-selected",
+    "bg-overlay",
+    "bg-inverse",
+  ],
+  Border: ["border-default", "border-subtle", "border-strong", "border-control", "border-focus"],
+  Text: [
+    "text-primary",
+    "text-secondary",
+    "text-muted",
+    "text-tab-inactive",
+    "text-inverse",
+    "text-link",
+    "text-link-hover",
+    "text-on-brand",
+    "text-nav-active",
+  ],
+  Brand: [
+    "brand-primary",
+    "brand-primary-hover",
+    "brand-secondary",
+    "brand-subtle",
+    "brand-subtle-border",
+    "button-primary-bg",
+    "button-primary-fg",
+    "button-primary-hover",
+    "button-outline-border",
+    "button-outline-fg",
+  ],
+  Status: [
+    "status-success-text",
+    "status-success-bg",
+    "status-success-border",
+    "status-error-text",
+    "status-error-bg",
+    "status-error-border",
+    "status-warning-text",
+    "status-warning-bg",
+    "status-warning-border",
+    "status-info-text",
+    "status-info-bg",
+    "status-info-border",
+  ],
+  "Charts & code": [
+    "chart-input",
+    "chart-output",
+    "chart-cached",
+    "chart-prompt",
+    "chart-grid",
+    "chart-axis",
+    "meter-filled",
+    "meter-empty",
+    "code-text",
+    "code-string",
+    "code-keyword",
+  ],
+};
+
+/** Semantic tokens that are a GUESS in at least one theme (not in Figma). */
+export const guessedTokens = new Set([
+  "text-link-hover",
+  "button-primary-hover",
+  "status-success-border",
+  "status-warning-border",
+  "chart-cached",
+  "chart-prompt",
+  "border-subtle",
+  "border-focus",
+]);
+
+export const typeScale = [
+  { token: "display", className: "text-display", sample: "Start Exploring With AI" },
+  { token: "heading-xl", className: "text-heading-xl", sample: "Build AI applications faster" },
+  { token: "heading-lg", className: "text-heading-lg", sample: "Manage Projects" },
+  { token: "heading-md", className: "text-heading-md", sample: "Earn Free Credits" },
+  { token: "heading-sm", className: "text-heading-sm", sample: "Developer Quickstart" },
+  { token: "heading-xs", className: "text-heading-xs", sample: "DeepSeek V3.1" },
+  { token: "body-lg", className: "text-body-lg", sample: "Login to SambaNova to continue" },
+  { token: "body", className: "text-body", sample: "Experience the best open-source models." },
+  {
+    token: "body-sm",
+    className: "text-body-sm",
+    sample: "Advanced coding and software development.",
+  },
+  { token: "label", className: "text-label", sample: "Project Settings" },
+  { token: "caption", className: "text-caption", sample: "July 12, 2026 · 11:00 AM" },
+  { token: "overline", className: "text-overline uppercase", sample: "Context" },
+  { token: "micro", className: "text-micro", sample: "Upcoming Webinar" },
+  { token: "tiny", className: "text-tiny", sample: "john.michaels@company.com" },
+  { token: "table", className: "text-table", sample: "org-GxPIAAjHFpWtgsswT0aI" },
+  { token: "table-head", className: "text-table-head uppercase", sample: "Last updated" },
+  {
+    token: "code",
+    className: "text-code font-code",
+    sample: 'curl -H "Authorization: Bearer $API_KEY"',
+  },
+] as const;
+
+export const fontWeights = [
+  { name: "normal", className: "font-normal" },
+  { name: "medium", className: "font-medium" },
+  { name: "semibold", className: "font-semibold" },
+  { name: "bold", className: "font-bold" },
+] as const;
+
+export const spacingSteps = [0.5, 1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10, 12, 16] as const;
+export const radii = [
+  { name: "xs", className: "rounded-xs" },
+  { name: "sm", className: "rounded-sm" },
+  { name: "md", className: "rounded-md" },
+  { name: "lg", className: "rounded-lg" },
+  { name: "xl", className: "rounded-xl" },
+  { name: "full", className: "rounded-full" },
+] as const;
+export const shadows = [
+  { name: "xs", className: "shadow-xs" },
+  { name: "sm", className: "shadow-sm" },
+  { name: "md", className: "shadow-md" },
+  { name: "lg", className: "shadow-lg" },
+  { name: "card-inset", className: "shadow-card-inset" },
+  { name: "glow-brand", className: "shadow-glow-brand" },
+  { name: "glow-focus", className: "shadow-glow-focus" },
+] as const;
+export const gradients = ["hero", "hero-accent", "promo", "badge", "playground"] as const;
+export const zLayers = [
+  "base",
+  "raised",
+  "sticky",
+  "sidebar",
+  "header",
+  "dropdown",
+  "overlay",
+  "drawer",
+  "modal",
+  "popover",
+  "toast",
+  "tooltip",
+] as const;
+export const motion = ["duration-fast", "duration-base", "duration-slow"] as const;
+export const breakpoints = [
+  { name: "mobile", range: "< 768px", note: "hidden sidebar, top bar + drawer" },
+  { name: "md · tablet", range: "768–1023px", note: "collapsible icon rail" },
+  { name: "lg · desktop", range: "1024–1439px", note: "fixed sidebar" },
+  { name: "2xl · wide", range: "≥ 1440px", note: "Figma frame width" },
+] as const;
