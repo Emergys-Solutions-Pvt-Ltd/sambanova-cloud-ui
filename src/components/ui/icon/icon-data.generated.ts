@@ -65,10 +65,10 @@ export const iconData = {
     viewBox: "0 0 20 20",
     fill: "none",
     stroke: "currentColor",
-    strokeWidth: "2",
+    strokeWidth: "1.2",
     strokeLinecap: "round",
     strokeLinejoin: "round",
-    body: '<path d="M10 5.33 5.33 10 10 14.67M5.33 10h9.34"/>',
+    body: '<path d="M15.83 10H4.17m3.33 3.33L4.17 10M7.5 6.67 4.17 10"/>',
   },
   "arrow-narrow-right": {
     viewBox: "0 0 18 18",

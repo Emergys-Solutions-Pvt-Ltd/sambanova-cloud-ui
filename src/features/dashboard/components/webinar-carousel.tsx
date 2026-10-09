@@ -113,13 +113,15 @@ export function WebinarCarousel() {
         <div className="absolute top-4 right-4 flex items-center gap-2 sm:top-5 sm:right-5">
           <IconButton
             icon="arrow-left"
-            size="sm"
+            size="carousel"
+            className="text-primary"
             aria-label="Previous webinar"
             onClick={() => go(index - 1)}
           />
           <IconButton
             icon="arrow-right"
-            size="sm"
+            size="carousel"
+            className="text-primary"
             aria-label="Next webinar"
             onClick={() => go(index + 1)}
           />
