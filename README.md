@@ -139,6 +139,14 @@ __mocks.reset(); // signed in again
 
 The account menu’s Logout does the same through `useLogout` (a stub until Auth0).
 
+## Dashboard
+
+`/dashboard` (`src/features/dashboard`): hero banner, onboarding steps (hide/show is remembered), Usage Overview (signed-in users only), upcoming-webinar carousel, free-credits promo, Developer Quickstart (Curl / Python / Gradio snippets for the selected model, with copy), cloud partners and recommended models with a **Compare Models** dialog.
+
+- **Data**: usage overview, model catalog, recommended models, webinars and partners come from the mock API (`src/mocks`) through TanStack Query hooks in `features/dashboard/hooks`. Each section handles its own loading and error state.
+- **Snippets** are generated in `features/dashboard/lib/snippets.ts`; token kinds drive the syntax colors, so no highlighter library is needed.
+- **Reusable components** added for it: `Card`, `Tabs`, `Select`, `Dialog`, `CodeBlock`, `CopyButton`, `Meter`, `ErrorState`, `ArrowLink`, `SectionHeader`, brand logos (`components/brand`), and Button variants `glass` and `outline`. All are listed in the `/dev/tokens` showcase.
+
 ## Data layer
 
 - **API client** (`src/lib/api/client.ts`)

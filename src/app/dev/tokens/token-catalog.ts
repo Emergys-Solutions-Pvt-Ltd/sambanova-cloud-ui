@@ -26,6 +26,7 @@ export const semanticGroups: Record<string, string[]> = {
     "bg-inverse",
     "bg-menu",
     "bg-profile",
+    "bg-chip",
   ],
   Border: [
     "border-default",
@@ -36,6 +37,7 @@ export const semanticGroups: Record<string, string[]> = {
     "border-menu",
     "border-profile",
     "border-disabled",
+    "border-input",
   ],
   Text: [
     "text-primary",
@@ -49,6 +51,7 @@ export const semanticGroups: Record<string, string[]> = {
     "text-nav-active",
     "text-menu-label",
     "text-disabled",
+    "text-accent",
   ],
   Brand: [
     "brand-primary",
@@ -70,6 +73,8 @@ export const semanticGroups: Record<string, string[]> = {
     "button-destructive-hover",
     "button-destructive-disabled-bg",
     "button-destructive-disabled-fg",
+    "button-glass-fg",
+    "button-outline-strong-border",
   ],
   Status: [
     "status-success-text",

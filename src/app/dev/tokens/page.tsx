@@ -5,7 +5,11 @@ import { type ReactNode } from "react";
 import { Avatar } from "@/components/ui/avatar";
 import { Badge, type BadgeVariant } from "@/components/ui/badge";
 import { Button, type ButtonVariant } from "@/components/ui/button";
+import { CodeBlock } from "@/components/ui/code-block";
+import { CopyButton } from "@/components/ui/copy-button";
 import { IconButton } from "@/components/ui/icon-button";
+import { Meter } from "@/components/ui/meter";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { emptyStates, illustrations } from "@/config/assets";
 
 import {
@@ -22,7 +26,7 @@ import {
   typeScale,
   zLayers,
 } from "./token-catalog";
-import { CssValue, IconGallery, Swatch, ThemeSwitch } from "./token-preview-client";
+import { CssValue, IconGallery, SelectDemo, Swatch, ThemeSwitch } from "./token-preview-client";
 
 export const metadata: Metadata = { title: "Design tokens" };
 
@@ -272,7 +276,7 @@ export default function TokensPage() {
       <Section
         id="primitives-ui"
         title="UI primitives"
-        description="Components built for the app shell. Button variants and states follow Figma › Components › Buttons (default, hover, disabled); hover them to see the hover state."
+        description="Components built for the app shell and dashboard. Button variants and states follow Figma › Components › Buttons (default, hover, disabled); hover them to see the hover state."
       >
         <ThemePair>
           <div className="flex flex-col gap-4">
@@ -316,6 +320,42 @@ export default function TokensPage() {
               <Avatar name="John Michaels" size="md" />
               <Avatar name="John Michaels" size="lg" />
             </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">tabs</span>
+              <Tabs defaultValue="curl">
+                <TabsList aria-label="Example tabs">
+                  <TabsTrigger value="curl">Curl</TabsTrigger>
+                  <TabsTrigger value="python">Python</TabsTrigger>
+                  <TabsTrigger value="gradio">Gradio</TabsTrigger>
+                </TabsList>
+              </Tabs>
+              <CopyButton
+                value="curl example"
+                label="Copy example"
+                variant="surface"
+                size="field"
+              />
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">select</span>
+              <SelectDemo />
+            </div>
+            <div className="flex flex-wrap items-center gap-6">
+              <span className="w-24 text-caption text-muted">meter</span>
+              {[1, 3, 5].map((value) => (
+                <Meter key={value} label={`Rating ${value}`} value={value} />
+              ))}
+            </div>
+            <CodeBlock
+              label="Code sample"
+              lines={[
+                [
+                  { text: "curl -H " },
+                  { text: '"Authorization: Bearer $API_KEY"', kind: "string" },
+                ],
+                [{ text: '"model": ' }, { text: '"DeepSeek-V3.1",', kind: "value" }],
+              ]}
+            />
           </div>
         </ThemePair>
       </Section>
