@@ -6,6 +6,13 @@ import { type CreateExampleItemInput, type ExampleItem } from "@/types/domain";
 
 import { getMockConfig } from "../config";
 import { exampleItemsByProject, projectsFixture, userFixture } from "../fixtures";
+import {
+  modelCatalogFixture,
+  partnersFixture,
+  recommendedModelsFixture,
+  usageOverviewFixture,
+  webinarsFixture,
+} from "../fixtures/dashboard";
 
 const api = (path: string) => `${env.apiBaseUrl}${path}`;
 
@@ -54,6 +61,34 @@ export const handlers = [
       const project = projectsFixture.find((item) => item.id === params.projectId);
       return project ? HttpResponse.json(project) : notFound("Project");
     }),
+  ),
+
+  http.get(
+    api("/projects/:projectId/usage-overview"),
+    withScenario<{ projectId: string }>(({ params }) => {
+      const project = projectsFixture.find((item) => item.id === params.projectId);
+      return project ? HttpResponse.json(usageOverviewFixture) : notFound("Project");
+    }),
+  ),
+
+  http.get(
+    api("/models"),
+    withScenario(() => HttpResponse.json(modelCatalogFixture)),
+  ),
+
+  http.get(
+    api("/models/recommended"),
+    withScenario(() => HttpResponse.json(recommendedModelsFixture)),
+  ),
+
+  http.get(
+    api("/marketing/webinars"),
+    withScenario(() => HttpResponse.json(webinarsFixture)),
+  ),
+
+  http.get(
+    api("/marketing/partners"),
+    withScenario(() => HttpResponse.json(partnersFixture)),
   ),
 
   http.get(
