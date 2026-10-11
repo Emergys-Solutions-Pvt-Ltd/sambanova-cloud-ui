@@ -361,6 +361,8 @@
   --sn-border-pill: var(--sn-purple-800);
   --sn-border-social: var(--sn-gray-600);
   --sn-border-field: var(--sn-gray-800);
+  --sn-border-selected: rgb(255 255 255 / 0.3);
+  --sn-radio-off: var(--sn-gray-700);
   --sn-toast-success-fg: var(--sn-green-500);
   --sn-toast-success-line: var(--sn-green-400);
   --sn-toast-error-fg: var(--sn-red-500);
@@ -494,6 +496,8 @@
   --sn-border-pill: var(--sn-purple-400); /* GUESS */
   --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-border-selected: var(--sn-purple-600); /* GUESS */
+  --sn-radio-off: var(--sn-gray-300); /* GUESS */
   --sn-toast-success-fg: var(
     --sn-green-700
   ); /* GUESS: toasts are dark only in the dashboard flow */
@@ -624,6 +628,8 @@
     --sn-border-pill: var(--sn-purple-400); /* GUESS */
     --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-border-selected: var(--sn-purple-600); /* GUESS */
+    --sn-radio-off: var(--sn-gray-300); /* GUESS */
     --sn-toast-success-fg: var(
       --sn-green-700
     ); /* GUESS: toasts are dark only in the dashboard flow */

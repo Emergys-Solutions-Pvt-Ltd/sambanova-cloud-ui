@@ -2,16 +2,59 @@ import { type ComponentPropsWithRef, type ReactNode, useId } from "react";
 
 import { cn } from "@/lib/cn";
 
+const fieldSizes = { sm: "h-9.25", md: "h-10.5", lg: "h-11.25" } as const;
+const borders = { field: "border-field", input: "border-input" } as const;
+
+interface FormFieldProps {
+  label: string;
+  /** Id of the control the label belongs to. */
+  htmlFor: string;
+  /** Validation message, shown under the control (the control links to it with `aria-describedby`). */
+  error?: string;
+  errorId?: string;
+  labelClassName?: string;
+  className?: string;
+  children: ReactNode;
+}
+
+/** Label + control + error message. Wrap any control (TextField uses it; use it for a Select too). */
+export function FormField({
+  label,
+  htmlFor,
+  error,
+  errorId,
+  labelClassName,
+  className,
+  children,
+}: FormFieldProps) {
+  return (
+    <div className={cn("flex flex-col gap-2", className)}>
+      <label
+        htmlFor={htmlFor}
+        className={cn("text-label font-medium text-primary", labelClassName)}
+      >
+        {label}
+      </label>
+      {children}
+      {error && (
+        <p id={errorId} className="text-label text-error italic">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export interface TextFieldProps extends Omit<ComponentPropsWithRef<"input">, "id"> {
   label: string;
   /** Validation message; also marks the input invalid for assistive tech. */
   error?: string;
   /** Control placed inside the field at the end, e.g. a show/hide password button. */
   trailing?: ReactNode;
-  /** "md" = 42px (auth form), "lg" = 45px (modal forms). */
-  fieldSize?: "md" | "lg";
-  /** Solid field with a visible border (modal forms) instead of the borderless translucent one. */
-  bordered?: boolean;
+  /** "sm" = 37px (dense forms), "md" = 42px (auth form), "lg" = 45px (modal forms). */
+  fieldSize?: "sm" | "md" | "lg";
+  /** Solid field with a visible border (modal forms) instead of the borderless translucent one. "input" uses the softer input stroke. */
+  bordered?: boolean | "field" | "input";
   labelClassName?: string;
   className?: string;
 }
@@ -32,16 +75,24 @@ export function TextField({
   const errorId = `${id}-error`;
 
   return (
-    <div className={cn("flex flex-col gap-2", className)}>
-      <label htmlFor={id} className={cn("text-label font-medium text-primary", labelClassName)}>
-        {label}
-      </label>
+    <FormField
+      label={label}
+      htmlFor={id}
+      error={error}
+      errorId={errorId}
+      labelClassName={labelClassName}
+      className={className}
+    >
       <div
         className={cn(
           "flex items-center gap-2.5 rounded-md border bg-input px-4 transition-colors",
           "duration-(--sn-duration-fast) ease-standard focus-within:border-focus",
-          fieldSize === "lg" ? "h-11.25" : "h-10.5",
-          error ? "border-error-border" : bordered ? "border-field" : "border-transparent",
+          fieldSizes[fieldSize],
+          error
+            ? "border-error-border"
+            : bordered
+              ? borders[bordered === true ? "field" : bordered]
+              : "border-transparent",
         )}
       >
         <input
@@ -54,11 +105,6 @@ export function TextField({
         />
         {trailing}
       </div>
-      {error && (
-        <p id={errorId} className="text-body-sm text-error">
-          {error}
-        </p>
-      )}
-    </div>
+    </FormField>
   );
 }

@@ -32,6 +32,40 @@ export interface CreateProjectInput {
   name: string;
 }
 
+export interface BillingAddress {
+  fullName: string;
+  /** ISO 3166-1 alpha-2 code, e.g. "US". */
+  country: string;
+  address: string;
+}
+
+export interface CardDetails {
+  number: string;
+  /** MM/YY */
+  expiry: string;
+  cvc: string;
+}
+
+/** Credits belong to the user, not to a project. */
+export interface PurchaseCreditsInput {
+  /** Whole US dollars. */
+  amount: number;
+  billingAddress: BillingAddress;
+  card: CardDetails;
+}
+
+export interface CreditPurchase {
+  id: string;
+  amount: number;
+  createdAt: string;
+}
+
+export interface PurchaseCreditsResponse {
+  /** The user's balance after the purchase, in USD. */
+  balance: number;
+  purchase: CreditPurchase;
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -56,8 +90,6 @@ export interface UsageOverview {
   tokensUsed: number;
   apiRequests: number;
   activeApiKeys: number;
-  /** Remaining prepaid credit, in USD. */
-  creditsRemaining: number;
 }
 
 export type ModelCategory = "reasoning" | "text" | "image-text";

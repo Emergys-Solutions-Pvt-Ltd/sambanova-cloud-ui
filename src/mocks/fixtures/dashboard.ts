@@ -11,7 +11,6 @@ export const usageOverviewFixture: UsageOverview = {
   tokensUsed: 0,
   apiRequests: 0,
   activeApiKeys: 0,
-  creditsRemaining: 25,
 };
 
 export const recommendedModelsFixture: RecommendedModel[] = [

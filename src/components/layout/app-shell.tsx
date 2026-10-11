@@ -6,6 +6,7 @@ import { type ReactNode, useEffect, useState } from "react";
 import { Drawer } from "@/components/ui/drawer";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AuthDialogHost } from "@/features/auth";
+import { AddCreditsDialog } from "@/features/billing";
 import { CreateProjectDialog } from "@/features/projects";
 import { selectMobileNavOpen, useUIStore } from "@/stores/ui-store";
 
@@ -87,6 +88,7 @@ export function AppShell({ children }: { children: ReactNode }) {
 
       <AuthDialogHost />
       <CreateProjectDialog />
+      <AddCreditsDialog />
     </TooltipProvider>
   );
 }

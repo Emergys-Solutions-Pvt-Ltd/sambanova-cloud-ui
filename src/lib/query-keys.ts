@@ -12,6 +12,10 @@ export const queryKeys = {
     all: ["session"] as const,
     me: () => [...queryKeys.session.all, "me"] as const,
   },
+  billing: {
+    all: ["billing"] as const,
+    address: () => [...queryKeys.billing.all, "address"] as const,
+  },
   projects: {
     all: ["projects"] as const,
     list: () => [...queryKeys.projects.all, "list"] as const,

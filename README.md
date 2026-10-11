@@ -127,7 +127,7 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 - **Account area**: signed in shows the profile card with credit badge and the account menu (email, Manage Projects, Theme, Documentation, Help Center, Logout). Signed out shows "Sign Up for Free" and the theme switcher. While `GET /me` loads, a placeholder holds the space.
 - **Drawer**: overlay, focus trap, Escape, closes on navigation, focus returns to the opener.
 - **Page frame**: use `<PageHeader title subtitle actions />` then `<PageContent>`.
-- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand), `TextField`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
+- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand), `TextField`, `RadioCardGroup`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
 - **Accessibility**: skip-to-content link, landmarks (`aside`, `nav`, `main`), visible focus rings, full keyboard operation.
 
 **Signing in and out** (with mocks on): use the app. Sign Up for Free (sidebar) or any locked action opens the login dialog; Logout is in the account menu. See [Authentication](#authentication-mock-until-the-real-api).
@@ -201,6 +201,12 @@ After upgrading `msw`, regenerate the worker with `npx msw init public`.
 
 - **Create project:** the project menu's "Create project" opens `CreateProjectDialog` (`src/features/projects`, state in `useCreateProjectDialogStore`, mounted in the app shell; any page can open it the same way). The name is trimmed, 3 to 50 characters, and unique per account (case-insensitive) in the form and again in the API (`POST /projects` answers 409 or 422, shown under the input). On success the dialog closes, the new project becomes the active one and a success toast appears. The mock keeps created projects per account in localStorage (`sn:mock-projects`).
 - **Toasts:** `toast.success("…")` (also `info`, `warning`, `danger`) from `src/stores/toast-store.ts` shows a `Toast` at the top centre, 14px from the top edge, sliding down (Figma). Default 1.5s (as in the Figma prototype; pass a duration to change it), paused while hovered or focused, with a close button. `<ToastViewport />` is mounted once in `providers.tsx`.
+
+### Credits and Add Credits
+
+- **Credits belong to the user, not a project.** The balance is `user.creditBalance` from `GET /me` (sidebar badge and the Usage Overview "Credits Remaining" card both read it), so it is the same in every project. Usage Overview's other three numbers stay per project.
+- **Add Credits dialog** (`src/features/billing`, state in `useAddCreditsDialogStore`, mounted in the app shell): opened by the hero's "Add Credits" and the Usage Overview link (guests are asked to log in first). Amount: $5 / $20 / $100 or a custom whole-dollar amount from $5 to $1,000. Billing address (saved on the account and prefilled next time) and card details (number with Luhn check, MM/YY not in the past, 3-4 digit security code) are validated in the form and again by the API. The Buy button is pinned below the scrolling form and reads "Buy $X of credits". On success the dialog closes, the balance updates and a "$X Credits Added Successfully" toast appears.
+- **Mock payment:** `GET /billing/address`, `POST /billing/credits`. Any card that passes validation succeeds (e.g. 4242 4242 4242 4242); 4000 0000 0000 0002 is declined ("Your card was declined"). Card details are never stored; purchases and the address are kept per account in localStorage (`sn:mock-billing`). With the real API the card is tokenized by the payment provider in the browser and only the token goes to our API, so `purchaseCredits` in `src/features/billing/api/billing.api.ts` is the one place to change.
 
 ### Authentication (mock until the real API)
 

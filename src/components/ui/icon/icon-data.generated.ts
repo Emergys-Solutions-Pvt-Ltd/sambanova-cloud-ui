@@ -240,6 +240,15 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M7.33 9.17a1.85 1.85 0 0 1 1.84-1.84h7.33q.75.02 1.3.54c.34.34.53.81.53 1.3v7.33q-.01.75-.53 1.3-.54.52-1.3.53H9.17a1.84 1.84 0 0 1-1.84-1.83z"/><path d="M14.67 7.33V5.5a1.84 1.84 0 0 0-1.84-1.83H5.5c-.49 0-.95.19-1.3.53-.34.35-.53.81-.53 1.3v7.33a1.84 1.84 0 0 0 1.83 1.84h1.83"/>',
   },
+  "credit-card-off": {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.13",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="m2.25 2.25 13.5 13.5m-9-12h6.75A2.25 2.25 0 0 1 15.75 6v6q0 .33-.1.65m-1.5 1.5q-.31.1-.65.1h-9A2.25 2.25 0 0 1 2.25 12V6c0-1.01.67-1.87 1.6-2.15M2.25 7.5H9m3 0h3.75"/>',
+  },
   "credit-card": {
     viewBox: "0 0 18 18",
     fill: "none",

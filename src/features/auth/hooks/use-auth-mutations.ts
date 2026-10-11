@@ -16,6 +16,7 @@ export function useResetUserData() {
   return () => {
     useProjectStore.getState().clearActiveProject();
     queryClient.removeQueries({ queryKey: queryKeys.projects.all });
+    queryClient.removeQueries({ queryKey: queryKeys.billing.all });
     queryClient.removeQueries({ queryKey: ["project"] });
   };
 }

@@ -3,10 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { routes } from "@/config/routes";
 import { useAuthGate } from "@/features/auth";
+import { useAddCreditsDialogStore } from "@/stores/add-credits-dialog-store";
 
 /** Hero quick actions. Guests who click one are asked to log in first, then taken to the page. */
 export function HeroActions() {
-  const { guardLink } = useAuthGate();
+  const { guardLink, guardAction } = useAuthGate();
+  const openAddCredits = useAddCreditsDialogStore((state) => state.openDialog);
 
   return (
     <div className="flex flex-wrap gap-2.5">
@@ -27,10 +29,10 @@ export function HeroActions() {
         Create API Key
       </Button>
       <Button
-        href={routes.settingsBilling}
-        onClick={guardLink(routes.settingsBilling)}
         variant="glass"
         rightIcon="arrow-right"
+        onClick={guardAction(openAddCredits)}
+        aria-haspopup="dialog"
       >
         Add Credits
       </Button>

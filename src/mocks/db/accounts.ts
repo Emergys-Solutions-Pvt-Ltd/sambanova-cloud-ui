@@ -84,6 +84,17 @@ export async function registerAccount(input: {
   return account;
 }
 
+/** Adds credit to the account's balance and returns the new balance. */
+export async function addCreditsTo(accountId: string, amount: number) {
+  const accounts = await loadAccounts();
+  const account = accounts.find((item) => item.id === accountId);
+  if (!account) return null;
+
+  account.creditBalance += amount;
+  write(ACCOUNTS_KEY, accounts);
+  return account.creditBalance;
+}
+
 export async function verifyCredentials(email: string, password: string) {
   const accounts = await loadAccounts();
   const account = accounts.find((item) => item.email === normalizeEmail(email));

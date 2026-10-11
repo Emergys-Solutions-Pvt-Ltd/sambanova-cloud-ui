@@ -47,6 +47,8 @@
   --border-color-pill: var(--sn-border-pill);
   --border-color-social: var(--sn-border-social);
   --border-color-field: var(--sn-border-field);
+  --border-color-selected: var(--sn-border-selected);
+  --color-radio-off: var(--sn-radio-off);
   --blur-toast: var(--sn-blur-toast);
   --width-toast: var(--sn-toast-width);
   --border-color-card-hover: var(--sn-border-card-hover);
