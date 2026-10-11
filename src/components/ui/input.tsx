@@ -8,6 +8,11 @@ export interface TextFieldProps extends Omit<ComponentPropsWithRef<"input">, "id
   error?: string;
   /** Control placed inside the field at the end, e.g. a show/hide password button. */
   trailing?: ReactNode;
+  /** "md" = 42px (auth form), "lg" = 45px (modal forms). */
+  fieldSize?: "md" | "lg";
+  /** Solid field with a visible border (modal forms) instead of the borderless translucent one. */
+  bordered?: boolean;
+  labelClassName?: string;
   className?: string;
 }
 
@@ -16,6 +21,9 @@ export function TextField({
   label,
   error,
   trailing,
+  fieldSize = "md",
+  bordered,
+  labelClassName,
   className,
   type = "text",
   ...rest
@@ -25,14 +33,15 @@ export function TextField({
 
   return (
     <div className={cn("flex flex-col gap-2", className)}>
-      <label htmlFor={id} className="text-label font-medium text-primary">
+      <label htmlFor={id} className={cn("text-label font-medium text-primary", labelClassName)}>
         {label}
       </label>
       <div
         className={cn(
-          "flex h-10.5 items-center gap-2.5 rounded-md border bg-input px-4 transition-colors",
+          "flex items-center gap-2.5 rounded-md border bg-input px-4 transition-colors",
           "duration-(--sn-duration-fast) ease-standard focus-within:border-focus",
-          error ? "border-error-border" : "border-transparent",
+          fieldSize === "lg" ? "h-11.25" : "h-10.5",
+          error ? "border-error-border" : bordered ? "border-field" : "border-transparent",
         )}
       >
         <input

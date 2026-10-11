@@ -13,10 +13,14 @@ export const DialogClose = DialogPrimitive.Close;
 export const DialogTitle = DialogPrimitive.Title;
 export const DialogDescription = DialogPrimitive.Description;
 
-type DialogSize = "sm" | "lg";
+type DialogSize = "sm" | "md" | "lg";
 
-/** sm is 464px (login), lg about 858px (Compare Models); both are capped to the viewport. */
-const sizes: Record<DialogSize, string> = { sm: "max-w-116", lg: "max-w-214.5" };
+/** sm 464px (login), md 624px (create project), lg about 858px (Compare Models); all capped to the viewport. */
+const sizes: Record<DialogSize, string> = {
+  sm: "max-w-116",
+  md: "max-w-156",
+  lg: "max-w-214.5",
+};
 
 const overlayClasses = cn(
   "fixed inset-0 z-overlay bg-overlay",
@@ -51,7 +55,7 @@ export function DialogContent({
         {...(description ? {} : { "aria-describedby": undefined })}
         className={cn(
           "fixed top-1/2 left-1/2 z-modal flex max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col",
-          "rounded-xl border border-default bg-surface text-primary shadow-lg outline-none",
+          "rounded-lg border border-default bg-surface text-primary shadow-lg outline-none",
           "data-[state=open]:animate-pop-in",
           sizes[size],
           className,
@@ -60,7 +64,7 @@ export function DialogContent({
       >
         <div className="flex items-start justify-between gap-4 px-6 pt-6 pb-4">
           <div className="flex min-w-0 flex-col gap-1">
-            <DialogPrimitive.Title className="text-heading-md font-medium">
+            <DialogPrimitive.Title className="text-heading-md font-semibold">
               {title}
             </DialogPrimitive.Title>
             {description && (

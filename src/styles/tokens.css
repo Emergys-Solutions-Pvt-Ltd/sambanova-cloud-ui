@@ -164,6 +164,9 @@
   --sn-sidebar-width: 248px;
   --sn-sidebar-width-collapsed: 72px; /* GUESS: tablet icon rail, not in Figma */
 
+  --sn-blur-toast: 4.7px; /* toast backdrop: Figma background blur 9.4 = CSS blur 4.7 */
+  --sn-toast-offset-top: 14px; /* Figma: toast overlay sits 14px from the top edge */
+  --sn-toast-width: 380px;
   --sn-blur-glow: 27.6px; /* recommended-model card corner glow: Figma layer blur 55.2 = CSS blur 27.6 */
   --sn-tint-promo: rgb(157 53 240 / 0.22); /* purple wash over the webinar photo */
 
@@ -185,6 +188,7 @@
   --sn-duration-fast: 120ms;
   --sn-duration-base: 200ms;
   --sn-duration-slow: 320ms;
+  --sn-duration-toast: 300ms; /* Figma: toast move-in, ease out */
   --sn-duration-marquee: 1250ms; /* Figma: partner card hover, slow smart-animate */
   --sn-duration-collapse: 400ms; /* Figma smart-animate: Steps Animation */
   --sn-ease-standard: cubic-bezier(0.2, 0, 0, 1);
@@ -356,6 +360,15 @@
   --sn-border-dashed: var(--sn-gray-800);
   --sn-border-pill: var(--sn-purple-800);
   --sn-border-social: var(--sn-gray-600);
+  --sn-border-field: var(--sn-gray-800);
+  --sn-toast-success-fg: var(--sn-green-500);
+  --sn-toast-success-line: var(--sn-green-400);
+  --sn-toast-error-fg: var(--sn-red-500);
+  --sn-toast-error-line: var(--sn-red-400); /* GUESS */
+  --sn-toast-warning-fg: var(--sn-yellow-400);
+  --sn-toast-warning-line: var(--sn-yellow-400); /* GUESS */
+  --sn-toast-info-fg: var(--sn-blue-300);
+  --sn-toast-info-line: var(--sn-blue-500); /* GUESS */
   --sn-border-card-hover: var(--sn-gray-700);
   --sn-border-brand-hover: var(--sn-purple-900);
   --sn-button-glass-fg: var(--sn-neutral-0);
@@ -480,6 +493,17 @@
   --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-pill: var(--sn-purple-400); /* GUESS */
   --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-toast-success-fg: var(
+    --sn-green-700
+  ); /* GUESS: toasts are dark only in the dashboard flow */
+  --sn-toast-success-line: var(--sn-green-500); /* GUESS */
+  --sn-toast-error-fg: var(--sn-red-700); /* GUESS */
+  --sn-toast-error-line: var(--sn-red-500); /* GUESS */
+  --sn-toast-warning-fg: var(--sn-amber-700); /* GUESS */
+  --sn-toast-warning-line: var(--sn-yellow-400); /* GUESS */
+  --sn-toast-info-fg: var(--sn-blue-700); /* GUESS */
+  --sn-toast-info-line: var(--sn-blue-500); /* GUESS */
   --sn-border-card-hover: var(--sn-purple-300); /* GUESS: Figma shows dark only */
   --sn-border-brand-hover: var(--sn-purple-400); /* GUESS */
   --sn-button-glass-fg: var(--sn-purple-900);
@@ -599,6 +623,17 @@
     --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-pill: var(--sn-purple-400); /* GUESS */
     --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-toast-success-fg: var(
+      --sn-green-700
+    ); /* GUESS: toasts are dark only in the dashboard flow */
+    --sn-toast-success-line: var(--sn-green-500); /* GUESS */
+    --sn-toast-error-fg: var(--sn-red-700); /* GUESS */
+    --sn-toast-error-line: var(--sn-red-500); /* GUESS */
+    --sn-toast-warning-fg: var(--sn-amber-700); /* GUESS */
+    --sn-toast-warning-line: var(--sn-yellow-400); /* GUESS */
+    --sn-toast-info-fg: var(--sn-blue-700); /* GUESS */
+    --sn-toast-info-line: var(--sn-blue-500); /* GUESS */
     --sn-border-card-hover: var(--sn-purple-300); /* GUESS: Figma shows dark only */
     --sn-border-brand-hover: var(--sn-purple-400); /* GUESS */
     --sn-button-glass-fg: var(--sn-purple-900);
@@ -615,5 +650,6 @@
     --sn-duration-slow: 0ms;
     --sn-duration-collapse: 0ms;
     --sn-duration-marquee: 0ms;
+    --sn-duration-toast: 0ms;
   }
 }

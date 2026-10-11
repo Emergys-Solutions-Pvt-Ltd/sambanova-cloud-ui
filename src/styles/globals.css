@@ -46,6 +46,9 @@
   --border-color-input: var(--sn-border-input);
   --border-color-pill: var(--sn-border-pill);
   --border-color-social: var(--sn-border-social);
+  --border-color-field: var(--sn-border-field);
+  --blur-toast: var(--sn-blur-toast);
+  --width-toast: var(--sn-toast-width);
   --border-color-card-hover: var(--sn-border-card-hover);
   --border-color-brand-hover: var(--sn-border-brand-hover);
   --width-steps-pill: var(--sn-steps-pill-width);
@@ -102,6 +105,14 @@
   --color-info: var(--sn-status-info-text);
   --color-info-bg: var(--sn-status-info-bg);
   --color-info-border: var(--sn-status-info-border);
+  --color-toast-success-fg: var(--sn-toast-success-fg);
+  --color-toast-success-line: var(--sn-toast-success-line);
+  --color-toast-error-fg: var(--sn-toast-error-fg);
+  --color-toast-error-line: var(--sn-toast-error-line);
+  --color-toast-warning-fg: var(--sn-toast-warning-fg);
+  --color-toast-warning-line: var(--sn-toast-warning-line);
+  --color-toast-info-fg: var(--sn-toast-info-fg);
+  --color-toast-info-line: var(--sn-toast-info-line);
 
   --color-chart-input: var(--sn-chart-input);
   --color-chart-output: var(--sn-chart-output);
@@ -365,6 +376,33 @@
 
 @utility animate-overlay-out {
   animation: sn-fade-out var(--sn-duration-base) var(--sn-ease-exit) forwards;
+}
+
+@keyframes sn-toast-in {
+  from {
+    transform: translateY(calc(-100% - var(--sn-toast-offset-top)));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sn-toast-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--sn-toast-offset-top)));
+  }
+}
+
+/* Toast: slides down from above the top edge (Figma: move in, ease out). */
+@utility animate-toast-in {
+  animation: sn-toast-in var(--sn-duration-toast) var(--sn-ease-out);
+}
+
+@utility animate-toast-out {
+  animation: sn-toast-out var(--sn-duration-toast) var(--sn-ease-exit) forwards;
 }
 
 @utility animate-pop-in {

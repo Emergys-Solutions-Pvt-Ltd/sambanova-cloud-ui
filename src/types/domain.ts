@@ -28,6 +28,10 @@ export interface AuthResponse {
   user: User;
 }
 
+export interface CreateProjectInput {
+  name: string;
+}
+
 export interface Project {
   id: string;
   name: string;

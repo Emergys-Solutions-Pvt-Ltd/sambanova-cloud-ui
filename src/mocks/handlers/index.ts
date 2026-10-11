@@ -5,6 +5,7 @@ import { type PaginatedResponse } from "@/lib/api/types";
 import {
   type AuthResponse,
   type CreateExampleItemInput,
+  type CreateProjectInput,
   type ExampleItem,
   type LoginInput,
   type SignupInput,
@@ -19,8 +20,9 @@ import {
   toUser,
   verifyCredentials,
 } from "../db/accounts";
+import { createProjectFor, listProjectsFor } from "../db/projects";
 import { clearSessionCookie, readSessionToken, writeSessionCookie } from "../db/session-cookie";
-import { exampleItemsByProject, projectsFixture } from "../fixtures";
+import { exampleItemsByProject } from "../fixtures";
 import {
   modelCatalogFixture,
   partnersFixture,
@@ -69,6 +71,17 @@ const validationError = (message: string, details: Record<string, string>) =>
   HttpResponse.json({ error: { code: "VALIDATION_ERROR", message, details } }, { status: 422 });
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+/** A project visible to the signed-in account (shared fixtures plus the ones it created). */
+async function findOwnProject(projectId: string) {
+  const account = await findAccountBySession(readSessionToken());
+  return account ? listProjectsFor(account.id).find((item) => item.id === projectId) : undefined;
+}
+
+/** Example items for a project; projects created at runtime start empty. */
+function itemsForProject(projectId: string) {
+  return exampleItemsByProject.get(projectId) ?? [];
+}
 
 const notFound = (what: string) =>
   HttpResponse.json(errorBody("NOT_FOUND", `${what} not found.`), { status: 404 });
@@ -143,21 +156,52 @@ export const handlers = [
 
   http.get(
     api("/projects"),
-    withSession(() => HttpResponse.json(projectsFixture)),
+    withSession(async () => {
+      const account = await findAccountBySession(readSessionToken());
+      return HttpResponse.json(listProjectsFor(account!.id));
+    }),
+  ),
+
+  http.post(
+    api("/projects"),
+    withSession(async ({ request }) => {
+      const account = await findAccountBySession(readSessionToken());
+      const input = (await request.json()) as Partial<CreateProjectInput>;
+      const name = input.name?.trim() ?? "";
+
+      if (name.length < 3 || name.length > 50) {
+        return validationError("Project name must be 3 to 50 characters.", { field: "name" });
+      }
+
+      const project = createProjectFor(account!.id, name);
+      if (!project) {
+        return HttpResponse.json(
+          {
+            error: {
+              code: "PROJECT_NAME_TAKEN",
+              message: "A project with this name already exists.",
+              details: { field: "name" },
+            },
+          },
+          { status: 409 },
+        );
+      }
+      return HttpResponse.json(project, { status: 201 });
+    }),
   ),
 
   http.get(
     api("/projects/:projectId"),
-    withSession<{ projectId: string }>(({ params }) => {
-      const project = projectsFixture.find((item) => item.id === params.projectId);
+    withSession<{ projectId: string }>(async ({ params }) => {
+      const project = await findOwnProject(params.projectId);
       return project ? HttpResponse.json(project) : notFound("Project");
     }),
   ),
 
   http.get(
     api("/projects/:projectId/usage-overview"),
-    withSession<{ projectId: string }>(({ params }) => {
-      const project = projectsFixture.find((item) => item.id === params.projectId);
+    withSession<{ projectId: string }>(async ({ params }) => {
+      const project = await findOwnProject(params.projectId);
       return project ? HttpResponse.json(usageOverviewFixture) : notFound("Project");
     }),
   ),
@@ -184,9 +228,9 @@ export const handlers = [
 
   http.get(
     api("/projects/:projectId/examples"),
-    withSession<{ projectId: string }>(({ params, request }) => {
-      const items = exampleItemsByProject.get(params.projectId);
-      if (!items) return notFound("Project");
+    withSession<{ projectId: string }>(async ({ params, request }) => {
+      if (!(await findOwnProject(params.projectId))) return notFound("Project");
+      const items = itemsForProject(params.projectId);
 
       const url = new URL(request.url);
       const page = Math.max(1, Number(url.searchParams.get("page")) || 1);
@@ -207,8 +251,9 @@ export const handlers = [
   http.post(
     api("/projects/:projectId/examples"),
     withSession<{ projectId: string }>(async ({ params, request }) => {
-      const items = exampleItemsByProject.get(params.projectId);
-      if (!items) return notFound("Project");
+      if (!(await findOwnProject(params.projectId))) return notFound("Project");
+      const items = exampleItemsByProject.get(params.projectId) ?? [];
+      exampleItemsByProject.set(params.projectId, items);
 
       const input = (await request.json()) as Partial<CreateExampleItemInput>;
       const name = input.name?.trim();

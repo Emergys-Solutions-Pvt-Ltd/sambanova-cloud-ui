@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { type KeyboardEvent, useEffect, useId, useMemo, useState } from "react";
+import { type KeyboardEvent, useEffect, useId, useMemo, useRef, useState } from "react";
 
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { routes } from "@/config/routes";
 import { useActiveProject, useProjects, useSwitchProject } from "@/features/projects";
 import { cn } from "@/lib/cn";
+import { useCreateProjectDialogStore } from "@/stores/create-project-dialog-store";
 import { selectIsAuthenticated, useSessionStore } from "@/stores/session-store";
 import { type Project } from "@/types/domain";
 
@@ -176,6 +177,13 @@ export function ProjectSelector({ collapsed }: { collapsed?: boolean }) {
 }
 
 function ProjectSwitcher({ collapsed }: { collapsed?: boolean }) {
+  const openCreateProjectDialog = useCreateProjectDialogStore((state) => state.openDialog);
+  // The dialog focuses its own input; the menu must not pull focus back to its trigger on close.
+  const handingOffToDialog = useRef(false);
+  const openCreateProject = () => {
+    handingOffToDialog.current = true;
+    openCreateProjectDialog();
+  };
   const [open, setOpen] = useState(false);
   const projects = useProjects();
   const { project } = useActiveProject();
@@ -220,6 +228,11 @@ function ProjectSwitcher({ collapsed }: { collapsed?: boolean }) {
       <PopoverContent
         align="start"
         side={collapsed ? "right" : "bottom"}
+        onCloseAutoFocus={(event) => {
+          if (!handingOffToDialog.current) return;
+          handingOffToDialog.current = false;
+          event.preventDefault();
+        }}
         className="w-(--radix-popover-trigger-width) min-w-64"
       >
         <p className="px-4 pt-2 pb-1 text-caption tracking-caps text-menu-label uppercase">
@@ -263,10 +276,10 @@ function ProjectSwitcher({ collapsed }: { collapsed?: boolean }) {
           </Link>
         </PopoverClose>
         <PopoverClose asChild>
-          <Link href={`${routes.projects}?new=1`} className={menuItemClasses}>
+          <button type="button" onClick={openCreateProject} className={menuItemClasses}>
             <Icon name="plus" size="sm" />
             Create project
-          </Link>
+          </button>
         </PopoverClose>
       </PopoverContent>
     </Popover>
