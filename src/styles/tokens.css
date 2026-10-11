@@ -153,7 +153,7 @@
   --sn-sidebar-width: 248px;
   --sn-sidebar-width-collapsed: 72px; /* GUESS: tablet icon rail, not in Figma */
 
-  --sn-blur-glow: 55px; /* recommended-model card corner glow */
+  --sn-blur-glow: 27.6px; /* recommended-model card corner glow: Figma layer blur 55.2 = CSS blur 27.6 */
   --sn-tint-promo: rgb(157 53 240 / 0.22); /* purple wash over the webinar photo */
 
   /* Layers. Not in Figma; ordered for the shell (D) and overlays. */
@@ -178,6 +178,7 @@
   --sn-ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --sn-ease-emphasized: cubic-bezier(0.3, 0, 0, 1.3);
   --sn-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --sn-ease-out: cubic-bezier(0, 0, 0.58, 1); /* Figma "ease out" */
 
   /* Recommended-model card glows (blurred corner light, per brand) */
   --sn-model-glow-indigo: var(--sn-viz-indigo);
@@ -342,6 +343,7 @@
   --sn-border-input: var(--sn-ink-stroke-2);
   --sn-border-dashed: var(--sn-gray-800);
   --sn-border-pill: var(--sn-purple-800);
+  --sn-border-card-hover: var(--sn-gray-700);
   --sn-button-glass-fg: var(--sn-neutral-0);
   --sn-button-outline-strong-border: var(--sn-neutral-0);
   --sn-bg-chip: rgb(244 234 253 / 0.2);
@@ -463,6 +465,7 @@
   --sn-border-input: var(--sn-gray-300);
   --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-pill: var(--sn-purple-400); /* GUESS */
+  --sn-border-card-hover: var(--sn-purple-300); /* GUESS: Figma shows dark only */
   --sn-button-glass-fg: var(--sn-purple-900);
   --sn-button-outline-strong-border: var(--sn-purple-400);
   --sn-bg-chip: rgb(255 255 255 / 0.2);
@@ -579,6 +582,7 @@
     --sn-border-input: var(--sn-gray-300);
     --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-pill: var(--sn-purple-400); /* GUESS */
+    --sn-border-card-hover: var(--sn-purple-300); /* GUESS: Figma shows dark only */
     --sn-button-glass-fg: var(--sn-purple-900);
     --sn-button-outline-strong-border: var(--sn-purple-400);
     --sn-bg-chip: rgb(255 255 255 / 0.2);
