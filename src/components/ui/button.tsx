@@ -16,6 +16,7 @@ import { Icon, type IconName } from "./icon/icon";
  *   control      form-control look used by the project selector and "Sign Up for Free"
  *   glass        translucent pill used on the hero banner
  *   outline      strong outline (white on dark, purple on light), e.g. "Compare Models"
+ *   brand        brand-purple fill; form submit in the auth dialog (40% opacity when disabled)
  */
 export type ButtonVariant =
   | "primary"
@@ -26,7 +27,8 @@ export type ButtonVariant =
   | "destructive"
   | "control"
   | "glass"
-  | "outline";
+  | "outline"
+  | "brand";
 export type ButtonSize = "md" | "sm";
 
 const base =
@@ -62,6 +64,9 @@ const variants: Record<ButtonVariant, string> = {
   outline:
     "rounded-sm border border-button-outline-strong font-semibold text-button-outline-fg hover:bg-hover " +
     "disabled:border-disabled disabled:text-disabled aria-disabled:border-disabled aria-disabled:text-disabled",
+  brand:
+    "rounded-sm bg-brand font-semibold text-on-brand hover:bg-brand-hover " +
+    "disabled:opacity-40 aria-disabled:opacity-40",
   control:
     "rounded-sm border border-control bg-button-secondary font-medium text-primary " +
     "hover:bg-button-secondary-hover disabled:text-disabled aria-disabled:text-disabled",

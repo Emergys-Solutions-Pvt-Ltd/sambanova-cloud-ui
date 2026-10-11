@@ -6,6 +6,7 @@ import { SectionHeader } from "@/components/layout/section-header";
 import { Button } from "@/components/ui/button";
 import { ErrorState } from "@/components/ui/error-state";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useAuthGate } from "@/features/auth";
 
 import { useRecommendedModels } from "../hooks/use-dashboard-data";
 
@@ -15,6 +16,7 @@ import { ModelCard } from "./model-card";
 export function RecommendedModels() {
   const { data, error, refetch } = useRecommendedModels();
   const [compareOpen, setCompareOpen] = useState(false);
+  const { guardAction } = useAuthGate();
 
   return (
     <section aria-labelledby="recommended-title" className="flex flex-col gap-4">
@@ -23,7 +25,11 @@ export function RecommendedModels() {
         title="Recommended Models"
         description="Experience the best open-source models. Learn more about each of them in our documentation."
         action={
-          <Button variant="outline" onClick={() => setCompareOpen(true)} aria-haspopup="dialog">
+          <Button
+            variant="outline"
+            onClick={guardAction(() => setCompareOpen(true))}
+            aria-haspopup="dialog"
+          >
             Compare Models
           </Button>
         }

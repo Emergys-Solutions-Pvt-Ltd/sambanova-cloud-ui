@@ -12,6 +12,22 @@ export interface User {
   creditBalance: number;
 }
 
+export interface LoginInput {
+  email: string;
+  password: string;
+}
+
+export interface SignupInput {
+  fullName: string;
+  email: string;
+  password: string;
+}
+
+/** Body of a successful login or sign-up. The session itself travels in the cookie. */
+export interface AuthResponse {
+  user: User;
+}
+
 export interface Project {
   id: string;
   name: string;

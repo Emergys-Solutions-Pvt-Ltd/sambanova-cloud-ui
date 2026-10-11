@@ -5,6 +5,7 @@ import { type ReactNode, useEffect, useState } from "react";
 
 import { Drawer } from "@/components/ui/drawer";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthDialogHost } from "@/features/auth";
 import { selectMobileNavOpen, useUIStore } from "@/stores/ui-store";
 
 import { MobileTopBar } from "./mobile-top-bar";
@@ -82,6 +83,8 @@ export function AppShell({ children }: { children: ReactNode }) {
           {children}
         </main>
       </div>
+
+      <AuthDialogHost />
     </TooltipProvider>
   );
 }

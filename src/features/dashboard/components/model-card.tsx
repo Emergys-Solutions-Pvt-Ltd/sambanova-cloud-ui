@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 
 import { ModelLogo } from "@/components/brand/model-logo";
@@ -5,11 +7,15 @@ import { Card } from "@/components/ui/card";
 import { Icon } from "@/components/ui/icon/icon";
 import { Meter } from "@/components/ui/meter";
 import { routes } from "@/config/routes";
+import { useAuthGate } from "@/features/auth";
 import { cn } from "@/lib/cn";
 import { type RecommendedModel } from "@/types/domain";
 
 /** One recommended model: logo, blurb, ratings, context, price and a Playground shortcut. */
 export function ModelCard({ model }: { model: RecommendedModel }) {
+  const { guardLink } = useAuthGate();
+  const playgroundHref = `${routes.playground}?model=${encodeURIComponent(model.modelId)}`;
+
   return (
     <Card
       as="article"
@@ -68,7 +74,8 @@ export function ModelCard({ model }: { model: RecommendedModel }) {
       </dl>
 
       <Link
-        href={`${routes.playground}?model=${encodeURIComponent(model.modelId)}`}
+        href={playgroundHref}
+        onClick={guardLink(playgroundHref)}
         className={cn(
           "relative mt-auto flex h-10 items-center justify-between rounded-md border border-button-outline px-3 text-body-sm font-medium text-button-outline-fg hover:bg-hover",
           "transition-colors duration-(--sn-duration-slow) ease-out group-hover/card:border-button-outline-strong",

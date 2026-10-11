@@ -3,22 +3,15 @@
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
 
-import { env } from "@/config/env";
+import { useLogoutMutation } from "@/features/auth/hooks/use-auth-mutations";
 import { routes } from "@/config/routes";
-import { setMockConfig } from "@/mocks/config";
-import { useSessionStore } from "@/stores/session-store";
 
-/**
- * STUB until Auth0: clears the local session. With mocks on it also flips the
- * mock API to the signed-out scenario so `GET /me` returns 401 and a reload
- * stays signed out.
- */
+/** Ends the session through the API (it clears the cookie), resets user data and returns to the dashboard as a guest. */
 export function useLogout() {
   const router = useRouter();
+  const { mutate } = useLogoutMutation();
 
   return useCallback(() => {
-    useSessionStore.getState().logout();
-    if (env.useMocks) setMockConfig({ scenario: "guest" });
-    router.push(routes.dashboard);
-  }, [router]);
+    mutate(undefined, { onSettled: () => router.push(routes.dashboard) });
+  }, [mutate, router]);
 }

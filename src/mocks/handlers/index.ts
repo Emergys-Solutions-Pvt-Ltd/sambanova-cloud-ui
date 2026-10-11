@@ -2,10 +2,25 @@ import { delay, http, HttpResponse, type HttpResponseResolver } from "msw";
 
 import { env } from "@/config/env";
 import { type PaginatedResponse } from "@/lib/api/types";
-import { type CreateExampleItemInput, type ExampleItem } from "@/types/domain";
+import {
+  type AuthResponse,
+  type CreateExampleItemInput,
+  type ExampleItem,
+  type LoginInput,
+  type SignupInput,
+} from "@/types/domain";
 
 import { getMockConfig } from "../config";
-import { exampleItemsByProject, projectsFixture, userFixture } from "../fixtures";
+import {
+  createSession,
+  endSession,
+  findAccountBySession,
+  registerAccount,
+  toUser,
+  verifyCredentials,
+} from "../db/accounts";
+import { clearSessionCookie, readSessionToken, writeSessionCookie } from "../db/session-cookie";
+import { exampleItemsByProject, projectsFixture } from "../fixtures";
 import {
   modelCatalogFixture,
   partnersFixture,
@@ -36,28 +51,104 @@ function withScenario<Params extends Record<string, string>>(
   };
 }
 
+/** Rejects with 401 unless the request carries a valid session cookie, like the real API will. */
+function withSession<Params extends Record<string, string>>(
+  resolver: HttpResponseResolver<Params>,
+): HttpResponseResolver<Params> {
+  return withScenario<Params>(async (info) => {
+    const account = await findAccountBySession(readSessionToken());
+    if (!account) return unauthorized();
+    return resolver(info);
+  });
+}
+
+const unauthorized = (message = "Not signed in.") =>
+  HttpResponse.json(errorBody("UNAUTHORIZED", message), { status: 401 });
+
+const validationError = (message: string, details: Record<string, string>) =>
+  HttpResponse.json({ error: { code: "VALIDATION_ERROR", message, details } }, { status: 422 });
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 const notFound = (what: string) =>
   HttpResponse.json(errorBody("NOT_FOUND", `${what} not found.`), { status: 404 });
 
 export const handlers = [
   http.get(
     api("/me"),
-    withScenario(() => {
-      if (getMockConfig().scenario === "guest") {
-        return HttpResponse.json(errorBody("UNAUTHORIZED", "Not signed in."), { status: 401 });
+    withScenario(async () => {
+      const account = await findAccountBySession(readSessionToken());
+      if (!account) {
+        // A cookie that no longer maps to a session is dropped, as a real API would.
+        clearSessionCookie();
+        return unauthorized();
       }
-      return HttpResponse.json(userFixture);
+      return HttpResponse.json(toUser(account));
+    }),
+  ),
+
+  http.post(
+    api("/auth/signup"),
+    withScenario(async ({ request }) => {
+      const input = (await request.json()) as Partial<SignupInput>;
+      const fullName = input.fullName?.trim() ?? "";
+      const email = input.email?.trim() ?? "";
+      const password = input.password ?? "";
+
+      if (fullName.length < 2)
+        return validationError("Enter your full name.", { field: "fullName" });
+      if (!EMAIL_PATTERN.test(email))
+        return validationError("Enter a valid email address.", { field: "email" });
+      if (password.length < 8) {
+        return validationError("Use at least 8 characters.", { field: "password" });
+      }
+
+      const account = await registerAccount({ fullName, email, password });
+      if (!account) {
+        return HttpResponse.json(
+          errorBody("EMAIL_TAKEN", "An account with this email already exists. Log in instead."),
+          { status: 409 },
+        );
+      }
+
+      writeSessionCookie(createSession(account.id));
+      const body: AuthResponse = { user: toUser(account) };
+      return HttpResponse.json(body, { status: 201 });
+    }),
+  ),
+
+  http.post(
+    api("/auth/login"),
+    withScenario(async ({ request }) => {
+      const input = (await request.json()) as Partial<LoginInput>;
+      const account = await verifyCredentials(input.email ?? "", input.password ?? "");
+      // Same message for an unknown email and a wrong password, so accounts can't be probed.
+      if (!account) return unauthorized("Incorrect email or password.");
+
+      writeSessionCookie(createSession(account.id));
+      const body: AuthResponse = { user: toUser(account) };
+      return HttpResponse.json(body);
+    }),
+  ),
+
+  http.post(
+    api("/auth/logout"),
+    withScenario(() => {
+      const token = readSessionToken();
+      if (token) endSession(token);
+      clearSessionCookie();
+      return new HttpResponse(null, { status: 204 });
     }),
   ),
 
   http.get(
     api("/projects"),
-    withScenario(() => HttpResponse.json(projectsFixture)),
+    withSession(() => HttpResponse.json(projectsFixture)),
   ),
 
   http.get(
     api("/projects/:projectId"),
-    withScenario<{ projectId: string }>(({ params }) => {
+    withSession<{ projectId: string }>(({ params }) => {
       const project = projectsFixture.find((item) => item.id === params.projectId);
       return project ? HttpResponse.json(project) : notFound("Project");
     }),
@@ -65,7 +156,7 @@ export const handlers = [
 
   http.get(
     api("/projects/:projectId/usage-overview"),
-    withScenario<{ projectId: string }>(({ params }) => {
+    withSession<{ projectId: string }>(({ params }) => {
       const project = projectsFixture.find((item) => item.id === params.projectId);
       return project ? HttpResponse.json(usageOverviewFixture) : notFound("Project");
     }),
@@ -93,7 +184,7 @@ export const handlers = [
 
   http.get(
     api("/projects/:projectId/examples"),
-    withScenario<{ projectId: string }>(({ params, request }) => {
+    withSession<{ projectId: string }>(({ params, request }) => {
       const items = exampleItemsByProject.get(params.projectId);
       if (!items) return notFound("Project");
 
@@ -115,7 +206,7 @@ export const handlers = [
 
   http.post(
     api("/projects/:projectId/examples"),
-    withScenario<{ projectId: string }>(async ({ params, request }) => {
+    withSession<{ projectId: string }>(async ({ params, request }) => {
       const items = exampleItemsByProject.get(params.projectId);
       if (!items) return notFound("Project");
 

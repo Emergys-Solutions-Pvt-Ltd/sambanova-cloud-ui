@@ -1,0 +1,39 @@
+"use client";
+
+import { Button } from "@/components/ui/button";
+import { routes } from "@/config/routes";
+import { useAuthGate } from "@/features/auth";
+
+/** Hero quick actions. Guests who click one are asked to log in first, then taken to the page. */
+export function HeroActions() {
+  const { guardLink } = useAuthGate();
+
+  return (
+    <div className="flex flex-wrap gap-2.5">
+      <Button
+        href={routes.playground}
+        onClick={guardLink(routes.playground)}
+        variant="glass"
+        rightIcon="arrow-right"
+      >
+        Open Playground
+      </Button>
+      <Button
+        href={routes.apiKeys}
+        onClick={guardLink(routes.apiKeys)}
+        variant="glass"
+        rightIcon="arrow-right"
+      >
+        Create API Key
+      </Button>
+      <Button
+        href={routes.settingsBilling}
+        onClick={guardLink(routes.settingsBilling)}
+        variant="glass"
+        rightIcon="arrow-right"
+      >
+        Add Credits
+      </Button>
+    </div>
+  );
+}

@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
 import { illustrations } from "@/config/assets";
-import { routes } from "@/config/routes";
+
+import { HeroActions } from "./hero-actions";
 
 /** Dashboard hero: the page's <h1>, three quick actions and the animated-wave artwork. */
 export function HeroBanner() {
@@ -46,17 +46,7 @@ export function HeroBanner() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-2.5">
-          <Button href={routes.playground} variant="glass" rightIcon="arrow-right">
-            Open Playground
-          </Button>
-          <Button href={routes.apiKeys} variant="glass" rightIcon="arrow-right">
-            Create API Key
-          </Button>
-          <Button href={routes.settingsBilling} variant="glass" rightIcon="arrow-right">
-            Add Credits
-          </Button>
-        </div>
+        <HeroActions />
       </div>
     </section>
   );

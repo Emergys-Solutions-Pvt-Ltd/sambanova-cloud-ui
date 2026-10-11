@@ -13,6 +13,7 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { routes } from "@/config/routes";
 import { useActiveProject, useProjects, useSwitchProject } from "@/features/projects";
 import { cn } from "@/lib/cn";
+import { selectIsAuthenticated, useSessionStore } from "@/stores/session-store";
 import { type Project } from "@/types/domain";
 
 interface ProjectListProps {
@@ -136,8 +137,45 @@ function ProjectList({ projects, activeId, onSelect }: ProjectListProps) {
   );
 }
 
-/** Active-project switcher at the top of the sidebar (Figma: "Default project" selector). */
+const GUEST_PROJECT_NAME = "Default project";
+
+/** Signed-out state: the switcher is disabled and the default project is shown (there is nothing to switch to). */
+function GuestProjectSelector({ collapsed }: { collapsed?: boolean }) {
+  return collapsed ? (
+    <button
+      type="button"
+      disabled
+      aria-label={`Project: ${GUEST_PROJECT_NAME}. Log in to switch projects`}
+      title="Log in to switch projects"
+      className="flex size-11 items-center justify-center rounded-sm border border-control opacity-60"
+    >
+      <Avatar name={GUEST_PROJECT_NAME} size="xs" />
+    </button>
+  ) : (
+    <button
+      type="button"
+      disabled
+      aria-label={`Project: ${GUEST_PROJECT_NAME}. Log in to switch projects`}
+      title="Log in to switch projects"
+      className="flex h-8.5 w-full items-center justify-between gap-2 rounded-sm border border-control px-3 py-2 text-caption font-medium text-primary opacity-60"
+    >
+      <span className="truncate">{GUEST_PROJECT_NAME}</span>
+      <Icon name="chevron-up-down" size="sm" className="shrink-0" />
+    </button>
+  );
+}
+
+/** Active-project switcher at the top of the sidebar (Figma: "Default project" selector). Signed-in users only. */
 export function ProjectSelector({ collapsed }: { collapsed?: boolean }) {
+  const authenticated = useSessionStore(selectIsAuthenticated);
+  return authenticated ? (
+    <ProjectSwitcher collapsed={collapsed} />
+  ) : (
+    <GuestProjectSelector collapsed={collapsed} />
+  );
+}
+
+function ProjectSwitcher({ collapsed }: { collapsed?: boolean }) {
   const [open, setOpen] = useState(false);
   const projects = useProjects();
   const { project } = useActiveProject();

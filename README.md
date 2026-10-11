@@ -127,17 +127,10 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 - **Account area**: signed in shows the profile card with credit badge and the account menu (email, Manage Projects, Theme, Documentation, Help Center, Logout). Signed out shows "Sign Up for Free" and the theme switcher. While `GET /me` loads, a placeholder holds the space.
 - **Drawer**: overlay, focus trap, Escape, closes on navigation, focus returns to the opener.
 - **Page frame**: use `<PageHeader title subtitle actions />` then `<PageContent>`.
-- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control), `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
+- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand), `TextField`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
 - **Accessibility**: skip-to-content link, landmarks (`aside`, `nav`, `main`), visible focus rings, full keyboard operation.
 
-**Toggling signed-in and signed-out** (with mocks on), from the browser console. The app refetches immediately, no reload needed:
-
-```js
-__mocks.set({ scenario: "guest" }); // signed out: GET /me returns 401
-__mocks.reset(); // signed in again
-```
-
-The account menu’s Logout does the same through `useLogout` (a stub until Auth0).
+**Signing in and out** (with mocks on): use the app. Sign Up for Free (sidebar) or any locked action opens the login dialog; Logout is in the account menu. See [Authentication](#authentication-mock-until-the-real-api).
 
 ## Dashboard
 
@@ -193,7 +186,6 @@ Change the latency and error scenario from the browser console. Settings persist
 
 ```js
 __mocks.set({ scenario: "error" }); // every request returns 500
-__mocks.set({ scenario: "guest" }); // GET /me returns 401 (signed-out state)
 __mocks.set({ latencyMs: 2000 }); // slow network (default 400 ms)
 __mocks.reset();
 ```
@@ -203,4 +195,13 @@ After upgrading `msw`, regenerate the worker with `npx msw init public`.
 ## Routing and auth
 
 - `/` redirects to `/dashboard`, and `/settings` redirects to `/settings/general` (`next.config.ts`).
-- `src/proxy.ts` sends signed-out users from protected routes (`protectedRoutePrefixes` in `src/config/routes.ts`) to `/login?returnTo=…`. The session check is a stub that always passes until Auth0 is integrated.
+- `src/proxy.ts` sends signed-out users from protected routes (`protectedRoutePrefixes` in `src/config/routes.ts`) to `/login?returnTo=…`. It checks that the API's session cookie (`SESSION_COOKIE_NAME` in `src/config/auth.ts`) is present; the API itself decides whether a session is still valid.
+
+### Authentication (mock until the real API)
+
+Login and sign-up are one dialog (`src/features/auth`) that opens over the dashboard: from "Sign Up for Free", from a locked action, or by visiting `/login` or `/signup` (add `?returnTo=/path` to land somewhere after login). Social buttons are placeholders.
+
+- **Session = a cookie owned by the API.** `POST /auth/login`, `POST /auth/signup` and `POST /auth/logout` start and end it; `GET /me` reads it and answers 401 without one. The Axios client sends cookies (`withCredentials`). The client keeps no token: `useSessionStore` mirrors `GET /me` (`useSessionSync`).
+- **Locked actions.** For guests, Open Playground, Create API Key, Add Credits, Compare Models and Explore in Playground stay clickable but open the login dialog (`useAuthGate`) and carry on after sign-in. The project selector is disabled and shows "Default project"; project data is not fetched.
+- **Mock backend** (`src/mocks`): accounts and sessions live in localStorage (`sn:mock-accounts`, `sn:mock-sessions`), passwords are stored hashed, and the mock sets the cookie through `document.cookie`. Accounts present from the start are listed in `src/mocks/fixtures/auth.ts` (nothing in the UI reads that file; sign up to create your own). Clear those localStorage keys and the cookie to reset.
+- **Swapping in the real API:** point `NEXT_PUBLIC_API_BASE_URL` at it and set `NEXT_PUBLIC_USE_MOCKS=false`. Keep the endpoint shapes in `src/features/auth/api/auth.api.ts` (or adjust that one file), make the API set the cookie named in `src/config/auth.ts`, and enable CORS credentials if it is on another origin.

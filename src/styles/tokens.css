@@ -110,6 +110,16 @@
   --sn-viz-sky: #7cc6ff;
   --sn-viz-teal: #0f9e7d;
 
+  /* Third-party brand marks (sign-in buttons). Fixed colors, identical in every theme. */
+  --sn-logo-google-red: #ea4335;
+  --sn-logo-google-blue: #4285f4;
+  --sn-logo-google-yellow: #fbbc05;
+  --sn-logo-google-green: #34a853;
+  --sn-logo-microsoft-red: #f25022;
+  --sn-logo-microsoft-green: #7fba00;
+  --sn-logo-microsoft-blue: #00a4ef;
+  --sn-logo-microsoft-yellow: #ffb900;
+
   /* Code syntax (Developer Quickstart). */
   --sn-syntax-green-dark: #00ef64;
   --sn-syntax-purple-dark: #c580ff;
@@ -142,6 +152,7 @@
   --sn-radius-item: 10px; /* menu options (Figma) */
   --sn-radius-lg: 12px;
   --sn-radius-xl: 16px;
+  --sn-radius-2xl: 20px; /* auth dialog (Figma) */
   --sn-radius-full: 9999px;
   --sn-steps-pill-width: 93px; /* Figma: Steps Animation, collapsed pill */
   --sn-steps-pill-height: 27px;
@@ -344,6 +355,7 @@
   --sn-border-input: var(--sn-ink-stroke-2);
   --sn-border-dashed: var(--sn-gray-800);
   --sn-border-pill: var(--sn-purple-800);
+  --sn-border-social: var(--sn-gray-600);
   --sn-border-card-hover: var(--sn-gray-700);
   --sn-border-brand-hover: var(--sn-purple-900);
   --sn-button-glass-fg: var(--sn-neutral-0);
@@ -467,6 +479,7 @@
   --sn-border-input: var(--sn-gray-300);
   --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-pill: var(--sn-purple-400); /* GUESS */
+  --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-card-hover: var(--sn-purple-300); /* GUESS: Figma shows dark only */
   --sn-border-brand-hover: var(--sn-purple-400); /* GUESS */
   --sn-button-glass-fg: var(--sn-purple-900);
@@ -585,6 +598,7 @@
     --sn-border-input: var(--sn-gray-300);
     --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-pill: var(--sn-purple-400); /* GUESS */
+    --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-card-hover: var(--sn-purple-300); /* GUESS: Figma shows dark only */
     --sn-border-brand-hover: var(--sn-purple-400); /* GUESS */
     --sn-button-glass-fg: var(--sn-purple-900);

@@ -45,6 +45,7 @@
   --border-color-disabled: var(--sn-border-disabled);
   --border-color-input: var(--sn-border-input);
   --border-color-pill: var(--sn-border-pill);
+  --border-color-social: var(--sn-border-social);
   --border-color-card-hover: var(--sn-border-card-hover);
   --border-color-brand-hover: var(--sn-border-brand-hover);
   --width-steps-pill: var(--sn-steps-pill-width);
@@ -205,6 +206,7 @@
   --radius-item: var(--sn-radius-item);
   --radius-lg: var(--sn-radius-lg);
   --radius-xl: var(--sn-radius-xl);
+  --radius-2xl: var(--sn-radius-2xl);
 
   --shadow-*: initial;
   --shadow-xs: var(--sn-shadow-xs);

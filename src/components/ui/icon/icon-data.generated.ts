@@ -312,6 +312,15 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M9.17 5.83H5A1.7 1.7 0 0 0 3.33 7.5V15A1.7 1.7 0 0 0 5 16.67h7.5A1.7 1.7 0 0 0 14.17 15v-4.17m-5.84.84 8.34-8.34m-4.17 0h4.17V7.5"/>',
   },
+  "eye-off": {
+    viewBox: "0 0 28 28",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.75",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M12.35 12.35a2.3 2.3 0 0 0 0 3.3 2.3 2.3 0 0 0 3.3 0M5.25 5.25l17.5 17.5"/><path d="M17.9 17.9c-1.1.74-2.43 3.1-3.9 3.1q-6.3 0-10.5-7a15 15 0 0 1 3.68-4.3m4.02-2.4C12.1 7.1 13 7 14 7q6.3 0 10.5 7a18 18 0 0 1-1.95 2.73"/>',
+  },
   eye: {
     viewBox: "0 0 28 28",
     fill: "none",

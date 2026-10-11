@@ -33,7 +33,7 @@ function StoreHydration() {
   return null;
 }
 
-/** Refetches everything when the mock scenario changes (e.g. __mocks.set({ scenario: "guest" })). */
+/** Refetches everything when the mock scenario changes (e.g. __mocks.set({ scenario: "error" })). */
 function MockSync({ client }: { client: QueryClient }) {
   useEffect(() => {
     const onChange = () => void client.invalidateQueries();

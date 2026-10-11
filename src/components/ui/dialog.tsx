@@ -10,11 +10,18 @@ import { IconButton } from "./icon-button";
 export const Dialog = DialogPrimitive.Root;
 export const DialogTrigger = DialogPrimitive.Trigger;
 export const DialogClose = DialogPrimitive.Close;
+export const DialogTitle = DialogPrimitive.Title;
+export const DialogDescription = DialogPrimitive.Description;
 
 type DialogSize = "sm" | "lg";
 
-/** sm is about 462px (login), lg about 858px (Compare Models); both are capped to the viewport. */
-const sizes: Record<DialogSize, string> = { sm: "max-w-115.5", lg: "max-w-214.5" };
+/** sm is 464px (login), lg about 858px (Compare Models); both are capped to the viewport. */
+const sizes: Record<DialogSize, string> = { sm: "max-w-116", lg: "max-w-214.5" };
+
+const overlayClasses = cn(
+  "fixed inset-0 z-overlay bg-overlay",
+  "data-[state=closed]:animate-overlay-out data-[state=open]:animate-overlay-in",
+);
 
 interface DialogContentProps extends Omit<
   ComponentPropsWithRef<typeof DialogPrimitive.Content>,
@@ -38,12 +45,7 @@ export function DialogContent({
 }: DialogContentProps) {
   return (
     <DialogPrimitive.Portal>
-      <DialogPrimitive.Overlay
-        className={cn(
-          "fixed inset-0 z-overlay bg-overlay",
-          "data-[state=closed]:animate-overlay-out data-[state=open]:animate-overlay-in",
-        )}
-      />
+      <DialogPrimitive.Overlay className={overlayClasses} />
       <DialogPrimitive.Content
         // Without a description there is nothing to point aria-describedby at.
         {...(description ? {} : { "aria-describedby": undefined })}
@@ -72,6 +74,35 @@ export function DialogContent({
           </DialogPrimitive.Close>
         </div>
         <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-6">{children}</div>
+      </DialogPrimitive.Content>
+    </DialogPrimitive.Portal>
+  );
+}
+
+type DialogPanelProps = Omit<ComponentPropsWithRef<typeof DialogPrimitive.Content>, "title"> & {
+  size?: DialogSize;
+};
+
+/**
+ * Bare modal surface for dialogs with their own header (Figma: login card, r20).
+ * Render a `DialogTitle` inside so the dialog has an accessible name.
+ */
+export function DialogPanel({ size = "sm", className, children, ...rest }: DialogPanelProps) {
+  return (
+    <DialogPrimitive.Portal>
+      <DialogPrimitive.Overlay className={overlayClasses} />
+      <DialogPrimitive.Content
+        aria-describedby={undefined}
+        className={cn(
+          "fixed top-1/2 left-1/2 z-modal max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto",
+          "rounded-2xl border border-default bg-surface text-primary shadow-lg outline-none",
+          "data-[state=open]:animate-pop-in",
+          sizes[size],
+          className,
+        )}
+        {...rest}
+      >
+        {children}
       </DialogPrimitive.Content>
     </DialogPrimitive.Portal>
   );
