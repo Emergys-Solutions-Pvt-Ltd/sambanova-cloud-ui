@@ -8,6 +8,7 @@ import { ArrowLink } from "@/components/ui/arrow-link";
 import { Card } from "@/components/ui/card";
 import { ErrorState } from "@/components/ui/error-state";
 import { Skeleton } from "@/components/ui/skeleton";
+import { cn } from "@/lib/cn";
 import { type CloudPartner } from "@/types/domain";
 
 import { usePartners } from "../hooks/use-dashboard-data";
@@ -72,7 +73,11 @@ function PartnerCard({ partner }: { partner: CloudPartner }) {
     <Card
       as="article"
       padding="lg"
-      className="relative flex min-h-41.75 flex-col justify-between gap-4 overflow-hidden"
+      className={cn(
+        "group/card relative flex min-h-41.75 flex-col justify-between gap-4 overflow-hidden",
+        // Figma hover (slow smart-animate): the border turns brand purple and the arrow slides through.
+        "transition-colors duration-(--sn-duration-marquee) ease-standard hover:border-brand-hover motion-reduce:transition-none",
+      )}
     >
       <div
         aria-hidden="true"
@@ -92,7 +97,13 @@ function PartnerCard({ partner }: { partner: CloudPartner }) {
         <p className="text-body-sm text-muted">{partner.description}</p>
       </div>
       <div className="relative">
-        <ArrowLink size="sm" href={partner.url} target="_blank" rel="noopener noreferrer">
+        <ArrowLink
+          size="sm"
+          arrow="marquee"
+          href={partner.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Explore {partner.name}
         </ArrowLink>
       </div>

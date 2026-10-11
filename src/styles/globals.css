@@ -46,6 +46,7 @@
   --border-color-input: var(--sn-border-input);
   --border-color-pill: var(--sn-border-pill);
   --border-color-card-hover: var(--sn-border-card-hover);
+  --border-color-brand-hover: var(--sn-border-brand-hover);
   --width-steps-pill: var(--sn-steps-pill-width);
   --height-steps-pill: var(--sn-steps-pill-height);
 
