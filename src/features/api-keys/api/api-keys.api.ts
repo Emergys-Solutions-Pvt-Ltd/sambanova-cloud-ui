@@ -1,10 +1,23 @@
-import { apiClient } from "@/lib/api";
-import { type ApiKey, type CreateApiKeyInput, type CreatedApiKey } from "@/types/domain";
+import { apiClient, type PaginatedResponse } from "@/lib/api";
+import {
+  type ApiKey,
+  type ApiKeyListParams,
+  type CreateApiKeyInput,
+  type CreatedApiKey,
+} from "@/types/domain";
 
-export async function listApiKeys(projectId: string, signal?: AbortSignal) {
-  const { data } = await apiClient.get<ApiKey[]>(
+/** One page of the project's keys; search and status filtering happen on the server. */
+export async function listApiKeys(
+  projectId: string,
+  { page, pageSize, search, status }: ApiKeyListParams,
+  signal?: AbortSignal,
+) {
+  const { data } = await apiClient.get<PaginatedResponse<ApiKey>>(
     `/projects/${encodeURIComponent(projectId)}/api-keys`,
-    { signal },
+    {
+      params: { page, pageSize, ...(search && { search }), ...(status !== "all" && { status }) },
+      signal,
+    },
   );
   return data;
 }

@@ -361,6 +361,12 @@
   --sn-border-pill: var(--sn-purple-800);
   --sn-border-social: var(--sn-gray-600);
   --sn-border-field: var(--sn-gray-800);
+  --sn-bg-table-head: var(--sn-neutral-800);
+  --sn-text-table-header: var(--sn-gray-200);
+  --sn-border-table-control: var(--sn-gray-700);
+  --sn-bg-pagination-item: rgb(255 255 255 / 0.02);
+  --sn-bg-pagination-active: rgb(152 71 214 / 0.12);
+  --sn-text-pagination-active: var(--sn-purple-600);
   --sn-border-header: var(--sn-gray-800);
   --sn-bg-callout: rgb(33 25 44 / 0.4);
   --sn-border-callout: rgb(152 71 214 / 0.16);
@@ -501,6 +507,12 @@
   --sn-border-pill: var(--sn-purple-400); /* GUESS */
   --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-bg-table-head: var(--sn-gray-50); /* GUESS: table is dark only in Figma */
+  --sn-text-table-header: var(--sn-gray-700); /* GUESS */
+  --sn-border-table-control: var(--sn-gray-300); /* GUESS */
+  --sn-bg-pagination-item: transparent; /* GUESS */
+  --sn-bg-pagination-active: rgb(152 71 214 / 0.12); /* GUESS */
+  --sn-text-pagination-active: var(--sn-purple-700); /* GUESS */
   --sn-border-header: var(--sn-purple-200); /* GUESS: Figma shows dark only */
   --sn-bg-callout: var(--sn-purple-50); /* GUESS */
   --sn-border-callout: var(--sn-purple-200); /* GUESS */
@@ -638,6 +650,12 @@
     --sn-border-pill: var(--sn-purple-400); /* GUESS */
     --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-bg-table-head: var(--sn-gray-50); /* GUESS: table is dark only in Figma */
+    --sn-text-table-header: var(--sn-gray-700); /* GUESS */
+    --sn-border-table-control: var(--sn-gray-300); /* GUESS */
+    --sn-bg-pagination-item: transparent; /* GUESS */
+    --sn-bg-pagination-active: rgb(152 71 214 / 0.12); /* GUESS */
+    --sn-text-pagination-active: var(--sn-purple-700); /* GUESS */
     --sn-border-header: var(--sn-purple-200); /* GUESS: Figma shows dark only */
     --sn-bg-callout: var(--sn-purple-50); /* GUESS */
     --sn-border-callout: var(--sn-purple-200); /* GUESS */

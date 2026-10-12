@@ -1,25 +1,20 @@
 "use client";
 
-import { useMemo } from "react";
-
 import { NameDialog } from "@/components/ui/name-dialog";
 import { useCreateApiKeyDialogStore } from "@/stores/create-api-key-dialog-store";
 import { toast } from "@/stores/toast-store";
 
-import { useApiKeys } from "../hooks/use-api-keys";
 import { useCreateApiKey } from "../hooks/use-create-api-key";
 import { API_KEY_NAME_MAX, apiKeyNameSchema } from "../schemas";
+
+// The list is paginated, so duplicate names are caught by the API (409), not by the form.
+const schema = apiKeyNameSchema([]);
 
 /** "Create API key" modal (Figma: Create API key). Opened by the API Keys page buttons. */
 export function CreateApiKeyDialog() {
   const open = useCreateApiKeyDialogStore((state) => state.open);
   const close = useCreateApiKeyDialogStore((state) => state.close);
-  const keys = useApiKeys();
   const createKey = useCreateApiKey();
-  const schema = useMemo(
-    () => apiKeyNameSchema((keys.data ?? []).map((key) => key.name)),
-    [keys.data],
-  );
 
   return (
     <NameDialog

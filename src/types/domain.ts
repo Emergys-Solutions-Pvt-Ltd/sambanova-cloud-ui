@@ -76,6 +76,17 @@ export interface CreatedApiKey extends ApiKey {
 }
 
 export type ApiKeyStatus = "active" | "disabled";
+export type ApiKeyStatusFilter = "all" | ApiKeyStatus;
+
+/** Table state sent to `GET /projects/:id/api-keys`. */
+export interface ApiKeyListParams {
+  /** 1-based. */
+  page: number;
+  pageSize: number;
+  /** Matches the key name or ID; empty means no search. */
+  search: string;
+  status: ApiKeyStatusFilter;
+}
 
 /** An API key as listed (the secret itself is only shown once, when it is created). */
 export interface ApiKey {

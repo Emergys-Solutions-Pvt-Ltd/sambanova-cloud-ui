@@ -61,7 +61,16 @@ export const menuItemClasses =
 
 export function DropdownMenuItem({
   className,
+  destructive,
   ...rest
-}: ComponentPropsWithRef<typeof MenuPrimitive.Item>) {
-  return <MenuPrimitive.Item className={cn(menuItemClasses, className)} {...rest} />;
+}: ComponentPropsWithRef<typeof MenuPrimitive.Item> & {
+  /** Red text for irreversible actions (Figma: "Delete Key"). */
+  destructive?: boolean;
+}) {
+  const classes = destructive
+    ? menuItemClasses
+        .replace("text-secondary", "text-error")
+        .replace("data-[highlighted]:text-primary", "data-[highlighted]:text-error")
+    : menuItemClasses;
+  return <MenuPrimitive.Item className={cn(classes, className)} {...rest} />;
 }

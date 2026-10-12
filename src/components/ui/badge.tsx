@@ -4,6 +4,7 @@ import { cn } from "@/lib/cn";
 
 export type BadgeVariant = "success" | "error" | "warning" | "info" | "neutral" | "brand";
 export type BadgeSize = "sm" | "md";
+export type BadgeShape = "pill" | "rounded";
 
 const variants: Record<BadgeVariant, string> = {
   success: "border-success-border bg-success-bg text-success",
@@ -23,14 +24,31 @@ const sizes: Record<BadgeSize, string> = {
 export interface BadgeProps extends ComponentPropsWithRef<"span"> {
   variant?: BadgeVariant;
   size?: BadgeSize;
+  /** "rounded" (6px corners, thin full-strength border) is the table status chip in Figma. */
+  shape?: BadgeShape;
 }
 
-export function Badge({ variant = "neutral", size = "md", className, ...rest }: BadgeProps) {
+const strongBorders: Partial<Record<BadgeVariant, string>> = {
+  success: "border-toast-success-line",
+  error: "border-toast-error-line",
+  warning: "border-toast-warning-line",
+  info: "border-toast-info-line",
+};
+
+export function Badge({
+  variant = "neutral",
+  size = "md",
+  shape = "pill",
+  className,
+  ...rest
+}: BadgeProps) {
   return (
     <span
       className={cn(
-        "inline-flex shrink-0 items-center rounded-full border leading-none whitespace-nowrap",
+        "inline-flex shrink-0 items-center border leading-none whitespace-nowrap",
+        shape === "pill" ? "rounded-full" : "rounded-sm border-(length:--sn-border-thin)",
         variants[variant],
+        shape === "rounded" && strongBorders[variant],
         sizes[size],
         className,
       )}

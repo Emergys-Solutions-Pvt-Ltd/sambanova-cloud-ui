@@ -4,6 +4,7 @@ import { env } from "@/config/env";
 import { type PaginatedResponse } from "@/lib/api/types";
 import { checkExpiry, digitsOnly, isValidCardNumber, isValidSecurityCode } from "@/lib/card";
 import {
+  type ApiKey,
   type AuthResponse,
   type CreateExampleItemInput,
   type CreateApiKeyInput,
@@ -25,7 +26,7 @@ import {
   toUser,
   verifyCredentials,
 } from "../db/accounts";
-import { createApiKeyFor, listApiKeysFor } from "../db/api-keys";
+import { createApiKeyFor, queryApiKeys } from "../db/api-keys";
 import { getBillingAddress, recordPurchase } from "../db/billing";
 import { createProjectFor, listProjectsFor } from "../db/projects";
 import { clearSessionCookie, readSessionToken, writeSessionCookie } from "../db/session-cookie";
@@ -275,12 +276,20 @@ export const handlers = [
 
   http.get(
     api("/projects/:projectId/api-keys"),
-    withSession<{ projectId: string }>(async ({ params }) => {
+    withSession<{ projectId: string }>(async ({ params, request }) => {
       const account = await findAccountBySession(readSessionToken());
       const project = await findOwnProject(params.projectId);
-      return project
-        ? HttpResponse.json(listApiKeysFor(account!.id, project.id))
-        : notFound("Project");
+      if (!project) return notFound("Project");
+
+      const url = new URL(request.url);
+      const status = url.searchParams.get("status");
+      const page = queryApiKeys(account!.id, project.id, {
+        page: Number(url.searchParams.get("page")) || 1,
+        pageSize: Math.min(100, Math.max(1, Number(url.searchParams.get("pageSize")) || 10)),
+        search: url.searchParams.get("search") ?? "",
+        status: status === "active" || status === "disabled" ? status : "all",
+      });
+      return HttpResponse.json(page satisfies PaginatedResponse<ApiKey>);
     }),
   ),
 

@@ -1,4 +1,5 @@
 import { type PaginationParams } from "@/lib/api";
+import { type ApiKeyListParams } from "@/types/domain";
 
 /**
  * Query key factory. Every key starts with its domain so a whole domain can
@@ -33,7 +34,11 @@ export const queryKeys = {
     webinars: () => [...queryKeys.marketing.all, "webinars"] as const,
     partners: () => [...queryKeys.marketing.all, "partners"] as const,
   },
-  apiKeys: (projectId: string) => [...queryKeys.project(projectId), "api-keys"] as const,
+  apiKeys: {
+    all: (projectId: string) => [...queryKeys.project(projectId), "api-keys"] as const,
+    list: (projectId: string, params: ApiKeyListParams) =>
+      [...queryKeys.apiKeys.all(projectId), "list", params] as const,
+  },
   usageOverview: (projectId: string) =>
     [...queryKeys.project(projectId), "usage-overview"] as const,
   examples: {

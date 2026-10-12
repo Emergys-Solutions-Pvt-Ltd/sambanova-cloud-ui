@@ -5,7 +5,7 @@ import { cn } from "@/lib/cn";
 import { Icon, type IconName } from "./icon/icon";
 
 export type IconButtonVariant = "ghost" | "outline" | "solid" | "surface";
-export type IconButtonSize = "sm" | "md" | "field" | "lg" | "carousel";
+export type IconButtonSize = "xs" | "sm" | "md" | "field" | "lg" | "carousel";
 
 const variants: Record<IconButtonVariant, string> = {
   ghost: "text-secondary hover:bg-hover hover:text-primary",
@@ -17,6 +17,8 @@ const variants: Record<IconButtonVariant, string> = {
 };
 
 const sizes: Record<IconButtonSize, { box: string; icon: number }> = {
+  /** Compact 24px target with an 18px icon (table row actions). */
+  xs: { box: "size-6", icon: 18 },
   sm: { box: "size-8", icon: 16 },
   md: { box: "size-9", icon: 20 },
   /** Same height as a 38px form field. */

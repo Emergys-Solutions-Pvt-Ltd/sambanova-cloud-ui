@@ -47,6 +47,12 @@
   --border-color-pill: var(--sn-border-pill);
   --border-color-social: var(--sn-border-social);
   --border-color-field: var(--sn-border-field);
+  --color-table-head: var(--sn-bg-table-head);
+  --text-color-table-header: var(--sn-text-table-header);
+  --border-color-table-control: var(--sn-border-table-control);
+  --color-pagination-item: var(--sn-bg-pagination-item);
+  --color-pagination-active: var(--sn-bg-pagination-active);
+  --text-color-pagination-active: var(--sn-text-pagination-active);
   --border-color-header: var(--sn-border-header);
   --border-color-callout: var(--sn-border-callout);
   --color-callout: var(--sn-bg-callout);
