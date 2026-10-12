@@ -116,7 +116,16 @@ export function ApiKeysTable({ result, filtered, onPageChange, loadingMore }: Ap
 
           {rows.map((key) => (
             <TableRow key={key.id}>
-              <TableCell className="font-normal">{key.name}</TableCell>
+              <TableCell>
+                <div className="flex items-center gap-4">
+                  {key.name}
+                  {key.renamedAt && (
+                    <Badge variant="neutral" shape="rounded">
+                      Edited
+                    </Badge>
+                  )}
+                </div>
+              </TableCell>
               <TableCell>{maskedKeyId(key)}</TableCell>
               <TableCell className="whitespace-nowrap">{formatDateTime(key.createdAt)}</TableCell>
               <TableCell className="whitespace-nowrap">

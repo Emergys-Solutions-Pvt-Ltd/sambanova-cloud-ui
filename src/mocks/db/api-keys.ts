@@ -24,11 +24,27 @@ function readCreated(): KeysByScope {
   }
 }
 
-/** Every key of the project: created ones first, then the seed keys (Default project only). */
+/** Renames and status changes, kept per key so they apply to seed keys too. */
+const PATCHES_KEY = "sn:mock-api-key-patches";
+type KeyPatch = { name?: string; status?: ApiKey["status"]; renamedAt?: string };
+type PatchesByScope = Record<string, Record<string, KeyPatch>>;
+
+function readPatches(): PatchesByScope {
+  try {
+    return JSON.parse(localStorage.getItem(PATCHES_KEY) ?? "{}") as PatchesByScope;
+  } catch {
+    return {};
+  }
+}
+
+/** Every key of the project: created ones first, then the seed keys (Default project only), with edits applied. */
 function allKeys(accountId: string, projectId: string): ApiKey[] {
   const created = readCreated()[scopeOf(accountId, projectId)] ?? [];
   const seed = projectId === defaultProjectId ? buildSeedApiKeys(Date.now()) : [];
-  return [...created, ...seed];
+  const patches = readPatches()[scopeOf(accountId, projectId)] ?? {};
+  return [...created, ...seed].map((key) =>
+    patches[key.id] ? { ...key, ...patches[key.id] } : key,
+  );
 }
 
 /** The id as Figma shows it ("sdk_live...........a129"), which is what the search box matches. */
@@ -90,9 +106,39 @@ export function createApiKeyFor(
     status: "active",
     createdAt: new Date().toISOString(),
     lastUsedAt: null,
+    renamedAt: null,
   };
   const all = readCreated();
   all[scopeOf(accountId, projectId)] = [key, ...(all[scopeOf(accountId, projectId)] ?? [])];
   localStorage.setItem(API_KEYS_KEY, JSON.stringify(all));
   return { ...key, secret };
+}
+
+export type UpdateResult = ApiKey | "not-found" | "duplicate";
+
+/** Applies a rename and/or status change. A rename to a name another key already has is refused. */
+export function updateApiKeyFor(
+  accountId: string,
+  projectId: string,
+  keyId: string,
+  input: { name?: string; status?: ApiKey["status"] },
+): UpdateResult {
+  const keys = allKeys(accountId, projectId);
+  const key = keys.find((item) => item.id === keyId);
+  if (!key) return "not-found";
+
+  const patch: KeyPatch = {};
+  if (input.name !== undefined && input.name.trim() !== key.name) {
+    const name = input.name.trim();
+    if (keys.some((item) => item.id !== keyId && sameName(item.name, name))) return "duplicate";
+    patch.name = name;
+    patch.renamedAt = new Date().toISOString();
+  }
+  if (input.status !== undefined) patch.status = input.status;
+
+  const all = readPatches();
+  const scope = scopeOf(accountId, projectId);
+  all[scope] = { ...all[scope], [keyId]: { ...all[scope]?.[keyId], ...patch } };
+  localStorage.setItem(PATCHES_KEY, JSON.stringify(all));
+  return { ...key, ...patch };
 }

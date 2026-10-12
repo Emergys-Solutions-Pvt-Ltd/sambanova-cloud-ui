@@ -10,6 +10,7 @@ import {
   type CreateApiKeyInput,
   type CreateProjectInput,
   type PurchaseCreditsInput,
+  type UpdateApiKeyInput,
   type PurchaseCreditsResponse,
   type ExampleItem,
   type LoginInput,
@@ -26,7 +27,7 @@ import {
   toUser,
   verifyCredentials,
 } from "../db/accounts";
-import { createApiKeyFor, queryApiKeys } from "../db/api-keys";
+import { createApiKeyFor, queryApiKeys, updateApiKeyFor } from "../db/api-keys";
 import { getBillingAddress, recordPurchase } from "../db/billing";
 import { createProjectFor, listProjectsFor } from "../db/projects";
 import { clearSessionCookie, readSessionToken, writeSessionCookie } from "../db/session-cookie";
@@ -320,6 +321,42 @@ export const handlers = [
         );
       }
       return HttpResponse.json(created, { status: 201 });
+    }),
+  ),
+
+  http.patch(
+    api("/projects/:projectId/api-keys/:keyId"),
+    withSession<{ projectId: string; keyId: string }>(async ({ params, request }) => {
+      const account = await findAccountBySession(readSessionToken());
+      const project = await findOwnProject(params.projectId);
+      if (!project) return notFound("Project");
+
+      const input = (await request.json()) as UpdateApiKeyInput;
+      if (input.name !== undefined) {
+        const name = input.name.trim();
+        if (name.length < 3 || name.length > 50) {
+          return validationError("Key name must be 3 to 50 characters.", { field: "name" });
+        }
+      }
+      if (input.status !== undefined && input.status !== "active" && input.status !== "disabled") {
+        return validationError("Status must be active or disabled.", { field: "status" });
+      }
+
+      const result = updateApiKeyFor(account!.id, project.id, params.keyId, input);
+      if (result === "not-found") return notFound("API key");
+      if (result === "duplicate") {
+        return HttpResponse.json(
+          {
+            error: {
+              code: "API_KEY_NAME_TAKEN",
+              message: "An API key with this name already exists.",
+              details: { field: "name" },
+            },
+          },
+          { status: 409 },
+        );
+      }
+      return HttpResponse.json(result);
     }),
   ),
 

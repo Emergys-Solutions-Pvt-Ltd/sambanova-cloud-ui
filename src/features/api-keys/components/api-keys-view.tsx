@@ -14,6 +14,7 @@ import { useCreateApiKeyDialogStore } from "@/stores/create-api-key-dialog-store
 
 import { useApiKeys } from "../hooks/use-api-keys";
 import { useApiKeysTableState } from "../hooks/use-api-keys-table-state";
+import { ApiKeyActionDialogs } from "./api-key-action-dialogs";
 import { ApiKeysTable } from "./api-keys-table";
 import { ApiKeysToolbar } from "./api-keys-toolbar";
 import { CreateApiKeyDialog } from "./create-api-key-dialog";
@@ -117,6 +118,7 @@ export function ApiKeysView() {
       )}
 
       <CreateApiKeyDialog />
+      <ApiKeyActionDialogs />
     </>
   );
 }

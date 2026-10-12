@@ -48,6 +48,9 @@
   --border-color-social: var(--sn-border-social);
   --border-color-field: var(--sn-border-field);
   --color-table-head: var(--sn-bg-table-head);
+  --color-featured-warning: var(--sn-featured-warning-bg);
+  --border-color-featured-warning: var(--sn-featured-warning-ring);
+  --text-color-featured-warning: var(--sn-featured-warning-fg);
   --text-color-table-header: var(--sn-text-table-header);
   --border-color-table-control: var(--sn-border-table-control);
   --color-pagination-item: var(--sn-bg-pagination-item);

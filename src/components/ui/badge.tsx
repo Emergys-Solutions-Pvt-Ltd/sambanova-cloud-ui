@@ -33,6 +33,7 @@ const strongBorders: Partial<Record<BadgeVariant, string>> = {
   error: "border-toast-error-line",
   warning: "border-toast-warning-line",
   info: "border-toast-info-line",
+  neutral: "border-(--sn-text-muted) text-muted",
 };
 
 export function Badge({

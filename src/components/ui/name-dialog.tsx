@@ -25,6 +25,8 @@ interface NameDialogProps {
   submitLabel: string;
   /** Starting value, e.g. the current name when renaming. */
   initialName?: string;
+  /** Keep the submit button disabled until the name differs from `initialName` (rename dialogs). */
+  requireChange?: boolean;
   /** Rules for the trimmed name. The submit button stays disabled until they pass. */
   schema: z.ZodType<string, string>;
   /**
@@ -40,6 +42,7 @@ function NameForm({
   maxLength,
   submitLabel,
   initialName = "",
+  requireChange,
   schema,
   onSubmit,
 }: Omit<NameDialogProps, "open" | "onOpenChange" | "title" | "description">) {
@@ -110,7 +113,11 @@ function NameForm({
             Cancel
           </Button>
         </DialogClose>
-        <Button type="submit" loading={isSubmitting} disabled={!isValid}>
+        <Button
+          type="submit"
+          loading={isSubmitting}
+          disabled={!isValid || (requireChange && name.trim() === initialName.trim())}
+        >
           {submitLabel}
         </Button>
       </div>

@@ -10,6 +10,7 @@ export function apiKeyNameSchema(existingNames: readonly string[]) {
   return z
     .string()
     .trim()
+    .min(1, "Key name can’t be empty.")
     .min(API_KEY_NAME_MIN, `Key name must be at least ${API_KEY_NAME_MIN} characters.`)
     .max(API_KEY_NAME_MAX, `Key name must be ${API_KEY_NAME_MAX} characters or fewer.`)
     .refine((name) => !taken.has(name.toLowerCase()), "An API key with this name already exists.");

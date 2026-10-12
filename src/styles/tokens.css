@@ -361,6 +361,9 @@
   --sn-border-pill: var(--sn-purple-800);
   --sn-border-social: var(--sn-gray-600);
   --sn-border-field: var(--sn-gray-800);
+  --sn-featured-warning-bg: rgb(172 156 0 / 0.3);
+  --sn-featured-warning-ring: rgb(255 255 0 / 0.1);
+  --sn-featured-warning-fg: #ff9500;
   --sn-bg-table-head: var(--sn-neutral-800);
   --sn-text-table-header: var(--sn-gray-200);
   --sn-border-table-control: var(--sn-gray-700);
@@ -507,6 +510,9 @@
   --sn-border-pill: var(--sn-purple-400); /* GUESS */
   --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-featured-warning-bg: var(--sn-amber-100); /* GUESS: dark only in Figma */
+  --sn-featured-warning-ring: var(--sn-amber-50); /* GUESS */
+  --sn-featured-warning-fg: var(--sn-amber-600); /* GUESS */
   --sn-bg-table-head: var(--sn-gray-50); /* GUESS: table is dark only in Figma */
   --sn-text-table-header: var(--sn-gray-700); /* GUESS */
   --sn-border-table-control: var(--sn-gray-300); /* GUESS */
@@ -650,6 +656,9 @@
     --sn-border-pill: var(--sn-purple-400); /* GUESS */
     --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-featured-warning-bg: var(--sn-amber-100); /* GUESS: dark only in Figma */
+    --sn-featured-warning-ring: var(--sn-amber-50); /* GUESS */
+    --sn-featured-warning-fg: var(--sn-amber-600); /* GUESS */
     --sn-bg-table-head: var(--sn-gray-50); /* GUESS: table is dark only in Figma */
     --sn-text-table-header: var(--sn-gray-700); /* GUESS */
     --sn-border-table-control: var(--sn-gray-300); /* GUESS */

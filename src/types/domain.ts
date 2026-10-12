@@ -66,6 +66,12 @@ export interface PurchaseCreditsResponse {
   purchase: CreditPurchase;
 }
 
+/** Fields that can change on an existing key. */
+export interface UpdateApiKeyInput {
+  name?: string;
+  status?: ApiKeyStatus;
+}
+
 export interface CreateApiKeyInput {
   name: string;
 }
@@ -97,6 +103,8 @@ export interface ApiKey {
   status: ApiKeyStatus;
   createdAt: string;
   lastUsedAt: string | null;
+  /** Set once the key has been renamed; the table marks such keys "Edited". */
+  renamedAt?: string | null;
 }
 
 export interface Project {

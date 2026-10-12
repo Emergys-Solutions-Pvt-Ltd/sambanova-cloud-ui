@@ -4,6 +4,7 @@ import {
   type ApiKeyListParams,
   type CreateApiKeyInput,
   type CreatedApiKey,
+  type UpdateApiKeyInput,
 } from "@/types/domain";
 
 /** One page of the project's keys; search and status filtering happen on the server. */
@@ -26,6 +27,16 @@ export async function listApiKeys(
 export async function createApiKey(projectId: string, input: CreateApiKeyInput) {
   const { data } = await apiClient.post<CreatedApiKey>(
     `/projects/${encodeURIComponent(projectId)}/api-keys`,
+    input,
+    { skipRetry: true },
+  );
+  return data;
+}
+
+/** Renames a key and/or changes its status (disable, enable). */
+export async function updateApiKey(projectId: string, keyId: string, input: UpdateApiKeyInput) {
+  const { data } = await apiClient.patch<ApiKey>(
+    `/projects/${encodeURIComponent(projectId)}/api-keys/${encodeURIComponent(keyId)}`,
     input,
     { skipRetry: true },
   );
