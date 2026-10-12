@@ -33,6 +33,7 @@ export const queryKeys = {
     webinars: () => [...queryKeys.marketing.all, "webinars"] as const,
     partners: () => [...queryKeys.marketing.all, "partners"] as const,
   },
+  apiKeys: (projectId: string) => [...queryKeys.project(projectId), "api-keys"] as const,
   usageOverview: (projectId: string) =>
     [...queryKeys.project(projectId), "usage-overview"] as const,
   examples: {

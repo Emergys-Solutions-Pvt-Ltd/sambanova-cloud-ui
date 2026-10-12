@@ -12,21 +12,19 @@ interface PageHeaderProps {
 
 /**
  * Page title bar from Figma (e.g. "API Keys" with its subtitle and actions).
- * Renders the page's single <h1>.
+ * Renders the page's single <h1>. From `sm` up the bar is 85px tall, set by the 37px action
+ * row; the two-line title block is centred on it and overhangs by a few pixels, as in Figma.
  */
 export function PageHeader({ title, subtitle, actions, className }: PageHeaderProps) {
   return (
-    <header
-      className={cn(
-        "flex flex-wrap items-center justify-between gap-x-6 gap-y-4 border-b border-default px-4 py-4.5 sm:px-6",
-        className,
-      )}
-    >
-      <div className="flex min-w-0 flex-col gap-1">
-        <h1 className="text-heading-lg leading-tight">{title}</h1>
-        {subtitle && <p className="text-body-sm leading-snug text-secondary">{subtitle}</p>}
+    <header className={cn("border-b border-header px-4 py-4 sm:px-6 sm:py-6", className)}>
+      <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 sm:h-9.25 sm:flex-nowrap">
+        <div className="flex min-w-0 flex-col gap-2">
+          <h1 className="text-heading-lg leading-tight">{title}</h1>
+          {subtitle && <p className="text-caption leading-snug text-secondary">{subtitle}</p>}
+        </div>
+        {actions && <div className="flex shrink-0 flex-wrap items-center gap-3">{actions}</div>}
       </div>
-      {actions && <div className="flex flex-wrap items-center gap-3">{actions}</div>}
     </header>
   );
 }

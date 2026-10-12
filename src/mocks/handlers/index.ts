@@ -27,7 +27,7 @@ import {
 import { getBillingAddress, recordPurchase } from "../db/billing";
 import { createProjectFor, listProjectsFor } from "../db/projects";
 import { clearSessionCookie, readSessionToken, writeSessionCookie } from "../db/session-cookie";
-import { exampleItemsByProject } from "../fixtures";
+import { apiKeysFixture, exampleItemsByProject } from "../fixtures";
 import {
   modelCatalogFixture,
   partnersFixture,
@@ -268,6 +268,14 @@ export const handlers = [
     withSession<{ projectId: string }>(async ({ params }) => {
       const project = await findOwnProject(params.projectId);
       return project ? HttpResponse.json(project) : notFound("Project");
+    }),
+  ),
+
+  http.get(
+    api("/projects/:projectId/api-keys"),
+    withSession<{ projectId: string }>(async ({ params }) => {
+      const project = await findOwnProject(params.projectId);
+      return project ? HttpResponse.json(apiKeysFixture) : notFound("Project");
     }),
   ),
 

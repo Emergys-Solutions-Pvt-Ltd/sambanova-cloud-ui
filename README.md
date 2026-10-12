@@ -127,7 +127,7 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 - **Account area**: signed in shows the profile card with credit badge and the account menu (email, Manage Projects, Theme, Documentation, Help Center, Logout). Signed out shows "Sign Up for Free" and the theme switcher. While `GET /me` loads, a placeholder holds the space.
 - **Drawer**: overlay, focus trap, Escape, closes on navigation, focus returns to the opener.
 - **Page frame**: use `<PageHeader title subtitle actions />` then `<PageContent>`.
-- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand), `TextField`, `RadioCardGroup`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
+- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand), `TextField`, `RadioCardGroup`, `EmptyState`, `Callout`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
 - **Accessibility**: skip-to-content link, landmarks (`aside`, `nav`, `main`), visible focus rings, full keyboard operation.
 
 **Signing in and out** (with mocks on): use the app. Sign Up for Free (sidebar) or any locked action opens the login dialog; Logout is in the account menu. See [Authentication](#authentication-mock-until-the-real-api).
@@ -201,6 +201,10 @@ After upgrading `msw`, regenerate the worker with `npx msw init public`.
 
 - **Create project:** the project menu's "Create project" opens `CreateProjectDialog` (`src/features/projects`, state in `useCreateProjectDialogStore`, mounted in the app shell; any page can open it the same way). The name is trimmed, 3 to 50 characters, and unique per account (case-insensitive) in the form and again in the API (`POST /projects` answers 409 or 422, shown under the input). On success the dialog closes, the new project becomes the active one and a success toast appears. The mock keeps created projects per account in localStorage (`sn:mock-projects`).
 - **Toasts:** `toast.success("…")` (also `info`, `warning`, `danger`) from `src/stores/toast-store.ts` shows a `Toast` at the top centre, 14px from the top edge, sliding down (Figma). Default 1.5s (as in the Figma prototype; pass a duration to change it), paused while hovered or focused, with a close button. `<ToastViewport />` is mounted once in `providers.tsx`.
+
+### API Keys
+
+`/api-keys` (`src/features/api-keys`): the zero state from Figma (header with Refresh and Create API Key, "No API keys yet" empty state, help callout). Keys are per project: `GET /projects/:id/api-keys` (the mock returns an empty list) through `useApiKeys`, so the page follows the project selector and has loading and error states. Refresh refetches the list with a spinning icon. Both Create API Key buttons call `useCreateApiKeyDialogStore().openDialog` (guests are asked to log in first); the Create API key dialog and the key table for non-empty lists are built later. Reusable pieces: `EmptyState`, `Callout`, Button `radius="md"`.
 
 ### Credits and Add Credits
 

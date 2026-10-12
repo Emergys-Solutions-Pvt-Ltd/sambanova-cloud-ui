@@ -361,6 +361,11 @@
   --sn-border-pill: var(--sn-purple-800);
   --sn-border-social: var(--sn-gray-600);
   --sn-border-field: var(--sn-gray-800);
+  --sn-border-header: var(--sn-gray-800);
+  --sn-bg-callout: rgb(33 25 44 / 0.4);
+  --sn-border-callout: rgb(152 71 214 / 0.16);
+  --sn-bg-callout-icon: #33214d;
+  --sn-callout-icon-fg: var(--sn-purple-300);
   --sn-border-selected: rgb(255 255 255 / 0.3);
   --sn-radio-off: var(--sn-gray-700);
   --sn-toast-success-fg: var(--sn-green-500);
@@ -496,6 +501,11 @@
   --sn-border-pill: var(--sn-purple-400); /* GUESS */
   --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-border-header: var(--sn-purple-200); /* GUESS: Figma shows dark only */
+  --sn-bg-callout: var(--sn-purple-50); /* GUESS */
+  --sn-border-callout: var(--sn-purple-200); /* GUESS */
+  --sn-bg-callout-icon: var(--sn-purple-100); /* GUESS */
+  --sn-callout-icon-fg: var(--sn-purple-700); /* GUESS */
   --sn-border-selected: var(--sn-purple-600); /* GUESS */
   --sn-radio-off: var(--sn-gray-300); /* GUESS */
   --sn-toast-success-fg: var(
@@ -628,6 +638,11 @@
     --sn-border-pill: var(--sn-purple-400); /* GUESS */
     --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-border-header: var(--sn-purple-200); /* GUESS: Figma shows dark only */
+    --sn-bg-callout: var(--sn-purple-50); /* GUESS */
+    --sn-border-callout: var(--sn-purple-200); /* GUESS */
+    --sn-bg-callout-icon: var(--sn-purple-100); /* GUESS */
+    --sn-callout-icon-fg: var(--sn-purple-700); /* GUESS */
     --sn-border-selected: var(--sn-purple-600); /* GUESS */
     --sn-radio-off: var(--sn-gray-300); /* GUESS */
     --sn-toast-success-fg: var(

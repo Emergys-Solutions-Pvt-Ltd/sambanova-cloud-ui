@@ -66,6 +66,19 @@ export interface PurchaseCreditsResponse {
   purchase: CreditPurchase;
 }
 
+export type ApiKeyStatus = "active" | "disabled";
+
+/** An API key as listed (the secret itself is only shown once, when it is created). */
+export interface ApiKey {
+  id: string;
+  name: string;
+  /** Last characters of the key, for recognising it in the list. */
+  lastFour: string;
+  status: ApiKeyStatus;
+  createdAt: string;
+  lastUsedAt: string | null;
+}
+
 export interface Project {
   id: string;
   name: string;
