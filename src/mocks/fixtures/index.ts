@@ -1,4 +1,4 @@
-import { type ApiKey, type ExampleItem, type Project } from "@/types/domain";
+import { type ExampleItem, type Project } from "@/types/domain";
 
 export const projectsFixture: Project[] = [
   {
@@ -29,6 +29,3 @@ export const exampleItemsByProject = new Map<string, ExampleItem[]>(
     })),
   ]),
 );
-
-/** No keys yet, on purpose: the API Keys screen starts in its zero state. The create flow will add keys. */
-export const apiKeysFixture: ApiKey[] = [];

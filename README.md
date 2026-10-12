@@ -127,7 +127,7 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 - **Account area**: signed in shows the profile card with credit badge and the account menu (email, Manage Projects, Theme, Documentation, Help Center, Logout). Signed out shows "Sign Up for Free" and the theme switcher. While `GET /me` loads, a placeholder holds the space.
 - **Drawer**: overlay, focus trap, Escape, closes on navigation, focus returns to the opener.
 - **Page frame**: use `<PageHeader title subtitle actions />` then `<PageContent>`.
-- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand), `TextField`, `RadioCardGroup`, `EmptyState`, `Callout`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
+- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand), `TextField`, `RadioCardGroup`, `NameDialog`, `EmptyState`, `Callout`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
 - **Accessibility**: skip-to-content link, landmarks (`aside`, `nav`, `main`), visible focus rings, full keyboard operation.
 
 **Signing in and out** (with mocks on): use the app. Sign Up for Free (sidebar) or any locked action opens the login dialog; Logout is in the account menu. See [Authentication](#authentication-mock-until-the-real-api).
@@ -204,7 +204,12 @@ After upgrading `msw`, regenerate the worker with `npx msw init public`.
 
 ### API Keys
 
-`/api-keys` (`src/features/api-keys`): the zero state from Figma (header with Refresh and Create API Key, "No API keys yet" empty state, help callout). Keys are per project: `GET /projects/:id/api-keys` (the mock returns an empty list) through `useApiKeys`, so the page follows the project selector and has loading and error states. Refresh refetches the list with a spinning icon. Both Create API Key buttons call `useCreateApiKeyDialogStore().openDialog` (guests are asked to log in first); the Create API key dialog and the key table for non-empty lists are built later. Reusable pieces: `EmptyState`, `Callout`, Button `radius="md"`.
+`/api-keys` (`src/features/api-keys`): the zero state from Figma (header with Refresh and Create API Key, "No API keys yet" empty state, help callout) and the **Create API key** modal. Keys are per project: `GET /projects/:id/api-keys` through `useApiKeys`, so the page follows the project selector and has loading and error states. Refresh refetches the list with a spinning icon.
+
+- **Create API key:** both Create buttons open `CreateApiKeyDialog` through `useCreateApiKeyDialogStore` (guests are asked to log in first). The name is trimmed, 3 to 50 characters (live `n/50` counter, typing stops at 50) and unique within the project (checked in the form and again by the API, `POST /projects/:id/api-keys` answers 409 or 422, shown under the field). Create API Key stays disabled until the name is valid. On success the dialog closes, the key is added to the list and a "<name> API Key Created Successfully" toast appears. The response also carries the secret once; no screen shows it yet because Figma has none.
+- **Key list:** a temporary plain list (name, masked ID, created date) shows created keys until the key table (search, status filter, pagination, row actions) is built.
+- **Reusable:** `NameDialog` (`src/components/ui/name-dialog.tsx`) is the single-name-field modal used by Create New Project and Create API key (and by Edit API key later): title, optional description, label, placeholder, optional counter, schema, submit handler. `EmptyState`, `Callout` and Button `radius="md"` come from the zero state.
+- **Mock:** keys are kept per account and project in localStorage (`sn:mock-api-keys`).
 
 ### Credits and Add Credits
 

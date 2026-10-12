@@ -70,7 +70,13 @@ export function DialogContent({
         )}
         {...rest}
       >
-        <div className="flex items-start justify-between gap-4 px-6 pt-6 pb-4">
+        <div
+          className={cn(
+            "flex justify-between gap-4 px-6",
+            // Without a description the header is a 64px bar with the title centred (Figma: Create API key).
+            description ? "items-start pt-6 pb-4" : "h-16 shrink-0 items-center",
+          )}
+        >
           <div className="flex min-w-0 flex-col gap-1">
             <DialogPrimitive.Title className="text-heading-sm font-semibold">
               {title}
@@ -88,6 +94,7 @@ export function DialogContent({
         <div
           className={cn(
             "min-h-0 flex-1 scrollbar-thin overflow-y-auto px-6",
+            description ? "" : "pt-6",
             footer ? "mb-5" : "pb-6",
           )}
         >

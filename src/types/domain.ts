@@ -66,6 +66,15 @@ export interface PurchaseCreditsResponse {
   purchase: CreditPurchase;
 }
 
+export interface CreateApiKeyInput {
+  name: string;
+}
+
+/** What the API returns when a key is created. `secret` is shown only this once; the UI does not display it yet. */
+export interface CreatedApiKey extends ApiKey {
+  secret: string;
+}
+
 export type ApiKeyStatus = "active" | "disabled";
 
 /** An API key as listed (the secret itself is only shown once, when it is created). */

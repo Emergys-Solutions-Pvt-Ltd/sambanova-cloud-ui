@@ -6,6 +6,7 @@ import { checkExpiry, digitsOnly, isValidCardNumber, isValidSecurityCode } from 
 import {
   type AuthResponse,
   type CreateExampleItemInput,
+  type CreateApiKeyInput,
   type CreateProjectInput,
   type PurchaseCreditsInput,
   type PurchaseCreditsResponse,
@@ -24,10 +25,11 @@ import {
   toUser,
   verifyCredentials,
 } from "../db/accounts";
+import { createApiKeyFor, listApiKeysFor } from "../db/api-keys";
 import { getBillingAddress, recordPurchase } from "../db/billing";
 import { createProjectFor, listProjectsFor } from "../db/projects";
 import { clearSessionCookie, readSessionToken, writeSessionCookie } from "../db/session-cookie";
-import { apiKeysFixture, exampleItemsByProject } from "../fixtures";
+import { exampleItemsByProject } from "../fixtures";
 import {
   modelCatalogFixture,
   partnersFixture,
@@ -274,8 +276,41 @@ export const handlers = [
   http.get(
     api("/projects/:projectId/api-keys"),
     withSession<{ projectId: string }>(async ({ params }) => {
+      const account = await findAccountBySession(readSessionToken());
       const project = await findOwnProject(params.projectId);
-      return project ? HttpResponse.json(apiKeysFixture) : notFound("Project");
+      return project
+        ? HttpResponse.json(listApiKeysFor(account!.id, project.id))
+        : notFound("Project");
+    }),
+  ),
+
+  http.post(
+    api("/projects/:projectId/api-keys"),
+    withSession<{ projectId: string }>(async ({ params, request }) => {
+      const account = await findAccountBySession(readSessionToken());
+      const project = await findOwnProject(params.projectId);
+      if (!project) return notFound("Project");
+
+      const input = (await request.json()) as Partial<CreateApiKeyInput>;
+      const name = input.name?.trim() ?? "";
+      if (name.length < 3 || name.length > 50) {
+        return validationError("Key name must be 3 to 50 characters.", { field: "name" });
+      }
+
+      const created = createApiKeyFor(account!.id, project.id, name);
+      if (!created) {
+        return HttpResponse.json(
+          {
+            error: {
+              code: "API_KEY_NAME_TAKEN",
+              message: "An API key with this name already exists.",
+              details: { field: "name" },
+            },
+          },
+          { status: 409 },
+        );
+      }
+      return HttpResponse.json(created, { status: 201 });
     }),
   ),
 

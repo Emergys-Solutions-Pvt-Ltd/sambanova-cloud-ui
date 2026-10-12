@@ -1,6 +1,5 @@
 "use client";
 
-import { ComingSoon } from "@/components/layout/coming-soon";
 import { PageContent, PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { Callout } from "@/components/ui/callout";
@@ -15,8 +14,10 @@ import { cn } from "@/lib/cn";
 import { useCreateApiKeyDialogStore } from "@/stores/create-api-key-dialog-store";
 
 import { useApiKeys } from "../hooks/use-api-keys";
+import { ApiKeyListPlaceholder } from "./api-key-list-placeholder";
+import { CreateApiKeyDialog } from "./create-api-key-dialog";
 
-/** API Keys screen (Figma: API Keys zero state). The key table for non-empty lists is built later. */
+/** API Keys screen (Figma: API Keys zero state and Create API key). The key table for non-empty lists is built later. */
 export function ApiKeysView() {
   const keys = useApiKeys();
   const { guardAction } = useAuthGate();
@@ -82,7 +83,7 @@ export function ApiKeysView() {
             }
           />
         ) : (
-          <ComingSoon>Key table with search, status filter and pagination.</ComingSoon>
+          <ApiKeyListPlaceholder keys={keys.data ?? []} />
         )}
 
         <Callout
@@ -104,6 +105,8 @@ export function ApiKeysView() {
           }
         />
       </PageContent>
+
+      <CreateApiKeyDialog />
     </>
   );
 }
