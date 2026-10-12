@@ -3,11 +3,10 @@
  *
  * From the browser console (development only):
  *   __mocks.set({ scenario: "error" })   // every request fails with a 500
- *   __mocks.set({ scenario: "guest" })   // GET /me returns 401 (signed-out state)
  *   __mocks.set({ latencyMs: 2000 })     // slow network
  *   __mocks.reset()
  */
-export type MockScenario = "default" | "error" | "guest";
+export type MockScenario = "default" | "error";
 
 export interface MockConfig {
   scenario: MockScenario;

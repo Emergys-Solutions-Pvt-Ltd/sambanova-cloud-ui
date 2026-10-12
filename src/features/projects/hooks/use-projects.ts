@@ -5,13 +5,17 @@ import { useCallback } from "react";
 
 import { queryKeys } from "@/lib/query-keys";
 import { selectActiveProjectId, useProjectStore } from "@/stores/project-store";
+import { selectIsAuthenticated, useSessionStore } from "@/stores/session-store";
 
 import { listProjects } from "../api/projects.api";
 
+/** The signed-in user's projects. Guests have none, so nothing is fetched for them. */
 export function useProjects() {
+  const authenticated = useSessionStore(selectIsAuthenticated);
   return useQuery({
     queryKey: queryKeys.projects.list(),
     queryFn: ({ signal }) => listProjects(signal),
+    enabled: authenticated,
   });
 }
 

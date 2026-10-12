@@ -54,7 +54,7 @@ export function DropdownMenuSeparator({
 
 /** Row geometry from Figma: 36px high, r10, 16px left / 8px right padding, 8px gap. */
 export const menuItemClasses =
-  "flex min-h-9 w-full cursor-default items-center gap-2 rounded-item py-2 pr-2 pl-4 " +
+  "flex min-h-9 w-full cursor-pointer items-center gap-2 rounded-item py-2 pr-2 pl-4 " +
   "text-body text-secondary outline-none select-none " +
   "data-[highlighted]:bg-hover data-[highlighted]:text-primary " +
   "data-[disabled]:pointer-events-none data-[disabled]:text-disabled";

@@ -12,6 +12,60 @@ export interface User {
   creditBalance: number;
 }
 
+export interface LoginInput {
+  email: string;
+  password: string;
+}
+
+export interface SignupInput {
+  fullName: string;
+  email: string;
+  password: string;
+}
+
+/** Body of a successful login or sign-up. The session itself travels in the cookie. */
+export interface AuthResponse {
+  user: User;
+}
+
+export interface CreateProjectInput {
+  name: string;
+}
+
+export interface BillingAddress {
+  fullName: string;
+  /** ISO 3166-1 alpha-2 code, e.g. "US". */
+  country: string;
+  address: string;
+}
+
+export interface CardDetails {
+  number: string;
+  /** MM/YY */
+  expiry: string;
+  cvc: string;
+}
+
+/** Credits belong to the user, not to a project. */
+export interface PurchaseCreditsInput {
+  /** Whole US dollars. */
+  amount: number;
+  billingAddress: BillingAddress;
+  card: CardDetails;
+}
+
+export interface CreditPurchase {
+  id: string;
+  amount: number;
+  createdAt: string;
+}
+
+export interface PurchaseCreditsResponse {
+  /** The user's balance after the purchase, in USD. */
+  balance: number;
+  purchase: CreditPurchase;
+}
+
 export interface Project {
   id: string;
   name: string;
@@ -29,4 +83,86 @@ export interface ExampleItem {
 
 export interface CreateExampleItemInput {
   name: string;
+}
+
+/** Headline numbers on the dashboard "Usage Overview" row, scoped to one project. */
+export interface UsageOverview {
+  tokensUsed: number;
+  apiRequests: number;
+  activeApiKeys: number;
+}
+
+export type ModelCategory = "reasoning" | "text" | "image-text";
+
+/** USD per million tokens ("MTok"). */
+export interface ModelPricing {
+  input: number;
+  output: number;
+  promptCaching: { write: number; read: number };
+  fastMode: { input: number; output: number };
+  /** Short highlight shown under the price table, for example "Best for Coding". */
+  badge?: string;
+}
+
+export interface ModelFeatures {
+  /** Tokens the model can read in one request. */
+  contextWindow: number;
+  /** Tokens the model can generate in one response. */
+  maxOutput: number;
+  /** 0 to 5. */
+  reasoning: number;
+  speed: number;
+  fastMode: boolean;
+  adaptiveThinking: boolean;
+  /** Year and month as "YYYY-MM". */
+  knowledgeCutoff: string;
+}
+
+export interface CatalogModel {
+  id: string;
+  /** Value sent as `model` in API requests. */
+  apiId: string;
+  /** Display name. */
+  name: string;
+  /** Key into the brand artwork (deepseek, minimax, gemma, openai); anything else shows an initial. */
+  brand: string;
+  category: ModelCategory;
+  /** Listed first in model pickers. */
+  popular: boolean;
+  description: string;
+  pricing: ModelPricing;
+  features: ModelFeatures;
+}
+
+export type ModelGlow = "indigo" | "sky" | "teal" | "gemma";
+
+export interface RecommendedModel {
+  modelId: string;
+  name: string;
+  brand: string;
+  description: string;
+  /** 0 to 5 segments. */
+  reasoning: number;
+  speed: number;
+  contextWindow: string;
+  /** Pre-formatted, for example "$3.00 / $4.50 per 1M". */
+  priceLabel: string;
+  glow: ModelGlow;
+}
+
+export interface Webinar {
+  id: string;
+  title: string;
+  description: string;
+  /** ISO 8601 start time. */
+  startsAt: string;
+  host: string;
+  registerUrl: string;
+}
+
+export interface CloudPartner {
+  id: "infercom" | "argylldata" | "scx";
+  name: string;
+  description: string;
+  url: string;
 }

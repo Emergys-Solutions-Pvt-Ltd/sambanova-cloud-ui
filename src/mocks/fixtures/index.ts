@@ -1,12 +1,4 @@
-import { type ExampleItem, type Project, type User } from "@/types/domain";
-
-export const userFixture: User = {
-  id: "usr_01",
-  name: "Alex Morgan",
-  email: "alex.morgan@example.com",
-  avatarUrl: null,
-  creditBalance: 25,
-};
+import { type ExampleItem, type Project } from "@/types/domain";
 
 export const projectsFixture: Project[] = [
   {

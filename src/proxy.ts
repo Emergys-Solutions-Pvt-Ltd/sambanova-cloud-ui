@@ -1,14 +1,15 @@
 import { type NextRequest, NextResponse } from "next/server";
 
+import { RETURN_TO_PARAM, SESSION_COOKIE_NAME } from "@/config/auth";
 import { protectedRoutePrefixes, routes } from "@/config/routes";
 
 /**
- * STUB: always "signed in" until Auth0 is integrated. Replace with a real
- * session check (e.g. the Auth0 SDK's session cookie) without changing the
- * redirect flow below.
+ * Presence of the API's session cookie. The proxy can't verify it (the API does,
+ * and answers 401 on `/me` for a dead session); it only decides whether a guest
+ * gets sent to login. With the real backend, swap this for its session check.
  */
-function hasSession(_request: NextRequest) {
-  return true;
+function hasSession(request: NextRequest) {
+  return request.cookies.has(SESSION_COOKIE_NAME);
 }
 
 const isProtected = (pathname: string) =>
@@ -19,7 +20,7 @@ export function proxy(request: NextRequest) {
 
   if (isProtected(pathname) && !hasSession(request)) {
     const loginUrl = new URL(routes.login, request.url);
-    loginUrl.searchParams.set("returnTo", `${pathname}${search}`);
+    loginUrl.searchParams.set(RETURN_TO_PARAM, `${pathname}${search}`);
     return NextResponse.redirect(loginUrl);
   }
 

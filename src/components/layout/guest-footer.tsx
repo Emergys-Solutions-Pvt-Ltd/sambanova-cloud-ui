@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { type MouseEvent } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon/icon";
@@ -8,6 +9,7 @@ import { IconButton } from "@/components/ui/icon-button";
 import { Tooltip } from "@/components/ui/tooltip";
 import { routes } from "@/config/routes";
 import { cn } from "@/lib/cn";
+import { useAuthDialogStore } from "@/stores/auth-dialog-store";
 import { selectSetTheme, selectTheme, useThemeStore } from "@/stores/theme-store";
 
 import { themeOptions, ThemeSwitcher } from "./theme-switcher";
@@ -16,6 +18,12 @@ import { themeOptions, ThemeSwitcher } from "./theme-switcher";
 export function GuestFooter({ collapsed }: { collapsed?: boolean }) {
   const theme = useThemeStore(selectTheme);
   const setTheme = useThemeStore(selectSetTheme);
+  const openAuthDialog = useAuthDialogStore((state) => state.openDialog);
+  // Opens the sign-up dialog in place; the link still works as a plain navigation without JS.
+  const openSignup = (event: MouseEvent<HTMLElement>) => {
+    event.preventDefault();
+    openAuthDialog({ mode: "signup" });
+  };
 
   if (collapsed) {
     // Icon rail: sign-up link and a button that cycles System → Light → Dark.
@@ -27,6 +35,7 @@ export function GuestFooter({ collapsed }: { collapsed?: boolean }) {
         <Tooltip content="Sign Up for Free">
           <Link
             href={routes.signup}
+            onClick={openSignup}
             aria-label="Sign Up for Free"
             className={cn(
               "flex size-11 items-center justify-center rounded-sm border border-control",
@@ -50,7 +59,7 @@ export function GuestFooter({ collapsed }: { collapsed?: boolean }) {
 
   return (
     <div className="flex flex-col gap-3">
-      <Button href={routes.signup} variant="control" size="sm" fullWidth>
+      <Button href={routes.signup} onClick={openSignup} variant="control" size="sm" fullWidth>
         Sign Up for Free
       </Button>
       <div className="flex items-center justify-between gap-4 border-t border-default pt-3">

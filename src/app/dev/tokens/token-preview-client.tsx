@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 
 import { Icon } from "@/components/ui/icon/icon";
 import { iconNames } from "@/components/ui/icon/icon-data.generated";
+import { Combobox } from "@/components/ui/combobox";
+import { Select } from "@/components/ui/select";
 import { cn } from "@/lib/cn";
 import {
   selectSetTheme,
@@ -131,5 +133,52 @@ export function IconGallery() {
         </li>
       ))}
     </ul>
+  );
+}
+
+/** Uncontrolled-looking Select demo (the real Select is controlled, so it keeps its own state here). */
+export function SelectDemo() {
+  const [value, setValue] = useState("a");
+  return (
+    <div className="w-53.25">
+      <Select
+        aria-label="Example model"
+        value={value}
+        onValueChange={setValue}
+        groups={[
+          {
+            label: "Reasoning",
+            options: [
+              { value: "a", label: "DeepSeek-V3.1" },
+              { value: "b", label: "gpt-oss-120b" },
+            ],
+          },
+        ]}
+      />
+    </div>
+  );
+}
+
+/** Combobox demo: grouped, searchable, keyboard-driven. */
+export function ComboboxDemo() {
+  const [value, setValue] = useState("a");
+  return (
+    <div className="w-72">
+      <Combobox
+        aria-label="Example model picker"
+        value={value}
+        onValueChange={setValue}
+        groups={[
+          {
+            label: "Popular Models",
+            options: [
+              { value: "a", label: "DeepSeek V4 Pro" },
+              { value: "b", label: "GPT-OSS-120B" },
+            ],
+          },
+          { label: "All Models", options: [{ value: "c", label: "Meta-Llama-3.3-70B-Instruct" }] },
+        ]}
+      />
+    </div>
   );
 }

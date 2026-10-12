@@ -5,6 +5,7 @@ import { lazy, type ReactNode, Suspense, useEffect } from "react";
 
 import { env } from "@/config/env";
 import { ThemeSync } from "@/components/theme/theme-sync";
+import { ToastViewport } from "@/components/ui/toast";
 import { useSessionSync } from "@/features/session";
 import { getQueryClient } from "@/lib/query-client";
 import { MOCKS_CHANGED_EVENT } from "@/mocks/config";
@@ -33,7 +34,7 @@ function StoreHydration() {
   return null;
 }
 
-/** Refetches everything when the mock scenario changes (e.g. __mocks.set({ scenario: "guest" })). */
+/** Refetches everything when the mock scenario changes (e.g. __mocks.set({ scenario: "error" })). */
 function MockSync({ client }: { client: QueryClient }) {
   useEffect(() => {
     const onChange = () => void client.invalidateQueries();
@@ -58,6 +59,7 @@ export function Providers({ children }: { children: ReactNode }) {
       <SessionSync />
       <MockSync client={queryClient} />
       {children}
+      <ToastViewport />
       <Suspense fallback={null}>
         <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
       </Suspense>
