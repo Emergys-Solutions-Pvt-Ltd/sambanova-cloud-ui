@@ -19,6 +19,11 @@ export const menuSurface = `z-dropdown ${menuSurfaceBase}`;
 /** Same surface layered above modal dialogs, for menus that open from inside one (e.g. a Select in a form). */
 export const menuSurfaceAboveModal = `z-popover ${menuSurfaceBase}`;
 
+/** Dropdown list of a form field (Figma: Grace Period options): input fill, field border, r8, 2px padding. */
+export const fieldDropdownSurface =
+  "z-popover rounded-md border border-field bg-input p-0.5 text-primary shadow-lg " +
+  "data-[state=open]:animate-pop-in";
+
 /** Flat dropdown on the page surface (Figma: Compare Models picker): r8, page color; z-popover so it clears modal dialogs. */
 export const dropdownSurface =
   "z-popover rounded-md border border-default bg-surface p-1 text-primary shadow-lg " +

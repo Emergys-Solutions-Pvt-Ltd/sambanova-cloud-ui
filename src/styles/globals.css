@@ -51,6 +51,9 @@
   --color-featured-warning: var(--sn-featured-warning-bg);
   --border-color-featured-warning: var(--sn-featured-warning-ring);
   --text-color-featured-warning: var(--sn-featured-warning-fg);
+  --color-featured-danger: var(--sn-featured-danger-bg);
+  --border-color-featured-danger: var(--sn-featured-danger-ring);
+  --text-color-featured-danger: var(--sn-featured-danger-fg);
   --text-color-table-header: var(--sn-text-table-header);
   --border-color-table-control: var(--sn-border-table-control);
   --color-pagination-item: var(--sn-bg-pagination-item);

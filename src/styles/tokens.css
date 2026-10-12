@@ -364,6 +364,9 @@
   --sn-featured-warning-bg: rgb(172 156 0 / 0.3);
   --sn-featured-warning-ring: rgb(255 255 0 / 0.1);
   --sn-featured-warning-fg: #ff9500;
+  --sn-featured-danger-bg: rgb(240 82 82 / 0.2); /* GUESS: no delete dialog in Figma */
+  --sn-featured-danger-ring: rgb(240 82 82 / 0.1); /* GUESS */
+  --sn-featured-danger-fg: var(--sn-red-400); /* GUESS */
   --sn-bg-table-head: var(--sn-neutral-800);
   --sn-text-table-header: var(--sn-gray-200);
   --sn-border-table-control: var(--sn-gray-700);
@@ -513,6 +516,9 @@
   --sn-featured-warning-bg: var(--sn-amber-100); /* GUESS: dark only in Figma */
   --sn-featured-warning-ring: var(--sn-amber-50); /* GUESS */
   --sn-featured-warning-fg: var(--sn-amber-600); /* GUESS */
+  --sn-featured-danger-bg: var(--sn-red-200); /* GUESS */
+  --sn-featured-danger-ring: var(--sn-red-50); /* GUESS */
+  --sn-featured-danger-fg: var(--sn-red-700); /* GUESS */
   --sn-bg-table-head: var(--sn-gray-50); /* GUESS: table is dark only in Figma */
   --sn-text-table-header: var(--sn-gray-700); /* GUESS */
   --sn-border-table-control: var(--sn-gray-300); /* GUESS */
@@ -659,6 +665,9 @@
     --sn-featured-warning-bg: var(--sn-amber-100); /* GUESS: dark only in Figma */
     --sn-featured-warning-ring: var(--sn-amber-50); /* GUESS */
     --sn-featured-warning-fg: var(--sn-amber-600); /* GUESS */
+    --sn-featured-danger-bg: var(--sn-red-200); /* GUESS */
+    --sn-featured-danger-ring: var(--sn-red-50); /* GUESS */
+    --sn-featured-danger-fg: var(--sn-red-700); /* GUESS */
     --sn-bg-table-head: var(--sn-gray-50); /* GUESS: table is dark only in Figma */
     --sn-text-table-header: var(--sn-gray-700); /* GUESS */
     --sn-border-table-control: var(--sn-gray-300); /* GUESS */

@@ -10,6 +10,7 @@ import {
   type CreateApiKeyInput,
   type CreateProjectInput,
   type PurchaseCreditsInput,
+  type RotateApiKeyInput,
   type UpdateApiKeyInput,
   type PurchaseCreditsResponse,
   type ExampleItem,
@@ -27,7 +28,13 @@ import {
   toUser,
   verifyCredentials,
 } from "../db/accounts";
-import { createApiKeyFor, queryApiKeys, updateApiKeyFor } from "../db/api-keys";
+import {
+  createApiKeyFor,
+  deleteApiKeyFor,
+  queryApiKeys,
+  rotateApiKeyFor,
+  updateApiKeyFor,
+} from "../db/api-keys";
 import { getBillingAddress, recordPurchase } from "../db/billing";
 import { createProjectFor, listProjectsFor } from "../db/projects";
 import { clearSessionCookie, readSessionToken, writeSessionCookie } from "../db/session-cookie";
@@ -357,6 +364,34 @@ export const handlers = [
         );
       }
       return HttpResponse.json(result);
+    }),
+  ),
+
+  http.post(
+    api("/projects/:projectId/api-keys/:keyId/rotate"),
+    withSession<{ projectId: string; keyId: string }>(async ({ params, request }) => {
+      const account = await findAccountBySession(readSessionToken());
+      const project = await findOwnProject(params.projectId);
+      if (!project) return notFound("Project");
+
+      const { gracePeriod } = (await request.json()) as Partial<RotateApiKeyInput>;
+      if (!gracePeriod || !["immediately", "1h", "24h", "3d", "7d"].includes(gracePeriod)) {
+        return validationError("Choose a grace period.", { field: "gracePeriod" });
+      }
+      const rotated = rotateApiKeyFor(account!.id, project.id, params.keyId, gracePeriod);
+      return rotated ? HttpResponse.json(rotated) : notFound("API key");
+    }),
+  ),
+
+  http.delete(
+    api("/projects/:projectId/api-keys/:keyId"),
+    withSession<{ projectId: string; keyId: string }>(async ({ params }) => {
+      const account = await findAccountBySession(readSessionToken());
+      const project = await findOwnProject(params.projectId);
+      if (!project) return notFound("Project");
+      return deleteApiKeyFor(account!.id, project.id, params.keyId)
+        ? new HttpResponse(null, { status: 204 })
+        : notFound("API key");
     }),
   ),
 

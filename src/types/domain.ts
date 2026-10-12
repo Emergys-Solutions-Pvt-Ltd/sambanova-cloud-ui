@@ -66,6 +66,13 @@ export interface PurchaseCreditsResponse {
   purchase: CreditPurchase;
 }
 
+/** How long the old secret keeps working after a rotation. */
+export type GracePeriod = "immediately" | "1h" | "24h" | "3d" | "7d";
+
+export interface RotateApiKeyInput {
+  gracePeriod: GracePeriod;
+}
+
 /** Fields that can change on an existing key. */
 export interface UpdateApiKeyInput {
   name?: string;
@@ -105,6 +112,9 @@ export interface ApiKey {
   lastUsedAt: string | null;
   /** Set once the key has been renamed; the table marks such keys "Edited". */
   renamedAt?: string | null;
+  /** Set when the key was rotated; the previous secret stops working at `previousKeyExpiresAt`. */
+  rotatedAt?: string | null;
+  previousKeyExpiresAt?: string | null;
 }
 
 export interface Project {

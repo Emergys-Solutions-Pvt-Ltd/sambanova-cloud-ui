@@ -7,8 +7,10 @@ import { NameDialog } from "@/components/ui/name-dialog";
 import { useApiKeyActionsStore } from "@/stores/api-key-actions-store";
 import { toast } from "@/stores/toast-store";
 
+import { useRotateApiKey, useDeleteApiKey } from "../hooks/use-rotate-and-delete-api-key";
 import { useUpdateApiKey } from "../hooks/use-update-api-key";
 import { API_KEY_NAME_MAX, apiKeyNameSchema } from "../schemas";
+import { RotateApiKeyDialog } from "./rotate-api-key-dialog";
 
 const TOAST_MS = 2500;
 
@@ -16,13 +18,15 @@ const TOAST_MS = 2500;
 const nameSchema = apiKeyNameSchema([]);
 
 /**
- * Dialogs opened from a key's Actions menu: Edit API key (rename) and Disable Key. They follow
- * `useApiKeyActionsStore`; the other actions (usage, rotate, delete) are built later.
+ * Dialogs opened from a key's Actions menu: Edit API key (rename), Disable Key, Rotate Key and
+ * Delete Key. They follow `useApiKeyActionsStore`; View Usage is built later.
  */
 export function ApiKeyActionDialogs() {
   const request = useApiKeyActionsStore((state) => state.request);
   const clear = useApiKeyActionsStore((state) => state.clear);
   const updateKey = useUpdateApiKey();
+  const rotateKey = useRotateApiKey();
+  const deleteKey = useDeleteApiKey();
 
   // Keep showing the last request while the dialog fades out after `clear()`.
   const [shown, setShown] = useState(request);
@@ -31,6 +35,8 @@ export function ApiKeyActionDialogs() {
   const key = shown?.key;
   const editOpen = request?.action === "edit";
   const disableOpen = request?.action === "toggle-status" && request.key.status === "active";
+  const rotateOpen = request?.action === "rotate";
+  const deleteOpen = request?.action === "delete";
 
   return (
     <>
@@ -60,6 +66,32 @@ export function ApiKeyActionDialogs() {
           await updateKey.mutateAsync({ keyId: key!.id, input: { status: "disabled" } });
           clear();
           toast.success(`${key!.name} Disabled Successfully`, TOAST_MS);
+        }}
+      />
+
+      <RotateApiKeyDialog
+        apiKey={key}
+        open={rotateOpen}
+        onOpenChange={(next) => !next && clear()}
+        onRotate={async (gracePeriod) => {
+          await rotateKey.mutateAsync({ keyId: key!.id, input: { gracePeriod } });
+          clear();
+          toast.success(`${key!.name} Rotated Successfully`, TOAST_MS);
+        }}
+      />
+
+      {/* No Delete Key design exists in Figma: same layout as Disable Key with the danger tone. */}
+      <ConfirmDialog
+        open={deleteOpen}
+        onOpenChange={(next) => !next && clear()}
+        tone="danger"
+        title="Delete Key"
+        confirmLabel="Delete"
+        description={`The API key '${key?.name ?? ""}' will be permanently deleted. Applications using it will stop working immediately, and this can’t be undone.`}
+        onConfirm={async () => {
+          await deleteKey.mutateAsync(key!.id);
+          clear();
+          toast.success(`${key!.name} Deleted Successfully`, TOAST_MS);
         }}
       />
     </>

@@ -15,6 +15,8 @@ interface ConfirmDialogProps {
   title: string;
   description: string;
   icon?: IconName;
+  /** "danger" gives a red icon and a destructive confirm button (deletions). */
+  tone?: "warning" | "danger";
   confirmLabel?: string;
   /**
    * Runs when the user confirms. Close the dialog (and show a toast) when it succeeds; throw an
@@ -30,6 +32,7 @@ export function ConfirmDialog({
   title,
   description,
   icon = "alert-triangle",
+  tone = "warning",
   confirmLabel = "Confirm",
   onConfirm,
 }: ConfirmDialogProps) {
@@ -58,7 +61,7 @@ export function ConfirmDialog({
     >
       <DialogPanel size="xs" radius="lg" className="flex flex-col items-center gap-8 p-6">
         <div className="flex w-full flex-col items-center gap-5 text-center">
-          <FeaturedIcon icon={icon} />
+          <FeaturedIcon icon={icon} tone={tone} />
           <div className="flex flex-col gap-2">
             <DialogTitle className="text-heading-sm font-bold">{title}</DialogTitle>
             <DialogDescription className="text-body text-muted">{description}</DialogDescription>
@@ -80,7 +83,13 @@ export function ConfirmDialog({
               Cancel
             </Button>
           </DialogClose>
-          <Button type="button" className="flex-1" loading={pending} onClick={() => void confirm()}>
+          <Button
+            type="button"
+            variant={tone === "danger" ? "destructive" : "primary"}
+            className="flex-1"
+            loading={pending}
+            onClick={() => void confirm()}
+          >
             {confirmLabel}
           </Button>
         </div>

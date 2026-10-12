@@ -366,6 +366,15 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M2.25 9a6.7 6.7 0 0 0 4.17 6.24 6.7 6.7 0 0 0 7.35-1.47A6.7 6.7 0 0 0 15.75 9a6.7 6.7 0 0 0-4.17-6.24 6.7 6.7 0 0 0-7.35 1.47A6.7 6.7 0 0 0 2.25 9M9 12.75z"/><path d="M9 10.12a1 1 0 0 1 .19-.68q.2-.32.56-.44.42-.17.74-.5.3-.34.44-.78.13-.44.04-.89a2 2 0 0 0-.36-.82 2 2 0 0 0-.68-.57 2 2 0 0 0-.87-.21q-.46 0-.87.2A2 2 0 0 0 7.5 6"/>',
   },
+  "info-circle": {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.13",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M2.25 9a6.77 6.77 0 0 0 11.52 4.77A6.74 6.74 0 1 0 2.25 9"/><path d="M9 6.75zM8.26 9H9v3h.75"/>',
+  },
   key: {
     viewBox: "0 0 22 22",
     fill: "none",

@@ -4,6 +4,7 @@ import {
   type ApiKeyListParams,
   type CreateApiKeyInput,
   type CreatedApiKey,
+  type RotateApiKeyInput,
   type UpdateApiKeyInput,
 } from "@/types/domain";
 
@@ -41,4 +42,21 @@ export async function updateApiKey(projectId: string, keyId: string, input: Upda
     { skipRetry: true },
   );
   return data;
+}
+
+/** Generates a new secret for the key (returned once). The old secret works until the grace period ends. */
+export async function rotateApiKey(projectId: string, keyId: string, input: RotateApiKeyInput) {
+  const { data } = await apiClient.post<CreatedApiKey>(
+    `/projects/${encodeURIComponent(projectId)}/api-keys/${encodeURIComponent(keyId)}/rotate`,
+    input,
+    { skipRetry: true },
+  );
+  return data;
+}
+
+export async function deleteApiKey(projectId: string, keyId: string) {
+  await apiClient.delete(
+    `/projects/${encodeURIComponent(projectId)}/api-keys/${encodeURIComponent(keyId)}`,
+    { skipRetry: true },
+  );
 }

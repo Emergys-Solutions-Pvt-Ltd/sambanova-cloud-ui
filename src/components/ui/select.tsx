@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 
 import { menuItemClasses } from "./dropdown-menu";
 import { Icon } from "./icon/icon";
-import { menuSurfaceAboveModal } from "./popover";
+import { fieldDropdownSurface, menuSurfaceAboveModal } from "./popover";
 
 export interface SelectOption {
   value: string;
@@ -39,6 +39,8 @@ export interface SelectProps {
   id?: string;
   onBlur?: () => void;
   invalid?: boolean;
+  /** Color of the placeholder text: "muted" (default) or "primary" (Figma: Grace Period shows white "Select"). */
+  placeholderTone?: "muted" | "primary";
 }
 
 /** 38px field select (Figma: Quickstart model and endpoint selectors). Radix supplies the behaviour. */
@@ -55,6 +57,7 @@ export function Select({
   id,
   onBlur,
   invalid,
+  placeholderTone = "muted",
   "aria-label": ariaLabel,
 }: SelectProps) {
   return (
@@ -75,7 +78,8 @@ export function Select({
               ? "border-table-control"
               : "border-input",
           "transition-colors duration-(--sn-duration-fast) ease-standard hover:bg-hover",
-          "disabled:cursor-not-allowed disabled:text-disabled data-[placeholder]:text-muted",
+          "disabled:cursor-not-allowed disabled:text-disabled",
+          placeholderTone === "muted" && "data-[placeholder]:text-muted",
           className,
         )}
       >
@@ -96,7 +100,7 @@ export function Select({
           sideOffset={6}
           collisionPadding={12}
           className={cn(
-            menuSurfaceAboveModal,
+            variant === "field" ? fieldDropdownSurface : menuSurfaceAboveModal,
             "min-w-(--radix-select-trigger-width) overflow-hidden",
             contentClassName,
           )}
