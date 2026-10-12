@@ -5,4 +5,5 @@
 export const externalLinks = {
   documentation: "https://docs.sambanova.ai",
   helpCenter: "https://community.sambanova.ai",
+  community: "https://community.sambanova.ai",
 } as const;

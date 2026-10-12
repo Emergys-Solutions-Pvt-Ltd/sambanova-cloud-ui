@@ -8,6 +8,9 @@ export interface ThemedImage {
   light: string;
   width: number;
   height: number;
+  /** Set when the light variant has different proportions. */
+  lightWidth?: number;
+  lightHeight?: number;
 }
 
 export interface StaticImage {
@@ -29,6 +32,8 @@ export const illustrations = {
     light: "/illustrations/hero-wave-light.webp",
     width: 819,
     height: 154,
+    lightWidth: 704,
+    lightHeight: 174,
   },
   onboardingPlayground: {
     dark: "/illustrations/onboarding-playground-dark.webp",

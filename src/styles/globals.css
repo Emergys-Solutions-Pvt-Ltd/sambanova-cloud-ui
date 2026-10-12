@@ -29,6 +29,10 @@
   --background-color-menu: var(--sn-bg-menu);
   --background-color-menu-line: var(--sn-border-menu);
   --background-color-profile: var(--sn-bg-profile);
+  --background-color-chip: var(--sn-bg-chip);
+  --background-color-tint-promo: var(--sn-tint-promo);
+  --background-color-scrollbar: var(--sn-bg-scrollbar);
+  --background-color-dot: var(--sn-border-strong);
 
   /* border-* (also used by divide-*) */
   --border-color-default: var(--sn-border-default);
@@ -39,6 +43,18 @@
   --border-color-menu: var(--sn-border-menu);
   --border-color-profile: var(--sn-border-profile);
   --border-color-disabled: var(--sn-border-disabled);
+  --border-color-input: var(--sn-border-input);
+  --border-color-pill: var(--sn-border-pill);
+  --border-color-social: var(--sn-border-social);
+  --border-color-field: var(--sn-border-field);
+  --border-color-selected: var(--sn-border-selected);
+  --color-radio-off: var(--sn-radio-off);
+  --blur-toast: var(--sn-blur-toast);
+  --width-toast: var(--sn-toast-width);
+  --border-color-card-hover: var(--sn-border-card-hover);
+  --border-color-brand-hover: var(--sn-border-brand-hover);
+  --width-steps-pill: var(--sn-steps-pill-width);
+  --height-steps-pill: var(--sn-steps-pill-height);
 
   /* text-* */
   --text-color-primary: var(--sn-text-primary);
@@ -52,6 +68,7 @@
   --text-color-nav-active: var(--sn-text-nav-active);
   --text-color-menu-label: var(--sn-text-menu-label);
   --text-color-disabled: var(--sn-text-disabled);
+  --text-color-accent: var(--sn-text-accent);
 
   /* Shared across bg-/text-/border-/ring-/fill-/stroke- */
   --color-brand: var(--sn-brand-primary);
@@ -66,6 +83,8 @@
   --color-button-primary-hover: var(--sn-button-primary-hover);
   --color-button-outline: var(--sn-button-outline-border);
   --color-button-outline-fg: var(--sn-button-outline-fg);
+  --color-button-glass-fg: var(--sn-button-glass-fg);
+  --color-button-outline-strong: var(--sn-button-outline-strong-border);
   --color-button-primary-disabled: var(--sn-button-primary-disabled-bg);
   --color-button-primary-disabled-fg: var(--sn-button-primary-disabled-fg);
   --color-button-secondary: var(--sn-button-secondary-bg);
@@ -88,6 +107,14 @@
   --color-info: var(--sn-status-info-text);
   --color-info-bg: var(--sn-status-info-bg);
   --color-info-border: var(--sn-status-info-border);
+  --color-toast-success-fg: var(--sn-toast-success-fg);
+  --color-toast-success-line: var(--sn-toast-success-line);
+  --color-toast-error-fg: var(--sn-toast-error-fg);
+  --color-toast-error-line: var(--sn-toast-error-line);
+  --color-toast-warning-fg: var(--sn-toast-warning-fg);
+  --color-toast-warning-line: var(--sn-toast-warning-line);
+  --color-toast-info-fg: var(--sn-toast-info-fg);
+  --color-toast-info-line: var(--sn-toast-info-line);
 
   --color-chart-input: var(--sn-chart-input);
   --color-chart-output: var(--sn-chart-output);
@@ -192,6 +219,7 @@
   --radius-item: var(--sn-radius-item);
   --radius-lg: var(--sn-radius-lg);
   --radius-xl: var(--sn-radius-xl);
+  --radius-2xl: var(--sn-radius-2xl);
 
   --shadow-*: initial;
   --shadow-xs: var(--sn-shadow-xs);
@@ -206,6 +234,7 @@
   --ease-standard: var(--sn-ease-standard);
   --ease-emphasized: var(--sn-ease-emphasized);
   --ease-exit: var(--sn-ease-exit);
+  --ease-out: var(--sn-ease-out);
 
   /* ---- Breakpoints --------------------------------------------------------
      Figma only has 1440px desktop frames. Assumed ranges:
@@ -239,6 +268,33 @@
   :focus-visible {
     outline: var(--sn-border-thick) solid var(--sn-border-focus);
     outline-offset: 2px;
+  }
+
+  /* Tailwind's preflight resets buttons to the default arrow; restore the pointer on anything actionable. */
+  button:not(:disabled),
+  summary,
+  select:not(:disabled),
+  a[href],
+  label[for],
+  input:is([type="checkbox"], [type="radio"], [type="submit"], [type="button"], [type="file"]):not(
+      :disabled
+    ),
+  [role="button"],
+  [role="tab"],
+  [role="option"],
+  [role="menuitem"],
+  [role="menuitemcheckbox"],
+  [role="menuitemradio"],
+  [role="switch"],
+  [role="checkbox"],
+  [role="radio"] {
+    cursor: pointer;
+  }
+
+  :is(button, select, input):disabled,
+  [aria-disabled="true"],
+  [data-disabled] {
+    cursor: not-allowed;
   }
 
   code,
@@ -324,6 +380,33 @@
   animation: sn-fade-out var(--sn-duration-base) var(--sn-ease-exit) forwards;
 }
 
+@keyframes sn-toast-in {
+  from {
+    transform: translateY(calc(-100% - var(--sn-toast-offset-top)));
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes sn-toast-out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--sn-toast-offset-top)));
+  }
+}
+
+/* Toast: slides down from above the top edge (Figma: move in, ease out). */
+@utility animate-toast-in {
+  animation: sn-toast-in var(--sn-duration-toast) var(--sn-ease-out);
+}
+
+@utility animate-toast-out {
+  animation: sn-toast-out var(--sn-duration-toast) var(--sn-ease-exit) forwards;
+}
+
 @utility animate-pop-in {
   animation: sn-pop-in var(--sn-duration-fast) var(--sn-ease-standard);
 }
@@ -371,4 +454,55 @@
 
 @utility z-tooltip {
   z-index: var(--sn-z-tooltip);
+}
+
+/* ---- Gradients and decorative fills (tokens.css --sn-gradient-*) ------------ */
+@utility bg-hero {
+  background-image: var(--sn-gradient-hero);
+}
+
+@utility bg-promo {
+  background-image: var(--sn-gradient-promo);
+}
+
+@utility bg-badge-gradient {
+  background-image: var(--sn-gradient-badge);
+}
+
+/* Gradient-filled text, e.g. "Sambanova." in the hero title. */
+@utility text-hero-accent {
+  background-image: var(--sn-gradient-hero-accent);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Onboarding steps: the card's content is clipped to its box; the pill box is centered at the top. */
+@utility steps-clip-open {
+  clip-path: inset(0 0 0 0 round var(--sn-radius-lg));
+}
+@utility steps-clip-pill {
+  clip-path: inset(
+    0 calc(50% - var(--sn-steps-pill-width) / 2) calc(100% - var(--sn-steps-pill-height))
+      calc(50% - var(--sn-steps-pill-width) / 2) round var(--sn-radius-full)
+  );
+}
+
+/* Recommended-model card glow: the curved wedge from Figma ("Vector 38"), 179.5 x 202.5, drawn from the top right. */
+@utility glow-wedge-box {
+  width: 179.5px;
+  height: 202.5px;
+}
+@utility glow-wedge-shape {
+  width: 100%;
+  height: 100%;
+  clip-path: path(
+    "M55.5 0 L179.5 0 L179.5 130 L179.5 202.5 C179.5 202.5 168.5 36 150 26 C131.5 16 0 0 0 0 L55.5 0 Z"
+  );
+}
+
+/* Slim scrollbar with the themed thumb (Figma: Compare Models dropdown). */
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--sn-bg-scrollbar) transparent;
 }

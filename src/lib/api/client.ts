@@ -31,6 +31,8 @@ export const apiClient = axios.create({
   baseURL: env.apiBaseUrl,
   timeout: 30_000,
   headers: { Accept: "application/json" },
+  // The session is a cookie owned by the API, so it must travel with every request.
+  withCredentials: true,
 });
 
 apiClient.interceptors.request.use(async (config) => {

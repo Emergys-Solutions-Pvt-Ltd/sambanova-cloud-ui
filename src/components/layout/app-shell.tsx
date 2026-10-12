@@ -5,6 +5,9 @@ import { type ReactNode, useEffect, useState } from "react";
 
 import { Drawer } from "@/components/ui/drawer";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { AuthDialogHost } from "@/features/auth";
+import { AddCreditsDialog } from "@/features/billing";
+import { CreateProjectDialog } from "@/features/projects";
 import { selectMobileNavOpen, useUIStore } from "@/stores/ui-store";
 
 import { MobileTopBar } from "./mobile-top-bar";
@@ -15,7 +18,8 @@ import { SidebarContent } from "./sidebar";
  *   < md (phone)    top bar + slide-in drawer
  *   md  (tablet)    72px icon rail with tooltips; its toggle opens the same drawer
  *   ≥ lg (desktop)  fixed 248px sidebar
- * Only <main> scrolls, so the page itself never scrolls sideways.
+ * Only <main> scrolls, so the page itself never scrolls sideways. <main> is `relative` so
+ * absolutely positioned content (e.g. sr-only text) is contained and cannot grow the document.
  */
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
@@ -76,11 +80,15 @@ export function AppShell({ children }: { children: ReactNode }) {
         <main
           id="main-content"
           tabIndex={-1}
-          className="min-w-0 flex-1 overflow-x-hidden overflow-y-auto outline-none"
+          className="relative min-w-0 flex-1 overflow-x-hidden overflow-y-auto outline-none"
         >
           {children}
         </main>
       </div>
+
+      <AuthDialogHost />
+      <CreateProjectDialog />
+      <AddCreditsDialog />
     </TooltipProvider>
   );
 }

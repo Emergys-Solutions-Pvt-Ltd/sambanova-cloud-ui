@@ -127,17 +127,18 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 - **Account area**: signed in shows the profile card with credit badge and the account menu (email, Manage Projects, Theme, Documentation, Help Center, Logout). Signed out shows "Sign Up for Free" and the theme switcher. While `GET /me` loads, a placeholder holds the space.
 - **Drawer**: overlay, focus trap, Escape, closes on navigation, focus returns to the opener.
 - **Page frame**: use `<PageHeader title subtitle actions />` then `<PageContent>`.
-- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control), `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
+- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand), `TextField`, `RadioCardGroup`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
 - **Accessibility**: skip-to-content link, landmarks (`aside`, `nav`, `main`), visible focus rings, full keyboard operation.
 
-**Toggling signed-in and signed-out** (with mocks on), from the browser console. The app refetches immediately, no reload needed:
+**Signing in and out** (with mocks on): use the app. Sign Up for Free (sidebar) or any locked action opens the login dialog; Logout is in the account menu. See [Authentication](#authentication-mock-until-the-real-api).
 
-```js
-__mocks.set({ scenario: "guest" }); // signed out: GET /me returns 401
-__mocks.reset(); // signed in again
-```
+## Dashboard
 
-The account menu’s Logout does the same through `useLogout` (a stub until Auth0).
+`/dashboard` (`src/features/dashboard`): hero banner, onboarding steps (hide/show is remembered), Usage Overview (signed-in users only), upcoming-webinar carousel, free-credits promo, Developer Quickstart (Curl / Python / Gradio snippets for the selected model, with copy), cloud partners and recommended models with a **Compare Models** dialog.
+
+- **Data**: usage overview, model catalog, recommended models, webinars and partners come from the mock API (`src/mocks`) through TanStack Query hooks in `features/dashboard/hooks`. Each section handles its own loading and error state.
+- **Snippets** are generated in `features/dashboard/lib/snippets.ts`; token kinds drive the syntax colors, so no highlighter library is needed.
+- **Reusable components** added for it: `Card`, `Tabs`, `Select`, `Dialog`, `CodeBlock`, `CopyButton`, `Meter`, `ErrorState`, `ArrowLink`, `SectionHeader`, brand logos (`components/brand`), and Button variants `glass` and `outline`. All are listed in the `/dev/tokens` showcase.
 
 ## Data layer
 
@@ -185,7 +186,6 @@ Change the latency and error scenario from the browser console. Settings persist
 
 ```js
 __mocks.set({ scenario: "error" }); // every request returns 500
-__mocks.set({ scenario: "guest" }); // GET /me returns 401 (signed-out state)
 __mocks.set({ latencyMs: 2000 }); // slow network (default 400 ms)
 __mocks.reset();
 ```
@@ -195,4 +195,24 @@ After upgrading `msw`, regenerate the worker with `npx msw init public`.
 ## Routing and auth
 
 - `/` redirects to `/dashboard`, and `/settings` redirects to `/settings/general` (`next.config.ts`).
-- `src/proxy.ts` sends signed-out users from protected routes (`protectedRoutePrefixes` in `src/config/routes.ts`) to `/login?returnTo=…`. The session check is a stub that always passes until Auth0 is integrated.
+- `src/proxy.ts` sends signed-out users from protected routes (`protectedRoutePrefixes` in `src/config/routes.ts`) to `/login?returnTo=…`. It checks that the API's session cookie (`SESSION_COOKIE_NAME` in `src/config/auth.ts`) is present; the API itself decides whether a session is still valid.
+
+### Projects and toasts
+
+- **Create project:** the project menu's "Create project" opens `CreateProjectDialog` (`src/features/projects`, state in `useCreateProjectDialogStore`, mounted in the app shell; any page can open it the same way). The name is trimmed, 3 to 50 characters, and unique per account (case-insensitive) in the form and again in the API (`POST /projects` answers 409 or 422, shown under the input). On success the dialog closes, the new project becomes the active one and a success toast appears. The mock keeps created projects per account in localStorage (`sn:mock-projects`).
+- **Toasts:** `toast.success("…")` (also `info`, `warning`, `danger`) from `src/stores/toast-store.ts` shows a `Toast` at the top centre, 14px from the top edge, sliding down (Figma). Default 1.5s (as in the Figma prototype; pass a duration to change it), paused while hovered or focused, with a close button. `<ToastViewport />` is mounted once in `providers.tsx`.
+
+### Credits and Add Credits
+
+- **Credits belong to the user, not a project.** The balance is `user.creditBalance` from `GET /me` (sidebar badge and the Usage Overview "Credits Remaining" card both read it), so it is the same in every project. Usage Overview's other three numbers stay per project.
+- **Add Credits dialog** (`src/features/billing`, state in `useAddCreditsDialogStore`, mounted in the app shell): opened by the hero's "Add Credits" and the Usage Overview link (guests are asked to log in first). Amount: $5 / $20 / $100 or a custom whole-dollar amount from $5 to $1,000. Billing address (saved on the account and prefilled next time) and card details (number with Luhn check, MM/YY not in the past, 3-4 digit security code) are validated in the form and again by the API. The Buy button is pinned below the scrolling form and reads "Buy $X of credits". On success the dialog closes, the balance updates and a "$X Credits Added Successfully" toast appears.
+- **Mock payment:** `GET /billing/address`, `POST /billing/credits`. Any card that passes validation succeeds (e.g. 4242 4242 4242 4242); 4000 0000 0000 0002 is declined ("Your card was declined"). Card details are never stored; purchases and the address are kept per account in localStorage (`sn:mock-billing`). With the real API the card is tokenized by the payment provider in the browser and only the token goes to our API, so `purchaseCredits` in `src/features/billing/api/billing.api.ts` is the one place to change.
+
+### Authentication (mock until the real API)
+
+Login and sign-up are one dialog (`src/features/auth`) that opens over the dashboard: from "Sign Up for Free", from a locked action, or by visiting `/login` or `/signup` (add `?returnTo=/path` to land somewhere after login). Social buttons are placeholders.
+
+- **Session = a cookie owned by the API.** `POST /auth/login`, `POST /auth/signup` and `POST /auth/logout` start and end it; `GET /me` reads it and answers 401 without one. The Axios client sends cookies (`withCredentials`). The client keeps no token: `useSessionStore` mirrors `GET /me` (`useSessionSync`).
+- **Locked actions.** For guests, Open Playground, Create API Key, Add Credits, Compare Models and Explore in Playground stay clickable but open the login dialog (`useAuthGate`) and carry on after sign-in. The project selector is disabled and shows "Default project"; project data is not fetched.
+- **Mock backend** (`src/mocks`): accounts and sessions live in localStorage (`sn:mock-accounts`, `sn:mock-sessions`), passwords are stored hashed, and the mock sets the cookie through `document.cookie`. Accounts present from the start are listed in `src/mocks/fixtures/auth.ts` (nothing in the UI reads that file; sign up to create your own). Clear those localStorage keys and the cookie to reset.
+- **Swapping in the real API:** point `NEXT_PUBLIC_API_BASE_URL` at it and set `NEXT_PUBLIC_USE_MOCKS=false`. Keep the endpoint shapes in `src/features/auth/api/auth.api.ts` (or adjust that one file), make the API set the cookie named in `src/config/auth.ts`, and enable CORS credentials if it is on another origin.
