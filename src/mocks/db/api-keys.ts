@@ -96,6 +96,11 @@ export function queryApiKeys(
   };
 }
 
+/** One key of the project, or `undefined` when it does not exist (or was deleted). */
+export function findApiKeyFor(accountId: string, projectId: string, keyId: string) {
+  return allKeys(accountId, projectId).find((key) => key.id === keyId);
+}
+
 const sameName = (a: string, b: string) => a.trim().toLowerCase() === b.trim().toLowerCase();
 
 const randomLastFour = () =>

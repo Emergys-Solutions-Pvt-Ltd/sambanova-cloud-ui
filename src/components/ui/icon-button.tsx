@@ -4,11 +4,15 @@ import { cn } from "@/lib/cn";
 
 import { Icon, type IconName } from "./icon/icon";
 
-export type IconButtonVariant = "ghost" | "outline" | "solid" | "surface";
-export type IconButtonSize = "xs" | "sm" | "md" | "field" | "lg" | "carousel";
+export type IconButtonVariant = "ghost" | "muted" | "contrast" | "outline" | "solid" | "surface";
+export type IconButtonSize = "2xs" | "xs" | "sm" | "md" | "field" | "lg" | "carousel";
 
 const variants: Record<IconButtonVariant, string> = {
   ghost: "text-secondary hover:bg-hover hover:text-primary",
+  /** Dimmed icon at rest (Figma: the close X of the Request Details drawer). */
+  muted: "text-muted hover:bg-hover hover:text-primary",
+  /** Full-strength icon at rest (Figma: the eye in the request log, copy icons). */
+  contrast: "text-primary hover:bg-hover",
   outline:
     "border border-button-outline text-secondary hover:bg-button-secondary-hover hover:text-primary",
   solid: "bg-button-primary text-button-primary-fg hover:bg-button-primary-hover",
@@ -17,6 +21,8 @@ const variants: Record<IconButtonVariant, string> = {
 };
 
 const sizes: Record<IconButtonSize, { box: string; icon: number }> = {
+  /** Inline 20px target with a 16px icon (copy icon beside a value). */
+  "2xs": { box: "size-5", icon: 16 },
   /** Compact 24px target with an 18px icon (table row actions). */
   xs: { box: "size-6", icon: 18 },
   sm: { box: "size-8", icon: 16 },

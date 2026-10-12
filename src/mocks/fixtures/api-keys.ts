@@ -1,5 +1,7 @@
 import { type ApiKey } from "@/types/domain";
 
+import { mulberry32 } from "../random";
+
 /**
  * Mock keys for the Default project. The first rows are the ones shown in the Figma table (the
  * second "Production Key" there is renamed so names stay unique); the rest are generated
@@ -97,17 +99,6 @@ const baseNames = [
   "Web client",
   "Data pipeline",
 ];
-
-/** Small deterministic generator so the list is the same on every load. */
-function mulberry32(seed: number) {
-  let state = seed;
-  return () => {
-    state = (state + 0x6d2b79f5) | 0;
-    let t = Math.imul(state ^ (state >>> 15), 1 | state);
-    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
 
 const pad = (value: number) => String(value).padStart(2, "0");
 const localIso = (date: Date) =>

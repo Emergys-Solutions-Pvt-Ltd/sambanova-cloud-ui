@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 import { type ApiKey } from "@/types/domain";
 
-export type ApiKeyAction = "usage" | "edit" | "toggle-status" | "rotate" | "delete";
+export type ApiKeyAction = "edit" | "toggle-status" | "rotate" | "delete";
 
 interface ApiKeyActionRequest {
   action: ApiKeyAction;
@@ -17,9 +17,9 @@ interface ApiKeyActionsState {
 }
 
 /**
- * What the user picked in a key's Actions menu. The menu already reports it; the screens behind
- * each action (View Usage, Edit Key, Disable Key, Rotate Key, Delete Key in Figma) are built later
- * and will read `request` to open their dialog or page.
+ * What the user picked in a key's Actions menu that opens a dialog (Edit Key, Disable Key, Rotate
+ * Key, Delete Key); `ApiKeyActionDialogs` reads `request` to show it. View Usage is a link to the
+ * key's usage page and does not go through here.
  */
 export const useApiKeyActionsStore = create<ApiKeyActionsState>()((set) => ({
   request: null,

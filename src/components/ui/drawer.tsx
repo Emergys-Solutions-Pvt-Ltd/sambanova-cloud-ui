@@ -5,11 +5,27 @@ import { type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
+type DrawerSide = "left" | "right";
+
+/** Left: the navigation sheet (sidebar width). Right: a details panel (Figma: Request Details, 420px). */
+const sides: Record<DrawerSide, string> = {
+  left:
+    "left-0 w-(--sn-sidebar-width) max-w-[85vw] border-r bg-sidebar " +
+    "data-[state=closed]:animate-drawer-out data-[state=open]:animate-drawer-in",
+  right:
+    "right-0 w-105 max-w-full border-l bg-drawer " +
+    "data-[state=closed]:animate-drawer-out-right data-[state=open]:animate-drawer-in-right",
+};
+
 export interface DrawerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  /** Accessible name, announced when the drawer opens. Not shown visually. */
-  title: string;
+  /**
+   * Accessible name, announced when the drawer opens, shown to screen readers only. Leave it out
+   * when the content renders its own visible `<DrawerTitle>`.
+   */
+  title?: string;
+  side?: DrawerSide;
   /** Element to focus after the drawer closes (the control that opened it). */
   returnFocusTo?: HTMLElement | null;
   children: ReactNode;
@@ -17,13 +33,14 @@ export interface DrawerProps {
 }
 
 /**
- * Left-side sheet: overlay, focus trap, Escape and outside-click to close, and
- * focus returns to the trigger. Built on Radix Dialog for the behaviour only.
+ * Side sheet: overlay, focus trap, Escape and outside-click to close, and focus returns to the
+ * trigger. Built on Radix Dialog for the behaviour only.
  */
 export function Drawer({
   open,
   onOpenChange,
   title,
+  side = "left",
   returnFocusTo,
   children,
   className,
@@ -46,13 +63,12 @@ export function Drawer({
             returnFocusTo.focus();
           }}
           className={cn(
-            "fixed inset-y-0 left-0 z-drawer flex h-dvh w-(--sn-sidebar-width) max-w-[85vw] flex-col",
-            "border-r border-default bg-sidebar shadow-lg outline-none",
-            "data-[state=closed]:animate-drawer-out data-[state=open]:animate-drawer-in",
+            "fixed inset-y-0 z-drawer flex h-dvh flex-col border-default shadow-lg outline-none",
+            sides[side],
             className,
           )}
         >
-          <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
+          {title && <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>}
           {children}
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
@@ -61,3 +77,4 @@ export function Drawer({
 }
 
 export const DrawerClose = DialogPrimitive.Close;
+export const DrawerTitle = DialogPrimitive.Title;

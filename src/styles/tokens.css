@@ -56,10 +56,13 @@
   --sn-neutral-300: #aaaaaa;
   --sn-neutral-700: #3c3c3c;
   --sn-neutral-750: #2e3032;
+  --sn-neutral-780: #2c2c2e;
   --sn-neutral-800: #262626;
   --sn-neutral-850: #202020;
   --sn-neutral-875: #1d1d1d;
+  --sn-neutral-880: #18181b;
   --sn-neutral-900: #181818;
+  --sn-neutral-920: #111214;
   --sn-neutral-950: #131313;
   --sn-neutral-1000: #000000;
 
@@ -82,6 +85,7 @@
 
   /* Status hues. Dark values come from Figma; light values follow the same
      Flowbite scale the file already uses (see GUESS notes below). */
+  --sn-green-live: #22c55e; /* API key "Active" chip (Figma uses a brighter green than the status badges) */
   --sn-green-400: #31c48d;
   --sn-green-500: #0e9f6e;
   --sn-green-700: #046c4e;
@@ -394,6 +398,27 @@
   --sn-button-outline-strong-border: var(--sn-neutral-0);
   --sn-bg-chip: rgb(244 234 253 / 0.2);
   --sn-bg-scrollbar: rgb(255 255 255 / 0.22); /* thumb of thin scrollbars (Figma dropdown) */
+
+  /* API key usage (Figma: View API Key Usage, Request Details drawer, Datepicker) */
+  --sn-text-strong: var(--sn-gray-200); /* titles and values on dark panels */
+  --sn-text-meta-label: var(--sn-gray-500); /* small uppercase labels: CREATED BY */
+  --sn-text-error-strong: var(--sn-red-500);
+  --sn-bg-date-range: rgb(255 255 255 / 0.08); /* days inside the selected range */
+  --sn-gradient-stat-card: linear-gradient(
+    -73.85deg,
+    rgb(163 93 248 / 0.096) 0.53%,
+    rgb(19 19 19 / 0.16) 100.66%
+  );
+  --sn-stat-icon-fg: var(--sn-purple-300);
+  --sn-bg-key-icon: rgb(255 200 50 / 0.08);
+  --sn-chip-live-text: var(--sn-green-live);
+  --sn-chip-live-bg: rgb(34 197 94 / 0.12);
+  --sn-chip-live-border: rgb(34 197 94 / 0.3);
+  --sn-bg-drawer: var(--sn-neutral-920);
+  --sn-bg-detail-box: var(--sn-neutral-880);
+  --sn-border-detail-box: var(--sn-neutral-780);
+  --sn-bg-error-box: rgb(255 89 89 / 0.06);
+  --sn-border-error-box: rgb(255 89 89 / 0.16);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -548,6 +573,27 @@
   --sn-button-outline-strong-border: var(--sn-purple-400);
   --sn-bg-chip: rgb(255 255 255 / 0.2);
   --sn-bg-scrollbar: rgb(0 0 0 / 0.18); /* GUESS: no light dropdown in Figma */ /* GUESS */
+
+  /* API key usage: no light screens in Figma, all GUESS */
+  --sn-text-strong: var(--sn-gray-800);
+  --sn-text-meta-label: var(--sn-gray-500);
+  --sn-text-error-strong: var(--sn-red-700);
+  --sn-bg-date-range: rgb(98 43 134 / 0.1); /* GUESS */
+  --sn-gradient-stat-card: linear-gradient(
+    -73.85deg,
+    rgb(163 93 248 / 0.12) 0.53%,
+    rgb(255 255 255 / 0.4) 100.66%
+  ); /* GUESS */
+  --sn-stat-icon-fg: var(--sn-purple-700); /* GUESS */
+  --sn-bg-key-icon: rgb(253 185 19 / 0.16); /* GUESS */
+  --sn-chip-live-text: var(--sn-green-700); /* GUESS */
+  --sn-chip-live-bg: var(--sn-green-50); /* GUESS */
+  --sn-chip-live-border: var(--sn-green-200); /* GUESS */
+  --sn-bg-drawer: var(--sn-neutral-0); /* GUESS */
+  --sn-bg-detail-box: var(--sn-purple-50); /* GUESS */
+  --sn-border-detail-box: var(--sn-purple-200); /* GUESS */
+  --sn-bg-error-box: var(--sn-red-50); /* GUESS */
+  --sn-border-error-box: var(--sn-red-200); /* GUESS */
 }
 
 @media (prefers-color-scheme: light) {
@@ -697,6 +743,27 @@
     --sn-button-outline-strong-border: var(--sn-purple-400);
     --sn-bg-chip: rgb(255 255 255 / 0.2);
     --sn-bg-scrollbar: rgb(0 0 0 / 0.18); /* GUESS: no light dropdown in Figma */ /* GUESS */
+
+    /* API key usage: no light screens in Figma, all GUESS */
+    --sn-text-strong: var(--sn-gray-800);
+    --sn-text-meta-label: var(--sn-gray-500);
+    --sn-text-error-strong: var(--sn-red-700);
+    --sn-bg-date-range: rgb(98 43 134 / 0.1); /* GUESS */
+    --sn-gradient-stat-card: linear-gradient(
+      -73.85deg,
+      rgb(163 93 248 / 0.12) 0.53%,
+      rgb(255 255 255 / 0.4) 100.66%
+    ); /* GUESS */
+    --sn-stat-icon-fg: var(--sn-purple-700); /* GUESS */
+    --sn-bg-key-icon: rgb(253 185 19 / 0.16); /* GUESS */
+    --sn-chip-live-text: var(--sn-green-700); /* GUESS */
+    --sn-chip-live-bg: var(--sn-green-50); /* GUESS */
+    --sn-chip-live-border: var(--sn-green-200); /* GUESS */
+    --sn-bg-drawer: var(--sn-neutral-0); /* GUESS */
+    --sn-bg-detail-box: var(--sn-purple-50); /* GUESS */
+    --sn-border-detail-box: var(--sn-purple-200); /* GUESS */
+    --sn-bg-error-box: var(--sn-red-50); /* GUESS */
+    --sn-border-error-box: var(--sn-red-200); /* GUESS */
   }
 }
 

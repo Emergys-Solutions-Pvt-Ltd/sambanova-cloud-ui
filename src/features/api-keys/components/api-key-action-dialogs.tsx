@@ -19,7 +19,7 @@ const nameSchema = apiKeyNameSchema([]);
 
 /**
  * Dialogs opened from a key's Actions menu: Edit API key (rename), Disable Key, Rotate Key and
- * Delete Key. They follow `useApiKeyActionsStore`; View Usage is built later.
+ * Delete Key. They follow `useApiKeyActionsStore`.
  */
 export function ApiKeyActionDialogs() {
   const request = useApiKeyActionsStore((state) => state.request);

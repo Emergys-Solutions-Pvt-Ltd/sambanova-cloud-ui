@@ -86,6 +86,23 @@
   --text-color-menu-label: var(--sn-text-menu-label);
   --text-color-disabled: var(--sn-text-disabled);
   --text-color-accent: var(--sn-text-accent);
+  --text-color-strong: var(--sn-text-strong);
+  --text-color-meta-label: var(--sn-text-meta-label);
+  --text-color-error-strong: var(--sn-text-error-strong);
+
+  /* API key usage: date range, stat cards, key card, Request Details drawer */
+  --color-date-range: var(--sn-bg-date-range);
+  --text-color-stat-icon: var(--sn-stat-icon-fg);
+  --background-color-key-icon: var(--sn-bg-key-icon);
+  --text-color-chip-live: var(--sn-chip-live-text);
+  --background-color-chip-live: var(--sn-chip-live-bg);
+  --border-color-chip-live: var(--sn-chip-live-border);
+  --background-color-drawer: var(--sn-bg-drawer);
+  --background-color-detail-box: var(--sn-bg-detail-box);
+  --border-color-detail-box: var(--sn-border-detail-box);
+  --background-color-error-box: var(--sn-bg-error-box);
+  --border-color-error-box: var(--sn-border-error-box);
+  --background-color-meta-divider: var(--sn-border-pill);
 
   /* Shared across bg-/text-/border-/ring-/fill-/stroke- */
   --color-brand: var(--sn-brand-primary);
@@ -181,6 +198,9 @@
   --text-heading-sm: 1.125rem; /* 18px: section titles */
   --text-heading-sm--line-height: 1.4;
   --text-heading-sm--font-weight: 600;
+  --text-heading-2xs: 0.9375rem; /* 15px: drawer section titles */
+  --text-heading-2xs--line-height: 1.4;
+  --text-heading-2xs--font-weight: 700;
   --text-heading-xs: 1rem; /* 16px: card titles */
   --text-heading-xs--line-height: 1.5;
   --text-heading-xs--font-weight: 700;
@@ -381,12 +401,38 @@
   }
 }
 
+@keyframes sn-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes sn-slide-out-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
 @utility animate-drawer-in {
   animation: sn-slide-in-left var(--sn-duration-slow) var(--sn-ease-standard);
 }
 
 @utility animate-drawer-out {
   animation: sn-slide-out-left var(--sn-duration-base) var(--sn-ease-exit) forwards;
+}
+
+@utility animate-drawer-in-right {
+  animation: sn-slide-in-right var(--sn-duration-slow) var(--sn-ease-standard);
+}
+
+@utility animate-drawer-out-right {
+  animation: sn-slide-out-right var(--sn-duration-base) var(--sn-ease-exit) forwards;
 }
 
 @utility animate-overlay-in {
@@ -484,6 +530,11 @@
 
 @utility bg-badge-gradient {
   background-image: var(--sn-gradient-badge);
+}
+
+/* API key usage stat cards: faint purple wash from the bottom right. */
+@utility bg-stat-card {
+  background-image: var(--sn-gradient-stat-card);
 }
 
 /* Gradient-filled text, e.g. "Sambanova." in the hero title. */

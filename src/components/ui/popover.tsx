@@ -29,7 +29,18 @@ export const dropdownSurface =
   "z-popover rounded-md border border-default bg-surface p-1 text-primary shadow-lg " +
   "data-[state=open]:animate-pop-in";
 
-type PopoverSurface = "menu" | "dropdown";
+/** Content panel with its own layout (Figma: Datepicker Dropdown): input fill, r8, small shadow, 16/20px padding. */
+export const panelSurface =
+  "z-popover rounded-md border border-default bg-input px-4 py-5 text-primary shadow-sm " +
+  "data-[state=open]:animate-pop-in";
+
+type PopoverSurface = "menu" | "dropdown" | "panel";
+
+const surfaces: Record<PopoverSurface, string> = {
+  menu: menuSurface,
+  dropdown: dropdownSurface,
+  panel: panelSurface,
+};
 
 export function PopoverContent({
   className,
@@ -44,11 +55,7 @@ export function PopoverContent({
         sideOffset={sideOffset}
         align={align}
         collisionPadding={12}
-        className={cn(
-          surface === "menu" ? menuSurface : dropdownSurface,
-          "outline-none",
-          className,
-        )}
+        className={cn(surfaces[surface], "outline-none", className)}
         {...rest}
       />
     </PopoverPrimitive.Portal>

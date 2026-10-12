@@ -3,8 +3,12 @@ import { delay, http, HttpResponse, type HttpResponseResolver } from "msw";
 import { env } from "@/config/env";
 import { type PaginatedResponse } from "@/lib/api/types";
 import { checkExpiry, digitsOnly, isValidCardNumber, isValidSecurityCode } from "@/lib/card";
+import { parseISODate } from "@/lib/date-range";
 import {
   type ApiKey,
+  type ApiKeyDetail,
+  type ApiKeyRequestLog,
+  type ApiKeyUsageStats,
   type AuthResponse,
   type CreateExampleItemInput,
   type CreateApiKeyInput,
@@ -28,9 +32,11 @@ import {
   toUser,
   verifyCredentials,
 } from "../db/accounts";
+import { listKeyRequests, pageOf, summarizeRequests } from "../db/api-key-usage";
 import {
   createApiKeyFor,
   deleteApiKeyFor,
+  findApiKeyFor,
   queryApiKeys,
   rotateApiKeyFor,
   updateApiKeyFor,
@@ -105,6 +111,14 @@ function itemsForProject(projectId: string) {
 
 const notFound = (what: string) =>
   HttpResponse.json(errorBody("NOT_FOUND", `${what} not found.`), { status: 404 });
+
+/** `?from=YYYY-MM-DD&to=YYYY-MM-DD` of the usage endpoints; `null` when missing, malformed or reversed. */
+function readDayRange(request: Request) {
+  const url = new URL(request.url);
+  const from = parseISODate(url.searchParams.get("from"));
+  const to = parseISODate(url.searchParams.get("to"));
+  return from && to && from.getTime() <= to.getTime() ? { from, to } : null;
+}
 
 export const handlers = [
   http.get(
@@ -392,6 +406,56 @@ export const handlers = [
       return deleteApiKeyFor(account!.id, project.id, params.keyId)
         ? new HttpResponse(null, { status: 204 })
         : notFound("API key");
+    }),
+  ),
+
+  http.get(
+    api("/projects/:projectId/api-keys/:keyId"),
+    withSession<{ projectId: string; keyId: string }>(async ({ params }) => {
+      const account = await findAccountBySession(readSessionToken());
+      const project = await findOwnProject(params.projectId);
+      if (!project) return notFound("Project");
+      const key = findApiKeyFor(account!.id, project.id, params.keyId);
+      if (!key) return notFound("API key");
+      // Keys carry no owner in the mock data; the signed-in member is shown as the creator.
+      return HttpResponse.json({ ...key, createdBy: account!.name } satisfies ApiKeyDetail);
+    }),
+  ),
+
+  http.get(
+    api("/projects/:projectId/api-keys/:keyId/usage"),
+    withSession<{ projectId: string; keyId: string }>(async ({ params, request }) => {
+      const account = await findAccountBySession(readSessionToken());
+      const project = await findOwnProject(params.projectId);
+      if (!project) return notFound("Project");
+      const key = findApiKeyFor(account!.id, project.id, params.keyId);
+      if (!key) return notFound("API key");
+      const range = readDayRange(request);
+      if (!range) return validationError("Choose a valid date range.", { field: "range" });
+
+      const stats = summarizeRequests(listKeyRequests(key, range.from, range.to));
+      return HttpResponse.json(stats satisfies ApiKeyUsageStats);
+    }),
+  ),
+
+  http.get(
+    api("/projects/:projectId/api-keys/:keyId/requests"),
+    withSession<{ projectId: string; keyId: string }>(async ({ params, request }) => {
+      const account = await findAccountBySession(readSessionToken());
+      const project = await findOwnProject(params.projectId);
+      if (!project) return notFound("Project");
+      const key = findApiKeyFor(account!.id, project.id, params.keyId);
+      if (!key) return notFound("API key");
+      const range = readDayRange(request);
+      if (!range) return validationError("Choose a valid date range.", { field: "range" });
+
+      const url = new URL(request.url);
+      const page = pageOf(
+        listKeyRequests(key, range.from, range.to),
+        Number(url.searchParams.get("page")) || 1,
+        Math.min(100, Math.max(1, Number(url.searchParams.get("pageSize")) || 10)),
+      );
+      return HttpResponse.json(page satisfies PaginatedResponse<ApiKeyRequestLog>);
     }),
   ),
 

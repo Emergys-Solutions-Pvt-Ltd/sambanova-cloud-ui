@@ -61,6 +61,15 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M3.67 11.92h4.58M11 14.67V7.33h2.75q.75.02 1.3.54c.34.34.53.81.53 1.3v.91a1.84 1.84 0 0 1-1.83 1.84H11m7.33-4.59v7.34m-10.08 0V9.62a2.3 2.3 0 0 0-2.29-2.29 2.3 2.3 0 0 0-2.29 2.29v5.05"/>',
   },
+  "arrow-left-wide": {
+    viewBox: "0 0 20 20",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M15.83 10H4.17M10 4.17 4.17 10 10 15.83"/>',
+  },
   "arrow-left": {
     viewBox: "0 0 20 20",
     fill: "none",
@@ -78,6 +87,15 @@ export const iconData = {
     strokeLinecap: "round",
     strokeLinejoin: "round",
     body: '<path d="M3.75 9h10.5m-3 3 3-3m-3-3 3 3"/>',
+  },
+  "arrow-right-wide": {
+    viewBox: "0 0 20 20",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M4.17 10h11.66M10 15.83 15.83 10 10 4.17"/>',
   },
   "arrow-right": {
     viewBox: "0 0 20 20",
@@ -198,6 +216,15 @@ export const iconData = {
     strokeLinecap: "round",
     strokeLinejoin: "round",
     body: '<path d="M2 8a6.1 6.1 0 0 0 3.7 5.54 6 6 0 0 0 4.6 0 6 6 0 0 0 3.24-3.24Q14 9.2 14 8a5.97 5.97 0 0 0-6-6 5.97 5.97 0 0 0-6 6"/><path d="M8 4.67V8l2 2"/>',
+  },
+  "close-thin": {
+    viewBox: "0 0 20 20",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.25",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M15 5 5 15M5 5l10 10"/>',
   },
   close: {
     viewBox: "0 0 20 20",

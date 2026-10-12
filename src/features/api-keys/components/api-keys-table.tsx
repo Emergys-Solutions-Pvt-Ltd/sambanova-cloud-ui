@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/ui/badge";
-import { Pagination } from "@/components/ui/pagination";
+import { PaginationFooter } from "@/components/ui/pagination-footer";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
@@ -29,27 +29,6 @@ function StatusBadge({ status }: { status: ApiKey["status"] }) {
   );
 }
 
-/** "Showing **1-10** of **1000**" */
-function RangeSummary({
-  page,
-  pageSize,
-  total,
-}: {
-  page: number;
-  pageSize: number;
-  total: number;
-}) {
-  if (total === 0) return <p className="text-body text-secondary">Showing 0 of 0</p>;
-  const start = (page - 1) * pageSize + 1;
-  const end = Math.min(page * pageSize, total);
-  return (
-    <p className="text-body text-secondary">
-      Showing <strong className="font-semibold">{`${start}-${end}`}</strong> of{" "}
-      <strong className="font-semibold">{total}</strong>
-    </p>
-  );
-}
-
 interface ApiKeysTableProps {
   /** `undefined` while the first page loads. */
   result: PaginatedResponse<ApiKey> | undefined;
@@ -65,24 +44,7 @@ export function ApiKeysTable({ result, filtered, onPageChange, loadingMore }: Ap
   const rows = result?.data ?? [];
 
   return (
-    <TableCard
-      footer={
-        <div className="flex flex-wrap items-center justify-between gap-4 p-4">
-          {result ? (
-            <>
-              <RangeSummary page={result.page} pageSize={result.pageSize} total={result.total} />
-              <Pagination
-                page={result.page}
-                totalPages={result.totalPages}
-                onPageChange={onPageChange}
-              />
-            </>
-          ) : (
-            <Skeleton className="h-6 w-36" />
-          )}
-        </div>
-      }
-    >
+    <TableCard footer={<PaginationFooter result={result} onPageChange={onPageChange} />}>
       <Table caption="API keys" aria-busy={loadingMore || !result || undefined}>
         <TableHead>
           <TableRow>

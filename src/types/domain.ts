@@ -117,6 +117,62 @@ export interface ApiKey {
   previousKeyExpiresAt?: string | null;
 }
 
+/** A key with the extra details the usage page shows (`GET /projects/:id/api-keys/:keyId`). */
+export interface ApiKeyDetail extends ApiKey {
+  /** Name of the member who created the key. */
+  createdBy: string;
+}
+
+/** Day range of the usage endpoints: local "YYYY-MM-DD" dates, both ends included. */
+export interface UsageRangeParams {
+  from: string;
+  to: string;
+}
+
+/** Totals for one key over a day range (`GET .../api-keys/:keyId/usage`). */
+export interface ApiKeyUsageStats {
+  totalRequests: number;
+  inputTokens: number;
+  outputTokens: number;
+  /** In USD. */
+  estimatedSpend: number;
+}
+
+export type ApiKeyRequestStatus = "success" | "error";
+
+export interface ApiKeyRequestError {
+  /** HTTP status the request failed with. */
+  code: number;
+  /** Status text, e.g. "Service Unavailable". */
+  title: string;
+  message: string;
+}
+
+/** One request made with a key, as listed and as shown in the Request Details drawer. */
+export interface ApiKeyRequestLog {
+  id: string;
+  requestedAt: string;
+  model: string;
+  responseTimeMs: number;
+  status: ApiKeyRequestStatus;
+  /** Token counts are `null` for failed requests, which are not billed. */
+  inputTokens: number | null;
+  outputTokens: number | null;
+  cachedTokens: number | null;
+  /** The prompt that was sent. */
+  request: string;
+  /** Start of the model's answer; `null` when the request failed. */
+  responsePreview: string | null;
+  error: ApiKeyRequestError | null;
+}
+
+/** Table state sent to `GET .../api-keys/:keyId/requests`. */
+export interface ApiKeyRequestsParams extends UsageRangeParams {
+  /** 1-based. */
+  page: number;
+  pageSize: number;
+}
+
 export interface Project {
   id: string;
   name: string;
