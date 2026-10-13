@@ -104,6 +104,15 @@
   --border-color-error-box: var(--sn-border-error-box);
   --background-color-meta-divider: var(--sn-border-pill);
 
+  /* API key usage charts */
+  --background-color-chart-card: var(--sn-bg-chart-card);
+  --color-chart-baseline: var(--sn-chart-baseline);
+  --background-color-chart-tooltip: var(--sn-chart-tooltip-bg);
+  --border-color-chart-tooltip: var(--sn-chart-tooltip-border);
+  --text-color-chart-tooltip-title: var(--sn-chart-tooltip-title);
+  --text-color-chart-tooltip-label: var(--sn-chart-tooltip-label);
+  --text-color-chart-tooltip-value: var(--sn-chart-tooltip-value);
+
   /* Shared across bg-/text-/border-/ring-/fill-/stroke- */
   --color-brand: var(--sn-brand-primary);
   --color-brand-hover: var(--sn-brand-primary-hover);

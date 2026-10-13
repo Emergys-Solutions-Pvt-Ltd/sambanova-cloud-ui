@@ -3,6 +3,7 @@ import {
   type ApiKeyDetail,
   type ApiKeyRequestLog,
   type ApiKeyRequestsParams,
+  type ApiKeyUsageSeries,
   type ApiKeyUsageStats,
   type UsageRangeParams,
 } from "@/types/domain";
@@ -27,6 +28,20 @@ export async function getApiKeyUsage(
     params: range,
     signal,
   });
+  return data;
+}
+
+/** Daily token usage of the key over the day range, for the charts. */
+export async function getApiKeyUsageSeries(
+  projectId: string,
+  keyId: string,
+  range: UsageRangeParams,
+  signal?: AbortSignal,
+) {
+  const { data } = await apiClient.get<ApiKeyUsageSeries>(
+    `${keyPath(projectId, keyId)}/usage/series`,
+    { params: range, signal },
+  );
   return data;
 }
 

@@ -138,6 +138,21 @@ export interface ApiKeyUsageStats {
   estimatedSpend: number;
 }
 
+/** Token usage of one key on one day, for the charts (`GET .../api-keys/:keyId/usage/series`). */
+export interface ApiKeyUsageSeriesPoint {
+  /** Local day, "YYYY-MM-DD". */
+  date: string;
+  inputTokens: number;
+  outputTokens: number;
+  /** The part of the input served from cache. */
+  cachedTokens: number;
+}
+
+/** Every day of the requested range in order, days without requests included (all zeros). */
+export interface ApiKeyUsageSeries {
+  points: ApiKeyUsageSeriesPoint[];
+}
+
 export type ApiKeyRequestStatus = "success" | "error";
 
 export interface ApiKeyRequestError {

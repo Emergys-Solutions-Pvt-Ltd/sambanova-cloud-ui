@@ -57,13 +57,16 @@ export function formatDateTime(iso: string) {
   return `${dateTimeDate.format(date)} ${dateTimeTime.format(date).toLowerCase()}`;
 }
 
-const compactTrim = (value: number) => String(Number(value.toFixed(1)));
+const compactTrim = (value: number, decimals: number) => String(Number(value.toFixed(decimals)));
 
-/** 24_800_000 → "24.8M", 348_200 → "348.2K", 1_250 → "1.3K", 842 → "842". */
-export function formatCompactNumber(value: number) {
-  if (value >= 1_000_000_000) return `${compactTrim(value / 1_000_000_000)}B`;
-  if (value >= 1_000_000) return `${compactTrim(value / 1_000_000)}M`;
-  if (value >= 1_000) return `${compactTrim(value / 1_000)}K`;
+/**
+ * 24_800_000 → "24.8M", 348_200 → "348.2K", 1_250 → "1.3K", 842 → "842". Pass `decimals` for
+ * more precision (chart axes and tooltips use 2: 1_250_000 → "1.25M"); trailing zeros are dropped.
+ */
+export function formatCompactNumber(value: number, decimals = 1) {
+  if (value >= 1_000_000_000) return `${compactTrim(value / 1_000_000_000, decimals)}B`;
+  if (value >= 1_000_000) return `${compactTrim(value / 1_000_000, decimals)}M`;
+  if (value >= 1_000) return `${compactTrim(value / 1_000, decimals)}K`;
   return String(value);
 }
 

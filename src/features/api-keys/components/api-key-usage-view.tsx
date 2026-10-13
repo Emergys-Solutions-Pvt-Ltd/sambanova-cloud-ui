@@ -9,25 +9,32 @@ import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { ErrorState } from "@/components/ui/error-state";
 import { routes } from "@/config/routes";
 import { isApiError } from "@/lib/api";
+import { formatSelectionLabel } from "@/lib/date-range";
 import { type ApiKeyRequestLog } from "@/types/domain";
 
-import { useApiKey, useApiKeyRequests, useApiKeyUsage } from "../hooks/use-api-key-usage";
+import {
+  useApiKey,
+  useApiKeyRequests,
+  useApiKeyUsage,
+  useApiKeyUsageSeries,
+} from "../hooks/use-api-key-usage";
 import { API_KEY_REQUESTS_PAGE_SIZE, useApiKeyUsageState } from "../hooks/use-api-key-usage-state";
 import { ApiKeyRequestsTable } from "./api-key-requests-table";
 import { ApiKeySummaryCard } from "./api-key-summary-card";
 import { RequestDetailsDrawer } from "./request-details-drawer";
+import { UsageCharts } from "./usage-charts";
 import { UsageStatCards } from "./usage-stat-cards";
 
 /**
  * View API Key Usage (Figma: View API Key Usage): the key, its totals and its request log for the
- * chosen dates. The date range and log page live in the URL. The token charts (Input & Output,
- * Cached, Prompt Input) are built later and go between the stat cards and the log.
+ * chosen dates, plus the three token charts. The date range and log page live in the URL.
  */
 export function ApiKeyUsageView({ keyId }: { keyId: string }) {
   const logsHeadingId = useId();
   const { today, selection, rangeParams, page, setSelection, setPage } = useApiKeyUsageState();
   const apiKey = useApiKey(keyId);
   const usage = useApiKeyUsage(keyId, rangeParams);
+  const series = useApiKeyUsageSeries(keyId, rangeParams);
   const requests = useApiKeyRequests(keyId, {
     ...rangeParams,
     page,
@@ -84,7 +91,18 @@ export function ApiKeyUsageView({ keyId }: { keyId: string }) {
               <UsageStatCards stats={usage.data} refreshing={usage.isPlaceholderData} />
             )}
 
-            {/* Charts: Input & Output Tokens, Cached Tokens and Prompt Input Tokens come here later. */}
+            {series.error && !series.data ? (
+              <ErrorState
+                message="Couldn’t load the usage charts."
+                onRetry={() => void series.refetch()}
+              />
+            ) : (
+              <UsageCharts
+                points={series.data?.points}
+                rangeLabel={formatSelectionLabel(selection)}
+                refreshing={series.isPlaceholderData}
+              />
+            )}
 
             <section aria-labelledby={logsHeadingId} className="flex flex-col gap-4">
               <h2 id={logsHeadingId} className="text-heading-sm leading-tight">

@@ -108,8 +108,17 @@ const labelFormat = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
 });
 
-/** "Jun 25, 2026 – Jul 24, 2026". */
+/** "Jul 16, 2026". */
+export const formatDayWithYear = (day: Date) => labelFormat.format(day);
+
+const shortDayFormat = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" });
+
+/** "Jun 25" (chart axis labels). */
+export const formatShortDay = (day: Date) => shortDayFormat.format(day);
+
+/** "Jun 25, 2026 – Jul 24, 2026", or just "Jun 25, 2026" for a single day. */
 export function formatRangeLabel({ from, to }: DateRange) {
+  if (isSameDay(from, to)) return labelFormat.format(from);
   return `${labelFormat.format(from)} – ${labelFormat.format(to)}`;
 }
 

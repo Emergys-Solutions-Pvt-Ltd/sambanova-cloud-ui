@@ -8,6 +8,7 @@ import {
   type ApiKey,
   type ApiKeyDetail,
   type ApiKeyRequestLog,
+  type ApiKeyUsageSeries,
   type ApiKeyUsageStats,
   type AuthResponse,
   type CreateExampleItemInput,
@@ -32,7 +33,7 @@ import {
   toUser,
   verifyCredentials,
 } from "../db/accounts";
-import { listKeyRequests, pageOf, summarizeRequests } from "../db/api-key-usage";
+import { dailyUsage, listKeyRequests, pageOf, summarizeRequests } from "../db/api-key-usage";
 import {
   createApiKeyFor,
   deleteApiKeyFor,
@@ -435,6 +436,22 @@ export const handlers = [
 
       const stats = summarizeRequests(listKeyRequests(key, range.from, range.to));
       return HttpResponse.json(stats satisfies ApiKeyUsageStats);
+    }),
+  ),
+
+  http.get(
+    api("/projects/:projectId/api-keys/:keyId/usage/series"),
+    withSession<{ projectId: string; keyId: string }>(async ({ params, request }) => {
+      const account = await findAccountBySession(readSessionToken());
+      const project = await findOwnProject(params.projectId);
+      if (!project) return notFound("Project");
+      const key = findApiKeyFor(account!.id, project.id, params.keyId);
+      if (!key) return notFound("API key");
+      const range = readDayRange(request);
+      if (!range) return validationError("Choose a valid date range.", { field: "range" });
+
+      const body: ApiKeyUsageSeries = { points: dailyUsage(key, range.from, range.to) };
+      return HttpResponse.json(body);
     }),
   ),
 

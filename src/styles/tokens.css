@@ -60,6 +60,7 @@
   --sn-neutral-800: #262626;
   --sn-neutral-850: #202020;
   --sn-neutral-875: #1d1d1d;
+  --sn-neutral-890: #1a1a1a;
   --sn-neutral-880: #18181b;
   --sn-neutral-900: #181818;
   --sn-neutral-920: #111214;
@@ -287,8 +288,8 @@
   /* Charts */
   --sn-chart-input: var(--sn-viz-blue);
   --sn-chart-output: var(--sn-viz-green);
-  --sn-chart-cached: var(--sn-viz-orange); /* GUESS: unlabelled 3rd series in Figma */
-  --sn-chart-prompt: var(--sn-viz-cyan); /* GUESS: Figma labels this series "Last 30 days" */
+  --sn-chart-cached: var(--sn-viz-cyan); /* Figma: "Catched Tokens" chart */
+  --sn-chart-prompt: var(--sn-viz-orange); /* Figma: "Prompt Input Tokens" chart */
   --sn-chart-grid: rgb(255 255 255 / 0.15);
   --sn-chart-axis: rgb(255 255 255 / 0.7);
   --sn-meter-filled: var(--sn-neutral-300); /* model card reasoning/speed bars */
@@ -419,6 +420,15 @@
   --sn-border-detail-box: var(--sn-neutral-780);
   --sn-bg-error-box: rgb(255 89 89 / 0.06);
   --sn-border-error-box: rgb(255 89 89 / 0.16);
+
+  /* API key usage charts (Figma: BarLineChart cards and their tooltip) */
+  --sn-bg-chart-card: var(--sn-neutral-890);
+  --sn-chart-baseline: rgb(255 255 255 / 0.3); /* the 0 line, solid; other grid lines are dashed */
+  --sn-chart-tooltip-bg: var(--sn-neutral-0);
+  --sn-chart-tooltip-border: var(--sn-gray-100);
+  --sn-chart-tooltip-title: var(--sn-gray-900);
+  --sn-chart-tooltip-label: var(--sn-gray-500);
+  --sn-chart-tooltip-value: var(--sn-gray-800);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -594,6 +604,19 @@
   --sn-border-detail-box: var(--sn-purple-200); /* GUESS */
   --sn-bg-error-box: var(--sn-red-50); /* GUESS */
   --sn-border-error-box: var(--sn-red-200); /* GUESS */
+
+  /* API key usage charts: no light screens in Figma, all GUESS */
+  --sn-bg-chart-card: var(--sn-neutral-0); /* GUESS */
+  --sn-chart-baseline: rgb(0 0 0 / 0.16); /* GUESS */
+  --sn-chart-output: var(--sn-green-500); /* GUESS: the bright green is too pale on white */
+  --sn-chart-cached: var(--sn-viz-teal); /* GUESS: the cyan is too pale on white */
+  --sn-chart-tooltip-bg: var(
+    --sn-neutral-0
+  ); /* GUESS: Figma's tooltip is white in the dark theme */
+  --sn-chart-tooltip-border: var(--sn-purple-200); /* GUESS */
+  --sn-chart-tooltip-title: var(--sn-gray-900); /* GUESS */
+  --sn-chart-tooltip-label: var(--sn-gray-500); /* GUESS */
+  --sn-chart-tooltip-value: var(--sn-gray-800); /* GUESS */
 }
 
 @media (prefers-color-scheme: light) {
@@ -764,6 +787,19 @@
     --sn-border-detail-box: var(--sn-purple-200); /* GUESS */
     --sn-bg-error-box: var(--sn-red-50); /* GUESS */
     --sn-border-error-box: var(--sn-red-200); /* GUESS */
+
+    /* API key usage charts: no light screens in Figma, all GUESS */
+    --sn-bg-chart-card: var(--sn-neutral-0); /* GUESS */
+    --sn-chart-baseline: rgb(0 0 0 / 0.16); /* GUESS */
+    --sn-chart-output: var(--sn-green-500); /* GUESS: the bright green is too pale on white */
+    --sn-chart-cached: var(--sn-viz-teal); /* GUESS: the cyan is too pale on white */
+    --sn-chart-tooltip-bg: var(
+      --sn-neutral-0
+    ); /* GUESS: Figma's tooltip is white in the dark theme */
+    --sn-chart-tooltip-border: var(--sn-purple-200); /* GUESS */
+    --sn-chart-tooltip-title: var(--sn-gray-900); /* GUESS */
+    --sn-chart-tooltip-label: var(--sn-gray-500); /* GUESS */
+    --sn-chart-tooltip-value: var(--sn-gray-800); /* GUESS */
   }
 }
 

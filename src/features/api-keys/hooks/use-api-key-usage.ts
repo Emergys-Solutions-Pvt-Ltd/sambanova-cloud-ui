@@ -7,7 +7,12 @@ import { queryKeys } from "@/lib/query-keys";
 import { selectIsAuthenticated, useSessionStore } from "@/stores/session-store";
 import { type ApiKeyRequestsParams, type UsageRangeParams } from "@/types/domain";
 
-import { getApiKey, getApiKeyUsage, listApiKeyRequests } from "../api/api-key-usage.api";
+import {
+  getApiKey,
+  getApiKeyUsage,
+  getApiKeyUsageSeries,
+  listApiKeyRequests,
+} from "../api/api-key-usage.api";
 
 /** Shared by the three queries: wait until a signed-in user's project is known. */
 function useUsageScope() {
@@ -34,6 +39,18 @@ export function useApiKeyUsage(keyId: string, range: UsageRangeParams) {
   return useQuery({
     queryKey: queryKeys.apiKeys.usage(projectId ?? "", keyId, range),
     queryFn: ({ signal }) => getApiKeyUsage(projectId!, keyId, range, signal),
+    enabled,
+    placeholderData: keepPreviousData,
+  });
+}
+
+/** Daily tokens for the three charts; keeps the previous lines on screen while a new range loads. */
+export function useApiKeyUsageSeries(keyId: string, range: UsageRangeParams) {
+  const { projectId, enabled } = useUsageScope();
+
+  return useQuery({
+    queryKey: queryKeys.apiKeys.usageSeries(projectId ?? "", keyId, range),
+    queryFn: ({ signal }) => getApiKeyUsageSeries(projectId!, keyId, range, signal),
     enabled,
     placeholderData: keepPreviousData,
   });

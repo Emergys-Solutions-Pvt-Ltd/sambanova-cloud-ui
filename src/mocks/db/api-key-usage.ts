@@ -1,5 +1,10 @@
 import { addDays, compareDays, startOfDay, toISODate } from "@/lib/date-range";
-import { type ApiKey, type ApiKeyRequestLog, type ApiKeyUsageStats } from "@/types/domain";
+import {
+  type ApiKey,
+  type ApiKeyRequestLog,
+  type ApiKeyUsageSeriesPoint,
+  type ApiKeyUsageStats,
+} from "@/types/domain";
 
 import { USAGE_ERRORS, USAGE_MODELS, USAGE_PROMPTS } from "../fixtures/api-key-usage";
 import { hashString, mulberry32 } from "../random";
@@ -87,7 +92,14 @@ function buildRequest(keyId: string, day: Date, index: number): ApiKeyRequestLog
 function requestsOn(keyId: string, day: Date): ApiKeyRequestLog[] {
   const random = mulberry32(hashString(`${keyId}:${toISODate(day)}`));
   const weekend = day.getDay() === 0 || day.getDay() === 6;
-  const count = Math.floor(random() * (weekend ? 4 : 10.4));
+  // A slow wave (a few days per hill, shifted per key) with some noise on top, so the usage charts
+  // show rises and falls rather than random spikes. Weekends are quieter.
+  const dayNumber = Math.floor(
+    Date.UTC(day.getFullYear(), day.getMonth(), day.getDate()) / 86_400_000,
+  );
+  const wave = 0.5 + 0.5 * Math.sin(dayNumber / 3.2 + (hashString(keyId) % 628) / 100);
+  const mean = weekend ? 1.5 + wave * 2.5 : 4 + wave * 5;
+  const count = Math.max(0, Math.round(mean + (random() - 0.5) * 3));
   return Array.from({ length: count }, (_, index) => buildRequest(keyId, day, index)).sort((a, b) =>
     b.requestedAt.localeCompare(a.requestedAt),
   );
@@ -133,6 +145,45 @@ export function summarizeRequests(requests: ApiKeyRequestLog[]): ApiKeyUsageStat
     outputTokens,
     estimatedSpend: Math.round(spend * 100) / 100,
   };
+}
+
+/** Longest range the series endpoint answers (two years); an earlier start is moved up to fit. */
+export const MAX_SERIES_DAYS = 731;
+
+/** One point per day from `from` to `to`, built from the same requests as the log and the totals. */
+export function dailyUsage(
+  key: ApiKey,
+  from: Date,
+  to: Date,
+  now = Date.now(),
+): ApiKeyUsageSeriesPoint[] {
+  const first =
+    compareDays(addDays(to, -(MAX_SERIES_DAYS - 1)), from) > 0
+      ? addDays(to, -(MAX_SERIES_DAYS - 1))
+      : startOfDay(from);
+
+  const perDay = new Map<string, { input: number; output: number; cached: number }>();
+  for (const request of listKeyRequests(key, first, to, now)) {
+    const date = toISODate(new Date(request.requestedAt));
+    const totals = perDay.get(date) ?? { input: 0, output: 0, cached: 0 };
+    totals.input += request.inputTokens ?? 0;
+    totals.output += request.outputTokens ?? 0;
+    totals.cached += request.cachedTokens ?? 0;
+    perDay.set(date, totals);
+  }
+
+  const points: ApiKeyUsageSeriesPoint[] = [];
+  for (let day = first; compareDays(day, to) <= 0; day = addDays(day, 1)) {
+    const date = toISODate(day);
+    const totals = perDay.get(date);
+    points.push({
+      date,
+      inputTokens: totals?.input ?? 0,
+      outputTokens: totals?.output ?? 0,
+      cachedTokens: totals?.cached ?? 0,
+    });
+  }
+  return points;
 }
 
 export function pageOf<Item>(items: Item[], page: number, pageSize: number) {

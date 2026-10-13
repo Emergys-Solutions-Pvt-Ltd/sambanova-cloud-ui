@@ -46,6 +46,8 @@ export const queryKeys = {
       [...queryKeys.apiKeys.all(projectId), "detail", keyId] as const,
     usage: (projectId: string, keyId: string, range: UsageRangeParams) =>
       [...queryKeys.apiKeys.all(projectId), "usage", keyId, range] as const,
+    usageSeries: (projectId: string, keyId: string, range: UsageRangeParams) =>
+      [...queryKeys.apiKeys.all(projectId), "usage-series", keyId, range] as const,
     requests: (projectId: string, keyId: string, params: ApiKeyRequestsParams) =>
       [...queryKeys.apiKeys.all(projectId), "requests", keyId, params] as const,
   },
