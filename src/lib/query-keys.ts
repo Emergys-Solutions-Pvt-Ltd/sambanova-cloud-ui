@@ -40,4 +40,12 @@ export const queryKeys = {
     list: (projectId: string, params: Required<PaginationParams>) =>
       [...queryKeys.examples.all(projectId), "list", params] as const,
   },
+  playground: {
+    /** Root for the Playground data of one project (history is per account + project). */
+    all: (projectId: string) => [...queryKeys.project(projectId), "playground"] as const,
+    conversations: (projectId: string) =>
+      [...queryKeys.playground.all(projectId), "conversations"] as const,
+    conversation: (projectId: string, conversationId: string) =>
+      [...queryKeys.playground.conversations(projectId), conversationId] as const,
+  },
 };

@@ -9,6 +9,7 @@ import { ToastViewport } from "@/components/ui/toast";
 import { useSessionSync } from "@/features/session";
 import { getQueryClient } from "@/lib/query-client";
 import { MOCKS_CHANGED_EVENT } from "@/mocks/config";
+import { usePlaygroundPrefsStore } from "@/stores/playground-prefs-store";
 import { useProjectStore } from "@/stores/project-store";
 import { useThemeStore } from "@/stores/theme-store";
 import { useUIStore } from "@/stores/ui-store";
@@ -30,6 +31,7 @@ function StoreHydration() {
     void useThemeStore.persist.rehydrate();
     void useProjectStore.persist.rehydrate();
     void useUIStore.persist.rehydrate();
+    void usePlaygroundPrefsStore.persist.rehydrate();
   }, []);
   return null;
 }

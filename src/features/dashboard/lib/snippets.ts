@@ -5,28 +5,52 @@ export type EndpointType = "chat";
 
 export const API_BASE_URL = "https://api.sambanova.ai/v1";
 
-interface SnippetOptions {
+/** Request shown in a snippet. The optional fields are left out of the code when omitted. */
+export interface SnippetOptions {
   /** Value for the request's `model` field. */
   model: string;
   endpoint: EndpointType;
+  /** System message content; omitted → "You are a helpful assistant". */
+  systemPrompt?: string;
+  temperature?: number;
+  topP?: number;
+  maxTokens?: number;
 }
+
+const DEFAULT_SYSTEM_PROMPT = "You are a helpful assistant";
 
 const plain = (text: string) => ({ text });
 const str = (text: string) => ({ text, kind: "string" as const });
 const val = (text: string) => ({ text, kind: "value" as const });
 
+/** Sampling / length parameters that were set, in request order, with their JSON names. */
+function extraParams({ temperature, topP, maxTokens }: SnippetOptions) {
+  return (
+    [
+      ["temperature", temperature],
+      ["top_p", topP],
+      ["max_tokens", maxTokens],
+    ] as const
+  ).flatMap(([name, value]) => (value === undefined ? [] : [{ name, value: String(value) }]));
+}
+
+/** A JSON string literal that can sit inside the single-quoted shell argument of `-d '…'`. */
+const shellJsonString = (text: string) => JSON.stringify(text).replaceAll("'", "'\\''");
+
 /** Mirrors the Figma Quickstart curl sample (indentation included). */
-function curl({ model }: SnippetOptions): CodeLine[] {
+function curl(options: SnippetOptions): CodeLine[] {
+  const { model, systemPrompt = DEFAULT_SYSTEM_PROMPT } = options;
   return [
     [plain("curl -H "), str('"Authorization: Bearer $API_KEY"'), plain(" \\")],
     [plain('    -H "Content-Type: application/json" \\')],
     [plain("    -d '{")],
     [plain('"stream": true,')],
     [plain('"model": '), val(`"${model}",`)],
+    ...extraParams(options).map(({ name, value }) => [plain(`"${name}": `), val(`${value},`)]),
     [plain('"messages": [')],
     [plain("{")],
     [plain(' "role": '), val('"system",')],
-    [plain(' "content": '), val('"You are a helpful assistant"')],
+    [plain(' "content": '), val(shellJsonString(systemPrompt))],
     [plain("},")],
     [plain("{")],
     [plain(' "role": "user",')],
@@ -39,7 +63,8 @@ function curl({ model }: SnippetOptions): CodeLine[] {
 }
 
 /** The OpenAI-compatible Python client pointed at SambaNova. */
-function python({ model }: SnippetOptions): CodeLine[] {
+function python(options: SnippetOptions): CodeLine[] {
+  const { model, systemPrompt = DEFAULT_SYSTEM_PROMPT } = options;
   return [
     [plain("from openai import OpenAI")],
     [plain("")],
@@ -50,10 +75,15 @@ function python({ model }: SnippetOptions): CodeLine[] {
     [plain("")],
     [plain("response = client.chat.completions.create(")],
     [plain("    model="), val(`"${model}"`), plain(",")],
+    ...extraParams(options).map(({ name, value }) => [
+      plain(`    ${name}=`),
+      val(value),
+      plain(","),
+    ]),
     [plain("    messages=[")],
     [
       plain('        {"role": "system", "content": '),
-      val('"You are a helpful assistant"'),
+      val(JSON.stringify(systemPrompt)),
       plain("},"),
     ],
     [plain('        {"role": "user", "content": "Hello!"},')],
@@ -90,6 +120,7 @@ const generators: Record<SnippetLanguage, (options: SnippetOptions) => CodeLine[
   gradio,
 };
 
+/** Code lines for one language; with only `model` and `endpoint` this is the Figma Quickstart sample. */
 export function buildSnippet(language: SnippetLanguage, options: SnippetOptions): CodeLine[] {
   return generators[language](options);
 }

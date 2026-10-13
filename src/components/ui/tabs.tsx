@@ -26,7 +26,7 @@ export function TabsTrigger({
       className={cn(
         "inline-flex h-7.75 min-w-20 items-center justify-center rounded-sm px-3 text-body-sm font-medium",
         "text-tab-inactive transition-colors duration-(--sn-duration-fast) ease-standard hover:text-primary",
-        "data-[state=active]:bg-selected data-[state=active]:text-on-brand",
+        "data-[state=active]:bg-selected data-[state=active]:font-semibold data-[state=active]:text-on-brand",
         className,
       )}
       {...rest}

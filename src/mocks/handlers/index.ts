@@ -1,6 +1,5 @@
-import { delay, http, HttpResponse, type HttpResponseResolver } from "msw";
+import { http, HttpResponse } from "msw";
 
-import { env } from "@/config/env";
 import { type PaginatedResponse } from "@/lib/api/types";
 import { checkExpiry, digitsOnly, isValidCardNumber, isValidSecurityCode } from "@/lib/card";
 import {
@@ -14,7 +13,6 @@ import {
   type SignupInput,
 } from "@/types/domain";
 
-import { getMockConfig } from "../config";
 import {
   addCreditsTo,
   createSession,
@@ -36,44 +34,17 @@ import {
   webinarsFixture,
 } from "../fixtures/dashboard";
 
-const api = (path: string) => `${env.apiBaseUrl}${path}`;
-
-const errorBody = (code: string, message: string) => ({ error: { code, message } });
-
-/** Applies the configured latency and error scenario before running the real resolver. */
-function withScenario<Params extends Record<string, string>>(
-  resolver: HttpResponseResolver<Params>,
-): HttpResponseResolver<Params> {
-  return async (info) => {
-    const { latencyMs, scenario } = getMockConfig();
-    await delay(latencyMs);
-
-    if (scenario === "error") {
-      return HttpResponse.json(
-        errorBody("INTERNAL_ERROR", "Simulated server error (mock scenario: error)."),
-        { status: 500 },
-      );
-    }
-    return resolver(info);
-  };
-}
-
-/** Rejects with 401 unless the request carries a valid session cookie, like the real API will. */
-function withSession<Params extends Record<string, string>>(
-  resolver: HttpResponseResolver<Params>,
-): HttpResponseResolver<Params> {
-  return withScenario<Params>(async (info) => {
-    const account = await findAccountBySession(readSessionToken());
-    if (!account) return unauthorized();
-    return resolver(info);
-  });
-}
-
-const unauthorized = (message = "Not signed in.") =>
-  HttpResponse.json(errorBody("UNAUTHORIZED", message), { status: 401 });
-
-const validationError = (message: string, details: Record<string, string>) =>
-  HttpResponse.json({ error: { code: "VALIDATION_ERROR", message, details } }, { status: 422 });
+import { playgroundHandlers } from "./playground";
+import {
+  api,
+  errorBody,
+  findOwnProject,
+  notFound,
+  unauthorized,
+  validationError,
+  withScenario,
+  withSession,
+} from "./shared";
 
 const MIN_PURCHASE = 5;
 const MAX_PURCHASE = 1000;
@@ -81,19 +52,10 @@ const DECLINED_TEST_CARD = "4000000000000002";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-/** A project visible to the signed-in account (shared fixtures plus the ones it created). */
-async function findOwnProject(projectId: string) {
-  const account = await findAccountBySession(readSessionToken());
-  return account ? listProjectsFor(account.id).find((item) => item.id === projectId) : undefined;
-}
-
 /** Example items for a project; projects created at runtime start empty. */
 function itemsForProject(projectId: string) {
   return exampleItemsByProject.get(projectId) ?? [];
 }
-
-const notFound = (what: string) =>
-  HttpResponse.json(errorBody("NOT_FOUND", `${what} not found.`), { status: 404 });
 
 export const handlers = [
   http.get(
@@ -353,4 +315,6 @@ export const handlers = [
       return HttpResponse.json(item, { status: 201 });
     }),
   ),
+
+  ...playgroundHandlers,
 ];

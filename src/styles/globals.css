@@ -33,6 +33,19 @@
   --background-color-tint-promo: var(--sn-tint-promo);
   --background-color-scrollbar: var(--sn-bg-scrollbar);
   --background-color-dot: var(--sn-border-strong);
+  /* Playground */
+  --background-color-chat-hero: var(--sn-bg-chat-hero);
+  --background-color-composer: var(--sn-bg-composer);
+  --background-color-hover-strong: var(--sn-bg-hover-strong);
+  --background-color-option-hover: var(--sn-bg-option-hover);
+  --background-color-prompt-chip: var(--sn-bg-prompt-chip);
+  --background-color-icon-halo: var(--sn-bg-icon-halo);
+  --background-color-prompt-bubble: var(--sn-bg-prompt-bubble);
+  --background-color-code-response: var(--sn-bg-code-response);
+  --background-color-panel: var(--sn-bg-panel);
+  --background-color-tooltip: var(--sn-bg-tooltip);
+  --background-color-history-item-hover: var(--sn-history-item-hover);
+  --background-color-button-icon: var(--sn-button-icon-bg);
 
   /* border-* (also used by divide-*) */
   --border-color-default: var(--sn-border-default);
@@ -55,6 +68,15 @@
   --border-color-brand-hover: var(--sn-border-brand-hover);
   --width-steps-pill: var(--sn-steps-pill-width);
   --height-steps-pill: var(--sn-steps-pill-height);
+  /* Playground */
+  --border-color-composer: var(--sn-border-composer);
+  --border-color-code-response: var(--sn-border-code-response);
+  --border-color-hairline: var(--sn-border-hairline);
+  --border-color-card-active: var(--sn-border-card-active);
+  --border-color-inference-badge: var(--sn-border-inference-badge);
+  --border-color-tooltip: var(--sn-border-tooltip);
+  --border-color-button-icon: var(--sn-button-icon-border);
+  --blur-prompt-chip: var(--sn-blur-prompt-chip);
 
   /* text-* */
   --text-color-primary: var(--sn-text-primary);
@@ -69,6 +91,16 @@
   --text-color-menu-label: var(--sn-text-menu-label);
   --text-color-disabled: var(--sn-text-disabled);
   --text-color-accent: var(--sn-text-accent);
+  /* Playground */
+  --text-color-content: var(--sn-text-content);
+  --text-color-subtle: var(--sn-text-subtle);
+  --text-color-emphasis: var(--sn-text-emphasis);
+  --text-color-hero-subtitle: var(--sn-text-hero-subtitle);
+  --text-color-prompt-bubble: var(--sn-text-prompt-bubble);
+  --text-color-composer-model: var(--sn-text-composer-model);
+  --text-color-composer-icon: var(--sn-text-composer-icon);
+  --text-color-compared: var(--sn-text-compared);
+  --text-color-inference-badge: var(--sn-text-inference-badge);
 
   /* Shared across bg-/text-/border-/ring-/fill-/stroke- */
   --color-brand: var(--sn-brand-primary);
@@ -132,6 +164,22 @@
   --color-switcher: var(--sn-switcher-bg);
   --color-switcher-border: var(--sn-switcher-border);
   --color-switcher-active: var(--sn-switcher-active);
+
+  /* Playground */
+  --color-button-ghost-fg: var(--sn-button-ghost-fg);
+  --color-button-cta: var(--sn-button-cta-bg);
+  --color-button-cta-fg: var(--sn-button-cta-fg);
+  --color-button-cta-hover: var(--sn-button-cta-hover);
+  --color-copy-icon: var(--sn-copy-icon);
+  --color-icon-accent: var(--sn-icon-accent);
+  --color-code-accent: var(--sn-code-accent);
+  --color-switch-off: var(--sn-switch-off);
+  --color-switch-on: var(--sn-switch-on);
+  --color-switch-thumb: var(--sn-switch-thumb);
+  --color-slider-bubble: var(--sn-slider-bubble);
+  --color-role-developer: var(--sn-role-developer);
+  --color-role-writer: var(--sn-role-writer);
+  --color-role-pm: var(--sn-role-pm);
 
   /* ---- Typography -------------------------------------------------------- */
   --font-*: initial;
@@ -220,6 +268,7 @@
   --radius-lg: var(--sn-radius-lg);
   --radius-xl: var(--sn-radius-xl);
   --radius-2xl: var(--sn-radius-2xl);
+  --radius-composer: var(--sn-radius-composer);
 
   --shadow-*: initial;
   --shadow-xs: var(--sn-shadow-xs);
@@ -229,6 +278,13 @@
   --shadow-card-inset: var(--sn-shadow-card-inset);
   --shadow-glow-brand: var(--sn-glow-brand);
   --shadow-glow-focus: var(--sn-glow-focus);
+  /* Playground. A "no shadow" --sn-shadow-* value is a transparent zero shadow
+     (see tokens.css), never `none`: Tailwind composes every shadow into one
+     box-shadow list, and a `none` inside it invalidates the declaration. */
+  --shadow-prompt-chip: var(--sn-shadow-prompt-chip);
+  --shadow-icon-halo: var(--sn-shadow-icon-halo);
+  --shadow-knob: var(--sn-shadow-knob);
+  --shadow-badge: var(--sn-shadow-badge);
 
   --ease-*: initial;
   --ease-standard: var(--sn-ease-standard);
@@ -372,6 +428,33 @@
   animation: sn-slide-out-left var(--sn-duration-base) var(--sn-ease-exit) forwards;
 }
 
+/* Right-hand sheet (Playground History drawer below lg). */
+@keyframes sn-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes sn-slide-out-right {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@utility animate-sheet-in {
+  animation: sn-slide-in-right var(--sn-duration-slow) var(--sn-ease-standard);
+}
+
+@utility animate-sheet-out {
+  animation: sn-slide-out-right var(--sn-duration-base) var(--sn-ease-exit) forwards;
+}
+
 @utility animate-overlay-in {
   animation: sn-fade-in var(--sn-duration-base) var(--sn-ease-standard);
 }
@@ -477,6 +560,19 @@
   color: transparent;
 }
 
+/* Playground hero title: radial gradient clipped to the text. */
+@utility text-playground-title {
+  background-image: var(--sn-gradient-playground-title);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Playground "Blazing-fast Inference" badge fill. */
+@utility bg-inference-badge {
+  background-image: var(--sn-gradient-inference-badge);
+}
+
 /* Onboarding steps: the card's content is clipped to its box; the pill box is centered at the top. */
 @utility steps-clip-open {
   clip-path: inset(0 0 0 0 round var(--sn-radius-lg));
@@ -505,4 +601,158 @@
 @utility scrollbar-thin {
   scrollbar-width: thin;
   scrollbar-color: var(--sn-bg-scrollbar) transparent;
+}
+
+/* Native range input styled as the Playground slider (Tuning dialog).
+   The filled part of the track is set per element: style="--range-fill: 40%". */
+@utility range-slider {
+  appearance: none;
+  -webkit-appearance: none;
+  height: --spacing(4);
+  background: transparent;
+
+  &::-webkit-slider-runnable-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to right,
+      var(--sn-brand-primary) var(--range-fill, 0%),
+      color-mix(in srgb, var(--sn-brand-primary) 20%, transparent) var(--range-fill, 0%)
+    );
+  }
+
+  &::-moz-range-track {
+    height: 4px;
+    border-radius: 9999px;
+    background: linear-gradient(
+      to right,
+      var(--sn-brand-primary) var(--range-fill, 0%),
+      color-mix(in srgb, var(--sn-brand-primary) 20%, transparent) var(--range-fill, 0%)
+    );
+  }
+
+  &::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    margin-top: -4px;
+    border: 0;
+    border-radius: 9999px;
+    background: var(--sn-neutral-0);
+    box-shadow: var(--sn-shadow-knob);
+  }
+
+  &::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border: 0;
+    border-radius: 9999px;
+    background: var(--sn-neutral-0);
+    box-shadow: var(--sn-shadow-knob);
+  }
+
+  /* The knob glow is the focus indicator (replaces the global outline). */
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible::-webkit-slider-thumb {
+    box-shadow: var(--sn-shadow-knob), var(--sn-glow-focus);
+  }
+
+  &:focus-visible::-moz-range-thumb {
+    box-shadow: var(--sn-shadow-knob), var(--sn-glow-focus);
+  }
+}
+
+/* ---- Playground loader (Figma 695:14001) -----------------------------------
+   Two amber comets, 180deg apart, spinning clockwise; each comet's five dots
+   fan out over the first third of the cycle, hold, then collapse. The cycle is
+   --sn-duration-loader (1500ms; 3000ms under reduced motion, never 0). */
+@layer components {
+  .pg-loader {
+    position: relative;
+    display: block;
+    width: 48px;
+    height: 48px;
+    flex: none;
+  }
+
+  .pg-loader__ring {
+    position: absolute;
+    inset: 8px; /* 32 x 32 */
+    animation: pg-loader-spin var(--sn-duration-loader) linear infinite;
+  }
+
+  .pg-loader__comet {
+    position: absolute;
+    inset: 0;
+  }
+
+  .pg-loader__comet--a {
+    transform: rotate(180deg); /* comet B stays at 0deg */
+  }
+
+  .pg-loader__dot {
+    position: absolute;
+    inset: 0;
+    animation: pg-loader-spread var(--sn-duration-loader) linear infinite;
+  }
+
+  .pg-loader__dot::before {
+    content: "";
+    position: absolute;
+    border-radius: 9999px;
+    background: var(--sn-brand-secondary);
+    width: var(--d);
+    height: var(--d);
+    left: calc(100% - var(--d)); /* centre at x = 32 - d/2, radius 16 - d/2 */
+    top: calc(50% - var(--d) / 2);
+  }
+
+  .pg-loader__dot:nth-child(1) {
+    --d: 1px;
+    --a: 0deg;
+  }
+
+  .pg-loader__dot:nth-child(2) {
+    --d: 2px;
+    --a: 20deg;
+  }
+
+  .pg-loader__dot:nth-child(3) {
+    --d: 3px;
+    --a: 40deg;
+  }
+
+  .pg-loader__dot:nth-child(4) {
+    --d: 4px;
+    --a: 62deg;
+  }
+
+  .pg-loader__dot:nth-child(5) {
+    --d: 5px;
+    --a: 90deg;
+  }
+}
+
+@keyframes pg-loader-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pg-loader-spread {
+  0%,
+  100% {
+    transform: rotate(0deg); /* Step 1: collapsed */
+  }
+  33.333%,
+  66.667% {
+    transform: rotate(var(--a)); /* Step 2 -> Step 3: spread */
+  }
 }

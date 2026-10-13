@@ -35,7 +35,11 @@ export const apiClient = axios.create({
   withCredentials: true,
 });
 
-apiClient.interceptors.request.use(async (config) => {
+/**
+ * Waits for the MSW worker when mocks are on and resolves the auth header.
+ * Shared by `apiClient` and the fetch-based `postEventStream`.
+ */
+export async function prepareRequest(): Promise<Record<string, string>> {
   // Hold every request until the MSW worker is intercepting, so the first
   // query never races the worker. `env.useMocks` is inlined at build time, so
   // the mocks chunk is dropped from bundles built with mocks off.
@@ -45,7 +49,13 @@ apiClient.interceptors.request.use(async (config) => {
   }
 
   const token = await getAuthToken();
-  if (token) config.headers.set("Authorization", `Bearer ${token}`);
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
+apiClient.interceptors.request.use(async (config) => {
+  for (const [name, value] of Object.entries(await prepareRequest())) {
+    config.headers.set(name, value);
+  }
   return config;
 });
 

@@ -31,6 +31,7 @@
   --sn-purple-400: #c491ef;
   --sn-purple-500: #ad67e5;
   --sn-purple-600: #9847d6;
+  --sn-purple-650: #8a3fd0; /* Playground: Switch "on" (Figma, exact) */
   --sn-purple-700: #8335bb;
   --sn-purple-800: #6f3099;
   --sn-purple-900: #622b86;
@@ -61,6 +62,7 @@
   --sn-neutral-875: #1d1d1d;
   --sn-neutral-900: #181818;
   --sn-neutral-950: #131313;
+  --sn-neutral-975: #0f0f0f; /* Playground: answer code card, History panel */
   --sn-neutral-1000: #000000;
 
   /* Gray: cool greys (Flowbite/Tailwind scale) used for text and light UI. */
@@ -100,6 +102,13 @@
   --sn-blue-700: #1a56db;
   --sn-blue-50: #ebf5ff;
   --sn-blue-200: #c3ddfd;
+
+  /* Playground accents: History "Compared" tag, inference badge hairline, role icons. */
+  --sn-orchid-300: #e590ff;
+  --sn-badge-ink-dark: #331d39;
+  --sn-badge-ink-light: #efb5ff;
+  --sn-violet-500: #8b5cf6;
+  --sn-violet-600: #7c3aed;
 
   /* Data visualisation (Usage / API key usage charts). */
   --sn-viz-blue: #5462ff;
@@ -153,6 +162,7 @@
   --sn-radius-lg: 12px;
   --sn-radius-xl: 16px;
   --sn-radius-2xl: 20px; /* auth dialog (Figma) */
+  --sn-radius-composer: 18px; /* Playground composer (Figma "Sample" 620:12796) */
   --sn-radius-full: 9999px;
   --sn-steps-pill-width: 93px; /* Figma: Steps Animation, collapsed pill */
   --sn-steps-pill-height: 27px;
@@ -191,6 +201,7 @@
   --sn-duration-toast: 300ms; /* Figma: toast move-in, ease out */
   --sn-duration-marquee: 1250ms; /* Figma: partner card hover, slow smart-animate */
   --sn-duration-collapse: 400ms; /* Figma smart-animate: Steps Animation */
+  --sn-duration-loader: 1500ms; /* Figma: Playground loader cycle (3 steps x 500ms, linear) */
   --sn-ease-standard: cubic-bezier(0.2, 0, 0, 1);
   --sn-ease-emphasized: cubic-bezier(0.3, 0, 0, 1.3);
   --sn-ease-exit: cubic-bezier(0.4, 0, 1, 1);
@@ -377,6 +388,72 @@
   --sn-button-outline-strong-border: var(--sn-neutral-0);
   --sn-bg-chip: rgb(244 234 253 / 0.2);
   --sn-bg-scrollbar: rgb(255 255 255 / 0.22); /* thumb of thin scrollbars (Figma dropdown) */
+
+  /* Playground: text */
+  --sn-text-content: var(--sn-gray-200); /* answer prose, metric values, menu rows */
+  --sn-text-subtle: var(--sn-gray-500); /* header subtitle, placeholders, notes */
+  --sn-text-emphasis: var(--sn-neutral-50); /* "ROLE", role name */
+  --sn-text-hero-subtitle: var(--sn-gray-300);
+  --sn-text-prompt-bubble: var(--sn-gray-400);
+  --sn-text-composer-model: var(--sn-gray-50);
+  --sn-text-composer-icon: var(--sn-gray-200);
+  --sn-text-compared: var(--sn-orchid-300); /* History "Compared" tag */
+  --sn-text-inference-badge: var(--sn-purple-500);
+
+  /* Playground: buttons and icons */
+  --sn-button-ghost-fg: var(--sn-neutral-50); /* Compare Models, header kebab icon */
+  --sn-copy-icon: var(--sn-neutral-0);
+  --sn-button-cta-bg: var(--sn-neutral-50); /* header "Code" button */
+  --sn-button-cta-fg: var(--sn-neutral-1000);
+  --sn-button-cta-hover: var(--sn-gray-200);
+  --sn-button-icon-bg: rgb(255 255 255 / 0.06); /* header kebab */
+  --sn-button-icon-border: rgb(255 255 255 / 0.2);
+  --sn-icon-accent: var(--sn-purple-500); /* suggestion chip icons */
+
+  /* Playground: surfaces */
+  --sn-bg-chat-hero: var(--sn-neutral-1000);
+  --sn-bg-composer: var(--sn-neutral-900);
+  --sn-border-composer: var(--sn-gray-700);
+  --sn-bg-hover-strong: var(--sn-neutral-700); /* composer +, mic, model trigger hover/open */
+  --sn-bg-option-hover: rgb(255 255 255 / 0.06); /* every Playground menu row */
+  --sn-bg-prompt-chip: rgb(255 255 255 / 0.08);
+  --sn-shadow-prompt-chip: 0 0 #0000; /* no shadow; never `none` inside --shadow-* */
+  --sn-blur-prompt-chip: 0px;
+  --sn-bg-icon-halo: rgb(173 103 229 / 0.12);
+  --sn-shadow-icon-halo: 0 0 4.444px rgb(0 0 0 / 0.04);
+  --sn-bg-prompt-bubble: var(--sn-neutral-875);
+  --sn-bg-code-response: var(--sn-neutral-975); /* answer code card, inline code */
+  --sn-border-code-response: var(--sn-ink-stroke-1);
+  --sn-code-accent: var(--sn-amber-500); /* numbers, TS declarations */
+  --sn-border-hairline: var(--sn-gray-800); /* compare select, divider, bordered menus */
+  --sn-border-card-active: var(--sn-gray-300); /* quick-select card hover/checked */
+  --sn-border-inference-badge: var(--sn-badge-ink-dark);
+  --sn-gradient-inference-badge: linear-gradient(
+    88.96deg,
+    rgb(19 19 19 / 0.26) 31.72%,
+    rgb(152 71 214 / 0.26) 121.35%
+  );
+  --sn-gradient-playground-title: radial-gradient(
+    53.7% 1800.6% at 50% 51%,
+    var(--sn-neutral-0) 0%,
+    rgb(229 209 245) 25%,
+    rgb(204 163 235) 50%,
+    rgb(178 117 224) 75%,
+    var(--sn-purple-600) 100%
+  );
+  --sn-bg-panel: var(--sn-neutral-975); /* History panel / drawer */
+  --sn-bg-tooltip: var(--sn-neutral-800); /* surface tooltip */
+  --sn-border-tooltip: var(--sn-neutral-800);
+  --sn-switch-off: var(--sn-neutral-750);
+  --sn-switch-on: var(--sn-purple-650);
+  --sn-switch-thumb: var(--sn-neutral-0);
+  --sn-slider-bubble: var(--sn-purple-700);
+  --sn-shadow-knob: 0 0 0 1px rgb(0 0 0 / 0.1), 0 2px 4px rgb(0 0 0 / 0.1);
+  --sn-shadow-badge: 0 2px 2px rgb(0 0 0 / 0.15); /* quick-select check badge */
+  --sn-role-developer: var(--sn-violet-500);
+  --sn-role-writer: var(--sn-green-400);
+  --sn-role-pm: var(--sn-amber-500);
+  --sn-history-item-hover: var(--sn-neutral-800);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -513,7 +590,74 @@
   --sn-button-glass-fg: var(--sn-purple-900);
   --sn-button-outline-strong-border: var(--sn-purple-400);
   --sn-bg-chip: rgb(255 255 255 / 0.2);
-  --sn-bg-scrollbar: rgb(0 0 0 / 0.18); /* GUESS: no light dropdown in Figma */ /* GUESS */
+  --sn-bg-scrollbar: rgb(0 0 0 / 0.12); /* Figma light thumb (#e1e1e1 on white) */
+
+  /* Playground: text */
+  --sn-text-content: var(--sn-gray-600);
+  --sn-text-subtle: var(--sn-gray-500);
+  --sn-text-emphasis: var(--sn-gray-600);
+  --sn-text-hero-subtitle: var(--sn-gray-800);
+  --sn-text-prompt-bubble: var(--sn-gray-700);
+  --sn-text-composer-model: var(--sn-gray-700);
+  --sn-text-composer-icon: var(--sn-gray-700);
+  --sn-text-compared: var(--sn-purple-700); /* GUESS */
+  --sn-text-inference-badge: var(--sn-purple-600);
+
+  /* Playground: buttons and icons */
+  --sn-button-ghost-fg: var(--sn-purple-700);
+  --sn-copy-icon: var(--sn-purple-700);
+  --sn-button-cta-bg: var(--sn-purple-700);
+  --sn-button-cta-fg: var(--sn-neutral-0);
+  --sn-button-cta-hover: var(--sn-purple-800); /* GUESS */
+  --sn-button-icon-bg: var(--sn-purple-50);
+  --sn-button-icon-border: var(--sn-purple-300);
+  --sn-icon-accent: var(--sn-purple-500);
+
+  /* Playground: surfaces */
+  --sn-bg-chat-hero: var(--sn-neutral-0);
+  --sn-bg-composer: var(--sn-neutral-0);
+  --sn-border-composer: var(--sn-purple-200);
+  --sn-bg-hover-strong: rgb(0 0 0 / 0.06); /* GUESS */
+  --sn-bg-option-hover: rgb(0 0 0 / 0.04); /* GUESS */
+  --sn-bg-prompt-chip: var(--sn-neutral-0);
+  --sn-shadow-prompt-chip: 0 2px 3.9px rgb(0 0 0 / 0.04);
+  --sn-blur-prompt-chip: 11.3px;
+  --sn-bg-icon-halo: rgb(173 103 229 / 0.12);
+  --sn-shadow-icon-halo: 0 0 4.444px rgb(0 0 0 / 0.04);
+  --sn-bg-prompt-bubble: var(--sn-gray-100);
+  --sn-bg-code-response: var(--sn-gray-50);
+  --sn-border-code-response: var(--sn-purple-200);
+  --sn-code-accent: var(--sn-amber-500);
+  --sn-border-hairline: var(--sn-gray-200);
+  --sn-border-card-active: var(--sn-purple-600); /* GUESS */
+  --sn-border-inference-badge: var(--sn-badge-ink-light);
+  --sn-gradient-inference-badge: linear-gradient(
+    88.96deg,
+    rgb(255 255 255 / 0.26) 31.72%,
+    rgb(152 71 214 / 0.26) 121.35%
+  );
+  --sn-gradient-playground-title: radial-gradient(
+    53.7% 1800.6% at 50% 51%,
+    var(--sn-ink-stroke-1) 0%,
+    rgb(48 31 65) 12.5%,
+    rgb(63 37 87) 25%,
+    rgb(93 48 129) 50%,
+    rgb(122 60 172) 75%,
+    var(--sn-purple-600) 100%
+  );
+  --sn-bg-panel: var(--sn-neutral-0);
+  --sn-bg-tooltip: var(--sn-neutral-0);
+  --sn-border-tooltip: var(--sn-gray-200);
+  --sn-switch-off: var(--sn-gray-300); /* GUESS */
+  --sn-switch-on: var(--sn-purple-900); /* GUESS */
+  --sn-switch-thumb: var(--sn-neutral-0);
+  --sn-slider-bubble: var(--sn-purple-700);
+  --sn-shadow-knob: 0 0 0 1px rgb(0 0 0 / 0.1), 0 2px 4px rgb(0 0 0 / 0.1);
+  --sn-shadow-badge: 0 2px 2px rgb(0 0 0 / 0.1); /* GUESS */
+  --sn-role-developer: var(--sn-violet-600); /* GUESS */
+  --sn-role-writer: var(--sn-green-700); /* GUESS */
+  --sn-role-pm: var(--sn-amber-700); /* GUESS */
+  --sn-history-item-hover: rgb(0 0 0 / 0.04); /* GUESS */
 }
 
 @media (prefers-color-scheme: light) {
@@ -645,7 +789,74 @@
     --sn-button-glass-fg: var(--sn-purple-900);
     --sn-button-outline-strong-border: var(--sn-purple-400);
     --sn-bg-chip: rgb(255 255 255 / 0.2);
-    --sn-bg-scrollbar: rgb(0 0 0 / 0.18); /* GUESS: no light dropdown in Figma */ /* GUESS */
+    --sn-bg-scrollbar: rgb(0 0 0 / 0.12); /* Figma light thumb (#e1e1e1 on white) */
+
+    /* Playground: text */
+    --sn-text-content: var(--sn-gray-600);
+    --sn-text-subtle: var(--sn-gray-500);
+    --sn-text-emphasis: var(--sn-gray-600);
+    --sn-text-hero-subtitle: var(--sn-gray-800);
+    --sn-text-prompt-bubble: var(--sn-gray-700);
+    --sn-text-composer-model: var(--sn-gray-700);
+    --sn-text-composer-icon: var(--sn-gray-700);
+    --sn-text-compared: var(--sn-purple-700); /* GUESS */
+    --sn-text-inference-badge: var(--sn-purple-600);
+
+    /* Playground: buttons and icons */
+    --sn-button-ghost-fg: var(--sn-purple-700);
+    --sn-copy-icon: var(--sn-purple-700);
+    --sn-button-cta-bg: var(--sn-purple-700);
+    --sn-button-cta-fg: var(--sn-neutral-0);
+    --sn-button-cta-hover: var(--sn-purple-800); /* GUESS */
+    --sn-button-icon-bg: var(--sn-purple-50);
+    --sn-button-icon-border: var(--sn-purple-300);
+    --sn-icon-accent: var(--sn-purple-500);
+
+    /* Playground: surfaces */
+    --sn-bg-chat-hero: var(--sn-neutral-0);
+    --sn-bg-composer: var(--sn-neutral-0);
+    --sn-border-composer: var(--sn-purple-200);
+    --sn-bg-hover-strong: rgb(0 0 0 / 0.06); /* GUESS */
+    --sn-bg-option-hover: rgb(0 0 0 / 0.04); /* GUESS */
+    --sn-bg-prompt-chip: var(--sn-neutral-0);
+    --sn-shadow-prompt-chip: 0 2px 3.9px rgb(0 0 0 / 0.04);
+    --sn-blur-prompt-chip: 11.3px;
+    --sn-bg-icon-halo: rgb(173 103 229 / 0.12);
+    --sn-shadow-icon-halo: 0 0 4.444px rgb(0 0 0 / 0.04);
+    --sn-bg-prompt-bubble: var(--sn-gray-100);
+    --sn-bg-code-response: var(--sn-gray-50);
+    --sn-border-code-response: var(--sn-purple-200);
+    --sn-code-accent: var(--sn-amber-500);
+    --sn-border-hairline: var(--sn-gray-200);
+    --sn-border-card-active: var(--sn-purple-600); /* GUESS */
+    --sn-border-inference-badge: var(--sn-badge-ink-light);
+    --sn-gradient-inference-badge: linear-gradient(
+      88.96deg,
+      rgb(255 255 255 / 0.26) 31.72%,
+      rgb(152 71 214 / 0.26) 121.35%
+    );
+    --sn-gradient-playground-title: radial-gradient(
+      53.7% 1800.6% at 50% 51%,
+      var(--sn-ink-stroke-1) 0%,
+      rgb(48 31 65) 12.5%,
+      rgb(63 37 87) 25%,
+      rgb(93 48 129) 50%,
+      rgb(122 60 172) 75%,
+      var(--sn-purple-600) 100%
+    );
+    --sn-bg-panel: var(--sn-neutral-0);
+    --sn-bg-tooltip: var(--sn-neutral-0);
+    --sn-border-tooltip: var(--sn-gray-200);
+    --sn-switch-off: var(--sn-gray-300); /* GUESS */
+    --sn-switch-on: var(--sn-purple-900); /* GUESS */
+    --sn-switch-thumb: var(--sn-neutral-0);
+    --sn-slider-bubble: var(--sn-purple-700);
+    --sn-shadow-knob: 0 0 0 1px rgb(0 0 0 / 0.1), 0 2px 4px rgb(0 0 0 / 0.1);
+    --sn-shadow-badge: 0 2px 2px rgb(0 0 0 / 0.1); /* GUESS */
+    --sn-role-developer: var(--sn-violet-600); /* GUESS */
+    --sn-role-writer: var(--sn-green-700); /* GUESS */
+    --sn-role-pm: var(--sn-amber-700); /* GUESS */
+    --sn-history-item-hover: rgb(0 0 0 / 0.04); /* GUESS */
   }
 }
 
@@ -657,5 +868,13 @@
     --sn-duration-collapse: 0ms;
     --sn-duration-marquee: 0ms;
     --sn-duration-toast: 0ms;
+  }
+}
+
+/* The Playground loader is a progress indicator: under reduced motion it slows
+   down instead of stopping, so it is kept out of the zeroing block above. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --sn-duration-loader: 3000ms;
   }
 }
