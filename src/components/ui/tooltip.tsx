@@ -13,17 +13,32 @@ export interface TooltipProps {
   /** The element that triggers the tooltip; must accept a ref and DOM props. */
   children: ReactNode;
   side?: "top" | "right" | "bottom" | "left";
-  /** "rich" is the larger text card (r12, 14px medium, up to 318px) used for explanations. */
-  variant?: "label" | "rich";
+  align?: "start" | "center" | "end";
+  /** Gap between trigger and tooltip in px. Default 10. */
+  sideOffset?: number;
+  /**
+   * inverse = light on dark (app default); surface = dark raised card (Figma: Playground icon
+   * buttons); rich = the larger inverse text card (r12, 14px medium, up to 318px) used for explanations.
+   */
+  variant?: "inverse" | "surface" | "rich";
   className?: string;
 }
 
-/** Inverse surface (light on dark, dark on light), like Figma's white tooltip. */
+const variants = {
+  inverse: "z-tooltip rounded-md bg-inverse px-3 py-1.5 text-caption text-inverse shadow-md",
+  surface:
+    "z-tooltip rounded-lg border border-tooltip bg-tooltip px-3 py-2 text-body text-content shadow-sm",
+  rich: "z-tooltip max-w-79.5 rounded-lg bg-inverse px-3 py-3 text-label font-medium text-inverse shadow-md",
+} as const;
+
+/** Inverse surface (light on dark, dark on light), like Figma's white tooltip; `surface` for the Playground. */
 export function Tooltip({
   content,
   children,
   side = "right",
-  variant = "label",
+  align,
+  sideOffset = 10,
+  variant = "inverse",
   className,
 }: TooltipProps) {
   return (
@@ -32,12 +47,10 @@ export function Tooltip({
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
           side={side}
-          sideOffset={10}
+          align={align}
+          sideOffset={sideOffset}
           className={cn(
-            "z-tooltip bg-inverse text-inverse shadow-md",
-            variant === "rich"
-              ? "max-w-79.5 rounded-lg px-3 py-3 text-label font-medium"
-              : "rounded-md px-3 py-1.5 text-caption",
+            variants[variant],
             "data-[state=delayed-open]:animate-pop-in data-[state=instant-open]:animate-pop-in",
             className,
           )}

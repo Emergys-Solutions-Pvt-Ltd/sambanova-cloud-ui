@@ -6,16 +6,7 @@ import { type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 type DrawerSide = "left" | "right";
-
-/** Left: the navigation sheet (sidebar width). Right: a details panel (Figma: Request Details, 420px). */
-const sides: Record<DrawerSide, string> = {
-  left:
-    "left-0 w-(--sn-sidebar-width) max-w-[85vw] border-r bg-sidebar " +
-    "data-[state=closed]:animate-drawer-out data-[state=open]:animate-drawer-in",
-  right:
-    "right-0 w-105 max-w-full border-l bg-drawer " +
-    "data-[state=closed]:animate-drawer-out-right data-[state=open]:animate-drawer-in-right",
-};
+type DrawerSize = "nav" | "panel" | "details";
 
 export interface DrawerProps {
   open: boolean;
@@ -25,23 +16,42 @@ export interface DrawerProps {
    * when the content renders its own visible `<DrawerTitle>`.
    */
   title?: string;
-  side?: DrawerSide;
   /** Element to focus after the drawer closes (the control that opened it). */
   returnFocusTo?: HTMLElement | null;
+  /** Edge the sheet slides in from. Default left. */
+  side?: DrawerSide;
+  /**
+   * nav = sidebar-width navigation sheet; panel = 290px side panel (Figma: Playground History);
+   * details = 420px details panel (Figma: API key Request Details).
+   */
+  size?: DrawerSize;
   children: ReactNode;
   className?: string;
 }
 
+const sides = {
+  left: "left-0 border-r data-[state=closed]:animate-drawer-out data-[state=open]:animate-drawer-in",
+  right:
+    "right-0 border-l data-[state=closed]:animate-sheet-out data-[state=open]:animate-sheet-in",
+} as const;
+
+const sizes = {
+  nav: "w-(--sn-sidebar-width) max-w-[85vw] border-default bg-sidebar",
+  panel: "w-72.5 max-w-[85vw] border-field bg-panel",
+  details: "w-105 max-w-full border-default bg-drawer",
+} as const;
+
 /**
- * Side sheet: overlay, focus trap, Escape and outside-click to close, and focus returns to the
- * trigger. Built on Radix Dialog for the behaviour only.
+ * Side sheet: overlay, focus trap, Escape and outside-click to close, and
+ * focus returns to the trigger. Built on Radix Dialog for the behaviour only.
  */
 export function Drawer({
   open,
   onOpenChange,
   title,
-  side = "left",
   returnFocusTo,
+  side = "left",
+  size = "nav",
   children,
   className,
 }: DrawerProps) {
@@ -63,8 +73,9 @@ export function Drawer({
             returnFocusTo.focus();
           }}
           className={cn(
-            "fixed inset-y-0 z-drawer flex h-dvh flex-col border-default shadow-lg outline-none",
+            "fixed inset-y-0 z-drawer flex h-dvh flex-col shadow-lg outline-none",
             sides[side],
+            sizes[size],
             className,
           )}
         >

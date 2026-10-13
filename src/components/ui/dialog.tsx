@@ -44,7 +44,30 @@ interface DialogContentProps extends Omit<
   size?: DialogSize;
   /** Pinned below the scrolling body (action buttons), so they stay visible in long forms. */
   footer?: ReactNode;
+  /** default = app modals; subtle = Playground dialogs (subtle border, muted description, 24px header gap). */
+  variant?: DialogVariant;
 }
+
+type DialogVariant = "default" | "subtle";
+
+/** Per-variant shell classes; kept as separate maps so no variant overrides another through `className`. */
+const variantClasses: Record<
+  DialogVariant,
+  { border: string; header: string; heading: string; description: string }
+> = {
+  default: {
+    border: "border-default",
+    header: "pb-4",
+    heading: "gap-1",
+    description: "text-body-sm text-secondary",
+  },
+  subtle: {
+    border: "border-subtle",
+    header: "pb-6",
+    heading: "gap-0.5",
+    description: "text-body-sm leading-tight text-muted",
+  },
+};
 
 /** Centered modal: overlay, focus trap, Escape and outside-click to close, scrolls inside when tall. */
 export function DialogContent({
@@ -52,10 +75,15 @@ export function DialogContent({
   description,
   size = "lg",
   footer,
+  variant = "default",
   className,
   children,
   ...rest
 }: DialogContentProps) {
+  const styles = variantClasses[variant];
+  // Without a description the default header is a 64px bar with the title centred (Figma: Create
+  // API key). The subtle (Playground) dialogs keep their own header whatever they contain.
+  const barHeader = !description && variant === "default";
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className={overlayClasses} />
@@ -64,7 +92,8 @@ export function DialogContent({
         {...(description ? {} : { "aria-describedby": undefined })}
         className={cn(
           "fixed top-1/2 left-1/2 z-modal flex w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col",
-          "rounded-lg border border-default bg-surface text-primary shadow-lg outline-none",
+          "rounded-lg border bg-surface text-primary shadow-lg outline-none",
+          styles.border,
           "data-[state=open]:animate-pop-in",
           sizes[size],
           className,
@@ -74,28 +103,38 @@ export function DialogContent({
         <div
           className={cn(
             "flex justify-between gap-4 px-6",
-            // Without a description the header is a 64px bar with the title centred (Figma: Create API key).
-            description ? "items-start pt-6 pb-4" : "h-16 shrink-0 items-center",
+            barHeader ? "h-16 shrink-0 items-center" : cn("items-start pt-6", styles.header),
           )}
         >
-          <div className="flex min-w-0 flex-col gap-1">
+          <div className={cn("flex min-w-0 flex-col", styles.heading)}>
             <DialogPrimitive.Title className="text-heading-sm font-semibold">
               {title}
             </DialogPrimitive.Title>
             {description && (
-              <DialogPrimitive.Description className="text-body-sm text-secondary">
+              <DialogPrimitive.Description className={styles.description}>
                 {description}
               </DialogPrimitive.Description>
             )}
           </div>
           <DialogPrimitive.Close asChild>
-            <IconButton icon="close" aria-label="Close" size="sm" />
+            {variant === "subtle" ? (
+              // -m-2 keeps the 20px glyph on the 24px header corner; IconButton never sets margin.
+              <IconButton
+                icon="close"
+                aria-label="Close"
+                variant="subtle"
+                size="md"
+                className="-m-2"
+              />
+            ) : (
+              <IconButton icon="close" aria-label="Close" size="sm" />
+            )}
           </DialogPrimitive.Close>
         </div>
         <div
           className={cn(
             "min-h-0 flex-1 scrollbar-thin overflow-y-auto px-6",
-            description ? "" : "pt-6",
+            barHeader ? "pt-6" : "",
             footer ? "mb-5" : "pb-6",
           )}
         >

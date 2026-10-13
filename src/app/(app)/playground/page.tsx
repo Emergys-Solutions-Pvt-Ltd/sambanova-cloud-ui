@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
 
-import { ComingSoon } from "@/components/layout/coming-soon";
-import { PageContent, PageHeader } from "@/components/layout/page-header";
+import { PlaygroundView } from "@/features/playground";
 
-export const metadata: Metadata = { title: "Playground" };
+export const metadata: Metadata = {
+  title: "Playground",
+  description: "Test prompts, compare models and tune parameters on SambaNova Cloud.",
+};
 
 export default function PlaygroundPage() {
-  return (
-    <>
-      <PageHeader title="Playground" subtitle="Test prompts and compare models." />
-      <PageContent>
-        <ComingSoon />
-      </PageContent>
-    </>
-  );
+  return <PlaygroundView />;
 }

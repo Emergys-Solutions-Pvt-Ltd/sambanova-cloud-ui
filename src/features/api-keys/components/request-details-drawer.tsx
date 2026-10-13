@@ -74,7 +74,12 @@ export function RequestDetailsDrawer({ log, onClose }: RequestDetailsDrawerProps
       : null;
 
   return (
-    <Drawer side="right" open={log !== null} onOpenChange={(open) => !open && onClose()}>
+    <Drawer
+      side="right"
+      size="details"
+      open={log !== null}
+      onOpenChange={(open) => !open && onClose()}
+    >
       <div className="flex min-h-0 flex-1 flex-col gap-5 p-6">
         <header className="flex items-center justify-between gap-4">
           <DrawerTitle className="text-heading-md font-bold text-strong">

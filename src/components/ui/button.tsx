@@ -17,6 +17,8 @@ import { Icon, type IconName } from "./icon/icon";
  *   glass        translucent pill used on the hero banner
  *   outline      strong outline (white on dark, purple on light), e.g. "Compare Models"
  *   brand        brand-purple fill; form submit in the auth dialog (40% opacity when disabled)
+ *   ghost        text button with a hover fill (Figma: Playground header "Compare Models")
+ *   cta          high-contrast fill (Figma: Playground header "Code")
  */
 export type ButtonVariant =
   | "primary"
@@ -28,7 +30,9 @@ export type ButtonVariant =
   | "control"
   | "glass"
   | "outline"
-  | "brand";
+  | "brand"
+  | "ghost"
+  | "cta";
 export type ButtonSize = "md" | "sm";
 
 const base =
@@ -70,6 +74,10 @@ const variants: Record<ButtonVariant, string> = {
   control:
     "rounded-sm border border-control bg-button-secondary font-medium text-primary " +
     "hover:bg-button-secondary-hover disabled:text-disabled aria-disabled:text-disabled",
+  /** Padding lives here (8 / 8 / 12 left), so `sizeClasses` adds only the text size. */
+  ghost:
+    "rounded-xs py-2 pr-2 pl-3 font-medium text-button-ghost-fg hover:bg-hover aria-pressed:bg-transparent",
+  cta: "rounded-sm bg-button-cta font-semibold text-button-cta-fg hover:bg-button-cta-hover",
 };
 
 /** Heights: md = 37px (Figma buttons), sm = 34px (project selector, sign-up card). */
@@ -80,9 +88,10 @@ const sizes: Record<ButtonSize, string> = {
 
 const bareSizes = "px-2 py-2 text-body";
 
-/** Link and glass carry their own sizing; tertiary is compact; the rest follow `size`. */
+/** Link and glass carry their own sizing; ghost only its text size; tertiary is compact; the rest follow `size`. */
 function sizeClasses(variant: ButtonVariant, size: ButtonSize) {
   if (variant === "link" || variant === "glass") return "";
+  if (variant === "ghost") return "text-body";
   if (variant === "tertiary") return bareSizes;
   return sizes[size];
 }
@@ -92,6 +101,8 @@ interface CommonProps {
   size?: ButtonSize;
   leftIcon?: IconName;
   rightIcon?: IconName;
+  /** Pixel size of `leftIcon` / `rightIcon`. Default 16. */
+  iconSize?: number;
   fullWidth?: boolean;
   /** Corner radius: "sm" = 6px (default), "md" = 8px (some Figma buttons, e.g. View Documentation). */
   radius?: "sm" | "md";
@@ -128,6 +139,7 @@ export function Button(props: ButtonProps) {
     size = "md",
     leftIcon,
     rightIcon,
+    iconSize = 16,
     fullWidth,
     radius = "sm",
     loading,
@@ -146,9 +158,9 @@ export function Button(props: ButtonProps) {
 
   const content = (
     <>
-      {loading ? <Spinner /> : leftIcon && <Icon name={leftIcon} size="sm" />}
+      {loading ? <Spinner /> : leftIcon && <Icon name={leftIcon} size={iconSize} />}
       {children}
-      {!loading && rightIcon && <Icon name={rightIcon} size="sm" />}
+      {!loading && rightIcon && <Icon name={rightIcon} size={iconSize} />}
     </>
   );
 

@@ -7,8 +7,10 @@ import { Badge, type BadgeVariant } from "@/components/ui/badge";
 import { Button, type ButtonVariant } from "@/components/ui/button";
 import { CodeBlock } from "@/components/ui/code-block";
 import { CopyButton } from "@/components/ui/copy-button";
+import { iconNames } from "@/components/ui/icon/icon-data.generated";
 import { IconButton } from "@/components/ui/icon-button";
 import { RatingIcons } from "@/components/ui/rating-icons";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Toast } from "@/components/ui/toast";
 import { Meter } from "@/components/ui/meter";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -31,10 +33,16 @@ import {
 import {
   ComboboxDemo,
   CssValue,
+  DropdownMenuSurfacesDemo,
   IconGallery,
+  NumberInputSliderDemo,
+  OptionMenuDemo,
   SelectDemo,
   Swatch,
+  SwitchDemo,
+  TextareaDemo,
   ThemeSwitch,
+  TooltipSurfaceDemo,
 } from "./token-preview-client";
 
 export const metadata: Metadata = { title: "Design tokens" };
@@ -47,6 +55,8 @@ const buttonVariants: ButtonVariant[] = [
   "cancel",
   "destructive",
   "control",
+  "ghost",
+  "cta",
 ];
 const badgeVariants: BadgeVariant[] = ["success", "error", "warning", "info", "neutral", "brand"];
 
@@ -184,6 +194,10 @@ export default function TokensPage() {
               </p>
               <span className="text-caption">hero-accent as text</span>
             </div>
+            <div className="flex flex-col gap-1">
+              <p className="text-playground-title text-heading-xl font-semibold">Playground</p>
+              <span className="text-caption">text-playground-title</span>
+            </div>
           </div>
         </ThemePair>
       </Section>
@@ -257,7 +271,7 @@ export default function TokensPage() {
       <Section
         id="icons"
         title="Icons"
-        description="58 icons exported from Figma, optimised with SVGO (npm run icons). <Icon name size color /> inherits currentColor."
+        description={`${iconNames.length} icons exported from Figma, optimised with SVGO (npm run icons). <Icon name size color /> inherits currentColor.`}
       >
         <ThemePair>
           <IconGallery />
@@ -312,6 +326,73 @@ export default function TokensPage() {
               <IconButton icon="close" aria-label="Close" disabled />
             </div>
             <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">playground buttons</span>
+              <Button variant="ghost" iconSize={18} leftIcon="switch-horizontal">
+                Compare Models
+              </Button>
+              <Button variant="ghost" iconSize={18} leftIcon="switch-horizontal" aria-pressed>
+                Pressed
+              </Button>
+              <Button variant="cta" iconSize={18} leftIcon="code">
+                Code
+              </Button>
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">playground icon buttons</span>
+              <IconButton icon="edit" size="chat" variant="subtle" aria-label="New thread" />
+              <IconButton
+                icon="sidebar-collapse"
+                size="chat-lg"
+                variant="subtle"
+                aria-label="Close history"
+              />
+              <IconButton
+                icon="plus"
+                size="composer"
+                variant="composer"
+                iconStrokeWidth={1}
+                aria-label="Add attachment"
+                aria-disabled="true"
+              />
+              <IconButton
+                icon="microphone"
+                size="composer"
+                variant="composer"
+                aria-label="Voice input"
+                aria-disabled="true"
+              />
+              <IconButton icon="arrow-up" size="send" variant="send" aria-label="Send message" />
+              <IconButton
+                icon="arrow-up"
+                size="send"
+                variant="send"
+                aria-label="Send message (disabled)"
+                disabled
+              />
+              <IconButton icon="stop" size="send" variant="send" aria-label="Stop generating" />
+              <IconButton
+                icon="dots-vertical"
+                size="md"
+                variant="header"
+                iconStrokeWidth={1.5}
+                aria-label="More options"
+              />
+              <CopyButton
+                value="code"
+                label="Copy code"
+                icon="layers-subtract"
+                size="code"
+                variant="bare"
+              />
+              <CopyButton
+                value="reply"
+                label="Copy response"
+                icon="layers-subtract"
+                size="reply"
+                variant="bare"
+              />
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
               <span className="w-24 text-caption text-muted">badges</span>
               {badgeVariants.map((variant) => (
                 <Badge key={variant} variant={variant} size="md">
@@ -330,7 +411,7 @@ export default function TokensPage() {
               <Avatar name="John Michaels" size="lg" />
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <span className="w-24 text-caption text-muted">tabs</span>
+              <span className="w-24 text-caption text-muted">tabs (active semibold)</span>
               <Tabs defaultValue="curl">
                 <TabsList aria-label="Example tabs">
                   <TabsTrigger value="curl">Curl</TabsTrigger>
@@ -352,6 +433,36 @@ export default function TokensPage() {
             <div className="flex flex-wrap items-center gap-3">
               <span className="w-24 text-caption text-muted">combobox</span>
               <ComboboxDemo />
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">option menu</span>
+              <OptionMenuDemo />
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">menu surfaces</span>
+              <DropdownMenuSurfacesDemo />
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">tooltips</span>
+              <TooltipSurfaceDemo />
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">switch</span>
+              <SwitchDemo />
+            </div>
+            <div className="flex flex-wrap items-start gap-3">
+              <span className="w-24 text-caption text-muted">number input + slider</span>
+              <NumberInputSliderDemo />
+            </div>
+            <div className="flex flex-wrap items-start gap-3">
+              <span className="w-24 text-caption text-muted">textarea</span>
+              <TextareaDemo />
+            </div>
+            <div className="flex flex-wrap items-center gap-3">
+              <span className="w-24 text-caption text-muted">skeleton radii</span>
+              <Skeleton className="h-8 w-20" />
+              <Skeleton radius="md" className="h-8 w-20" />
+              <Skeleton radius="full" className="size-8" />
             </div>
             <div className="flex flex-wrap items-start gap-3">
               <span className="w-24 text-caption text-muted">toast</span>
@@ -383,6 +494,30 @@ export default function TokensPage() {
                 [{ text: '"model": ' }, { text: '"DeepSeek-V3.1",', kind: "value" }],
               ]}
             />
+            <div className="flex flex-col gap-4 rounded-sm border border-code-response bg-code-response pt-3 pr-4 pb-5 pl-5">
+              <span className="text-caption text-muted">CodeBlock variant=&quot;bare&quot;</span>
+              <CodeBlock
+                variant="bare"
+                label="Bare code sample"
+                lines={[
+                  [
+                    { text: "const ", kind: "accent" },
+                    { text: "numbers", kind: "accent" },
+                    { text: " = [" },
+                    { text: "1", kind: "accent" },
+                    { text: ", " },
+                    { text: "2", kind: "accent" },
+                    { text: "];" },
+                  ],
+                  [
+                    { text: "console", kind: "value" },
+                    { text: ".log(" },
+                    { text: '"done"', kind: "string" },
+                    { text: ");" },
+                  ],
+                ]}
+              />
+            </div>
           </div>
         </ThemePair>
       </Section>
