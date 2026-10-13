@@ -127,7 +127,7 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 - **Account area**: signed in shows the profile card with credit badge and the account menu (email, Manage Projects, Theme, Documentation, Help Center, Logout). Signed out shows "Sign Up for Free" and the theme switcher. While `GET /me` loads, a placeholder holds the space.
 - **Drawer**: overlay, focus trap, Escape, closes on navigation, focus returns to the opener.
 - **Page frame**: use `<PageHeader title subtitle actions />` then `<PageContent>`.
-- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand), `TextField`, `RadioCardGroup`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu`, `Tooltip`, `Drawer`, `Skeleton`, `Icon`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
+- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand, ghost, cta), `TextField`, `RadioCardGroup`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu` (menu, flat, compact surfaces), `Tooltip` (inverse, surface), `Drawer` (left nav or right panel), `Skeleton`, `Icon`, and for the Playground `Switch`, `Slider` (native range with a value bubble), `NumberInput` (spinbutton with a stepper), `Textarea` / `TextareaField` (auto-growing) and `OptionMenu` (listbox menu on a custom trigger). Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
 - **Accessibility**: skip-to-content link, landmarks (`aside`, `nav`, `main`), visible focus rings, full keyboard operation.
 
 **Signing in and out** (with mocks on): use the app. Sign Up for Free (sidebar) or any locked action opens the login dialog; Logout is in the account menu. See [Authentication](#authentication-mock-until-the-real-api).
@@ -139,6 +139,39 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 - **Data**: usage overview, model catalog, recommended models, webinars and partners come from the mock API (`src/mocks`) through TanStack Query hooks in `features/dashboard/hooks`. Each section handles its own loading and error state.
 - **Snippets** are generated in `features/dashboard/lib/snippets.ts`; token kinds drive the syntax colors, so no highlighter library is needed.
 - **Reusable components** added for it: `Card`, `Tabs`, `Select`, `Dialog`, `CodeBlock`, `CopyButton`, `Meter`, `ErrorState`, `ArrowLink`, `SectionHeader`, brand logos (`components/brand`), and Button variants `glass` and `outline`. All are listed in the `/dev/tokens` showcase.
+
+## Playground
+
+`/playground` (`src/features/playground`): chat with any catalog model, with streamed answers, speed metrics and per-project history.
+
+- **Model picker** in the composer (models grouped Reasoning / Text / Image / text). The choice is remembered; `?model=<id>` (Dashboard "Try in Playground") selects a model.
+- **Streaming**: Enter sends, Shift+Enter adds a line. While a reply streams, send becomes **Stop** (Escape also stops); a stopped reply keeps what arrived. Replies render markdown with highlighted code cards (in-house renderer and highlighter, no library). Under each reply: copy, then tokens per second, total duration and time to first token (server `usage` timings when present, else measured in the browser).
+- **Edit prompt**: the pencil on a prompt edits it inline; Enter regenerates that turn, Escape cancels. A failed reply shows "Try again".
+- **Header ⋮ menu**: **Tuning Parameters** (Sampling on = temperature 0.7 + top_p 0.95; Max Tokens 0 = model default, capped at the model's max output), **System Prompt** (Developer / Technical Writer / Product Manager quick-select cards or free text; the header subtitle then names the perspective) and View / Hide History.
+- **Code** opens View Code: Curl / Python / Gradio snippets built from the current model, system prompt and tuning. Its model select changes only the snippet.
+- **Compare Models**: two models answer the same prompt side by side, each column with its own model select and close (closing keeps the other model in single chat). Below a 672px chat area the columns become Model A / Model B tabs.
+- **History** (per project): saved automatically once every reply of a turn has settled, grouped Today / Last 7 days / Last 30 days / Older, searchable by title. Each item's ⋮ offers Rename (inline, up to 80 characters) and Delete (with confirmation); both update the list optimistically. Compared chats are labelled "Compared".
+- **Insufficient credits**: a 402 renders the "Insufficient Credits" card in the reply slot; **[Add Credits]** opens the Add Credits dialog. Each reply is charged to the balance, which refreshes after every stream.
+- **Guests** can look around and open the dialogs; sending a prompt or opening History asks them to log in, and the prompt is sent after sign-in. The History panel shows "Sign in to see your chat history."
+- **Responsive**: from 1024px History is an in-flow 290px column; below it, a right-hand drawer. Header labels collapse to icons (with tooltips) when the main column is narrower than 56rem, so the sidebar and History count.
+
+**Client state**: `usePlaygroundPrefsStore` (model, compare pair, system prompt, tuning, History open) is persisted in localStorage under `sn:playground`, per browser like the theme. `usePlaygroundChatStore` (the open thread) and `usePlaygroundUIStore` (dialogs, drawer, draft, inline edit) are not persisted; logout, a user switch or switching away from the thread's project aborts streams and clears the thread.
+
+**Canned answers** (`src/mocks/fixtures/playground.ts`, first match wins, case-insensitive):
+
+| Prompt contains                           | Answer                                                                             |
+| ----------------------------------------- | ---------------------------------------------------------------------------------- |
+| `remove duplicate`                        | The Figma remove-duplicates answer (JavaScript `Set`), verbatim                    |
+| `react dashboard`                         | The Figma KPI dashboard answer: DeepSeek models get variant A, every other model B |
+| `product launch`                          | Launch strategy (hero chip "Create a product launch strategy")                     |
+| `business trip`, `itinerary` or `trip to` | 5-day itinerary (hero chip "Plan a 5-day business trip itinerary")                 |
+| `compare deepseek`                        | DeepSeek vs Llama vs Gemma (hero chip "Compare DeepSeek, Llama & Gemma")           |
+| `capabilit`                               | The selected model at a glance (mentions the system prompt when one is set)        |
+| anything else                             | A generic structured answer naming the model                                       |
+
+To reproduce the Figma compare screen, compare DeepSeek V3.1 with MiniMax M2.7 and ask to "Build a responsive React dashboard …".
+
+**History seeds**: a project's first History read seeds eight chats: four today (2, 4, 6 and 8 minutes ago) and the same four titles 2, 3, 4 and 6 days ago. Titles: "Chat Bot Enhancement", "What is our cash flow projection for Q3 …", "Plan 5 day trip to Bali" and the React dashboard prompt (a DeepSeek V3.1 / MiniMax M2.7 compare). Seeded replies show the Figma metrics (202.23 t/s, 8.79s, 0.82s).
 
 ## Data layer
 
@@ -161,12 +194,15 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 
 ## Client state (Zustand)
 
-| Store             | Holds                                                    | Persisted                  |
-| ----------------- | -------------------------------------------------------- | -------------------------- |
-| `useProjectStore` | Active project id                                        | yes                        |
-| `useSessionStore` | Session status (`loading`/`authenticated`/`guest`), user | no (synced from `GET /me`) |
-| `useThemeStore`   | `system` / `light` / `dark`                              | yes                        |
-| `useUIStore`      | Sidebar collapsed, mobile nav open, onboarding hidden    | yes, except mobile nav     |
+| Store                     | Holds                                                               | Persisted                  |
+| ------------------------- | ------------------------------------------------------------------- | -------------------------- |
+| `useProjectStore`         | Active project id                                                   | yes                        |
+| `useSessionStore`         | Session status (`loading`/`authenticated`/`guest`), user            | no (synced from `GET /me`) |
+| `useThemeStore`           | `system` / `light` / `dark`                                         | yes                        |
+| `useUIStore`              | Sidebar collapsed, mobile nav open, onboarding hidden               | yes, except mobile nav     |
+| `usePlaygroundPrefsStore` | Playground model, compare pair, system prompt, tuning, History open | yes (`sn:playground`)      |
+| `usePlaygroundChatStore`  | The open Playground thread (turns, replies, mode, models)           | no                         |
+| `usePlaygroundUIStore`    | Playground dialogs, History drawer, composer draft, inline edit     | no                         |
 
 Each store exports typed selectors (`selectX`); subscribe with `useStore(selectX)` to avoid needless re-renders. Persisted stores rehydrate after mount, which avoids server/client hydration mismatches.
 
@@ -174,19 +210,30 @@ Each store exports typed selectors (`selectX`); subscribe with `useStore(selectX
 
 With `NEXT_PUBLIC_USE_MOCKS=true`, the browser service worker (`public/mockServiceWorker.js`) intercepts API calls, and the API client waits for it to start before sending any request.
 
-| Endpoint                      | Mock                                        |
-| ----------------------------- | ------------------------------------------- |
-| `GET /me`                     | Current user with credit balance            |
-| `GET /projects`               | Project list                                |
-| `GET /projects/:id`           | Single project                              |
-| `GET /projects/:id/examples`  | Paginated example list (`page`, `pageSize`) |
-| `POST /projects/:id/examples` | Create an item (422 when name is empty)     |
+| Endpoint                                             | Mock                                                                                                                                                       |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /me`                                            | Current user with credit balance                                                                                                                           |
+| `GET /projects`                                      | Project list                                                                                                                                               |
+| `GET /projects/:id`                                  | Single project                                                                                                                                             |
+| `GET /projects/:id/examples`                         | Paginated example list (`page`, `pageSize`)                                                                                                                |
+| `POST /projects/:id/examples`                        | Create an item (422 when name is empty)                                                                                                                    |
+| `POST /v1/chat/completions`                          | Streamed (SSE) canned answer with a final `usage` frame; charges credits. 401 guest, 402 no credits, 404 unknown model, 422 last message not from the user |
+| `GET /projects/:id/playground/conversations`         | History summaries, newest first (seeded on first read)                                                                                                     |
+| `GET /projects/:id/playground/conversations/:cid`    | One saved chat (404 "Chat not found.")                                                                                                                     |
+| `PUT /projects/:id/playground/conversations/:cid`    | Create or replace a chat (422 on empty title or no turns)                                                                                                  |
+| `PATCH /projects/:id/playground/conversations/:cid`  | Rename (1 to 80 characters); keeps its place in the list                                                                                                   |
+| `DELETE /projects/:id/playground/conversations/:cid` | Delete (204)                                                                                                                                               |
+
+Playground history is kept per account and project in localStorage (`sn:mock-playground`). Streams send one word per frame; the pause is `tokenDelayMs` scaled by the model's speed rating, and `max_tokens` cuts the answer short (`finish_reason: "length"`).
 
 Change the latency and error scenario from the browser console. Settings persist in localStorage:
 
 ```js
 __mocks.set({ scenario: "error" }); // every request returns 500
-__mocks.set({ latencyMs: 2000 }); // slow network (default 400 ms)
+__mocks.set({ scenario: "insufficient-credits" }); // chat completions return 402
+__mocks.set({ scenario: "stream-error" }); // chat streams break off part-way with an error
+__mocks.set({ latencyMs: 2000 }); // slow network (default 400 ms; time to first byte for streams)
+__mocks.set({ tokenDelayMs: 60 }); // slower streaming (default 18 ms between words)
 __mocks.reset();
 ```
 

@@ -51,6 +51,46 @@ const pickString = (source: Record<string, unknown>, key: string) =>
   typeof source[key] === "string" ? (source[key] as string) : undefined;
 
 /**
+ * Builds an `ApiError` from an HTTP status and a response body shaped
+ * `{ code, message, details }` or `{ error: { ... } }`. Used for Axios and fetch responses alike.
+ */
+export function apiErrorFromBody(
+  status: number,
+  data: unknown,
+  fallbackMessage = "Something went wrong.",
+): ApiError {
+  const body = isRecord(data) && isRecord(data.error) ? data.error : data;
+  const record = isRecord(body) ? body : {};
+
+  return new ApiError({
+    status,
+    code: pickString(record, "code") ?? STATUS_CODES[status] ?? `HTTP_${status}`,
+    message: pickString(record, "message") ?? fallbackMessage,
+    details: record.details,
+  });
+}
+
+const isAbortError = (error: unknown) => isRecord(error) && error.name === "AbortError";
+
+/**
+ * Converts a `fetch()` (or stream read) rejection into an `ApiError` with the same codes as
+ * Axios failures: an abort is `CANCELLED`, anything else `NETWORK_ERROR`.
+ */
+export function fetchFailureToApiError(error: unknown, signal?: AbortSignal): ApiError {
+  if (isApiError(error)) return error;
+
+  if (signal?.aborted || isAbortError(error)) {
+    return new ApiError({ status: 0, code: "CANCELLED", message: "The request was cancelled." });
+  }
+
+  return new ApiError({
+    status: 0,
+    code: "NETWORK_ERROR",
+    message: "Unable to reach the server. Check your connection and try again.",
+  });
+}
+
+/**
  * Converts anything thrown by Axios (or our own code) into an `ApiError`.
  * Accepts error bodies shaped `{ code, message, details }` or `{ error: { ... } }`.
  */
@@ -74,15 +114,7 @@ export function toApiError(error: unknown): ApiError {
     }
 
     const { status, data } = error.response;
-    const body = isRecord(data) && isRecord(data.error) ? data.error : data;
-    const record = isRecord(body) ? body : {};
-
-    return new ApiError({
-      status,
-      code: pickString(record, "code") ?? STATUS_CODES[status] ?? `HTTP_${status}`,
-      message: pickString(record, "message") ?? error.message ?? "Something went wrong.",
-      details: record.details,
-    });
+    return apiErrorFromBody(status, data, error.message ?? "Something went wrong.");
   }
 
   return new ApiError({

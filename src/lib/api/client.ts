@@ -10,6 +10,8 @@ declare module "axios" {
     skipRetry?: boolean;
     /** Internal: number of retries already attempted. */
     retryCount?: number;
+    /** Internal: already re-sent once after restarting the mocks. */
+    mocksRestarted?: boolean;
   }
 }
 
@@ -35,7 +37,11 @@ export const apiClient = axios.create({
   withCredentials: true,
 });
 
-apiClient.interceptors.request.use(async (config) => {
+/**
+ * Waits for the MSW worker when mocks are on and resolves the auth header.
+ * Shared by `apiClient` and the fetch-based `postEventStream`.
+ */
+export async function prepareRequest(): Promise<Record<string, string>> {
   // Hold every request until the MSW worker is intercepting, so the first
   // query never races the worker. `env.useMocks` is inlined at build time, so
   // the mocks chunk is dropped from bundles built with mocks off.
@@ -45,7 +51,35 @@ apiClient.interceptors.request.use(async (config) => {
   }
 
   const token = await getAuthToken();
-  if (token) config.headers.set("Authorization", `Bearer ${token}`);
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
+/**
+ * With mocks on, every API response comes from MSW as JSON. An HTML 404 means the request
+ * slipped past the MSW worker and Next.js answered it (it has no `/api` routes).
+ */
+export function isMockBypass(status: number | undefined, contentType: unknown) {
+  return (
+    env.useMocks &&
+    typeof window !== "undefined" &&
+    status === 404 &&
+    String(contentType ?? "").includes("text/html")
+  );
+}
+
+/** Re-registers this page with the MSW worker after a bypass; see `restartMocking`. */
+export async function restartMocks() {
+  // Same guard as `prepareRequest`: it keeps `msw/browser` out of the server bundle.
+  if (env.useMocks && typeof window !== "undefined") {
+    const { restartMocking } = await import("@/mocks/browser");
+    await restartMocking();
+  }
+}
+
+apiClient.interceptors.request.use(async (config) => {
+  for (const [name, value] of Object.entries(await prepareRequest())) {
+    config.headers.set(name, value);
+  }
   return config;
 });
 
@@ -69,6 +103,16 @@ apiClient.interceptors.response.use(
   (response) => response,
   async (error: AxiosError) => {
     const config = error.config;
+    // Safe for any method: the bypassed request never reached a mock handler.
+    if (
+      config &&
+      !config.mocksRestarted &&
+      isMockBypass(error.response?.status, error.response?.headers["content-type"])
+    ) {
+      config.mocksRestarted = true;
+      await restartMocks();
+      return apiClient.request(config);
+    }
     if (config && shouldRetry(error, config)) {
       const attempt = config.retryCount ?? 0;
       config.retryCount = attempt + 1;

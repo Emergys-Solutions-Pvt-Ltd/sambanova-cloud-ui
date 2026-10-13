@@ -1,14 +1,31 @@
 /** Token names rendered by /dev/tokens. Values are read live from CSS variables. */
 
 export const primitiveScales = {
-  purple: ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950", "975"],
+  purple: [
+    "50",
+    "100",
+    "200",
+    "300",
+    "400",
+    "500",
+    "600",
+    "650",
+    "700",
+    "800",
+    "900",
+    "950",
+    "975",
+  ],
   amber: ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900", "950"],
-  neutral: ["0", "50", "300", "700", "750", "800", "850", "875", "900", "950", "1000"],
+  neutral: ["0", "50", "300", "700", "750", "800", "850", "875", "900", "950", "975", "1000"],
   gray: ["50", "100", "200", "300", "400", "500", "600", "700", "800", "900"],
   green: ["50", "200", "400", "500", "700"],
   red: ["50", "200", "400", "500", "700"],
   blue: ["50", "200", "300", "500", "700"],
   viz: ["blue", "green", "orange", "cyan", "indigo"],
+  orchid: ["300"],
+  violet: ["500", "600"],
+  "badge-ink": ["dark", "light"],
 } as const;
 
 export const semanticGroups: Record<string, string[]> = {
@@ -27,6 +44,17 @@ export const semanticGroups: Record<string, string[]> = {
     "bg-menu",
     "bg-profile",
     "bg-chip",
+    "bg-chat-hero",
+    "bg-composer",
+    "bg-hover-strong",
+    "bg-option-hover",
+    "bg-prompt-chip",
+    "bg-icon-halo",
+    "bg-prompt-bubble",
+    "bg-code-response",
+    "bg-panel",
+    "bg-tooltip",
+    "history-item-hover",
   ],
   Border: [
     "border-default",
@@ -38,6 +66,12 @@ export const semanticGroups: Record<string, string[]> = {
     "border-profile",
     "border-disabled",
     "border-input",
+    "border-composer",
+    "border-code-response",
+    "border-hairline",
+    "border-card-active",
+    "border-inference-badge",
+    "border-tooltip",
   ],
   Text: [
     "text-primary",
@@ -52,6 +86,15 @@ export const semanticGroups: Record<string, string[]> = {
     "text-menu-label",
     "text-disabled",
     "text-accent",
+    "text-content",
+    "text-subtle",
+    "text-emphasis",
+    "text-hero-subtitle",
+    "text-prompt-bubble",
+    "text-composer-model",
+    "text-composer-icon",
+    "text-compared",
+    "text-inference-badge",
   ],
   Brand: [
     "brand-primary",
@@ -75,6 +118,12 @@ export const semanticGroups: Record<string, string[]> = {
     "button-destructive-disabled-fg",
     "button-glass-fg",
     "button-outline-strong-border",
+    "button-ghost-fg",
+    "button-cta-bg",
+    "button-cta-fg",
+    "button-cta-hover",
+    "button-icon-bg",
+    "button-icon-border",
   ],
   Status: [
     "status-success-text",
@@ -102,6 +151,18 @@ export const semanticGroups: Record<string, string[]> = {
     "code-text",
     "code-string",
     "code-keyword",
+    "code-accent",
+  ],
+  "Playground controls": [
+    "copy-icon",
+    "icon-accent",
+    "switch-off",
+    "switch-on",
+    "switch-thumb",
+    "slider-bubble",
+    "role-developer",
+    "role-writer",
+    "role-pm",
   ],
 };
 
@@ -120,6 +181,17 @@ export const guessedTokens = new Set([
   "text-disabled",
   "button-secondary-hover-bg",
   "button-destructive-hover",
+  "text-compared",
+  "button-cta-hover",
+  "bg-hover-strong",
+  "bg-option-hover",
+  "border-card-active",
+  "switch-off",
+  "switch-on",
+  "role-developer",
+  "role-writer",
+  "role-pm",
+  "history-item-hover",
 ]);
 
 export const typeScale = [
@@ -174,8 +246,20 @@ export const shadows = [
   { name: "card-inset", className: "shadow-card-inset" },
   { name: "glow-brand", className: "shadow-glow-brand" },
   { name: "glow-focus", className: "shadow-glow-focus" },
+  { name: "knob", className: "shadow-knob" },
+  { name: "badge", className: "shadow-badge" },
+  { name: "prompt-chip", className: "shadow-prompt-chip" },
+  { name: "icon-halo", className: "shadow-icon-halo" },
 ] as const;
-export const gradients = ["hero", "hero-accent", "promo", "badge", "playground"] as const;
+export const gradients = [
+  "hero",
+  "hero-accent",
+  "promo",
+  "badge",
+  "playground",
+  "playground-title",
+  "inference-badge",
+] as const;
 export const zLayers = [
   "base",
   "raised",

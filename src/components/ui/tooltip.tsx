@@ -13,20 +13,40 @@ export interface TooltipProps {
   /** The element that triggers the tooltip; must accept a ref and DOM props. */
   children: ReactNode;
   side?: "top" | "right" | "bottom" | "left";
+  align?: "start" | "center" | "end";
+  /** Gap between trigger and tooltip in px. Default 10. */
+  sideOffset?: number;
+  /** inverse = light on dark (app default); surface = dark raised card (Figma: Playground icon buttons). */
+  variant?: "inverse" | "surface";
   className?: string;
 }
 
-/** Inverse surface (light on dark, dark on light), like Figma's white tooltip. */
-export function Tooltip({ content, children, side = "right", className }: TooltipProps) {
+const variants = {
+  inverse: "z-tooltip rounded-md bg-inverse px-3 py-1.5 text-caption text-inverse shadow-md",
+  surface:
+    "z-tooltip rounded-lg border border-tooltip bg-tooltip px-3 py-2 text-body text-content shadow-sm",
+} as const;
+
+/** Inverse surface (light on dark, dark on light), like Figma's white tooltip; `surface` for the Playground. */
+export function Tooltip({
+  content,
+  children,
+  side = "right",
+  align,
+  sideOffset = 10,
+  variant = "inverse",
+  className,
+}: TooltipProps) {
   return (
     <TooltipPrimitive.Root>
       <TooltipPrimitive.Trigger asChild>{children}</TooltipPrimitive.Trigger>
       <TooltipPrimitive.Portal>
         <TooltipPrimitive.Content
           side={side}
-          sideOffset={10}
+          align={align}
+          sideOffset={sideOffset}
           className={cn(
-            "z-tooltip rounded-md bg-inverse px-3 py-1.5 text-caption text-inverse shadow-md",
+            variants[variant],
             "data-[state=delayed-open]:animate-pop-in data-[state=instant-open]:animate-pop-in",
             className,
           )}

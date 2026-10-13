@@ -95,6 +95,18 @@ export async function addCreditsTo(accountId: string, amount: number) {
   return account.creditBalance;
 }
 
+/** Takes `amount` (USD) off the balance, never below zero, and returns the new balance. */
+export async function chargeCredits(accountId: string, amount: number) {
+  const accounts = await loadAccounts();
+  const account = accounts.find((item) => item.id === accountId);
+  if (!account) return null;
+
+  // Rounded to cents so repeated charges don't accumulate floating-point noise.
+  account.creditBalance = Math.max(0, Math.round((account.creditBalance - amount) * 100) / 100);
+  write(ACCOUNTS_KEY, accounts);
+  return account.creditBalance;
+}
+
 export async function verifyCredentials(email: string, password: string) {
   const accounts = await loadAccounts();
   const account = accounts.find((item) => item.email === normalizeEmail(email));

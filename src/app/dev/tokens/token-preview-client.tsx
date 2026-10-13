@@ -1,11 +1,24 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { Icon } from "@/components/ui/icon/icon";
 import { iconNames } from "@/components/ui/icon/icon-data.generated";
 import { Combobox } from "@/components/ui/combobox";
-import { Select } from "@/components/ui/select";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { IconButton } from "@/components/ui/icon-button";
+import { NumberInput } from "@/components/ui/number-input";
+import { OptionMenu } from "@/components/ui/option-menu";
+import { Select, type SelectGroup } from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
+import { Textarea, TextareaField } from "@/components/ui/textarea";
+import { Tooltip, TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/cn";
 import {
   selectSetTheme,
@@ -179,6 +192,223 @@ export function ComboboxDemo() {
           { label: "All Models", options: [{ value: "c", label: "Meta-Llama-3.3-70B-Instruct" }] },
         ]}
       />
+    </div>
+  );
+}
+
+/** Switch demo: labelled by visible text, toggles with Space / Enter. */
+export function SwitchDemo() {
+  const [checked, setChecked] = useState(false);
+  const labelId = useId();
+  return (
+    <div className="flex items-center gap-3">
+      <Switch checked={checked} onCheckedChange={setChecked} aria-labelledby={labelId} />
+      <span id={labelId} className="text-body text-content">
+        Sampling {checked ? "on" : "off"}
+      </span>
+      <Switch defaultChecked disabled aria-label="Disabled example" />
+    </div>
+  );
+}
+
+const MAX_TOKENS = 8192;
+
+/** Max Tokens pair: NumberInput and Slider bound to one value, as in the Tuning dialog. */
+export function NumberInputSliderDemo() {
+  const [value, setValue] = useState(0);
+  const labelId = useId();
+  return (
+    <div className="flex w-full max-w-120 flex-col gap-3">
+      <div className="flex items-center justify-between gap-4">
+        <span id={labelId} className="text-body-lg font-semibold text-primary">
+          Max Tokens
+        </span>
+        <NumberInput
+          value={value}
+          onValueChange={setValue}
+          min={0}
+          max={MAX_TOKENS}
+          aria-labelledby={labelId}
+        />
+      </div>
+      <Slider
+        value={value}
+        onValueChange={setValue}
+        max={MAX_TOKENS}
+        aria-label="Max tokens"
+        minLabel="0"
+        maxLabel={MAX_TOKENS.toLocaleString("en-US")}
+      />
+    </div>
+  );
+}
+
+/** Bare auto-growing textarea on a composer-like surface, and the bordered field. */
+export function TextareaDemo() {
+  return (
+    <div className="flex w-full max-w-120 flex-col gap-3">
+      <div className="rounded-composer border border-composer bg-composer p-4 focus-within:border-pill">
+        <Textarea
+          aria-label="Message"
+          placeholder="Ask Anything...."
+          rows={2}
+          className="max-h-36 min-h-10.5 text-body leading-5"
+        />
+      </div>
+      <TextareaField
+        aria-label="System prompt"
+        bordered="input"
+        className="h-26 px-4 py-2"
+        placeholder="Enter the system prompt or select a quick option to auto-fill"
+      />
+    </div>
+  );
+}
+
+const demoModelGroups: SelectGroup[] = [
+  {
+    label: "Reasoning",
+    options: [
+      { value: "deepseek-v3.1", label: "DeepSeek-V3.1" },
+      { value: "gpt-oss-120b", label: "gpt-oss-120b" },
+    ],
+  },
+  { label: "Text", options: [{ value: "minimax-m2.7", label: "MiniMax-M2.7" }] },
+];
+
+const demoNames: Record<string, string> = {
+  "deepseek-v3.1": "DeepSeek V3.1",
+  "gpt-oss-120b": "gpt-oss-120b",
+  "minimax-m2.7": "MiniMax M2.7",
+};
+
+/** OptionMenu on both surfaces: composer model menu (flat) and compare column select (bordered). */
+export function OptionMenuDemo() {
+  const [flat, setFlat] = useState<string | null>(null);
+  const [bordered, setBordered] = useState<string | null>("minimax-m2.7");
+  return (
+    <div className="flex flex-wrap items-center gap-4">
+      <OptionMenu
+        aria-label="Model"
+        surface="flat"
+        value={flat}
+        onValueChange={setFlat}
+        groups={demoModelGroups}
+        contentClassName="w-65.5"
+        trigger={
+          <button
+            type="button"
+            aria-label={flat ? `Model: ${demoNames[flat]}` : "Select model"}
+            className="group inline-flex h-8 shrink-0 items-center gap-2 rounded-md py-1.5 pr-2 pl-3 text-body-lg leading-[normal] text-composer-model transition-colors duration-(--sn-duration-fast) hover:bg-hover-strong data-[state=open]:bg-hover-strong"
+          >
+            {flat ? demoNames[flat] : "Select Model"}
+            <Icon
+              name="chevron-down"
+              size={20}
+              className="transition-transform duration-(--sn-duration-fast) group-data-[state=open]:rotate-180 motion-reduce:transition-none"
+            />
+          </button>
+        }
+      />
+      <OptionMenu
+        aria-label="Model B"
+        surface="bordered"
+        value={bordered}
+        onValueChange={setBordered}
+        groups={demoModelGroups}
+        sideOffset={5}
+        matchTriggerWidth
+        trigger={
+          <button
+            type="button"
+            className="flex h-9.25 w-65.5 max-w-full min-w-0 items-center gap-2.5 rounded-md border border-hairline bg-input px-4 text-left"
+          >
+            <span className="flex-1 truncate text-body text-primary">
+              {bordered ? demoNames[bordered] : "Select model"}
+            </span>
+            <Icon name="chevron-down" size={16} strokeWidth={1.5} className="text-primary" />
+          </button>
+        }
+      />
+    </div>
+  );
+}
+
+/** Surface tooltips (Playground icon buttons). This route sits outside AppShell, so it brings its own provider. */
+export function TooltipSurfaceDemo() {
+  return (
+    <TooltipProvider delayDuration={150}>
+      <div className="flex items-center gap-3">
+        <Tooltip
+          content="Start a new thread"
+          side="bottom"
+          align="end"
+          sideOffset={12}
+          variant="surface"
+        >
+          <IconButton icon="edit" size="chat" variant="subtle" aria-label="Start a new thread" />
+        </Tooltip>
+        <Tooltip content="Close compare view" side="bottom" sideOffset={6} variant="surface">
+          <IconButton
+            icon="close"
+            size="chat"
+            variant="subtle"
+            iconStrokeWidth={1.25}
+            aria-label="Close compare view"
+          />
+        </Tooltip>
+        <Tooltip content="Inverse (app default)" side="bottom">
+          <IconButton icon="refresh" aria-label="Inverse tooltip example" />
+        </Tooltip>
+      </div>
+    </TooltipProvider>
+  );
+}
+
+/** DropdownMenu flat (header ⋮, 209px, no border) and compact (History item ⋮) surfaces. */
+export function DropdownMenuSurfacesDemo() {
+  return (
+    <div className="flex items-center gap-3">
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <IconButton
+            icon="dots-vertical"
+            size="md"
+            variant="header"
+            iconStrokeWidth={1.5}
+            aria-label="More options"
+          />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent surface="flat" align="end" sideOffset={4} className="w-52.25">
+          <DropdownMenuItem variant="flat">
+            <Icon name="adjustments-horizontal" size={18} />
+            Tuning Parameters
+          </DropdownMenuItem>
+          <DropdownMenuItem variant="flat">
+            <Icon name="edit" size={18} />
+            System Prompt
+          </DropdownMenuItem>
+          <DropdownMenuItem variant="flat">
+            <Icon name="history" size={18} />
+            View History
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <IconButton icon="more-vertical" size="sm" variant="subtle" aria-label="More actions" />
+        </DropdownMenuTrigger>
+        <DropdownMenuContent surface="compact" align="end" sideOffset={4}>
+          <DropdownMenuItem variant="compact">
+            <Icon name="pencil" size={16} />
+            Rename
+          </DropdownMenuItem>
+          <DropdownMenuItem variant="compact">
+            <Icon name="trash" size={16} />
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 }

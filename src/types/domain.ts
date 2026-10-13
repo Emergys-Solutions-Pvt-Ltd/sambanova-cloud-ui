@@ -166,3 +166,128 @@ export interface CloudPartner {
   description: string;
   url: string;
 }
+
+/* ---- Chat completions (OpenAI-compatible wire format; snake_case on purpose) ---- */
+
+export type ChatRole = "system" | "user" | "assistant";
+
+export interface ChatMessage {
+  role: ChatRole;
+  content: string;
+}
+
+/** Body of POST /v1/chat/completions. `stream` and `stream_options` are added by the API function. */
+export interface ChatCompletionRequest {
+  /** `CatalogModel.apiId`. */
+  model: string;
+  messages: ChatMessage[];
+  temperature?: number;
+  top_p?: number;
+  max_tokens?: number;
+}
+
+/** Provisional: SambaNova adds timing fields (seconds, tokens per second) to the final usage chunk. */
+export interface ChatCompletionUsage {
+  prompt_tokens: number;
+  completion_tokens: number;
+  total_tokens: number;
+  time_to_first_token?: number;
+  total_latency?: number;
+  completion_tokens_after_first_per_sec?: number;
+}
+
+export type ChatFinishReason = "stop" | "length";
+
+export interface ChatCompletionChunk {
+  id: string;
+  object: "chat.completion.chunk";
+  created: number;
+  model: string;
+  /** Empty in the trailing usage-only chunk (`stream_options.include_usage`): always read `choices[0]?.…`. */
+  choices: {
+    index: number;
+    delta: { role?: ChatRole; content?: string };
+    finish_reason: ChatFinishReason | null;
+  }[];
+  usage?: ChatCompletionUsage | null;
+}
+
+/* ---- Playground ---- */
+
+export type PlaygroundMode = "single" | "compare";
+/** Column of a compare thread; single chat always uses "a". */
+export type CompareSlot = "a" | "b";
+export type QuickRoleId = "developer" | "technical-writer" | "product-manager";
+
+/** Global system prompt ("applied for all the sessions"). `roleId` is null for a custom prompt. */
+export interface SystemPromptSetting {
+  roleId: QuickRoleId | null;
+  prompt: string;
+}
+
+export interface TuningParams {
+  /** On: temperature 0.7 / top_p 0.95. Off: greedy (temperature 0). */
+  sampling: boolean;
+  /** 0 = model default (max_tokens omitted). */
+  maxTokens: number;
+}
+
+export interface ReplyMetrics {
+  tokensPerSecond: number;
+  totalSeconds: number;
+  firstTokenSeconds: number;
+  completionTokens: number;
+}
+
+export type ReplyStatus = "pending" | "streaming" | "done" | "stopped" | "error";
+
+export interface ReplyError {
+  status: number;
+  code: string;
+  message: string;
+}
+
+export interface AssistantReply {
+  /** `CatalogModel.id` that produced the reply. */
+  modelId: string;
+  status: ReplyStatus;
+  /** Client-only id of the stream that owns this reply ("run_xxxxxxxx"); stale streams no-op on mismatch. Omitted when saving. */
+  runId?: string;
+  /** Markdown source. */
+  content: string;
+  metrics?: ReplyMetrics;
+  finishReason?: ChatFinishReason;
+  error?: ReplyError;
+}
+
+export interface ConversationTurn {
+  id: string;
+  prompt: string;
+  /** ISO timestamp. */
+  createdAt: string;
+  replies: Partial<Record<CompareSlot, AssistantReply>>;
+}
+
+export interface Conversation {
+  id: string;
+  title: string;
+  mode: PlaygroundMode;
+  /** `CatalogModel.id` per slot; single chat uses "a". */
+  models: Partial<Record<CompareSlot, string>>;
+  systemPrompt: string;
+  turns: ConversationTurn[];
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type ConversationSummary = Pick<Conversation, "id" | "title" | "mode" | "updatedAt">;
+
+/** PUT body (create-or-replace). Only settled replies (done | stopped | error) are saved. */
+export type SaveConversationInput = Pick<
+  Conversation,
+  "title" | "mode" | "models" | "systemPrompt" | "turns" | "createdAt"
+>;
+
+export interface RenameConversationInput {
+  title: string;
+}

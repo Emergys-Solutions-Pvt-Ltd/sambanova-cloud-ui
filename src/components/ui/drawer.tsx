@@ -12,12 +12,27 @@ export interface DrawerProps {
   title: string;
   /** Element to focus after the drawer closes (the control that opened it). */
   returnFocusTo?: HTMLElement | null;
+  /** Edge the sheet slides in from. Default left. */
+  side?: "left" | "right";
+  /** nav = sidebar-width navigation sheet; panel = 290px side panel (Figma: Playground History). */
+  size?: "nav" | "panel";
   children: ReactNode;
   className?: string;
 }
 
+const sides = {
+  left: "left-0 border-r data-[state=closed]:animate-drawer-out data-[state=open]:animate-drawer-in",
+  right:
+    "right-0 border-l data-[state=closed]:animate-sheet-out data-[state=open]:animate-sheet-in",
+} as const;
+
+const sizes = {
+  nav: "w-(--sn-sidebar-width) max-w-[85vw] border-default bg-sidebar",
+  panel: "w-72.5 max-w-[85vw] border-field bg-panel",
+} as const;
+
 /**
- * Left-side sheet: overlay, focus trap, Escape and outside-click to close, and
+ * Side sheet: overlay, focus trap, Escape and outside-click to close, and
  * focus returns to the trigger. Built on Radix Dialog for the behaviour only.
  */
 export function Drawer({
@@ -25,6 +40,8 @@ export function Drawer({
   onOpenChange,
   title,
   returnFocusTo,
+  side = "left",
+  size = "nav",
   children,
   className,
 }: DrawerProps) {
@@ -46,9 +63,9 @@ export function Drawer({
             returnFocusTo.focus();
           }}
           className={cn(
-            "fixed inset-y-0 left-0 z-drawer flex h-dvh w-(--sn-sidebar-width) max-w-[85vw] flex-col",
-            "border-r border-default bg-sidebar shadow-lg outline-none",
-            "data-[state=closed]:animate-drawer-out data-[state=open]:animate-drawer-in",
+            "fixed inset-y-0 z-drawer flex h-dvh flex-col shadow-lg outline-none",
+            sides[side],
+            sizes[size],
             className,
           )}
         >
