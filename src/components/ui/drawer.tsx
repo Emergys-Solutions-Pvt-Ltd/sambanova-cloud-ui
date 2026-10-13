@@ -5,17 +5,26 @@ import { type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
+type DrawerSide = "left" | "right";
+type DrawerSize = "nav" | "panel" | "details";
+
 export interface DrawerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  /** Accessible name, announced when the drawer opens. Not shown visually. */
-  title: string;
+  /**
+   * Accessible name, announced when the drawer opens, shown to screen readers only. Leave it out
+   * when the content renders its own visible `<DrawerTitle>`.
+   */
+  title?: string;
   /** Element to focus after the drawer closes (the control that opened it). */
   returnFocusTo?: HTMLElement | null;
   /** Edge the sheet slides in from. Default left. */
-  side?: "left" | "right";
-  /** nav = sidebar-width navigation sheet; panel = 290px side panel (Figma: Playground History). */
-  size?: "nav" | "panel";
+  side?: DrawerSide;
+  /**
+   * nav = sidebar-width navigation sheet; panel = 290px side panel (Figma: Playground History);
+   * details = 420px details panel (Figma: API key Request Details).
+   */
+  size?: DrawerSize;
   children: ReactNode;
   className?: string;
 }
@@ -29,6 +38,7 @@ const sides = {
 const sizes = {
   nav: "w-(--sn-sidebar-width) max-w-[85vw] border-default bg-sidebar",
   panel: "w-72.5 max-w-[85vw] border-field bg-panel",
+  details: "w-105 max-w-full border-default bg-surface",
 } as const;
 
 /**
@@ -69,7 +79,7 @@ export function Drawer({
             className,
           )}
         >
-          <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>
+          {title && <DialogPrimitive.Title className="sr-only">{title}</DialogPrimitive.Title>}
           {children}
         </DialogPrimitive.Content>
       </DialogPrimitive.Portal>
@@ -78,3 +88,4 @@ export function Drawer({
 }
 
 export const DrawerClose = DialogPrimitive.Close;
+export const DrawerTitle = DialogPrimitive.Title;

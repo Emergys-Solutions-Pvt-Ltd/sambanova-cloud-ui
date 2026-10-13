@@ -94,7 +94,19 @@ const itemClasses: Record<DropdownMenuSurface, string> = {
 export function DropdownMenuItem({
   className,
   variant = "menu",
+  destructive,
   ...rest
-}: ComponentPropsWithRef<typeof MenuPrimitive.Item> & { variant?: DropdownMenuSurface }) {
-  return <MenuPrimitive.Item className={cn(itemClasses[variant], className)} {...rest} />;
+}: ComponentPropsWithRef<typeof MenuPrimitive.Item> & {
+  variant?: DropdownMenuSurface;
+  /** Red text for irreversible actions (Figma: "Delete Key"). Works with every variant. */
+  destructive?: boolean;
+}) {
+  const classes = destructive
+    ? itemClasses[variant]
+        // menu rows are text-secondary, flat and compact rows text-content
+        .replace("text-secondary", "text-error")
+        .replace("text-content", "text-error")
+        .replace("data-[highlighted]:text-primary", "data-[highlighted]:text-error")
+    : itemClasses[variant];
+  return <MenuPrimitive.Item className={cn(classes, className)} {...rest} />;
 }

@@ -294,8 +294,8 @@
   /* Charts */
   --sn-chart-input: var(--sn-viz-blue);
   --sn-chart-output: var(--sn-viz-green);
-  --sn-chart-cached: var(--sn-viz-orange); /* GUESS: unlabelled 3rd series in Figma */
-  --sn-chart-prompt: var(--sn-viz-cyan); /* GUESS: Figma labels this series "Last 30 days" */
+  --sn-chart-cached: var(--sn-viz-cyan); /* Figma: "Catched Tokens" chart */
+  --sn-chart-prompt: var(--sn-viz-orange); /* Figma: "Prompt Input Tokens" chart */
   --sn-chart-grid: rgb(255 255 255 / 0.15);
   --sn-chart-axis: rgb(255 255 255 / 0.7);
   --sn-meter-filled: var(--sn-neutral-300); /* model card reasoning/speed bars */
@@ -372,6 +372,23 @@
   --sn-border-pill: var(--sn-purple-800);
   --sn-border-social: var(--sn-gray-600);
   --sn-border-field: var(--sn-gray-800);
+  --sn-featured-warning-bg: rgb(172 156 0 / 0.3);
+  --sn-featured-warning-ring: rgb(255 255 0 / 0.1);
+  --sn-featured-warning-fg: #ff9500;
+  --sn-featured-danger-bg: rgb(240 82 82 / 0.2); /* GUESS: no delete dialog in Figma */
+  --sn-featured-danger-ring: rgb(240 82 82 / 0.1); /* GUESS */
+  --sn-featured-danger-fg: var(--sn-red-400); /* GUESS */
+  --sn-bg-table-head: var(--sn-neutral-800);
+  --sn-text-table-header: var(--sn-gray-200);
+  --sn-border-table-control: var(--sn-gray-700);
+  --sn-bg-pagination-item: rgb(255 255 255 / 0.02);
+  --sn-bg-pagination-active: rgb(152 71 214 / 0.12);
+  --sn-text-pagination-active: var(--sn-purple-600);
+  --sn-border-header: var(--sn-gray-800);
+  --sn-bg-callout: rgb(33 25 44 / 0.4);
+  --sn-border-callout: rgb(152 71 214 / 0.16);
+  --sn-bg-callout-icon: #33214d;
+  --sn-callout-icon-fg: var(--sn-purple-300);
   --sn-border-selected: rgb(255 255 255 / 0.3);
   --sn-radio-off: var(--sn-gray-700);
   --sn-toast-success-fg: var(--sn-green-500);
@@ -388,6 +405,29 @@
   --sn-button-outline-strong-border: var(--sn-neutral-0);
   --sn-bg-chip: rgb(244 234 253 / 0.2);
   --sn-bg-scrollbar: rgb(255 255 255 / 0.22); /* thumb of thin scrollbars (Figma dropdown) */
+
+  /* API key usage (Figma: View API Key Usage, Request Details drawer, Datepicker) */
+  --sn-text-error-strong: var(--sn-red-500);
+  --sn-bg-date-range: rgb(255 255 255 / 0.08); /* days inside the selected range */
+  --sn-gradient-stat-card: linear-gradient(
+    -73.85deg,
+    rgb(163 93 248 / 0.096) 0.53%,
+    rgb(19 19 19 / 0.16) 100.66%
+  );
+  --sn-stat-icon-fg: var(--sn-purple-300);
+  --sn-bg-key-icon: rgb(255 200 50 / 0.08);
+  --sn-bg-detail-box: var(--sn-neutral-900); /* audit: #18181B is #181818 */
+  --sn-bg-error-box: rgb(255 89 89 / 0.06);
+  --sn-border-error-box: rgb(255 89 89 / 0.16);
+
+  /* API key usage charts (Figma: BarLineChart cards and their tooltip) */
+  --sn-bg-chart-card: var(--sn-neutral-875); /* audit: #1A1A1A is #1D1D1D */
+  --sn-chart-baseline: rgb(255 255 255 / 0.3); /* the 0 line, solid; other grid lines are dashed */
+  --sn-chart-tooltip-bg: var(--sn-neutral-0);
+  --sn-chart-tooltip-border: var(--sn-gray-100);
+  --sn-chart-tooltip-title: var(--sn-gray-900);
+  --sn-chart-tooltip-label: var(--sn-gray-500);
+  --sn-chart-tooltip-value: var(--sn-gray-800);
 
   /* Playground: text */
   --sn-text-content: var(--sn-gray-200); /* answer prose, metric values, menu rows */
@@ -573,6 +613,23 @@
   --sn-border-pill: var(--sn-purple-400); /* GUESS */
   --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-featured-warning-bg: var(--sn-amber-100); /* GUESS: dark only in Figma */
+  --sn-featured-warning-ring: var(--sn-amber-50); /* GUESS */
+  --sn-featured-warning-fg: var(--sn-amber-600); /* GUESS */
+  --sn-featured-danger-bg: var(--sn-red-200); /* GUESS */
+  --sn-featured-danger-ring: var(--sn-red-50); /* GUESS */
+  --sn-featured-danger-fg: var(--sn-red-700); /* GUESS */
+  --sn-bg-table-head: var(--sn-gray-50); /* GUESS: table is dark only in Figma */
+  --sn-text-table-header: var(--sn-gray-700); /* GUESS */
+  --sn-border-table-control: var(--sn-gray-300); /* GUESS */
+  --sn-bg-pagination-item: transparent; /* GUESS */
+  --sn-bg-pagination-active: rgb(152 71 214 / 0.12); /* GUESS */
+  --sn-text-pagination-active: var(--sn-purple-700); /* GUESS */
+  --sn-border-header: var(--sn-purple-200); /* GUESS: Figma shows dark only */
+  --sn-bg-callout: var(--sn-purple-50); /* GUESS */
+  --sn-border-callout: var(--sn-purple-200); /* GUESS */
+  --sn-bg-callout-icon: var(--sn-purple-100); /* GUESS */
+  --sn-callout-icon-fg: var(--sn-purple-700); /* GUESS */
   --sn-border-selected: var(--sn-purple-600); /* GUESS */
   --sn-radio-off: var(--sn-gray-300); /* GUESS */
   --sn-toast-success-fg: var(
@@ -591,6 +648,33 @@
   --sn-button-outline-strong-border: var(--sn-purple-400);
   --sn-bg-chip: rgb(255 255 255 / 0.2);
   --sn-bg-scrollbar: rgb(0 0 0 / 0.12); /* Figma light thumb (#e1e1e1 on white) */
+
+  /* API key usage: no light screens in Figma, all GUESS */
+  --sn-text-error-strong: var(--sn-red-700);
+  --sn-bg-date-range: rgb(98 43 134 / 0.1); /* GUESS */
+  --sn-gradient-stat-card: linear-gradient(
+    -73.85deg,
+    rgb(163 93 248 / 0.12) 0.53%,
+    rgb(255 255 255 / 0.4) 100.66%
+  ); /* GUESS */
+  --sn-stat-icon-fg: var(--sn-purple-700); /* GUESS */
+  --sn-bg-key-icon: rgb(253 185 19 / 0.16); /* GUESS */
+  --sn-bg-detail-box: var(--sn-purple-50); /* GUESS */
+  --sn-bg-error-box: var(--sn-red-50); /* GUESS */
+  --sn-border-error-box: var(--sn-red-200); /* GUESS */
+
+  /* API key usage charts: no light screens in Figma, all GUESS */
+  --sn-bg-chart-card: var(--sn-neutral-0); /* GUESS */
+  --sn-chart-baseline: rgb(0 0 0 / 0.16); /* GUESS */
+  --sn-chart-output: var(--sn-green-500); /* GUESS: the bright green is too pale on white */
+  --sn-chart-cached: var(--sn-viz-teal); /* GUESS: the cyan is too pale on white */
+  --sn-chart-tooltip-bg: var(
+    --sn-neutral-0
+  ); /* GUESS: Figma's tooltip is white in the dark theme */
+  --sn-chart-tooltip-border: var(--sn-purple-200); /* GUESS */
+  --sn-chart-tooltip-title: var(--sn-gray-900); /* GUESS */
+  --sn-chart-tooltip-label: var(--sn-gray-500); /* GUESS */
+  --sn-chart-tooltip-value: var(--sn-gray-800); /* GUESS */
 
   /* Playground: text */
   --sn-text-content: var(--sn-gray-600);
@@ -772,6 +856,23 @@
     --sn-border-pill: var(--sn-purple-400); /* GUESS */
     --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-featured-warning-bg: var(--sn-amber-100); /* GUESS: dark only in Figma */
+    --sn-featured-warning-ring: var(--sn-amber-50); /* GUESS */
+    --sn-featured-warning-fg: var(--sn-amber-600); /* GUESS */
+    --sn-featured-danger-bg: var(--sn-red-200); /* GUESS */
+    --sn-featured-danger-ring: var(--sn-red-50); /* GUESS */
+    --sn-featured-danger-fg: var(--sn-red-700); /* GUESS */
+    --sn-bg-table-head: var(--sn-gray-50); /* GUESS: table is dark only in Figma */
+    --sn-text-table-header: var(--sn-gray-700); /* GUESS */
+    --sn-border-table-control: var(--sn-gray-300); /* GUESS */
+    --sn-bg-pagination-item: transparent; /* GUESS */
+    --sn-bg-pagination-active: rgb(152 71 214 / 0.12); /* GUESS */
+    --sn-text-pagination-active: var(--sn-purple-700); /* GUESS */
+    --sn-border-header: var(--sn-purple-200); /* GUESS: Figma shows dark only */
+    --sn-bg-callout: var(--sn-purple-50); /* GUESS */
+    --sn-border-callout: var(--sn-purple-200); /* GUESS */
+    --sn-bg-callout-icon: var(--sn-purple-100); /* GUESS */
+    --sn-callout-icon-fg: var(--sn-purple-700); /* GUESS */
     --sn-border-selected: var(--sn-purple-600); /* GUESS */
     --sn-radio-off: var(--sn-gray-300); /* GUESS */
     --sn-toast-success-fg: var(
@@ -790,6 +891,33 @@
     --sn-button-outline-strong-border: var(--sn-purple-400);
     --sn-bg-chip: rgb(255 255 255 / 0.2);
     --sn-bg-scrollbar: rgb(0 0 0 / 0.12); /* Figma light thumb (#e1e1e1 on white) */
+
+    /* API key usage: no light screens in Figma, all GUESS */
+    --sn-text-error-strong: var(--sn-red-700);
+    --sn-bg-date-range: rgb(98 43 134 / 0.1); /* GUESS */
+    --sn-gradient-stat-card: linear-gradient(
+      -73.85deg,
+      rgb(163 93 248 / 0.12) 0.53%,
+      rgb(255 255 255 / 0.4) 100.66%
+    ); /* GUESS */
+    --sn-stat-icon-fg: var(--sn-purple-700); /* GUESS */
+    --sn-bg-key-icon: rgb(253 185 19 / 0.16); /* GUESS */
+    --sn-bg-detail-box: var(--sn-purple-50); /* GUESS */
+    --sn-bg-error-box: var(--sn-red-50); /* GUESS */
+    --sn-border-error-box: var(--sn-red-200); /* GUESS */
+
+    /* API key usage charts: no light screens in Figma, all GUESS */
+    --sn-bg-chart-card: var(--sn-neutral-0); /* GUESS */
+    --sn-chart-baseline: rgb(0 0 0 / 0.16); /* GUESS */
+    --sn-chart-output: var(--sn-green-500); /* GUESS: the bright green is too pale on white */
+    --sn-chart-cached: var(--sn-viz-teal); /* GUESS: the cyan is too pale on white */
+    --sn-chart-tooltip-bg: var(
+      --sn-neutral-0
+    ); /* GUESS: Figma's tooltip is white in the dark theme */
+    --sn-chart-tooltip-border: var(--sn-purple-200); /* GUESS */
+    --sn-chart-tooltip-title: var(--sn-gray-900); /* GUESS */
+    --sn-chart-tooltip-label: var(--sn-gray-500); /* GUESS */
+    --sn-chart-tooltip-value: var(--sn-gray-800); /* GUESS */
 
     /* Playground: text */
     --sn-text-content: var(--sn-gray-600);

@@ -13,7 +13,7 @@ export const DialogClose = DialogPrimitive.Close;
 export const DialogTitle = DialogPrimitive.Title;
 export const DialogDescription = DialogPrimitive.Description;
 
-type DialogSize = "sm" | "md" | "lg" | "xl";
+type DialogSize = "xs" | "sm" | "md" | "lg" | "xl";
 
 /**
  * Width and height cap per size, both limited to the viewport: sm 464px (login), md 624px (create
@@ -21,6 +21,7 @@ type DialogSize = "sm" | "md" | "lg" | "xl";
  */
 const viewportHeight = "max-h-[calc(100dvh-2rem)]";
 const sizes: Record<DialogSize, string> = {
+  xs: `max-w-110.25 ${viewportHeight}`,
   sm: `max-w-116 ${viewportHeight}`,
   md: `max-w-156 ${viewportHeight}`,
   lg: `max-w-214.5 ${viewportHeight}`,
@@ -80,6 +81,9 @@ export function DialogContent({
   ...rest
 }: DialogContentProps) {
   const styles = variantClasses[variant];
+  // Without a description the default header is a 64px bar with the title centred (Figma: Create
+  // API key). The subtle (Playground) dialogs keep their own header whatever they contain.
+  const barHeader = !description && variant === "default";
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className={overlayClasses} />
@@ -96,7 +100,12 @@ export function DialogContent({
         )}
         {...rest}
       >
-        <div className={cn("flex items-start justify-between gap-4 px-6 pt-6", styles.header)}>
+        <div
+          className={cn(
+            "flex justify-between gap-4 px-6",
+            barHeader ? "h-16 shrink-0 items-center" : cn("items-start pt-6", styles.header),
+          )}
+        >
           <div className={cn("flex min-w-0 flex-col", styles.heading)}>
             <DialogPrimitive.Title className="text-heading-sm font-semibold">
               {title}
@@ -125,6 +134,7 @@ export function DialogContent({
         <div
           className={cn(
             "min-h-0 flex-1 scrollbar-thin overflow-y-auto px-6",
+            barHeader ? "pt-6" : "",
             footer ? "mb-5" : "pb-6",
           )}
         >
@@ -138,13 +148,21 @@ export function DialogContent({
 
 type DialogPanelProps = Omit<ComponentPropsWithRef<typeof DialogPrimitive.Content>, "title"> & {
   size?: DialogSize;
+  /** "2xl" = 20px (login card), "lg" = 12px (confirmation dialogs). */
+  radius?: "lg" | "2xl";
 };
 
 /**
  * Bare modal surface for dialogs with their own header (Figma: login card, r20).
  * Render a `DialogTitle` inside so the dialog has an accessible name.
  */
-export function DialogPanel({ size = "sm", className, children, ...rest }: DialogPanelProps) {
+export function DialogPanel({
+  size = "sm",
+  radius = "2xl",
+  className,
+  children,
+  ...rest
+}: DialogPanelProps) {
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className={overlayClasses} />
@@ -152,7 +170,8 @@ export function DialogPanel({ size = "sm", className, children, ...rest }: Dialo
         aria-describedby={undefined}
         className={cn(
           "fixed top-1/2 left-1/2 z-modal max-h-[calc(100dvh-2rem)] w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 overflow-y-auto",
-          "rounded-2xl border border-default bg-surface text-primary shadow-lg outline-none",
+          radius === "2xl" ? "rounded-2xl" : "rounded-lg",
+          "border border-default bg-surface text-primary shadow-lg outline-none",
           "data-[state=open]:animate-pop-in",
           sizes[size],
           className,

@@ -60,6 +60,23 @@
   --border-color-pill: var(--sn-border-pill);
   --border-color-social: var(--sn-border-social);
   --border-color-field: var(--sn-border-field);
+  --color-table-head: var(--sn-bg-table-head);
+  --color-featured-warning: var(--sn-featured-warning-bg);
+  --border-color-featured-warning: var(--sn-featured-warning-ring);
+  --text-color-featured-warning: var(--sn-featured-warning-fg);
+  --color-featured-danger: var(--sn-featured-danger-bg);
+  --border-color-featured-danger: var(--sn-featured-danger-ring);
+  --text-color-featured-danger: var(--sn-featured-danger-fg);
+  --text-color-table-header: var(--sn-text-table-header);
+  --border-color-table-control: var(--sn-border-table-control);
+  --color-pagination-item: var(--sn-bg-pagination-item);
+  --color-pagination-active: var(--sn-bg-pagination-active);
+  --text-color-pagination-active: var(--sn-text-pagination-active);
+  --border-color-header: var(--sn-border-header);
+  --border-color-callout: var(--sn-border-callout);
+  --color-callout: var(--sn-bg-callout);
+  --color-callout-icon: var(--sn-bg-callout-icon);
+  --text-color-callout-icon: var(--sn-callout-icon-fg);
   --border-color-selected: var(--sn-border-selected);
   --color-radio-off: var(--sn-radio-off);
   --blur-toast: var(--sn-blur-toast);
@@ -91,6 +108,26 @@
   --text-color-menu-label: var(--sn-text-menu-label);
   --text-color-disabled: var(--sn-text-disabled);
   --text-color-accent: var(--sn-text-accent);
+  --text-color-error-strong: var(--sn-text-error-strong);
+
+  /* API key usage: date range, stat cards, key card, Request Details drawer */
+  --color-date-range: var(--sn-bg-date-range);
+  --text-color-stat-icon: var(--sn-stat-icon-fg);
+  --background-color-key-icon: var(--sn-bg-key-icon);
+  --background-color-detail-box: var(--sn-bg-detail-box);
+  --background-color-error-box: var(--sn-bg-error-box);
+  --border-color-error-box: var(--sn-border-error-box);
+  --background-color-meta-divider: var(--sn-border-pill);
+
+  /* API key usage charts */
+  --background-color-chart-card: var(--sn-bg-chart-card);
+  --color-chart-baseline: var(--sn-chart-baseline);
+  --background-color-chart-tooltip: var(--sn-chart-tooltip-bg);
+  --border-color-chart-tooltip: var(--sn-chart-tooltip-border);
+  --text-color-chart-tooltip-title: var(--sn-chart-tooltip-title);
+  --text-color-chart-tooltip-label: var(--sn-chart-tooltip-label);
+  --text-color-chart-tooltip-value: var(--sn-chart-tooltip-value);
+
   /* Playground */
   --text-color-content: var(--sn-text-content);
   --text-color-subtle: var(--sn-text-subtle);
@@ -212,6 +249,9 @@
   --text-heading-sm: 1.125rem; /* 18px: section titles */
   --text-heading-sm--line-height: 1.4;
   --text-heading-sm--font-weight: 600;
+  --text-heading-2xs: 0.9375rem; /* 15px: drawer section titles */
+  --text-heading-2xs--line-height: 1.4;
+  --text-heading-2xs--font-weight: 700;
   --text-heading-xs: 1rem; /* 16px: card titles */
   --text-heading-xs--line-height: 1.5;
   --text-heading-xs--font-weight: 700;
@@ -428,7 +468,7 @@
   animation: sn-slide-out-left var(--sn-duration-base) var(--sn-ease-exit) forwards;
 }
 
-/* Right-hand sheet (Playground History drawer below lg). */
+/* Right-hand sheet: Playground History drawer (below lg), API key Request Details drawer. */
 @keyframes sn-slide-in-right {
   from {
     transform: translateX(100%);
@@ -550,6 +590,11 @@
 
 @utility bg-badge-gradient {
   background-image: var(--sn-gradient-badge);
+}
+
+/* API key usage stat cards: faint purple wash from the bottom right. */
+@utility bg-stat-card {
+  background-image: var(--sn-gradient-stat-card);
 }
 
 /* Gradient-filled text, e.g. "Sambanova." in the hero title. */

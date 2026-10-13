@@ -34,6 +34,7 @@ import {
   webinarsFixture,
 } from "../fixtures/dashboard";
 
+import { apiKeyHandlers } from "./api-keys";
 import { playgroundHandlers } from "./playground";
 import {
   api,
@@ -316,5 +317,6 @@ export const handlers = [
     }),
   ),
 
+  ...apiKeyHandlers,
   ...playgroundHandlers,
 ];
