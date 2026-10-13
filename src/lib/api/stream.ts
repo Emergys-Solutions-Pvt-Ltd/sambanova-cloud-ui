@@ -1,6 +1,6 @@
 import { env } from "@/config/env";
 
-import { prepareRequest } from "./client";
+import { isMockBypass, prepareRequest, restartMocks } from "./client";
 import { ApiError, apiErrorFromBody, fetchFailureToApiError } from "./errors";
 
 interface EventStreamOptions {
@@ -96,20 +96,27 @@ export async function* postEventStream(
   path: string,
   { body, signal }: EventStreamOptions,
 ): AsyncGenerator<string, void, undefined> {
-  let response: Response;
-  try {
-    const headers = await prepareRequest();
-    response = await fetch(`${env.apiBaseUrl}${path}`, {
+  const send = async () =>
+    fetch(`${env.apiBaseUrl}${path}`, {
       method: "POST",
       credentials: "include",
       headers: {
-        ...headers,
+        ...(await prepareRequest()),
         Accept: "text/event-stream",
         "Content-Type": "application/json",
       },
       body: JSON.stringify(body),
       signal,
     });
+
+  let response: Response;
+  try {
+    response = await send();
+    // Same recovery as `apiClient`: the MSW worker lost this page, so restart it and resend once.
+    if (isMockBypass(response.status, response.headers.get("content-type"))) {
+      await restartMocks();
+      response = await send();
+    }
   } catch (error) {
     throw fetchFailureToApiError(error, signal);
   }
