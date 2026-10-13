@@ -108,20 +108,13 @@
   --text-color-menu-label: var(--sn-text-menu-label);
   --text-color-disabled: var(--sn-text-disabled);
   --text-color-accent: var(--sn-text-accent);
-  --text-color-strong: var(--sn-text-strong);
-  --text-color-meta-label: var(--sn-text-meta-label);
   --text-color-error-strong: var(--sn-text-error-strong);
 
   /* API key usage: date range, stat cards, key card, Request Details drawer */
   --color-date-range: var(--sn-bg-date-range);
   --text-color-stat-icon: var(--sn-stat-icon-fg);
   --background-color-key-icon: var(--sn-bg-key-icon);
-  --text-color-chip-live: var(--sn-chip-live-text);
-  --background-color-chip-live: var(--sn-chip-live-bg);
-  --border-color-chip-live: var(--sn-chip-live-border);
-  --background-color-drawer: var(--sn-bg-drawer);
   --background-color-detail-box: var(--sn-bg-detail-box);
-  --border-color-detail-box: var(--sn-border-detail-box);
   --background-color-error-box: var(--sn-bg-error-box);
   --border-color-error-box: var(--sn-border-error-box);
   --background-color-meta-divider: var(--sn-border-pill);

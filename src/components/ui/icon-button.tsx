@@ -6,7 +6,6 @@ import { Icon, type IconName } from "./icon/icon";
 
 export type IconButtonVariant =
   | "ghost"
-  | "muted"
   | "contrast"
   | "outline"
   | "solid"
@@ -34,8 +33,6 @@ export type IconButtonSize =
 /** Each variant owns its disabled colour, so `send` can stay on its fill at 40 % (Figma: empty composer). */
 const variants: Record<IconButtonVariant, string> = {
   ghost: "text-secondary hover:bg-hover hover:text-primary disabled:text-disabled",
-  /** Dimmed icon at rest (Figma: the close X of the Request Details drawer). */
-  muted: "text-muted hover:bg-hover hover:text-primary disabled:text-disabled",
   /** Full-strength icon at rest (Figma: the eye in the request log, copy icons). */
   contrast: "text-primary hover:bg-hover disabled:text-disabled",
   outline:

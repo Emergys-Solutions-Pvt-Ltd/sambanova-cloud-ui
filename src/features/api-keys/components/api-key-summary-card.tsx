@@ -16,7 +16,7 @@ function KeyStatusChip({ status }: { status: ApiKeyDetail["status"] }) {
       className={cn(
         "inline-flex h-5.5 min-w-16.5 items-center gap-1.25 rounded-full border pr-2 pl-1.75 text-micro font-medium",
         active
-          ? "border-chip-live bg-chip-live text-chip-live"
+          ? "border-success-border bg-success-bg text-success"
           : "border-error-border bg-error-bg text-error",
       )}
     >
@@ -36,7 +36,7 @@ function Meta({ label, children, first }: { label: string; children: ReactNode; 
           "sm:pl-5 sm:before:absolute sm:before:top-1/2 sm:before:left-0 sm:before:h-3.5 sm:before:w-px sm:before:-translate-y-1/2 sm:before:bg-meta-divider",
       )}
     >
-      <dt className="text-tiny leading-tight font-bold tracking-normal whitespace-nowrap text-meta-label uppercase">
+      <dt className="text-tiny leading-tight font-bold tracking-normal whitespace-nowrap text-subtle uppercase">
         {label}
       </dt>
       <dd className="text-body leading-tight font-medium whitespace-nowrap text-primary">

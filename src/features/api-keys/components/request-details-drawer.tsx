@@ -15,7 +15,7 @@ function DetailRow({ label, children }: { label: string; children: ReactNode }) 
   return (
     <div className="flex items-center justify-between gap-4 text-body-sm">
       <dt className="text-muted">{label}</dt>
-      <dd className="text-right text-strong">{children}</dd>
+      <dd className="text-right text-content">{children}</dd>
     </div>
   );
 }
@@ -32,7 +32,7 @@ function Section({
 }) {
   return (
     <section className={tight ? "flex flex-col gap-2" : "flex flex-col gap-3"}>
-      <h3 className="text-heading-2xs text-strong">{title}</h3>
+      <h3 className="text-heading-2xs text-content">{title}</h3>
       {children}
     </section>
   );
@@ -41,11 +41,11 @@ function Section({
 /** Text in a bordered box with a copy button (Figma: request-container / response-container). */
 function CopyBox({ text, label }: { text: string; label: string }) {
   return (
-    <div className="flex items-start gap-3 rounded-md border border-detail-box bg-detail-box p-4">
+    <div className="flex items-start gap-3 rounded-md border border-default bg-detail-box p-4">
       <p className="min-w-0 flex-1 text-body-sm leading-normal font-normal [overflow-wrap:anywhere] text-muted">
         {text}
       </p>
-      <CopyButton value={text} label={label} size="xs" variant="contrast" className="-m-0.75" />
+      <CopyButton value={text} label={label} size="code" variant="contrast" />
     </div>
   );
 }
@@ -82,11 +82,11 @@ export function RequestDetailsDrawer({ log, onClose }: RequestDetailsDrawerProps
     >
       <div className="flex min-h-0 flex-1 flex-col gap-5 p-6">
         <header className="flex items-center justify-between gap-4">
-          <DrawerTitle className="text-heading-md font-bold text-strong">
+          <DrawerTitle className="text-heading-md font-bold text-content">
             Request Details
           </DrawerTitle>
           <DrawerClose asChild>
-            <IconButton icon="close-thin" aria-label="Close request details" variant="muted" />
+            <IconButton icon="close-thin" aria-label="Close request details" variant="subtle" />
           </DrawerClose>
         </header>
 
@@ -94,7 +94,7 @@ export function RequestDetailsDrawer({ log, onClose }: RequestDetailsDrawerProps
           <div className="-mr-3 flex min-h-0 flex-1 scrollbar-thin flex-col gap-5 overflow-y-auto pr-3">
             <div className="flex items-center justify-between gap-4 py-1 text-body-sm">
               <span className="text-muted">Request ID</span>
-              <span className="flex min-w-0 items-center gap-2 text-strong">
+              <span className="flex min-w-0 items-center gap-2 text-content">
                 <span className="[overflow-wrap:anywhere]">{entry.id}</span>
                 <CopyButton
                   value={entry.id}

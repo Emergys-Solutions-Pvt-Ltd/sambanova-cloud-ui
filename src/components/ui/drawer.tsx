@@ -38,7 +38,7 @@ const sides = {
 const sizes = {
   nav: "w-(--sn-sidebar-width) max-w-[85vw] border-default bg-sidebar",
   panel: "w-72.5 max-w-[85vw] border-field bg-panel",
-  details: "w-105 max-w-full border-default bg-drawer",
+  details: "w-105 max-w-full border-default bg-surface",
 } as const;
 
 /**

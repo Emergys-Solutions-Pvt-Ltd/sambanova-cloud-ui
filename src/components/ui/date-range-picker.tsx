@@ -78,7 +78,7 @@ export function DateRangePicker({
                   aria-current={active || undefined}
                   onClick={() => apply({ kind: "preset", preset: id })}
                   className={cn(
-                    "flex min-h-9 w-full items-center gap-2 rounded-item py-2 pr-1 pl-4 text-left text-body text-strong",
+                    "flex min-h-9 w-full items-center gap-2 rounded-item py-2 pr-1 pl-4 text-left text-body text-content",
                     "transition-colors duration-(--sn-duration-fast) ease-standard hover:bg-hover",
                   )}
                 >

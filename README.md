@@ -87,7 +87,7 @@ src/
     api/                  Axios client, ApiError, PaginatedResponse<T>
     query-client.ts       TanStack QueryClient defaults
     query-keys.ts         Query key factory
-  mocks/                  MSW worker, handlers, fixtures, scenario config
+  mocks/                  MSW worker, handlers (one file per module), db, fixtures, scenario config
   stores/                 Zustand stores
   styles/                 tokens.css (design tokens), globals.css (Tailwind wiring), fonts/
   types/                  Shared domain types
@@ -217,12 +217,23 @@ With `NEXT_PUBLIC_USE_MOCKS=true`, the browser service worker (`public/mockServi
 | `GET /projects/:id`                                  | Single project                                                                                                                                             |
 | `GET /projects/:id/examples`                         | Paginated example list (`page`, `pageSize`)                                                                                                                |
 | `POST /projects/:id/examples`                        | Create an item (422 when name is empty)                                                                                                                    |
+| `GET /projects/:id/api-keys`                         | Paginated keys (`page`, `pageSize`, `search`, `status`); the Default project has 1,000 generated keys                                                      |
+| `POST /projects/:id/api-keys`                        | Create a key (the secret comes back once; 409 duplicate name, 422 invalid name)                                                                            |
+| `PATCH /projects/:id/api-keys/:keyId`                | Rename and/or enable or disable (409 duplicate name)                                                                                                       |
+| `POST /projects/:id/api-keys/:keyId/rotate`          | New secret; the old one works for the chosen grace period                                                                                                  |
+| `DELETE /projects/:id/api-keys/:keyId`               | Delete a key (204)                                                                                                                                         |
+| `GET /projects/:id/api-keys/:keyId`                  | One key with its creator (404 unknown key)                                                                                                                 |
+| `GET /projects/:id/api-keys/:keyId/usage`            | Requests, input and output tokens and estimated spend for `from` to `to`                                                                                   |
+| `GET /projects/:id/api-keys/:keyId/usage/series`     | One point per day of the range (input, output and cached tokens) for the charts                                                                            |
+| `GET /projects/:id/api-keys/:keyId/requests`         | Paginated request log for `from` to `to`, newest first                                                                                                     |
 | `POST /v1/chat/completions`                          | Streamed (SSE) canned answer with a final `usage` frame; charges credits. 401 guest, 402 no credits, 404 unknown model, 422 last message not from the user |
 | `GET /projects/:id/playground/conversations`         | History summaries, newest first (seeded on first read)                                                                                                     |
 | `GET /projects/:id/playground/conversations/:cid`    | One saved chat (404 "Chat not found.")                                                                                                                     |
 | `PUT /projects/:id/playground/conversations/:cid`    | Create or replace a chat (422 on empty title or no turns)                                                                                                  |
 | `PATCH /projects/:id/playground/conversations/:cid`  | Rename (1 to 80 characters); keeps its place in the list                                                                                                   |
 | `DELETE /projects/:id/playground/conversations/:cid` | Delete (204)                                                                                                                                               |
+
+Handlers live in `src/mocks/handlers/`: `index.ts` (auth, billing, projects, dashboard data), `api-keys.ts`, `playground.ts`, and `shared.ts` with the helpers every file uses (`api`, `withSession`, `findOwnProject`, `notFound`, `validationError`). A new module adds its own file and spreads its array into `handlers`. API keys you create or edit are kept per account and project in localStorage (`sn:mock-api-keys`, `sn:mock-api-key-patches`); a key's request history is generated from its ID and the day, so it needs no storage.
 
 Playground history is kept per account and project in localStorage (`sn:mock-playground`). Streams send one word per frame; the pause is `tokenDelayMs` scaled by the model's speed rating, and `max_tokens` cuts the answer short (`finish_reason: "length"`).
 
