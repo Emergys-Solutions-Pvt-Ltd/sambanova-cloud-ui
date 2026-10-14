@@ -4,6 +4,7 @@ import { type ComponentPropsWithRef, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 import { Icon, type IconName } from "./icon/icon";
+import { MarqueeArrow } from "./marquee-arrow";
 
 /**
  * Variants follow Figma › Components › Buttons (Active / Hover / Disable):
@@ -101,6 +102,11 @@ interface CommonProps {
   size?: ButtonSize;
   leftIcon?: IconName;
   rightIcon?: IconName;
+  /**
+   * "marquee" (Figma: hero banner buttons) slides `rightIcon` through a clipped 20px box when the
+   * button is hovered. The box overhangs by 2px on each side, so the button keeps its size.
+   */
+  rightIconMotion?: "marquee";
   /** Pixel size of `leftIcon` / `rightIcon`. Default 16. */
   iconSize?: number;
   fullWidth?: boolean;
@@ -139,6 +145,7 @@ export function Button(props: ButtonProps) {
     size = "md",
     leftIcon,
     rightIcon,
+    rightIconMotion,
     iconSize = 16,
     fullWidth,
     radius = "sm",
@@ -153,6 +160,7 @@ export function Button(props: ButtonProps) {
     radius === "md" ? variants[variant].replace("rounded-sm", "rounded-md") : variants[variant],
     sizeClasses(variant, size),
     fullWidth && "w-full",
+    rightIconMotion === "marquee" && "group/button",
     className,
   );
 
@@ -160,7 +168,13 @@ export function Button(props: ButtonProps) {
     <>
       {loading ? <Spinner /> : leftIcon && <Icon name={leftIcon} size={iconSize} />}
       {children}
-      {!loading && rightIcon && <Icon name={rightIcon} size={iconSize} />}
+      {!loading &&
+        rightIcon &&
+        (rightIconMotion === "marquee" ? (
+          <MarqueeArrow trigger="button" icon={rightIcon} className="-m-0.5" />
+        ) : (
+          <Icon name={rightIcon} size={iconSize} />
+        ))}
     </>
   );
 
