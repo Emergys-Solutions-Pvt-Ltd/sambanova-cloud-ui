@@ -629,6 +629,13 @@
   );
 }
 
+/* Onboarding step connector: the Figma dashed wave with its arrowhead, filled with the themed token. */
+@utility steps-connector {
+  background-color: var(--sn-steps-connector);
+  -webkit-mask: url("/illustrations/onboarding-connector.svg") center / 100% 100% no-repeat;
+  mask: url("/illustrations/onboarding-connector.svg") center / 100% 100% no-repeat;
+}
+
 /* Recommended-model card glow: the curved wedge from Figma ("Vector 38"), 179.5 x 202.5, drawn from the top right. */
 @utility glow-wedge-box {
   width: 179.5px;

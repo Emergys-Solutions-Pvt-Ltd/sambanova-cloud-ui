@@ -369,6 +369,7 @@
   --sn-text-accent: var(--sn-purple-500);
   --sn-border-input: var(--sn-ink-stroke-2);
   --sn-border-dashed: var(--sn-gray-800);
+  --sn-steps-connector: var(--sn-gray-700); /* Figma: onboarding step connector */
   --sn-border-pill: var(--sn-purple-800);
   --sn-border-social: var(--sn-gray-600);
   --sn-border-field: var(--sn-gray-800);
@@ -610,6 +611,7 @@
   --sn-text-accent: var(--sn-purple-700);
   --sn-border-input: var(--sn-gray-300);
   --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-steps-connector: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-pill: var(--sn-purple-400); /* GUESS */
   --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
@@ -853,6 +855,7 @@
     --sn-text-accent: var(--sn-purple-700);
     --sn-border-input: var(--sn-gray-300);
     --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-steps-connector: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-pill: var(--sn-purple-400); /* GUESS */
     --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
