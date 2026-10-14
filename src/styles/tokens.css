@@ -307,8 +307,8 @@
   --sn-code-keyword: var(--sn-syntax-purple-dark);
 
   /* Gradients */
-  --sn-gradient-hero: linear-gradient(90deg, #131313 0%, #070614 33%, #070714 100%);
-  --sn-gradient-hero-accent: linear-gradient(104deg, #ebab0e 0%, #c881ff 100%);
+  --sn-gradient-hero: linear-gradient(89.77deg, #131313 0%, #070614 32.68%, #070714 99.96%);
+  --sn-gradient-hero-accent: linear-gradient(138.56deg, #ebab0e 6.81%, #c881ff 46.8%);
   --sn-gradient-promo: radial-gradient(
     120% 140% at 15% 0%,
     #3d115a 0%,
@@ -571,7 +571,7 @@
   --sn-code-keyword: var(--sn-syntax-purple-light);
 
   --sn-gradient-hero: linear-gradient(90deg, #ffffff 0%, #f5ebfe 25%, #f3ebfe 100%);
-  --sn-gradient-hero-accent: linear-gradient(104deg, #db7504 0%, #8335bb 100%);
+  --sn-gradient-hero-accent: linear-gradient(138.56deg, #db7504 6.81%, #8335bb 46.8%);
   --sn-gradient-promo: linear-gradient(110deg, #ffffff 0%, #ead8ff 100%);
   --sn-gradient-playground:
     radial-gradient(60% 55% at 30% 0%, rgb(152 71 214 / 0.14) 0%, transparent 70%),
@@ -814,7 +814,7 @@
     --sn-code-keyword: var(--sn-syntax-purple-light);
 
     --sn-gradient-hero: linear-gradient(90deg, #ffffff 0%, #f5ebfe 25%, #f3ebfe 100%);
-    --sn-gradient-hero-accent: linear-gradient(104deg, #db7504 0%, #8335bb 100%);
+    --sn-gradient-hero-accent: linear-gradient(138.56deg, #db7504 6.81%, #8335bb 46.8%);
     --sn-gradient-promo: linear-gradient(110deg, #ffffff 0%, #ead8ff 100%);
     --sn-gradient-playground:
       radial-gradient(60% 55% at 30% 0%, rgb(152 71 214 / 0.14) 0%, transparent 70%),
