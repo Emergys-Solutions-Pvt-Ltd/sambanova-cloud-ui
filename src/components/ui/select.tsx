@@ -5,7 +5,7 @@ import { type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
-import { menuItemClasses } from "./dropdown-menu";
+import { dropdownLabelClasses, dropdownRowClasses } from "./dropdown-menu";
 import { Icon } from "./icon/icon";
 import { fieldDropdownSurface, menuSurfaceAboveModal } from "./popover";
 
@@ -109,7 +109,7 @@ export function Select({
             {groups.map((group, index) => (
               <SelectPrimitive.Group key={group.label ?? index}>
                 {group.label && (
-                  <SelectPrimitive.Label className="px-4 pt-2 pb-1 text-caption tracking-caps text-menu-label uppercase">
+                  <SelectPrimitive.Label className={dropdownLabelClasses}>
                     {group.label}
                   </SelectPrimitive.Label>
                 )}
@@ -117,17 +117,14 @@ export function Select({
                   <SelectPrimitive.Item
                     key={option.value}
                     value={option.value}
-                    className={cn(
-                      menuItemClasses,
-                      "justify-between data-[state=checked]:text-primary",
-                    )}
+                    className={cn(dropdownRowClasses, "justify-between")}
                   >
                     <span className="flex min-w-0 items-center gap-2">
                       {option.leading}
                       <SelectPrimitive.ItemText>{option.label}</SelectPrimitive.ItemText>
                     </span>
                     <SelectPrimitive.ItemIndicator>
-                      <Icon name="check" size="sm" />
+                      <Icon name="check" size={18} />
                     </SelectPrimitive.ItemIndicator>
                   </SelectPrimitive.Item>
                 ))}

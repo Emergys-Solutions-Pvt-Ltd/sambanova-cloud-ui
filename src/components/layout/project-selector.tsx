@@ -6,7 +6,7 @@ import { type KeyboardEvent, useEffect, useId, useMemo, useRef, useState } from 
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon/icon";
-import { menuItemClasses } from "@/components/ui/dropdown-menu";
+import { dropdownLabelClasses, dropdownRowClasses } from "@/components/ui/dropdown-menu";
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip } from "@/components/ui/tooltip";
@@ -80,7 +80,7 @@ function ProjectList({ projects, activeId, onSelect }: ProjectListProps) {
 
   return (
     <>
-      <div className="relative px-1 pb-1">
+      <div className="relative px-2 pb-1">
         <Icon
           name="search"
           size="sm"
@@ -118,7 +118,7 @@ function ProjectList({ projects, activeId, onSelect }: ProjectListProps) {
               onMouseMove={() => setCursor(index)}
               onClick={() => onSelect(project)}
               className={cn(
-                menuItemClasses,
+                dropdownRowClasses,
                 "justify-between",
                 index === cursor && "bg-hover text-primary",
               )}
@@ -235,9 +235,7 @@ function ProjectSwitcher({ collapsed }: { collapsed?: boolean }) {
         }}
         className="w-(--radix-popover-trigger-width) min-w-64"
       >
-        <p className="px-4 pt-2 pb-1 text-caption tracking-caps text-menu-label uppercase">
-          Projects
-        </p>
+        <p className={dropdownLabelClasses}>Projects</p>
 
         {loading && (
           <div aria-busy="true" aria-label="Loading projects" className="flex flex-col gap-2 p-2">
@@ -270,13 +268,13 @@ function ProjectSwitcher({ collapsed }: { collapsed?: boolean }) {
         <div role="separator" className="my-1 h-px bg-menu-line" />
 
         <PopoverClose asChild>
-          <Link href={routes.projects} className={menuItemClasses}>
+          <Link href={routes.projects} className={dropdownRowClasses}>
             <Icon name="layers-subtract" size="sm" />
             Manage Projects
           </Link>
         </PopoverClose>
         <PopoverClose asChild>
-          <button type="button" onClick={openCreateProject} className={menuItemClasses}>
+          <button type="button" onClick={openCreateProject} className={dropdownRowClasses}>
             <Icon name="plus" size="sm" />
             Create project
           </button>

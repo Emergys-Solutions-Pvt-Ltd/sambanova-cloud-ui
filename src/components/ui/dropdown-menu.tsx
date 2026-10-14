@@ -67,7 +67,18 @@ export function DropdownMenuSeparator({
   return <MenuPrimitive.Separator className={cn("my-1 h-px bg-menu-line", className)} {...rest} />;
 }
 
-/** Row geometry from Figma: 36px high, r10, 16px left / 8px right padding, 8px gap. */
+/** Option row of the Figma "Dropdown Menu": 36px high, edge to edge, 16px sides, 14px Medium. */
+export const dropdownRowClasses =
+  "flex min-h-9 w-full cursor-pointer items-center gap-2 px-4 py-2 " +
+  "text-body leading-5 font-medium text-menu-item outline-none select-none " +
+  "data-[highlighted]:bg-hover data-[highlighted]:text-primary " +
+  "data-[disabled]:pointer-events-none data-[disabled]:text-disabled";
+
+/** Group heading of the Figma "Dropdown Menu": 28px row, 12px Medium capitals. */
+export const dropdownLabelClasses =
+  "px-4 py-1 text-caption leading-5 font-medium text-menu-label uppercase";
+
+/** Compare Models picker rows (inset, r10): 36px high, 16px left / 8px right padding, 8px gap. */
 export const menuItemClasses =
   "flex min-h-9 w-full cursor-pointer items-center gap-2 rounded-item py-2 pr-2 pl-4 " +
   "text-body text-secondary outline-none select-none " +
@@ -86,7 +97,7 @@ export const compactMenuItemClasses =
   "text-content outline-none select-none data-[highlighted]:bg-option-hover";
 
 const itemClasses: Record<DropdownMenuSurface, string> = {
-  menu: menuItemClasses,
+  menu: dropdownRowClasses,
   flat: flatMenuItemClasses,
   compact: compactMenuItemClasses,
 };
@@ -103,8 +114,8 @@ export function DropdownMenuItem({
 }) {
   const classes = destructive
     ? itemClasses[variant]
-        // menu rows are text-secondary, flat and compact rows text-content
-        .replace("text-secondary", "text-error")
+        // menu rows are text-menu-item, flat and compact rows text-content
+        .replace("text-menu-item", "text-error")
         .replace("text-content", "text-error")
         .replace("data-[highlighted]:text-primary", "data-[highlighted]:text-error")
     : itemClasses[variant];

@@ -18,6 +18,7 @@
   --background-color-canvas: var(--sn-bg-canvas);
   --background-color-surface: var(--sn-bg-surface);
   --background-color-surface-raised: var(--sn-bg-surface-raised);
+  --background-color-dropdown: var(--sn-bg-dropdown);
   --background-color-sidebar: var(--sn-bg-sidebar);
   --background-color-input: var(--sn-bg-input);
   --background-color-code: var(--sn-bg-code);
@@ -54,6 +55,7 @@
   --border-color-control: var(--sn-border-control);
   --border-color-focus: var(--sn-border-focus);
   --border-color-menu: var(--sn-border-menu);
+  --border-color-dropdown: var(--sn-border-dropdown);
   --border-color-profile: var(--sn-border-profile);
   --border-color-disabled: var(--sn-border-disabled);
   --border-color-input: var(--sn-border-input);
@@ -106,6 +108,7 @@
   --text-color-on-brand: var(--sn-text-on-brand);
   --text-color-nav-active: var(--sn-text-nav-active);
   --text-color-menu-label: var(--sn-text-menu-label);
+  --text-color-menu-item: var(--sn-text-menu-item); /* Dropdown Menu option */
   --text-color-disabled: var(--sn-text-disabled);
   --text-color-accent: var(--sn-text-accent);
   --text-color-error-strong: var(--sn-text-error-strong);
@@ -316,6 +319,7 @@
   --shadow-md: var(--sn-shadow-md);
   --shadow-lg: var(--sn-shadow-lg);
   --shadow-card-inset: var(--sn-shadow-card-inset);
+  --shadow-card-glow: var(--sn-shadow-card-glow);
   --shadow-glow-brand: var(--sn-glow-brand);
   --shadow-glow-focus: var(--sn-glow-focus);
   /* Playground. A "no shadow" --sn-shadow-* value is a transparent zero shadow
@@ -595,6 +599,27 @@
 /* API key usage stat cards: faint purple wash from the bottom right. */
 @utility bg-stat-card {
   background-image: var(--sn-gradient-stat-card);
+}
+
+/* Cuts an element down to its padding ring: give it `p-px` (or a thicker padding) and a background. */
+@utility ring-mask {
+  -webkit-mask:
+    linear-gradient(currentColor 0 0) content-box,
+    linear-gradient(currentColor 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(currentColor 0 0) content-box exclude,
+    linear-gradient(currentColor 0 0);
+}
+
+/* "Earn Free Credits" hover outline: the stroke gradient. */
+@utility bg-promo-border {
+  background-image: var(--sn-gradient-promo-border);
+}
+
+/* Rim light of a Figma glass circle (the rocket chip). */
+@utility bg-glass-rim {
+  background-image: var(--sn-gradient-glass-rim);
 }
 
 /* Gradient-filled text, e.g. "Sambanova." in the hero title. */

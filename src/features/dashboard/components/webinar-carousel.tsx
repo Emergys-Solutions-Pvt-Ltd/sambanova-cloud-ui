@@ -41,7 +41,7 @@ export function WebinarCarousel() {
       aria-roledescription="carousel"
       aria-label="Upcoming webinars"
       padding="lg"
-      className="flex flex-col gap-5 sm:min-h-59.75 sm:flex-row sm:pb-4.5"
+      className="flex flex-col gap-5 shadow-card-glow sm:min-h-59.75 sm:flex-row sm:pb-4.5"
     >
       {/* The 201.5px picture is 2.5px taller than the 199px column, so it hangs below its slot (-mb) like in Figma. */}
       <div className="relative h-[201.5px] w-[201.286px] shrink-0 self-center overflow-hidden rounded-md border border-switcher-border sm:-mb-[2.5px] sm:self-start">
@@ -55,7 +55,7 @@ export function WebinarCarousel() {
         <span aria-hidden="true" className="absolute inset-0 bg-tint-promo" />
       </div>
 
-      <div className="relative flex min-w-0 flex-1 flex-col sm:max-w-115">
+      <div className="relative flex min-w-0 flex-1 flex-col sm:pr-[4.7px]">
         <article
           aria-roledescription="slide"
           aria-label={`${index + 1} of ${count}`}

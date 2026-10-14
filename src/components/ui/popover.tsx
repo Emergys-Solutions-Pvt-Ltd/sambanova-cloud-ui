@@ -11,9 +11,12 @@ export const PopoverAnchor = PopoverPrimitive.Anchor;
 export const PopoverClose = PopoverPrimitive.Close;
 
 const menuSurfaceBase =
-  "rounded-lg border border-subtle bg-menu p-1 text-primary shadow-lg data-[state=open]:animate-pop-in";
+  "overflow-hidden rounded-lg border border-dropdown bg-dropdown pt-2 pb-1.5 text-primary shadow-lg data-[state=open]:animate-pop-in";
 
-/** Surface shared with DropdownMenuContent: Figma "Dropdown Menu" (r12, raised, large shadow). */
+/**
+ * Surface shared with DropdownMenuContent: Figma "Dropdown Menu" (r12, near-black fill, gray-800 stroke,
+ * large shadow, 8px above the first row and 6px below the last; rows run edge to edge).
+ */
 export const menuSurface = `z-dropdown ${menuSurfaceBase}`;
 
 /** Same surface layered above modal dialogs, for menus that open from inside one (e.g. a Select in a form). */

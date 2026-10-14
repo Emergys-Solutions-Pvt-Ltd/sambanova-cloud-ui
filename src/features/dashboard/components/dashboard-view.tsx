@@ -14,7 +14,7 @@ export function DashboardView() {
       <HeroBanner />
       <OnboardingSteps />
       <UsageOverview />
-      <div className="grid gap-6 lg:grid-cols-[1fr_calc(var(--spacing)*98)]">
+      <div className="grid gap-6 xl:grid-cols-[1fr_calc(var(--spacing)*98)]">
         <WebinarCarousel />
         <FreeCreditsCard />
       </div>
