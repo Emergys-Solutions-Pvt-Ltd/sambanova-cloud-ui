@@ -5,8 +5,19 @@ import { cn } from "@/lib/cn";
 import { Icon, type IconName } from "./icon/icon";
 
 export type IconButtonVariant =
-  "ghost" | "outline" | "solid" | "surface" | "subtle" | "composer" | "send" | "header" | "bare";
+  | "ghost"
+  | "contrast"
+  | "outline"
+  | "solid"
+  | "surface"
+  | "subtle"
+  | "composer"
+  | "send"
+  | "header"
+  | "bare";
 export type IconButtonSize =
+  | "2xs"
+  | "xs"
   | "sm"
   | "md"
   | "field"
@@ -22,6 +33,8 @@ export type IconButtonSize =
 /** Each variant owns its disabled colour, so `send` can stay on its fill at 40 % (Figma: empty composer). */
 const variants: Record<IconButtonVariant, string> = {
   ghost: "text-secondary hover:bg-hover hover:text-primary disabled:text-disabled",
+  /** Full-strength icon at rest (Figma: the eye in the request log, copy icons). */
+  contrast: "text-primary hover:bg-hover disabled:text-disabled",
   outline:
     "border border-button-outline text-secondary hover:bg-button-secondary-hover hover:text-primary disabled:text-disabled",
   solid:
@@ -45,6 +58,10 @@ const variants: Record<IconButtonVariant, string> = {
 };
 
 const sizes: Record<IconButtonSize, { box: string; icon: number }> = {
+  /** Inline 20px target with a 16px icon (copy icon beside a value). */
+  "2xs": { box: "size-5 rounded-sm", icon: 16 },
+  /** Compact 24px target with an 18px icon (table row actions). */
+  xs: { box: "size-6 rounded-sm", icon: 18 },
   sm: { box: "size-8 rounded-sm", icon: 16 },
   md: { box: "size-9 rounded-sm", icon: 20 },
   /** Same height as a 38px form field. */

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { type ReactNode } from "react";
+import { type ReactNode, Suspense } from "react";
 
 import { Avatar } from "@/components/ui/avatar";
 import { Badge, type BadgeVariant } from "@/components/ui/badge";
@@ -43,6 +43,7 @@ import {
   TextareaDemo,
   ThemeSwitch,
   TooltipSurfaceDemo,
+  UsageComponentsDemo,
 } from "./token-preview-client";
 
 export const metadata: Metadata = { title: "Design tokens" };
@@ -463,6 +464,15 @@ export default function TokensPage() {
               <Skeleton className="h-8 w-20" />
               <Skeleton radius="md" className="h-8 w-20" />
               <Skeleton radius="full" className="size-8" />
+            </div>
+            <div className="flex flex-wrap items-start gap-3">
+              <span className="w-24 text-caption text-muted">API key usage</span>
+              <div className="min-w-0 flex-1">
+                {/* The date picker starts from today, which is only known at request time. */}
+                <Suspense fallback={null}>
+                  <UsageComponentsDemo />
+                </Suspense>
+              </div>
             </div>
             <div className="flex flex-wrap items-start gap-3">
               <span className="w-24 text-caption text-muted">toast</span>

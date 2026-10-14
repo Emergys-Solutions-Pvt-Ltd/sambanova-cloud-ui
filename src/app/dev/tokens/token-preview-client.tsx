@@ -2,8 +2,14 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 
+import { BackButton } from "@/components/ui/back-button";
+import { Badge } from "@/components/ui/badge";
+import { ChartCard, ChartLegend } from "@/components/ui/chart-card";
+import { CopyButton } from "@/components/ui/copy-button";
+import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { Icon } from "@/components/ui/icon/icon";
 import { iconNames } from "@/components/ui/icon/icon-data.generated";
+import { LineChart } from "@/components/ui/line-chart";
 import { Combobox } from "@/components/ui/combobox";
 import {
   DropdownMenu,
@@ -20,6 +26,8 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea, TextareaField } from "@/components/ui/textarea";
 import { Tooltip, TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/cn";
+import { type DateRangeSelection, startOfDay } from "@/lib/date-range";
+import { formatCompactNumber } from "@/lib/format";
 import {
   selectSetTheme,
   selectTheme,
@@ -410,5 +418,159 @@ export function DropdownMenuSurfacesDemo() {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
+  );
+}
+
+/** Static sample for the chart demo: 12 days of tokens (millions) for two series. */
+const sampleDays = [
+  "Jun 25",
+  "Jun 26",
+  "Jun 27",
+  "Jun 28",
+  "Jun 29",
+  "Jun 30",
+  "Jul 1",
+  "Jul 2",
+  "Jul 3",
+  "Jul 4",
+  "Jul 5",
+  "Jul 6",
+];
+const sampleInput = [2.3, 2.7, 3.1, 3.3, 2.9, 2.0, 1.2, 0.8, 0.5, 0.5, 1.0, 2.2];
+const sampleOutput = [3.4, 4.4, 4.9, 5.4, 5.1, 4.2, 3.3, 2.3, 1.6, 1.4, 2.5, 5.0];
+const sampleCategories = sampleDays.map((label) => ({ label, title: `${label}, 2026` }));
+const formatSampleTokens = (value: number) => formatCompactNumber(value, 2);
+
+/** The API key usage screens' own pieces: date range picker, back button, chips, icon buttons, rich tooltip and a line chart. */
+export function UsageComponentsDemo() {
+  const [today] = useState(() => startOfDay(new Date()));
+  const [selection, setSelection] = useState<DateRangeSelection>({
+    kind: "preset",
+    preset: "last-30-days",
+  });
+
+  return (
+    <TooltipProvider delayDuration={150}>
+      <div className="flex w-full flex-col gap-4">
+        <div className="flex flex-wrap items-center gap-3">
+          <BackButton href="/dev/tokens" label="Back to the token catalog" />
+          <DateRangePicker
+            aria-label="Date range"
+            today={today}
+            selection={selection}
+            onSelectionChange={setSelection}
+            className="w-60.75"
+          />
+          <Badge variant="success" shape="capsule">
+            Success
+          </Badge>
+          <Badge variant="error" shape="capsule">
+            Error
+          </Badge>
+          <IconButton icon="eye" size="xs" variant="contrast" aria-label="View details" />
+          <IconButton icon="close-thin" variant="subtle" aria-label="Close" />
+          <CopyButton value="req_01J8H7K2QJ8XSZ9V3Y1T7E6R4" size="2xs" variant="contrast" />
+          <CopyButton value="Copied text" size="code" variant="contrast" label="Copy text" />
+          <Tooltip
+            variant="rich"
+            side="top"
+            content="You will be able to use both the old and new key during this time."
+          >
+            <button type="button" className="text-secondary" aria-label="About the grace period">
+              <Icon name="info-circle" size={18} />
+            </button>
+          </Tooltip>
+        </div>
+        <ChartCard
+          title="Input & Output Tokens"
+          legend={
+            <ChartLegend
+              items={[
+                { label: "Input Tokens", tone: "input" },
+                { label: "Output Tokens", tone: "output" },
+              ]}
+            />
+          }
+        >
+          <LineChart
+            label="Sample input and output tokens"
+            variant="wide"
+            insetStart={50}
+            insetEnd={18}
+            categories={sampleCategories}
+            series={[
+              {
+                id: "input",
+                label: "Input Tokens",
+                tone: "input",
+                values: sampleInput.map((v) => v * 1e6),
+              },
+              {
+                id: "output",
+                label: "Output Tokens",
+                tone: "output",
+                values: sampleOutput.map((v) => v * 1e6),
+              },
+            ]}
+            formatTick={formatSampleTokens}
+            formatValue={formatSampleTokens}
+          />
+        </ChartCard>
+        <div className="grid gap-4">
+          <ChartCard
+            compact
+            title="Cached Tokens"
+            legend={
+              <ChartLegend
+                items={[{ label: "Last 30 days", tone: "cached" }]}
+                labelTone="primary"
+              />
+            }
+          >
+            <LineChart
+              label="Sample cached tokens"
+              variant="compact"
+              categories={sampleCategories}
+              series={[
+                {
+                  id: "cached",
+                  label: "Cached Tokens",
+                  tone: "cached",
+                  values: sampleInput.map((v) => v * 0.4e6),
+                },
+              ]}
+              formatTick={formatSampleTokens}
+              formatValue={formatSampleTokens}
+            />
+          </ChartCard>
+          <ChartCard
+            compact
+            title="Prompt Input Tokens"
+            legend={
+              <ChartLegend
+                items={[{ label: "Last 30 days", tone: "prompt" }]}
+                labelTone="primary"
+              />
+            }
+          >
+            <LineChart
+              label="Sample prompt input tokens"
+              variant="compact"
+              categories={sampleCategories}
+              series={[
+                {
+                  id: "prompt",
+                  label: "Prompt Input Tokens",
+                  tone: "prompt",
+                  values: sampleOutput.map((v) => v * 0.3e6),
+                },
+              ]}
+              formatTick={formatSampleTokens}
+              formatValue={formatSampleTokens}
+            />
+          </ChartCard>
+        </div>
+      </div>
+    </TooltipProvider>
   );
 }

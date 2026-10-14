@@ -7,7 +7,7 @@ import { cn } from "@/lib/cn";
 
 import { menuItemClasses } from "./dropdown-menu";
 import { Icon } from "./icon/icon";
-import { menuSurfaceAboveModal } from "./popover";
+import { fieldDropdownSurface, menuSurfaceAboveModal } from "./popover";
 
 export interface SelectOption {
   value: string;
@@ -34,11 +34,13 @@ export interface SelectProps {
   className?: string;
   contentClassName?: string;
   disabled?: boolean;
-  /** "field" matches form inputs in modals (37px, r8, input stroke); "compact" is the 38px Quickstart select. */
-  variant?: "compact" | "field";
+  /** "field" matches form inputs in modals (37px, r8, input stroke); "toolbar" is the table filter (37px, r8, table-control stroke); "compact" is the 38px Quickstart select. */
+  variant?: "compact" | "field" | "toolbar";
   id?: string;
   onBlur?: () => void;
   invalid?: boolean;
+  /** Color of the placeholder text: "muted" (default) or "primary" (Figma: Grace Period shows white "Select"). */
+  placeholderTone?: "muted" | "primary";
 }
 
 /** 38px field select (Figma: Quickstart model and endpoint selectors). Radix supplies the behaviour. */
@@ -55,6 +57,7 @@ export function Select({
   id,
   onBlur,
   invalid,
+  placeholderTone = "muted",
   "aria-label": ariaLabel,
 }: SelectProps) {
   return (
@@ -65,11 +68,18 @@ export function Select({
         aria-invalid={invalid ? true : undefined}
         onBlur={onBlur}
         className={cn(
-          "inline-flex w-full items-center justify-between gap-3 border bg-input text-body text-primary outline-none",
-          variant === "field" ? "h-9.25 rounded-md pr-2.5 pl-4" : "h-9.5 rounded-sm px-2.5",
-          invalid ? "border-error-border" : "border-input",
+          "inline-flex w-full items-center justify-between gap-3 border text-body text-primary outline-none",
+          variant === "field" && "h-9.25 rounded-md bg-input pr-2.5 pl-4",
+          variant === "toolbar" && "h-9.25 rounded-md bg-table-head px-4",
+          variant === "compact" && "h-9.5 rounded-sm bg-input px-2.5",
+          invalid
+            ? "border-error-border"
+            : variant === "toolbar"
+              ? "border-table-control"
+              : "border-input",
           "transition-colors duration-(--sn-duration-fast) ease-standard hover:bg-hover",
-          "disabled:cursor-not-allowed disabled:text-disabled data-[placeholder]:text-muted",
+          "disabled:cursor-not-allowed disabled:text-disabled",
+          placeholderTone === "muted" && "data-[placeholder]:text-muted",
           className,
         )}
       >
@@ -90,7 +100,7 @@ export function Select({
           sideOffset={6}
           collisionPadding={12}
           className={cn(
-            menuSurfaceAboveModal,
+            variant === "field" ? fieldDropdownSurface : menuSurfaceAboveModal,
             "min-w-(--radix-select-trigger-width) overflow-hidden",
             contentClassName,
           )}

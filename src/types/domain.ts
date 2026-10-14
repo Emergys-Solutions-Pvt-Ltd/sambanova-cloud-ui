@@ -66,6 +66,128 @@ export interface PurchaseCreditsResponse {
   purchase: CreditPurchase;
 }
 
+/** How long the old secret keeps working after a rotation. */
+export type GracePeriod = "immediately" | "1h" | "24h" | "3d" | "7d";
+
+export interface RotateApiKeyInput {
+  gracePeriod: GracePeriod;
+}
+
+/** Fields that can change on an existing key. */
+export interface UpdateApiKeyInput {
+  name?: string;
+  status?: ApiKeyStatus;
+}
+
+export interface CreateApiKeyInput {
+  name: string;
+}
+
+/** What the API returns when a key is created. `secret` is shown only this once; the UI does not display it yet. */
+export interface CreatedApiKey extends ApiKey {
+  secret: string;
+}
+
+export type ApiKeyStatus = "active" | "disabled";
+export type ApiKeyStatusFilter = "all" | ApiKeyStatus;
+
+/** Table state sent to `GET /projects/:id/api-keys`. */
+export interface ApiKeyListParams {
+  /** 1-based. */
+  page: number;
+  pageSize: number;
+  /** Matches the key name or ID; empty means no search. */
+  search: string;
+  status: ApiKeyStatusFilter;
+}
+
+/** An API key as listed (the secret itself is only shown once, when it is created). */
+export interface ApiKey {
+  id: string;
+  name: string;
+  /** Last characters of the key, for recognising it in the list. */
+  lastFour: string;
+  status: ApiKeyStatus;
+  createdAt: string;
+  lastUsedAt: string | null;
+  /** Set once the key has been renamed; the table marks such keys "Edited". */
+  renamedAt?: string | null;
+  /** Set when the key was rotated; the previous secret stops working at `previousKeyExpiresAt`. */
+  rotatedAt?: string | null;
+  previousKeyExpiresAt?: string | null;
+}
+
+/** A key with the extra details the usage page shows (`GET /projects/:id/api-keys/:keyId`). */
+export interface ApiKeyDetail extends ApiKey {
+  /** Name of the member who created the key. */
+  createdBy: string;
+}
+
+/** Day range of the usage endpoints: local "YYYY-MM-DD" dates, both ends included. */
+export interface UsageRangeParams {
+  from: string;
+  to: string;
+}
+
+/** Totals for one key over a day range (`GET .../api-keys/:keyId/usage`). */
+export interface ApiKeyUsageStats {
+  totalRequests: number;
+  inputTokens: number;
+  outputTokens: number;
+  /** In USD. */
+  estimatedSpend: number;
+}
+
+/** Token usage of one key on one day, for the charts (`GET .../api-keys/:keyId/usage/series`). */
+export interface ApiKeyUsageSeriesPoint {
+  /** Local day, "YYYY-MM-DD". */
+  date: string;
+  inputTokens: number;
+  outputTokens: number;
+  /** The part of the input served from cache. */
+  cachedTokens: number;
+}
+
+/** Every day of the requested range in order, days without requests included (all zeros). */
+export interface ApiKeyUsageSeries {
+  points: ApiKeyUsageSeriesPoint[];
+}
+
+export type ApiKeyRequestStatus = "success" | "error";
+
+export interface ApiKeyRequestError {
+  /** HTTP status the request failed with. */
+  code: number;
+  /** Status text, e.g. "Service Unavailable". */
+  title: string;
+  message: string;
+}
+
+/** One request made with a key, as listed and as shown in the Request Details drawer. */
+export interface ApiKeyRequestLog {
+  id: string;
+  requestedAt: string;
+  model: string;
+  responseTimeMs: number;
+  status: ApiKeyRequestStatus;
+  /** Token counts are `null` for failed requests, which are not billed. */
+  inputTokens: number | null;
+  outputTokens: number | null;
+  cachedTokens: number | null;
+  /** The prompt that was sent. */
+  request: string;
+  /** Start of the model's answer; `null` when the request failed. */
+  responsePreview: string | null;
+  error: ApiKeyRequestError | null;
+}
+
+/** Table state sent to `GET .../api-keys/:keyId/requests`. */
+export interface ApiKeyRequestsParams extends UsageRangeParams {
+  /** 1-based. */
+  page: number;
+  pageSize: number;
+}
+
 export interface Project {
   id: string;
   name: string;

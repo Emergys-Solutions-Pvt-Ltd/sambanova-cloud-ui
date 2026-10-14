@@ -1,4 +1,9 @@
 import { type PaginationParams } from "@/lib/api";
+import {
+  type ApiKeyListParams,
+  type ApiKeyRequestsParams,
+  type UsageRangeParams,
+} from "@/types/domain";
 
 /**
  * Query key factory. Every key starts with its domain so a whole domain can
@@ -32,6 +37,19 @@ export const queryKeys = {
     all: ["marketing"] as const,
     webinars: () => [...queryKeys.marketing.all, "webinars"] as const,
     partners: () => [...queryKeys.marketing.all, "partners"] as const,
+  },
+  apiKeys: {
+    all: (projectId: string) => [...queryKeys.project(projectId), "api-keys"] as const,
+    list: (projectId: string, params: ApiKeyListParams) =>
+      [...queryKeys.apiKeys.all(projectId), "list", params] as const,
+    detail: (projectId: string, keyId: string) =>
+      [...queryKeys.apiKeys.all(projectId), "detail", keyId] as const,
+    usage: (projectId: string, keyId: string, range: UsageRangeParams) =>
+      [...queryKeys.apiKeys.all(projectId), "usage", keyId, range] as const,
+    usageSeries: (projectId: string, keyId: string, range: UsageRangeParams) =>
+      [...queryKeys.apiKeys.all(projectId), "usage-series", keyId, range] as const,
+    requests: (projectId: string, keyId: string, params: ApiKeyRequestsParams) =>
+      [...queryKeys.apiKeys.all(projectId), "requests", keyId, params] as const,
   },
   usageOverview: (projectId: string) =>
     [...queryKeys.project(projectId), "usage-overview"] as const,

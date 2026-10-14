@@ -104,6 +104,8 @@ interface CommonProps {
   /** Pixel size of `leftIcon` / `rightIcon`. Default 16. */
   iconSize?: number;
   fullWidth?: boolean;
+  /** Corner radius: "sm" = 6px (default), "md" = 8px (some Figma buttons, e.g. View Documentation). */
+  radius?: "sm" | "md";
   /** Shows a spinner, keeps the width and blocks clicks. */
   loading?: boolean;
   children?: ReactNode;
@@ -139,6 +141,7 @@ export function Button(props: ButtonProps) {
     rightIcon,
     iconSize = 16,
     fullWidth,
+    radius = "sm",
     loading,
     className,
     children,
@@ -147,7 +150,7 @@ export function Button(props: ButtonProps) {
 
   const classes = cn(
     base,
-    variants[variant],
+    radius === "md" ? variants[variant].replace("rounded-sm", "rounded-md") : variants[variant],
     sizeClasses(variant, size),
     fullWidth && "w-full",
     className,

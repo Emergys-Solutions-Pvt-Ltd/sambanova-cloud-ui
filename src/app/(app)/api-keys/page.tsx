@@ -1,29 +1,15 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
-import { ComingSoon } from "@/components/layout/coming-soon";
-import { PageContent, PageHeader } from "@/components/layout/page-header";
-import { Button } from "@/components/ui/button";
+import { ApiKeysView } from "@/features/api-keys";
 
 export const metadata: Metadata = { title: "API Keys" };
 
 export default function ApiKeysPage() {
+  // The table state lives in the URL (?q=&status=&page=), which needs a Suspense boundary.
   return (
-    <>
-      <PageHeader
-        title="API Keys"
-        subtitle="Create and manage API keys to securely access the Sambanova API."
-        actions={
-          <>
-            <Button variant="tertiary" leftIcon="refresh">
-              Refresh
-            </Button>
-            <Button leftIcon="plus">Create API Key</Button>
-          </>
-        }
-      />
-      <PageContent>
-        <ComingSoon>Key table with search, status filter and pagination.</ComingSoon>
-      </PageContent>
-    </>
+    <Suspense fallback={null}>
+      <ApiKeysView />
+    </Suspense>
   );
 }
