@@ -180,6 +180,23 @@ export const semanticGroups: Record<string, string[]> = {
     "role-writer",
     "role-pm",
   ],
+  "Project Settings": [
+    "bg-table-head",
+    "bg-field-strong",
+    "bg-role-icon",
+    "border-role-divider",
+    "bg-badge-accent",
+    "text-capability",
+    "border-danger-zone",
+    "button-danger-soft-bg",
+    "button-danger-soft-fg",
+    "button-danger-soft-hover",
+    "tier-active-bg",
+    "tier-active-border",
+    "tier-idle-bg",
+    "tier-idle-border",
+    "text-tier-active",
+  ],
 };
 
 /** Semantic tokens that are a GUESS in at least one theme (not in Figma). */
@@ -222,6 +239,22 @@ export const guessedTokens = new Set([
   "role-writer",
   "role-pm",
   "history-item-hover",
+  "button-danger-soft-hover",
+  // Project Settings: Figma is dark only, so every light value is a GUESS.
+  "bg-table-head",
+  "bg-field-strong",
+  "bg-role-icon",
+  "border-role-divider",
+  "bg-badge-accent",
+  "text-capability",
+  "border-danger-zone",
+  "button-danger-soft-bg",
+  "button-danger-soft-fg",
+  "tier-active-bg",
+  "tier-active-border",
+  "tier-idle-bg",
+  "tier-idle-border",
+  "text-tier-active",
 ]);
 
 export const typeScale = [

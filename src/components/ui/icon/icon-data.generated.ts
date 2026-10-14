@@ -226,6 +226,15 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M2 8a6.1 6.1 0 0 0 3.7 5.54 6 6 0 0 0 4.6 0 6 6 0 0 0 3.24-3.24 6 6 0 0 0 0-4.6 6 6 0 0 0-3.24-3.24 6 6 0 0 0-4.6 0A6 6 0 0 0 2.46 5.7Q2 6.8 2 8"/><path d="m6 8 1.33 1.33L10 6.67"/>',
   },
+  "clock-alt": {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.13",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M2.25 9a6.75 6.75 0 1 0 13.5 0 6.75 6.75 0 0 0-13.5 0M9 9l2.25 1.5M9 5.25V9"/>',
+  },
   clock: {
     viewBox: "0 0 16 16",
     fill: "none",
@@ -301,6 +310,15 @@ export const iconData = {
     strokeLinecap: "round",
     strokeLinejoin: "round",
     body: '<path d="M2.25 6A2.25 2.25 0 0 1 4.5 3.75h9A2.25 2.25 0 0 1 15.75 6v6a2.25 2.25 0 0 1-2.25 2.25h-9A2.25 2.25 0 0 1 2.25 12zm0 1.5h13.5m-10.5 3.75zm3 0h1.5"/>',
+  },
+  crown: {
+    viewBox: "0 0 28 28",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M5.83 24.5h16.34M13.49 3.81a.58.58 0 0 1 1.02 0l3.45 6.54a1.17 1.17 0 0 0 1.76.34l5-4.27a.58.58 0 0 1 .92.6l-3.3 11.96a1.2 1.2 0 0 1-1.12.85H6.78a1.2 1.2 0 0 1-1.12-.85L2.36 7.02a.58.58 0 0 1 .93-.6l4.99 4.27a1.17 1.17 0 0 0 1.77-.34z"/>',
   },
   dashboard: {
     viewBox: "0 0 20 20",
@@ -526,6 +544,15 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M9 15.75A6.7 6.7 0 0 1 2.25 9 6.7 6.7 0 0 1 9 2.25c3.73 0 6.75 2.69 6.75 6 0 .8-.36 1.56-.99 2.12a3.6 3.6 0 0 1-2.38.88H10.5a1.5 1.5 0 0 0-.75 2.81q.23.21.29.52.06.3-.06.6a1 1 0 0 1-.98.57"/><path d="M5.63 7.88q0 .3.21.53a.8.8 0 0 0 .54.22q.3 0 .53-.22a.8.8 0 0 0 .22-.53.8.8 0 0 0-.22-.54.8.8 0 0 0-1.07 0 .8.8 0 0 0-.21.54m3-2.25q0 .3.21.53a.8.8 0 0 0 .54.22q.3 0 .53-.22a.8.8 0 0 0 .22-.53.8.8 0 0 0-.22-.54.8.8 0 0 0-1.07 0 .8.8 0 0 0-.21.54m3 2.25q0 .3.21.53a.8.8 0 0 0 .54.22q.3 0 .53-.22a.8.8 0 0 0 .22-.53.8.8 0 0 0-.22-.54.8.8 0 0 0-1.07 0 .8.8 0 0 0-.21.54"/>',
   },
+  "pencil-line": {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.25",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M8 20 18.5 9.5a2.83 2.83 0 0 0-4-4L4 16v4zm5.5-13.5 4 4M16 18h4"/>',
+  },
   pencil: {
     viewBox: "0 0 18 18",
     fill: "none",
@@ -597,6 +624,15 @@ export const iconData = {
     strokeLinecap: "round",
     strokeLinejoin: "round",
     body: '<path d="M8.6 3.6c.36-1.47 2.44-1.47 2.8 0q.08.33.3.59a1.4 1.4 0 0 0 1.84.3c1.29-.79 2.76.68 1.98 1.97a1.43 1.43 0 0 0 .88 2.14c1.47.36 1.47 2.44 0 2.8q-.33.08-.59.3a1.4 1.4 0 0 0-.3 1.84c.79 1.29-.68 2.76-1.97 1.98a1.43 1.43 0 0 0-2.14.88c-.36 1.47-2.44 1.47-2.8 0a1.3 1.3 0 0 0-.3-.59 1.4 1.4 0 0 0-1.84-.3c-1.29.79-2.76-.68-1.97-1.97q.17-.29.2-.64a2 2 0 0 0-.1-.66 2 2 0 0 0-.4-.54 1.3 1.3 0 0 0-.59-.3c-1.47-.36-1.47-2.44 0-2.8q.33-.08.59-.3a1.4 1.4 0 0 0 .3-1.84c-.79-1.29.68-2.76 1.97-1.97.83.5 1.91.05 2.14-.89"/><path d="M7.5 10a2.5 2.5 0 1 0 5.01 0 2.5 2.5 0 0 0-5.01 0"/>',
+  },
+  "shield-half": {
+    viewBox: "0 0 28 28",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.75",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M14 3.5A14 14 0 0 0 23.92 7 14 14 0 0 1 14 24.5 14 14 0 0 1 4.08 7 14 14 0 0 0 14 3.5m0 0v21m0-11.67h10.38M14 9.33h10.38M14 5.83h3.62m-3.62 14h7.23M14 16.33h9.33"/>',
   },
   "sidebar-collapse": {
     viewBox: "0 0 24 24",
@@ -681,6 +717,24 @@ export const iconData = {
     strokeLinecap: "round",
     strokeLinejoin: "round",
     body: '<path d="M5.33 4.67a2.67 2.67 0 1 0 5.33 0 2.67 2.67 0 0 0-5.33 0M4 14v-1.33A2.67 2.67 0 0 1 6.67 10h2.66A2.67 2.67 0 0 1 12 12.67V14"/>',
+  },
+  "users-group": {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.13",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M7.5 9.75a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0m-1.5 6V15a1.5 1.5 0 0 1 1.5-1.5h3A1.5 1.5 0 0 1 12 15v.75m-.75-12a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0m1.5 3.75h1.5a1.5 1.5 0 0 1 1.5 1.5v.75m-12-6a1.5 1.5 0 1 0 3 0 1.5 1.5 0 0 0-3 0m-1.5 6V9a1.5 1.5 0 0 1 1.5-1.5h1.5"/>',
+  },
+  warning: {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M12 8v4m0 4zM10.29 2.86 1.82 17a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 2.86a2 2 0 0 0-3.42 0"/>',
   },
 } as const satisfies Record<string, IconDefinition>;
 

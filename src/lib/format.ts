@@ -60,8 +60,9 @@ export function formatDateTime(iso: string) {
 const compactTrim = (value: number, decimals: number) => String(Number(value.toFixed(decimals)));
 
 /**
- * 24_800_000 → "24.8M", 348_200 → "348.2K", 1_250 → "1.3K", 842 → "842". Pass `decimals` for
- * more precision (chart axes and tooltips use 2: 1_250_000 → "1.25M"); trailing zeros are dropped.
+ * 24_800_000 → "24.8M", 348_200 → "348.2K", 1_250 → "1.3K", 500_000 → "500K", 842 → "842"
+ * (Figma: API key usage, rate limits). Pass `decimals` for more precision (chart axes and
+ * tooltips use 2: 1_250_000 → "1.25M"); trailing zeros are dropped.
  */
 export function formatCompactNumber(value: number, decimals = 1) {
   if (value >= 1_000_000_000) return `${compactTrim(value / 1_000_000_000, decimals)}B`;
@@ -114,6 +115,23 @@ export function formatRelativeTime(iso: string, now = Date.now()) {
   const months = Math.floor(days / 30);
   if (months < 12) return plural(months, "month");
   return plural(Math.floor(months / 12), "year");
+}
+
+/** "2026-07-17T10:21:00" → "July 17, 2026 at 10:21 AM" (Figma: Project Settings › General). */
+export function formatDateAtTime(iso: string) {
+  return `${formatDate(iso)} at ${formatTime(iso)}`;
+}
+
+const shortDateFormat = new Intl.DateTimeFormat("en-US", { dateStyle: "medium" });
+
+/** "2026-05-05T09:15:00" → "May 5, 2026" (Figma: Invitations). */
+export function formatShortDate(iso: string) {
+  return shortDateFormat.format(new Date(iso));
+}
+
+/** "2026-05-05T09:15:00" → "May 5, 2026 9:15 am" (Figma: Members › Joined On, lowercase meridiem). */
+export function formatShortDateTime(iso: string) {
+  return `${formatShortDate(iso)} ${formatTime(iso).toLowerCase()}`;
 }
 
 const trimZero = (value: number) => String(Number(value.toFixed(1)));

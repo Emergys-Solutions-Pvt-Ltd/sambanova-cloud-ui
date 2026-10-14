@@ -36,6 +36,7 @@ import {
 
 import { apiKeyHandlers } from "./api-keys";
 import { playgroundHandlers } from "./playground";
+import { projectSettingsHandlers } from "./project-settings";
 import {
   api,
   errorBody,
@@ -227,14 +228,6 @@ export const handlers = [
   ),
 
   http.get(
-    api("/projects/:projectId"),
-    withSession<{ projectId: string }>(async ({ params }) => {
-      const project = await findOwnProject(params.projectId);
-      return project ? HttpResponse.json(project) : notFound("Project");
-    }),
-  ),
-
-  http.get(
     api("/projects/:projectId/usage-overview"),
     withSession<{ projectId: string }>(async ({ params }) => {
       const project = await findOwnProject(params.projectId);
@@ -319,4 +312,5 @@ export const handlers = [
 
   ...apiKeyHandlers,
   ...playgroundHandlers,
+  ...projectSettingsHandlers,
 ];

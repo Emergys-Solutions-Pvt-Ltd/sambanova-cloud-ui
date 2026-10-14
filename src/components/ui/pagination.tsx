@@ -8,6 +8,8 @@ interface PaginationProps {
   page: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  /** Accessible name of the nav, e.g. "Members pages". */
+  label?: string;
   className?: string;
 }
 
@@ -16,11 +18,17 @@ const itemClasses =
   "transition-colors duration-(--sn-duration-fast) ease-standard";
 
 /** Previous / page numbers / next (Figma: Pagination). Pages are `aria-current` when active. */
-export function Pagination({ page, totalPages, onPageChange, className }: PaginationProps) {
+export function Pagination({
+  page,
+  totalPages,
+  onPageChange,
+  label = "Pagination",
+  className,
+}: PaginationProps) {
   const items = getPageItems(page, totalPages);
 
   return (
-    <nav aria-label="Pagination" className={className}>
+    <nav aria-label={label} className={className}>
       <ul className="flex items-stretch overflow-hidden rounded-xs border border-default">
         <li className="flex">
           <button

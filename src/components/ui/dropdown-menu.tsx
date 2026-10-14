@@ -91,6 +91,15 @@ const itemClasses: Record<DropdownMenuSurface, string> = {
   compact: compactMenuItemClasses,
 };
 
+/** Same rows in the error colour for destructive actions. */
+const destructiveItemClasses: Record<DropdownMenuSurface, string> = {
+  menu: menuItemClasses
+    .replace("text-secondary", "text-error")
+    .replace("data-[highlighted]:text-primary", "data-[highlighted]:text-error"),
+  flat: flatMenuItemClasses.replace("text-content", "text-error"),
+  compact: compactMenuItemClasses.replace("text-content", "text-error"),
+};
+
 export function DropdownMenuItem({
   className,
   variant = "menu",
@@ -98,15 +107,12 @@ export function DropdownMenuItem({
   ...rest
 }: ComponentPropsWithRef<typeof MenuPrimitive.Item> & {
   variant?: DropdownMenuSurface;
-  /** Red text for irreversible actions (Figma: "Delete Key"). Works with every variant. */
+  /**
+   * Red text for irreversible actions (Figma: "Delete Key", "Remove Member", "Cancel Invitation").
+   * Works with every variant.
+   */
   destructive?: boolean;
 }) {
-  const classes = destructive
-    ? itemClasses[variant]
-        // menu rows are text-secondary, flat and compact rows text-content
-        .replace("text-secondary", "text-error")
-        .replace("text-content", "text-error")
-        .replace("data-[highlighted]:text-primary", "data-[highlighted]:text-error")
-    : itemClasses[variant];
+  const classes = destructive ? destructiveItemClasses[variant] : itemClasses[variant];
   return <MenuPrimitive.Item className={cn(classes, className)} {...rest} />;
 }

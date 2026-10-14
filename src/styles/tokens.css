@@ -80,7 +80,11 @@
   /* Purple-tinted dark strokes: Figma "Stroke Dark 1" / "Stroke Dark 2". */
   --sn-ink-stroke-1: #21192c;
   --sn-ink-stroke-2: #2b2336;
+  --sn-ink-stroke-3: #3d2d5c; /* Project Settings: role card divider */
   --sn-ink-code: #1d1e28;
+  /* Project Settings: Usage Tiers track (Figma, exact). */
+  --sn-ink-tier: #201e25;
+  --sn-ink-tier-border: #322e3a;
 
   /* Status hues. Dark values come from Figma; light values follow the same
      Flowbite scale the file already uses (see GUESS notes below). */
@@ -107,6 +111,7 @@
   --sn-orchid-300: #e590ff;
   --sn-badge-ink-dark: #331d39;
   --sn-badge-ink-light: #efb5ff;
+  --sn-violet-300: #c4b5fd; /* Project Settings: role "Key capabilities" */
   --sn-violet-500: #8b5cf6;
   --sn-violet-600: #7c3aed;
 
@@ -375,9 +380,9 @@
   --sn-featured-warning-bg: rgb(172 156 0 / 0.3);
   --sn-featured-warning-ring: rgb(255 255 0 / 0.1);
   --sn-featured-warning-fg: #ff9500;
-  --sn-featured-danger-bg: rgb(240 82 82 / 0.2); /* GUESS: no delete dialog in Figma */
-  --sn-featured-danger-ring: rgb(240 82 82 / 0.1); /* GUESS */
-  --sn-featured-danger-fg: var(--sn-red-400); /* GUESS */
+  --sn-featured-danger-bg: rgb(172 0 0 / 0.3); /* Figma: Remove Member, Delete Project */
+  --sn-featured-danger-ring: rgb(255 0 0 / 0.1);
+  --sn-featured-danger-fg: var(--sn-red-400); /* Figma #ff6565, merged */
   --sn-bg-table-head: var(--sn-neutral-800);
   --sn-text-table-header: var(--sn-gray-200);
   --sn-border-table-control: var(--sn-gray-700);
@@ -494,6 +499,22 @@
   --sn-role-writer: var(--sn-green-400);
   --sn-role-pm: var(--sn-amber-500);
   --sn-history-item-hover: var(--sn-neutral-800);
+
+  /* Project Settings (Figma: General, Members, Roles, Limits) */
+  --sn-bg-field-strong: var(--sn-neutral-800); /* search field, inline role select, name input */
+  --sn-bg-role-icon: var(--sn-ink-stroke-1); /* role card icon tile */
+  --sn-border-role-divider: var(--sn-ink-stroke-3);
+  --sn-bg-badge-accent: rgb(173 103 229 / 0.12); /* role badge ("Highest Privilege") */
+  --sn-text-capability: var(--sn-violet-300);
+  --sn-border-danger-zone: rgb(119 29 29 / 0.45);
+  --sn-button-danger-soft-bg: rgb(240 82 82 / 0.04); /* "Delete Project" */
+  --sn-button-danger-soft-fg: var(--sn-red-500);
+  --sn-button-danger-soft-hover: rgb(240 82 82 / 0.1); /* GUESS: no hover in Figma */
+  --sn-tier-active-bg: rgb(144 0 255 / 0.45);
+  --sn-tier-active-border: rgb(144 0 255 / 0.8);
+  --sn-tier-idle-bg: var(--sn-ink-tier);
+  --sn-tier-idle-border: var(--sn-ink-tier-border);
+  --sn-text-tier-active: var(--sn-purple-300);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -742,6 +763,22 @@
   --sn-role-writer: var(--sn-green-700); /* GUESS */
   --sn-role-pm: var(--sn-amber-700); /* GUESS */
   --sn-history-item-hover: rgb(0 0 0 / 0.04); /* GUESS */
+
+  /* Project Settings: Figma is dark only, every value below is a GUESS. */
+  --sn-bg-field-strong: var(--sn-neutral-0);
+  --sn-bg-role-icon: var(--sn-purple-50);
+  --sn-border-role-divider: var(--sn-purple-200);
+  --sn-bg-badge-accent: rgb(173 103 229 / 0.12);
+  --sn-text-capability: var(--sn-violet-600);
+  --sn-border-danger-zone: var(--sn-red-200);
+  --sn-button-danger-soft-bg: var(--sn-red-50);
+  --sn-button-danger-soft-fg: var(--sn-red-700);
+  --sn-button-danger-soft-hover: rgb(240 82 82 / 0.1);
+  --sn-tier-active-bg: rgb(152 71 214 / 0.35);
+  --sn-tier-active-border: var(--sn-purple-600);
+  --sn-tier-idle-bg: var(--sn-gray-100);
+  --sn-tier-idle-border: var(--sn-gray-200);
+  --sn-text-tier-active: var(--sn-purple-800);
 }
 
 @media (prefers-color-scheme: light) {
@@ -985,6 +1022,22 @@
     --sn-role-writer: var(--sn-green-700); /* GUESS */
     --sn-role-pm: var(--sn-amber-700); /* GUESS */
     --sn-history-item-hover: rgb(0 0 0 / 0.04); /* GUESS */
+
+    /* Project Settings: Figma is dark only, every value below is a GUESS. */
+    --sn-bg-field-strong: var(--sn-neutral-0);
+    --sn-bg-role-icon: var(--sn-purple-50);
+    --sn-border-role-divider: var(--sn-purple-200);
+    --sn-bg-badge-accent: rgb(173 103 229 / 0.12);
+    --sn-text-capability: var(--sn-violet-600);
+    --sn-border-danger-zone: var(--sn-red-200);
+    --sn-button-danger-soft-bg: var(--sn-red-50);
+    --sn-button-danger-soft-fg: var(--sn-red-700);
+    --sn-button-danger-soft-hover: rgb(240 82 82 / 0.1);
+    --sn-tier-active-bg: rgb(152 71 214 / 0.35);
+    --sn-tier-active-border: var(--sn-purple-600);
+    --sn-tier-idle-bg: var(--sn-gray-100);
+    --sn-tier-idle-border: var(--sn-gray-200);
+    --sn-text-tier-active: var(--sn-purple-800);
   }
 }
 

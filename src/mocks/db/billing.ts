@@ -27,6 +27,11 @@ export function getBillingAddress(accountId: string): BillingAddress | null {
   return read()[accountId]?.address ?? null;
 }
 
+/** Lifetime credit purchases in USD (the spend Usage Tiers are based on). */
+export function totalPurchasedBy(accountId: string) {
+  return (read()[accountId]?.purchases ?? []).reduce((sum, purchase) => sum + purchase.amount, 0);
+}
+
 /** Records a purchase and remembers the billing address for next time. */
 export function recordPurchase(accountId: string, amount: number, address: BillingAddress) {
   const all = read();

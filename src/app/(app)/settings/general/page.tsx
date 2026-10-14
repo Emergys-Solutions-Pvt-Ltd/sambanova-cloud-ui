@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
-import { ComingSoon } from "@/components/layout/coming-soon";
 import { PageContent } from "@/components/layout/page-header";
+import { ProjectGeneralView } from "@/features/settings";
 
 export const metadata: Metadata = { title: "General · Project Settings" };
 
 export default function SettingsGeneralPage() {
   return (
-    <PageContent>
-      <ComingSoon>Project name and details.</ComingSoon>
+    <PageContent className="pt-8.5">
+      <ProjectGeneralView />
     </PageContent>
   );
 }

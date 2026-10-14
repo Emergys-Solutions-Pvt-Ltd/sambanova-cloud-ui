@@ -218,6 +218,22 @@
   --color-role-writer: var(--sn-role-writer);
   --color-role-pm: var(--sn-role-pm);
 
+  /* Project Settings */
+  --background-color-field-strong: var(--sn-bg-field-strong);
+  --background-color-role-icon: var(--sn-bg-role-icon);
+  --background-color-role-divider: var(--sn-border-role-divider);
+  --background-color-badge-accent: var(--sn-bg-badge-accent);
+  --text-color-capability: var(--sn-text-capability);
+  --border-color-danger-zone: var(--sn-border-danger-zone);
+  --color-button-danger-soft: var(--sn-button-danger-soft-bg);
+  --color-button-danger-soft-fg: var(--sn-button-danger-soft-fg);
+  --color-button-danger-soft-hover: var(--sn-button-danger-soft-hover);
+  --color-tier-active: var(--sn-tier-active-bg);
+  --color-tier-active-border: var(--sn-tier-active-border);
+  --color-tier-idle: var(--sn-tier-idle-bg);
+  --color-tier-idle-border: var(--sn-tier-idle-border);
+  --text-color-tier-active: var(--sn-text-tier-active);
+
   /* ---- Typography -------------------------------------------------------- */
   --font-*: initial;
   --font-sans: var(--sn-font-sans);

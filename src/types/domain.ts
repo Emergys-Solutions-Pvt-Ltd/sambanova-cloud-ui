@@ -195,6 +195,128 @@ export interface Project {
   createdAt: string;
 }
 
+/* ---- Project Settings ---- */
+
+/** Role of a user inside one project. Each project has exactly one owner (its creator). */
+export type ProjectRole = "owner" | "admin" | "developer" | "viewer";
+/** Roles that can be given to someone; ownership is not transferable in this release. */
+export type AssignableRole = Exclude<ProjectRole, "owner">;
+
+/** Feature areas a role or member is granted access to (Figma: Edit Permissions rows). */
+export type PermissionArea =
+  "models" | "playground" | "agenticAi" | "apiKeys" | "projects" | "usage" | "billing";
+export type PermissionLevel = "manage" | "use" | "view" | "none";
+export type PermissionSet = Record<PermissionArea, PermissionLevel>;
+
+export interface ProjectPerson {
+  name: string;
+  email: string;
+}
+
+/** GET /projects/:id. A superset of `Project`. */
+export interface ProjectDetails extends Project {
+  description: string;
+  createdBy: ProjectPerson;
+  memberCount: number;
+  updatedAt: string;
+  /** The signed-in user's role here; decides which controls the settings show. */
+  myRole: ProjectRole;
+}
+
+/** PATCH /projects/:id. Only the fields sent change. */
+export interface UpdateProjectInput {
+  name?: string;
+  description?: string;
+}
+
+export interface ProjectMember {
+  /** Membership id (not the user id). */
+  id: string;
+  name: string;
+  email: string;
+  role: ProjectRole;
+  joinedAt: string;
+  /** Effective permissions: the role's defaults with this member's own changes applied. */
+  permissions: PermissionSet;
+  /** True when the member's permissions differ from their role's defaults. */
+  customPermissions: boolean;
+  /** True for the signed-in user's own membership. */
+  isYou: boolean;
+}
+
+/** PATCH /projects/:id/members/:memberId. A role change resets custom permissions. */
+export interface UpdateMemberInput {
+  role?: AssignableRole;
+  permissions?: PermissionSet;
+}
+
+export type InvitationStatus = "pending" | "expired";
+
+export interface ProjectInvitation {
+  id: string;
+  email: string;
+  role: AssignableRole;
+  invitedAt: string;
+  expiresAt: string;
+  /** Derived from `expiresAt` by the API. */
+  status: InvitationStatus;
+}
+
+export interface CreateInvitationInput {
+  email: string;
+  role: AssignableRole;
+}
+
+/** Query of the paginated Members and Invitations tables. */
+export interface SettingsListParams {
+  page: number;
+  pageSize: number;
+  /** Case-insensitive match on name or email. */
+  search: string;
+}
+
+/** A role as configured in one project (Figma: Roles cards). */
+export interface ProjectRoleDefinition {
+  id: ProjectRole;
+  name: string;
+  /** Pill next to the name, e.g. "Highest Privilege". */
+  badge: string;
+  description: string;
+  permissions: PermissionSet;
+  /** False for Owner: its permissions are fixed. */
+  editable: boolean;
+  memberCount: number;
+}
+
+export interface UpdateRoleInput {
+  permissions: PermissionSet;
+}
+
+export interface UsageTier {
+  /** 0-based tier number. */
+  level: number;
+  /** Lifetime spend (USD) that unlocks the tier. */
+  threshold: number;
+}
+
+export interface ModelRateLimit {
+  modelId: string;
+  modelName: string;
+  requestsPerMinute: number;
+  /** Excludes cache reads. */
+  inputTokensPerMinute: number;
+  outputTokensPerMinute: number;
+}
+
+/** GET /projects/:id/limits. */
+export interface ProjectLimits {
+  tiers: UsageTier[];
+  currentTier: number;
+  /** Lifetime spend in USD that the tier is based on. */
+  spend: number;
+  rateLimits: ModelRateLimit[];
+}
+
 /** Placeholder resource used to demonstrate the paginated query + mutation pattern. */
 export interface ExampleItem {
   id: string;

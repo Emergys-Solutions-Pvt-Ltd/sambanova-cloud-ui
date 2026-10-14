@@ -69,8 +69,9 @@ Copy `.env.example` to `.env.local`. Public variables are validated with Zod in 
 ```
 src/
   app/                    Routes and layouts (App Router)
-    (app)/                Signed-in app: dashboard, playground, api-keys, usage,
-                          pricing, projects, settings/{general,members,limits,billing}
+    (app)/                Signed-in app: dashboard, playground, api-keys, usage, pricing,
+                          projects, settings/{general, members[/invitations|/roles],
+                          limits, billing}
     (auth)/               Signed-out pages: login, signup
     dev/                  Developer-only pages (404 in production): /dev/api-demo, /dev/tokens
     error.tsx             Route error boundary
@@ -127,7 +128,7 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 - **Account area**: signed in shows the profile card with credit badge and the account menu (email, Manage Projects, Theme, Documentation, Help Center, Logout). Signed out shows "Sign Up for Free" and the theme switcher. While `GET /me` loads, a placeholder holds the space.
 - **Drawer**: overlay, focus trap, Escape, closes on navigation, focus returns to the opener.
 - **Page frame**: use `<PageHeader title subtitle actions />` then `<PageContent>`.
-- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand, ghost, cta), `TextField`, `RadioCardGroup`, `NameDialog`, `ConfirmDialog`, `FeaturedIcon` (warning, danger), `Table`, `Pagination`, `SearchField`, `EmptyState`, `Callout`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu` (menu, flat, compact surfaces), `Tooltip` (inverse, surface, rich), `Drawer` (left navigation sheet, or a right side panel: `panel` for the Playground History, `details` for the API key Request Details), `Skeleton`, `Icon`, for the Playground `Switch`, `Slider` (native range with a value bubble), `NumberInput` (spinbutton with a stepper), `Textarea` / `TextareaField` (auto-growing) and `OptionMenu` (listbox menu on a custom trigger), and for the API key usage page `DateRangePicker` with `RangeCalendar`, `BackButton`, `PaginationFooter`, `LineChart` with `ChartCard` and `ChartLegend`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
+- **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand, ghost, cta), `TextField`, `RadioCardGroup`, `NameDialog`, `ConfirmDialog`, `FeaturedIcon` (warning, danger), `Table`, `Pagination`, `SearchField`, `EmptyState`, `Callout`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu` (menu, flat, compact surfaces), `Tooltip` (inverse, surface, rich), `Drawer` (left navigation sheet, or a right side panel: `panel` for the Playground History, `details` for the API key Request Details), `Skeleton`, `Icon`, for the Playground `Switch`, `Slider` (native range with a value bubble), `NumberInput` (spinbutton with a stepper), `Textarea` / `TextareaField` (auto-growing) and `OptionMenu` (listbox menu on a custom trigger), and for the API key usage page `DateRangePicker` with `RangeCalendar`, `BackButton`, `PaginationFooter`, `LineChart` with `ChartCard` and `ChartLegend`, and for Project Settings `PillRadioGroup` (pill segmented radio group), `TableSkeletonRows` / `TableMessageRow`, Button variants `danger-soft` and `bordered`, IconButton sizes `row` / `field-lg`, Select variants `form` / `inline`, a clearable `SearchField` (`onClear`) and `ConfirmDialog` driven by a caller's `pending`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
 - **Accessibility**: skip-to-content link, landmarks (`aside`, `nav`, `main`), visible focus rings, full keyboard operation.
 
 **Signing in and out** (with mocks on): use the app. Sign Up for Free (sidebar) or any locked action opens the login dialog; Logout is in the account menu. See [Authentication](#authentication-mock-until-the-real-api).
@@ -173,6 +174,23 @@ To reproduce the Figma compare screen, compare DeepSeek V3.1 with MiniMax M2.7 a
 
 **History seeds**: a project's first History read seeds eight chats: four today (2, 4, 6 and 8 minutes ago) and the same four titles 2, 3, 4 and 6 days ago. Titles: "Chat Bot Enhancement", "What is our cash flow projection for Q3 …", "Plan 5 day trip to Bali" and the React dashboard prompt (a DeepSeek V3.1 / MiniMax M2.7 compare). Seeded replies show the Figma metrics (202.23 t/s, 8.79s, 0.82s).
 
+## Project Settings
+
+`/settings/*` (`src/features/settings`) acts on the active project (the sidebar project selector). Assumptions, Figma gaps and open questions are tracked in the "Project Settings — Assumptions, Gaps & Audit Log" doc.
+
+| Route                           | Figma                                    | What it does                                                                                                                                                                                                                                                        |
+| ------------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `/settings/general`             | `1387:65838`, edit `1387:65951`          | Project details. Name and description edit inline (pencil; Enter or blur saves, Escape cancels, errors under the field). Copy project ID. Danger Zone deletes the project (Owner only, never the default project), then opens the Dashboard on the default project. |
+| `/settings/members`             | `1387:66063`, `1387:66577`, `1387:66713` | Members table (search, 10 per page). Row ⋮: Change Role (inline select, saves on pick), Edit Permissions (per member), Remove Member (confirmation). The Owner row has no actions.                                                                                  |
+| `/settings/members/invitations` | `1387:66196`, `1387:67087`               | Invitations, newest first; status is Pending until 7 days after the invite, then Expired. Row ⋮: Resend (fresh 7 days) and Cancel. "Invite Member" (header) takes email, project and role.                                                                          |
+| `/settings/members/roles`       | `1387:66321`, `1387:67755`               | Owner, Admin, Developer, Viewer cards; "Key capabilities" list the areas a role can reach. Edit Permissions changes a role for this project; Owner is read-only.                                                                                                    |
+| `/settings/limits`              | `1387:66468`                             | Usage tier (lifetime credit purchases: $0 / $50 / $250 / $500 / $1,000) and per-model rate limits.                                                                                                                                                                  |
+| `/settings/billing`             | `1387:67224` and others                  | Placeholder; Billing is its own module.                                                                                                                                                                                                                             |
+
+- **Who can do what**: `GET /projects/:id` returns `myRole`. Owners and Admins edit details, members, invitations and roles; Developers and Viewers see everything read-only; only the Owner sees the Danger Zone. The mock makes the signed-in account the Owner of every project it can see.
+- **Permissions**: seven areas with the levels Figma draws (Models, Playground, Agentic AI, API Keys, Projects, Usage & Analytics, Billing & Credits). A member follows their role's defaults until their own permissions are saved; changing the role resets them. Areas, levels and tooltip copy live in `features/settings/lib/permissions.ts`; the API mirrors the allowed levels.
+- **Mock seeds** (`src/mocks/fixtures/project-settings.ts`): the four shared projects get the six Figma teammates and five invitations (three pending, two expired, dated relative to today); created projects start with the owner only. Project edits are kept per account in `sn:mock-project-edits`, teams in `sn:mock-project-members`. Clear those keys to reset.
+
 ## Data layer
 
 - **API client** (`src/lib/api/client.ts`)
@@ -214,7 +232,19 @@ With `NEXT_PUBLIC_USE_MOCKS=true`, the browser service worker (`public/mockServi
 | ---------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `GET /me`                                            | Current user with credit balance                                                                                                                           |
 | `GET /projects`                                      | Project list                                                                                                                                               |
-| `GET /projects/:id`                                  | Single project                                                                                                                                             |
+| `GET /projects/:id`                                  | Project details: description, creator, member count, `updatedAt`, your role                                                                                |
+| `PATCH /projects/:id`                                | Rename (3 to 50 characters, 409 when taken) and/or description (up to 200); 403 unless Owner or Admin                                                      |
+| `DELETE /projects/:id`                               | Delete (204); 403 for the default project or a non-owner                                                                                                   |
+| `GET /projects/:id/members`                          | Paginated members (`page`, `pageSize`, `search` on name or email), owner first                                                                             |
+| `PATCH /projects/:id/members/:mid`                   | `role` (Admin, Developer, Viewer; resets custom permissions) and/or `permissions`; 403 for the owner                                                       |
+| `DELETE /projects/:id/members/:mid`                  | Remove (204); 403 for the owner                                                                                                                            |
+| `GET /projects/:id/invitations`                      | Paginated invitations, newest first, status derived from `expiresAt`                                                                                       |
+| `POST /projects/:id/invitations`                     | Invite (201). 422 bad email or role; 409 `ALREADY_MEMBER` or `INVITATION_PENDING`; an expired invite for the same email is replaced                        |
+| `POST /projects/:id/invitations/:iid/resend`         | New invite date and 7-day expiry                                                                                                                           |
+| `DELETE /projects/:id/invitations/:iid`              | Cancel (204)                                                                                                                                               |
+| `GET /projects/:id/roles`                            | The four roles with permissions and member counts                                                                                                          |
+| `PATCH /projects/:id/roles/:role`                    | Save a role's permissions (403 for Owner)                                                                                                                  |
+| `GET /projects/:id/limits`                           | Usage tiers, current tier, lifetime spend, per-model rate limits                                                                                           |
 | `GET /projects/:id/examples`                         | Paginated example list (`page`, `pageSize`)                                                                                                                |
 | `POST /projects/:id/examples`                        | Create an item (422 when name is empty)                                                                                                                    |
 | `GET /projects/:id/api-keys`                         | Paginated keys (`page`, `pageSize`, `search`, `status`); the Default project has 1,000 generated keys                                                      |

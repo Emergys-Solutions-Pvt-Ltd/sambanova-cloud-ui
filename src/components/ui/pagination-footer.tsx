@@ -26,10 +26,12 @@ interface PaginationFooterProps {
   /** `undefined` while the first page loads. */
   result: { page: number; pageSize: number; total: number; totalPages: number } | undefined;
   onPageChange: (page: number) => void;
+  /** Accessible name of the page buttons, e.g. "Members pages". */
+  label?: string;
 }
 
 /** Footer of a paginated table card: the range summary on the left, the page buttons on the right. */
-export function PaginationFooter({ result, onPageChange }: PaginationFooterProps) {
+export function PaginationFooter({ result, onPageChange, label }: PaginationFooterProps) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 p-4">
       {result ? (
@@ -39,6 +41,7 @@ export function PaginationFooter({ result, onPageChange }: PaginationFooterProps
             page={result.page}
             totalPages={result.totalPages}
             onPageChange={onPageChange}
+            label={label}
           />
         </>
       ) : (

@@ -2,17 +2,27 @@ import { type ComponentPropsWithRef, type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
+import { Skeleton } from "./skeleton";
+
 interface TableCardProps {
   children: ReactNode;
   /** Bar under the table, e.g. "Showing 1-10 of 1000" and the pagination. */
   footer?: ReactNode;
+  /** Corner radius: r12 by default, r8 for the Project Settings › Limits table. */
+  radius?: "md" | "lg";
   className?: string;
 }
 
-/** Bordered card around a table (r12) with an optional footer; scrolls sideways on narrow screens. */
-export function TableCard({ children, footer, className }: TableCardProps) {
+/** Bordered card around a table with an optional footer; scrolls sideways on narrow screens. */
+export function TableCard({ children, footer, radius = "lg", className }: TableCardProps) {
   return (
-    <div className={cn("overflow-hidden rounded-lg border border-default", className)}>
+    <div
+      className={cn(
+        "overflow-hidden border border-default",
+        radius === "lg" ? "rounded-lg" : "rounded-md",
+        className,
+      )}
+    >
       <div className="scrollbar-thin overflow-x-auto">{children}</div>
       {footer && <div className="border-t border-default">{footer}</div>}
     </div>
@@ -66,4 +76,28 @@ export function TableCell({ className, ...rest }: ComponentPropsWithRef<"td">) {
       {...rest}
     />
   );
+}
+
+/** Full-width row for empty and no-results messages. */
+export function TableMessageRow({ colSpan, children }: { colSpan: number; children: ReactNode }) {
+  return (
+    <tr>
+      <td colSpan={colSpan} className="h-27 px-4 text-center text-body text-muted">
+        {children}
+      </td>
+    </tr>
+  );
+}
+
+/** Placeholder rows while the first page loads. */
+export function TableSkeletonRows({ rows = 5, columns }: { rows?: number; columns: number }) {
+  return Array.from({ length: rows }, (_, row) => (
+    <tr key={row} aria-hidden="true">
+      {Array.from({ length: columns }, (_, column) => (
+        <TableCell key={column}>
+          <Skeleton className="h-4 w-3/5" />
+        </TableCell>
+      ))}
+    </tr>
+  ));
 }

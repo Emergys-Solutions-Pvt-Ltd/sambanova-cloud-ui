@@ -2,6 +2,7 @@ import { type PaginationParams } from "@/lib/api";
 import {
   type ApiKeyListParams,
   type ApiKeyRequestsParams,
+  type SettingsListParams,
   type UsageRangeParams,
 } from "@/types/domain";
 
@@ -57,6 +58,19 @@ export const queryKeys = {
     all: (projectId: string) => [...queryKeys.project(projectId), "examples"] as const,
     list: (projectId: string, params: Required<PaginationParams>) =>
       [...queryKeys.examples.all(projectId), "list", params] as const,
+  },
+  settings: {
+    /** Root for the Project Settings data of one project. */
+    all: (projectId: string) => [...queryKeys.project(projectId), "settings"] as const,
+    members: (projectId: string) => [...queryKeys.settings.all(projectId), "members"] as const,
+    memberList: (projectId: string, params: SettingsListParams) =>
+      [...queryKeys.settings.members(projectId), params] as const,
+    invitations: (projectId: string) =>
+      [...queryKeys.settings.all(projectId), "invitations"] as const,
+    invitationList: (projectId: string, params: SettingsListParams) =>
+      [...queryKeys.settings.invitations(projectId), params] as const,
+    roles: (projectId: string) => [...queryKeys.settings.all(projectId), "roles"] as const,
+    limits: (projectId: string) => [...queryKeys.settings.all(projectId), "limits"] as const,
   },
   playground: {
     /** Root for the Playground data of one project (history is per account + project). */

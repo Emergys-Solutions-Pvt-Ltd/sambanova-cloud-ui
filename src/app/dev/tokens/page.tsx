@@ -37,6 +37,7 @@ import {
   IconGallery,
   NumberInputSliderDemo,
   OptionMenuDemo,
+  ProjectSettingsDemo,
   SelectDemo,
   Swatch,
   SwitchDemo,
@@ -58,6 +59,8 @@ const buttonVariants: ButtonVariant[] = [
   "control",
   "ghost",
   "cta",
+  "danger-soft",
+  "bordered",
 ];
 const badgeVariants: BadgeVariant[] = ["success", "error", "warning", "info", "neutral", "brand"];
 
@@ -487,6 +490,10 @@ export default function TokensPage() {
               <span className="w-24 text-caption text-muted">rating</span>
               <RatingIcons kind="bulb" value={4} label="Reasoning" />
               <RatingIcons kind="bolt" value={3} label="Speed" />
+            </div>
+            <div className="flex flex-wrap items-start gap-3">
+              <span className="w-24 text-caption text-muted">project settings</span>
+              <ProjectSettingsDemo />
             </div>
             <div className="flex flex-wrap items-center gap-6">
               <span className="w-24 text-caption text-muted">meter</span>
