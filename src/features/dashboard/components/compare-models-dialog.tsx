@@ -122,7 +122,7 @@ function ComparePanel({
           </div>
 
           {pricing.badge && (
-            <Badge variant="info" size="md" className="w-fit">
+            <Badge variant="info" shape="capsule" size="lg" className="w-fit">
               {pricing.badge}
             </Badge>
           )}
@@ -228,7 +228,7 @@ export function CompareModelsDialog({ open, onOpenChange }: CompareModelsDialogP
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent title="Compare Models" size="lg">
+      <DialogContent title="Compare Models" size="lg" tightBody>
         <Tabs defaultValue="cost" className="flex flex-col gap-5" id={tabsId}>
           <TabsList aria-label="Comparison type" className="w-fit">
             <TabsTrigger value="cost">Cost</TabsTrigger>
