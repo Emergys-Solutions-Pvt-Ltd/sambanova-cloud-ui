@@ -111,6 +111,7 @@
   --text-color-nav-active: var(--sn-text-nav-active);
   --text-color-menu-label: var(--sn-text-menu-label);
   --text-color-menu-item: var(--sn-text-menu-item); /* Dropdown Menu option */
+  --text-color-model-meta: var(--sn-text-model-meta); /* Recommended Model description and meta */
   --text-color-disabled: var(--sn-text-disabled);
   --text-color-accent: var(--sn-text-accent);
   --text-color-error-strong: var(--sn-text-error-strong);

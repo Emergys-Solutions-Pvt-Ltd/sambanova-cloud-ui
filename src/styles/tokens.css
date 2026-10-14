@@ -329,7 +329,7 @@
   --sn-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --sn-shadow-md: 0 4px 8px -2px rgb(10 13 18 / 0.1), 0 2px 4px -2px rgb(10 13 18 / 0.06);
   --sn-shadow-lg: 0 3px 19.3px 8px rgb(0 0 0 / 0.25);
-  --sn-shadow-card-inset: inset 0 0 11px 6px rgb(37 30 46 / 0.8);
+  --sn-shadow-card-inset: inset 0 0 11.3px 6px rgb(37 30 46 / 0.8); /* Figma: model cards, inner purple shadow */
   --sn-shadow-card-glow: inset 0 1px 48.3px -2px rgb(152 79 208 / 0.08); /* Figma: webinar and Free Credits cards */
 
   /* Glows */
@@ -352,6 +352,7 @@
   --sn-text-menu-label: var(--sn-gray-500);
   --sn-bg-dropdown: var(--sn-neutral-875); /* audit: Figma #1A1A1A is #1D1D1D */
   --sn-text-menu-item: var(--sn-gray-200); /* Figma: Dropdown Menu option */
+  --sn-text-model-meta: #9c9c9c; /* Figma: Recommended Model description and meta rows (neutral gray, not the cool muted gray) */
   --sn-border-dropdown: var(--sn-gray-800); /* Figma: Dropdown Menu stroke */
 
   /* Sidebar profile card: faint lavender wash with a purple hairline */
@@ -620,6 +621,7 @@
   --sn-text-menu-label: var(--sn-gray-500);
   --sn-bg-dropdown: var(--sn-neutral-0); /* GUESS: Figma shows dark only */
   --sn-text-menu-item: var(--sn-gray-700); /* GUESS: Figma shows dark only */
+  --sn-text-model-meta: var(--sn-text-muted); /* GUESS: Figma shows dark only; unchanged */
   --sn-border-dropdown: var(--sn-border-subtle); /* GUESS */
 
   --sn-bg-profile: rgb(170 85 255 / 0.06);
@@ -885,6 +887,7 @@
     --sn-text-menu-label: var(--sn-gray-500);
     --sn-bg-dropdown: var(--sn-neutral-0); /* GUESS: Figma shows dark only */
     --sn-text-menu-item: var(--sn-gray-700); /* GUESS: Figma shows dark only */
+    --sn-text-model-meta: var(--sn-text-muted); /* GUESS: Figma shows dark only; unchanged */
     --sn-border-dropdown: var(--sn-border-subtle); /* GUESS */
 
     --sn-bg-profile: rgb(170 85 255 / 0.06);
