@@ -32,7 +32,7 @@
   --background-color-chip: var(--sn-bg-chip);
   --background-color-tint-promo: var(--sn-tint-promo);
   --background-color-scrollbar: var(--sn-bg-scrollbar);
-  --background-color-dot: var(--sn-border-strong);
+  --background-color-dot: var(--sn-bg-dot);
   /* Playground */
   --background-color-chat-hero: var(--sn-bg-chat-hero);
   --background-color-composer: var(--sn-bg-composer);

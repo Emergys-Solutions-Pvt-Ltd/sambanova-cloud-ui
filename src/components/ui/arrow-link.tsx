@@ -3,7 +3,7 @@ import { type ComponentPropsWithRef } from "react";
 
 import { cn } from "@/lib/cn";
 
-import { Icon } from "./icon/icon";
+import { Icon, type IconName } from "./icon/icon";
 import { MarqueeArrow } from "./marquee-arrow";
 
 export interface ArrowLinkProps extends ComponentPropsWithRef<typeof Link> {
@@ -14,12 +14,18 @@ export interface ArrowLinkProps extends ComponentPropsWithRef<typeof Link> {
    * arrows through the 20px box, driven by hover on the nearest `group/card` ancestor.
    */
   arrow?: "nudge" | "marquee";
+  /** Arrow glyph. Default "arrow-right"; the webinar card's "Register Now" uses the wide-head one. */
+  icon?: IconName;
+  /** Overrides the glyph's stroke width (Figma draws "Register Now" at 1.3). */
+  iconStrokeWidth?: number;
 }
 
 /** Text link with a trailing arrow ("Register Now →", "Explore SCX →"). */
 export function ArrowLink({
   size = "md",
   arrow = "nudge",
+  icon = "arrow-right",
+  iconStrokeWidth,
   className,
   children,
   ...rest
@@ -35,11 +41,12 @@ export function ArrowLink({
     >
       {children}
       {arrow === "marquee" ? (
-        <MarqueeArrow trigger="card" />
+        <MarqueeArrow trigger="card" icon={icon} />
       ) : (
         <Icon
-          name="arrow-right"
+          name={icon}
           size="md"
+          {...(iconStrokeWidth === undefined ? {} : { strokeWidth: iconStrokeWidth })}
           className="transition-transform duration-(--sn-duration-base) ease-standard group-hover:translate-x-0.5 motion-reduce:transition-none"
         />
       )}

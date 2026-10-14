@@ -67,8 +67,8 @@ const sizes: Record<IconButtonSize, { box: string; icon: number }> = {
   /** Same height as a 38px form field. */
   field: { box: "size-9.5 rounded-sm", icon: 22 },
   lg: { box: "size-11 rounded-sm", icon: 20 },
-  /** Carousel arrows (Figma: webinar card): 32px target, 22px arrow. */
-  carousel: { box: "size-8 rounded-sm", icon: 22 },
+  /** Carousel arrows (Figma: webinar card): 20px glyph with a 30px hit area pulled back by 5px. */
+  carousel: { box: "size-7.5 rounded-sm -m-1.25", icon: 20 },
   /** Playground 37px icon buttons (new thread, compare close). */
   chat: { box: "size-9.25 rounded-md", icon: 20 },
   /** Same box with a 24px glyph (History panel close). */

@@ -315,7 +315,7 @@
     #090110 31%,
     #16032c 100%
   ); /* "Earn Free Credits" card; Figma uses a diamond gradient */
-  --sn-gradient-badge: linear-gradient(90deg, #9f36fb 0%, #6705f1 100%);
+  --sn-gradient-badge: linear-gradient(180deg, #9f36fb 0%, #6705f1 100%);
   --sn-gradient-playground:
     radial-gradient(60% 55% at 30% 0%, rgb(152 71 214 / 0.35) 0%, transparent 70%),
     radial-gradient(55% 50% at 80% 10%, rgb(253 185 19 / 0.18) 0%, transparent 70%), #000000;
@@ -370,6 +370,7 @@
   --sn-border-input: var(--sn-ink-stroke-2);
   --sn-border-dashed: var(--sn-gray-800);
   --sn-steps-connector: var(--sn-gray-700); /* Figma: onboarding step connector */
+  --sn-bg-dot: #412257; /* Figma: webinar carousel, inactive dot */
   --sn-border-pill: var(--sn-purple-800);
   --sn-border-social: var(--sn-gray-600);
   --sn-border-field: var(--sn-gray-800);
@@ -612,6 +613,7 @@
   --sn-border-input: var(--sn-gray-300);
   --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-steps-connector: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-bg-dot: var(--sn-border-strong); /* GUESS: Figma shows dark only */
   --sn-border-pill: var(--sn-purple-400); /* GUESS */
   --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
@@ -856,6 +858,7 @@
     --sn-border-input: var(--sn-gray-300);
     --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-steps-connector: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-bg-dot: var(--sn-border-strong); /* GUESS: Figma shows dark only */
     --sn-border-pill: var(--sn-purple-400); /* GUESS */
     --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */

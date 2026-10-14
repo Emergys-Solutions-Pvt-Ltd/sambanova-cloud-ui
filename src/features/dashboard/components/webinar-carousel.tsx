@@ -15,8 +15,9 @@ import { formatDate, formatTime } from "@/lib/format";
 import { useWebinars } from "../hooks/use-dashboard-data";
 
 /**
- * Upcoming-webinar promo with previous/next arrows and dots. No autoplay:
- * moving content is a WCAG concern and Figma shows manual controls only.
+ * Upcoming-webinar promo with previous/next arrows and position dots (Figma: Marketing Card,
+ * 728 x 239). No autoplay: moving content is a WCAG concern and Figma shows manual controls only.
+ * The dots only show the position; the arrows are the controls.
  */
 export function WebinarCarousel() {
   const { data, error, refetch } = useWebinars();
@@ -40,9 +41,10 @@ export function WebinarCarousel() {
       aria-roledescription="carousel"
       aria-label="Upcoming webinars"
       padding="lg"
-      className="relative flex flex-col gap-5 sm:flex-row"
+      className="flex flex-col gap-5 sm:min-h-59.75 sm:flex-row sm:pb-4.5"
     >
-      <div className="relative size-50.5 shrink-0 self-center overflow-hidden rounded-md border border-switcher-border sm:self-start">
+      {/* The 201.5px picture is 2.5px taller than the 199px column, so it hangs below its slot (-mb) like in Figma. */}
+      <div className="relative h-[201.5px] w-[201.286px] shrink-0 self-center overflow-hidden rounded-md border border-switcher-border sm:-mb-[2.5px] sm:self-start">
         <Image
           src="/dashboard/webinar.webp"
           alt=""
@@ -53,80 +55,89 @@ export function WebinarCarousel() {
         <span aria-hidden="true" className="absolute inset-0 bg-tint-promo" />
       </div>
 
-      <article
-        aria-roledescription="slide"
-        aria-label={`${index + 1} of ${count}`}
-        aria-live="polite"
-        className="flex min-w-0 flex-1 flex-col justify-between gap-6"
-      >
-        <div className="flex flex-col gap-3">
-          <p className="inline-flex h-5.25 w-fit items-center rounded-full bg-badge-gradient px-3 text-micro font-semibold text-on-brand">
-            Upcoming Webinar
-          </p>
-          <h3 className="text-heading-md text-secondary sm:pr-20">{webinar.title}</h3>
-          <p className="text-body text-muted">{webinar.description}</p>
-          <ul className="flex flex-wrap gap-x-3 gap-y-1 text-caption text-muted">
-            <li className="flex items-center gap-1.5">
-              <Icon name="calendar" size="sm" className="text-accent" />
-              <time dateTime={webinar.startsAt}>{formatDate(webinar.startsAt)}</time>
-            </li>
-            <li className="flex items-center gap-1.5">
-              <Icon name="clock" size="sm" className="text-accent" />
-              <time dateTime={webinar.startsAt}>{formatTime(webinar.startsAt)}</time>
-            </li>
-            <li className="flex items-center gap-1.5">
-              <Icon name="user" size="sm" className="text-accent" />
-              {webinar.host}
-            </li>
-          </ul>
-        </div>
+      <div className="relative flex min-w-0 flex-1 flex-col sm:max-w-115">
+        <article
+          aria-roledescription="slide"
+          aria-label={`${index + 1} of ${count}`}
+          aria-live="polite"
+          className="flex flex-1 flex-col justify-between gap-6"
+        >
+          <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-5">
+                <p className="inline-flex h-5.25 w-fit items-center rounded-full bg-badge-gradient px-3 text-micro font-semibold text-on-brand">
+                  Upcoming Webinar
+                </p>
+                <h3 className="text-heading-md leading-6 text-secondary">{webinar.title}</h3>
+              </div>
+              <p className="max-w-108.75 text-body text-muted">{webinar.description}</p>
+            </div>
+            <ul className="flex flex-wrap gap-x-3 gap-y-1 text-caption text-muted">
+              <li className="flex items-center gap-1.5">
+                <Icon name="calendar" size="sm" className="text-accent" />
+                <time dateTime={webinar.startsAt} className="inline-block min-w-19.25 text-center">
+                  {formatDate(webinar.startsAt)}
+                </time>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <Icon name="clock" size="sm" className="text-accent" />
+                <time dateTime={webinar.startsAt}>{formatTime(webinar.startsAt)}</time>
+              </li>
+              <li className="flex items-center gap-1.5">
+                <Icon name="user" size="sm" className="text-accent" />
+                {webinar.host}
+              </li>
+            </ul>
+          </div>
 
-        <div className="flex items-center justify-between gap-4">
-          <ArrowLink href={webinar.registerUrl} target="_blank" rel="noopener noreferrer">
-            Register Now
-          </ArrowLink>
-          {count > 1 && (
-            <div className="flex items-center gap-1.5">
-              {data.map((item, dot) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  aria-label={`Show webinar ${dot + 1} of ${count}`}
-                  aria-current={dot === index ? "true" : undefined}
-                  onClick={() => go(dot)}
-                  className="flex size-4 items-center justify-center rounded-full"
-                >
+          <div className="flex h-4.75 items-center gap-3.5">
+            <ArrowLink
+              href={webinar.registerUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              icon="arrow-right-wide"
+              iconStrokeWidth={1.3}
+            >
+              Register Now
+            </ArrowLink>
+            {count > 1 && (
+              <div
+                aria-hidden="true"
+                className="flex flex-1 items-end justify-end gap-1.5 self-end"
+              >
+                {data.map((item, dot) => (
                   <span
+                    key={item.id}
                     className={cn(
                       "size-1.5 rounded-full transition-colors duration-(--sn-duration-fast)",
                       dot === index ? "bg-brand" : "bg-dot",
                     )}
                   />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-      </article>
+                ))}
+              </div>
+            )}
+          </div>
+        </article>
 
-      {count > 1 && (
-        <div className="absolute top-4 right-4 flex items-center gap-2 sm:top-5 sm:right-5">
-          <IconButton
-            icon="arrow-left"
-            size="carousel"
-            className="text-primary"
-            aria-label="Previous webinar"
-            onClick={() => go(index - 1)}
-          />
-          <IconButton
-            icon="arrow-right"
-            size="carousel"
-            className="text-primary"
-            aria-label="Next webinar"
-            onClick={() => go(index + 1)}
-          />
-        </div>
-      )}
+        {count > 1 && (
+          <div className="absolute top-0 right-0 flex h-5.25 items-center gap-2.5">
+            <IconButton
+              icon="arrow-left-short"
+              size="carousel"
+              className="text-primary"
+              aria-label="Previous webinar"
+              onClick={() => go(index - 1)}
+            />
+            <IconButton
+              icon="arrow-right-short"
+              size="carousel"
+              className="text-primary"
+              aria-label="Next webinar"
+              onClick={() => go(index + 1)}
+            />
+          </div>
+        )}
+      </div>
     </Card>
   );
 }
