@@ -27,9 +27,9 @@ export const fieldDropdownSurface =
   "z-popover rounded-md border border-field bg-input p-0.5 text-primary shadow-lg " +
   "data-[state=open]:animate-pop-in";
 
-/** Flat dropdown on the page surface (Figma: Compare Models picker): r8, page color; z-popover so it clears modal dialogs. */
+/** Flat dropdown on the page surface (Figma: Compare Models picker): r8, page color, no stroke, soft shadow; z-popover so it clears modal dialogs. */
 export const dropdownSurface =
-  "z-popover rounded-md border border-default bg-surface p-1 text-primary shadow-lg " +
+  "z-popover rounded-md bg-surface p-1 text-primary shadow-picker " +
   "data-[state=open]:animate-pop-in";
 
 /** Content panel with its own layout (Figma: Datepicker Dropdown): input fill, r8, small shadow, 16/20px padding. */

@@ -56,6 +56,8 @@
   --border-color-focus: var(--sn-border-focus);
   --border-color-menu: var(--sn-border-menu);
   --border-color-dropdown: var(--sn-border-dropdown);
+  --border-color-panel: var(--sn-border-panel);
+  --border-color-panel-line: var(--sn-border-panel-line);
   --border-color-profile: var(--sn-border-profile);
   --border-color-disabled: var(--sn-border-disabled);
   --border-color-input: var(--sn-border-input);
@@ -320,6 +322,7 @@
   --shadow-lg: var(--sn-shadow-lg);
   --shadow-card-inset: var(--sn-shadow-card-inset);
   --shadow-card-glow: var(--sn-shadow-card-glow);
+  --shadow-picker: var(--sn-shadow-picker);
   --shadow-glow-brand: var(--sn-glow-brand);
   --shadow-glow-focus: var(--sn-glow-focus);
   /* Playground. A "no shadow" --sn-shadow-* value is a transparent zero shadow
