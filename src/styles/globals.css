@@ -605,6 +605,28 @@
   background-image: var(--sn-gradient-stat-card);
 }
 
+/* Sidebar icon parts (see components/layout/nav-icon.tsx): every moving part rests at --nav-rest and
+   eases to --nav-hover while its `data-nav-animate` link is hovered (Figma: 0.3s ease-out). */
+.nav-icon-part {
+  transform: var(--nav-rest);
+  transform-origin: 0 0;
+  transition: transform var(--sn-duration-nav-icon) var(--sn-ease-out);
+}
+.nav-icon-part-fixed path {
+  vector-effect: non-scaling-stroke;
+}
+.nav-icon-fill {
+  fill: currentColor;
+  fill-opacity: 0;
+  transition: fill-opacity var(--sn-duration-nav-icon) var(--sn-ease-out);
+}
+[data-nav-animate]:hover .nav-icon-part {
+  transform: var(--nav-hover);
+}
+[data-nav-animate]:hover .nav-icon-fill {
+  fill-opacity: 0.85;
+}
+
 /* Cuts an element down to its padding ring: give it `p-px` (or a thicker padding) and a background. */
 @utility ring-mask {
   -webkit-mask:

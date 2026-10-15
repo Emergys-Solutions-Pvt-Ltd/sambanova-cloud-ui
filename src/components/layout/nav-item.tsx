@@ -7,6 +7,8 @@ import { Tooltip } from "@/components/ui/tooltip";
 import { type NavItem as NavItemConfig } from "@/config/navigation";
 import { cn } from "@/lib/cn";
 
+import { isNavIconName, NavIcon } from "./nav-icon";
+
 interface NavItemProps {
   item: NavItemConfig;
   active: boolean;
@@ -22,15 +24,19 @@ export function NavItem({ item, active, collapsed, onNavigate }: NavItemProps) {
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       aria-label={collapsed ? item.label : undefined}
+      // Figma: the active item has no hover variant, so its icon stays still.
+      data-nav-animate={active ? undefined : ""}
       className={cn(
         "flex items-center rounded-sm text-label transition-colors duration-(--sn-duration-fast) ease-standard",
         collapsed ? "size-11 justify-center" : "min-h-10 w-full gap-2 p-2.5",
-        active
-          ? "bg-active font-semibold text-nav-active"
-          : "text-secondary hover:bg-hover hover:text-primary",
+        active ? "bg-active font-semibold text-nav-active" : "text-secondary hover:bg-hover",
       )}
     >
-      <Icon name={item.icon} size="md" />
+      {isNavIconName(item.icon) ? (
+        <NavIcon name={item.icon} />
+      ) : (
+        <Icon name={item.icon} size="md" />
+      )}
       {!collapsed && <span className="min-w-0 truncate">{item.label}</span>}
     </Link>
   );
