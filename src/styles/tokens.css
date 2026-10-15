@@ -275,7 +275,7 @@
   /* Buttons */
   --sn-button-primary-bg: var(--sn-neutral-50);
   --sn-button-primary-fg: var(--sn-neutral-1000);
-  --sn-button-primary-hover: var(--sn-gray-200); /* GUESS */
+  --sn-button-primary-hover: #e0dae6; /* Figma: Primary Button, Hover */
   --sn-button-outline-border: rgb(229 231 235 / 0.2);
   --sn-button-outline-fg: var(--sn-neutral-0);
 
@@ -365,10 +365,25 @@
   --sn-border-disabled: var(--sn-neutral-700);
 
   /* Buttons: states from Figma Components (Active/Hover/Disable) */
-  --sn-button-primary-disabled-bg: var(--sn-gray-500);
-  --sn-button-primary-disabled-fg: var(--sn-neutral-700);
+  --sn-button-primary-disabled-bg: var(
+    --sn-button-disabled-fg
+  ); /* Figma: Primary Button, Disable (#6F6F6F) */
+  --sn-button-primary-disabled-fg: #333333; /* Figma: Primary Button, Disable */
   --sn-button-secondary-bg: rgb(255 255 255 / 0.04);
   --sn-button-secondary-hover-bg: rgb(255 255 255 / 0.08);
+  --sn-button-disabled-fg: #6f6f6f; /* Figma: Secondary and Tertiary Button, Disable (#6F6F6F / #6F6F70) */
+  --sn-button-secondary-border: rgb(
+    255 255 255 / 0.2
+  ); /* Figma: Secondary Button, Active and Hover */
+  --sn-button-secondary-fg: var(--sn-neutral-50); /* Figma: Secondary Button */
+  --sn-button-tertiary-fg: var(--sn-neutral-50); /* Figma: Tertiary Button, Active */
+  --sn-button-link-hover: var(
+    --sn-neutral-50
+  ); /* Figma: Link Button, Hover has the same color as Active */
+  --sn-button-link-disabled-fg: #585858; /* Figma: Link Button, Disable */
+  --sn-button-cancel-disabled-fg: var(
+    --sn-neutral-700
+  ); /* Figma: Cancel Button, Disable (#3C3E41, merged into neutral-700 like its stroke) */
   --sn-button-destructive-bg: var(--sn-red-500);
   --sn-button-destructive-fg: var(--sn-neutral-1000);
   --sn-button-destructive-hover: var(--sn-red-400); /* GUESS: no hover in Figma */
@@ -635,6 +650,15 @@
   --sn-button-primary-disabled-fg: var(--sn-gray-400); /* GUESS */
   --sn-button-secondary-bg: transparent; /* GUESS: Figma components are dark only */
   --sn-button-secondary-hover-bg: rgb(98 43 134 / 0.06); /* GUESS */
+  --sn-button-disabled-fg: var(
+    --sn-text-disabled
+  ); /* GUESS: Figma buttons are dark only; unchanged */
+  --sn-button-secondary-border: var(--sn-button-outline-border);
+  --sn-button-secondary-fg: var(--sn-button-outline-fg);
+  --sn-button-tertiary-fg: var(--sn-text-secondary);
+  --sn-button-link-hover: var(--sn-text-link-hover);
+  --sn-button-link-disabled-fg: var(--sn-text-disabled);
+  --sn-button-cancel-disabled-fg: var(--sn-text-disabled);
   --sn-button-destructive-bg: var(--sn-red-500);
   --sn-button-destructive-fg: var(--sn-neutral-0); /* GUESS */
   --sn-button-destructive-hover: var(--sn-red-700); /* GUESS */
@@ -901,6 +925,15 @@
     --sn-button-primary-disabled-fg: var(--sn-gray-400); /* GUESS */
     --sn-button-secondary-bg: transparent; /* GUESS: Figma components are dark only */
     --sn-button-secondary-hover-bg: rgb(98 43 134 / 0.06); /* GUESS */
+    --sn-button-disabled-fg: var(
+      --sn-text-disabled
+    ); /* GUESS: Figma buttons are dark only; unchanged */
+    --sn-button-secondary-border: var(--sn-button-outline-border);
+    --sn-button-secondary-fg: var(--sn-button-outline-fg);
+    --sn-button-tertiary-fg: var(--sn-text-secondary);
+    --sn-button-link-hover: var(--sn-text-link-hover);
+    --sn-button-link-disabled-fg: var(--sn-text-disabled);
+    --sn-button-cancel-disabled-fg: var(--sn-text-disabled);
     --sn-button-destructive-bg: var(--sn-red-500);
     --sn-button-destructive-fg: var(--sn-neutral-0); /* GUESS */
     --sn-button-destructive-hover: var(--sn-red-700); /* GUESS */

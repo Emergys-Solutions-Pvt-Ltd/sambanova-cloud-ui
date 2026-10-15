@@ -164,6 +164,13 @@
   --color-button-primary-disabled-fg: var(--sn-button-primary-disabled-fg);
   --color-button-secondary: var(--sn-button-secondary-bg);
   --color-button-secondary-hover: var(--sn-button-secondary-hover-bg);
+  --color-button-disabled-fg: var(--sn-button-disabled-fg);
+  --color-button-secondary-border: var(--sn-button-secondary-border);
+  --color-button-secondary-fg: var(--sn-button-secondary-fg);
+  --color-button-tertiary-fg: var(--sn-button-tertiary-fg);
+  --color-button-link-hover: var(--sn-button-link-hover);
+  --color-button-link-disabled-fg: var(--sn-button-link-disabled-fg);
+  --color-button-cancel-disabled-fg: var(--sn-button-cancel-disabled-fg);
   --color-button-destructive: var(--sn-button-destructive-bg);
   --color-button-destructive-fg: var(--sn-button-destructive-fg);
   --color-button-destructive-hover: var(--sn-button-destructive-hover);
