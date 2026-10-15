@@ -1,21 +1,30 @@
 "use client";
 
-import Link from "next/link";
 import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon/icon";
-import { dropdownLabelClasses, dropdownRowClasses } from "@/components/ui/dropdown-menu";
+import {
+  accountGroupLabelClasses,
+  accountMenuItemClasses,
+  accountSeparatorSoftClasses,
+  MENU_ICON_SIZE,
+} from "@/components/ui/dropdown-menu";
 import { Popover, PopoverClose, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Tooltip } from "@/components/ui/tooltip";
-import { routes } from "@/config/routes";
 import { useActiveProject, useProjects, useSwitchProject } from "@/features/projects";
 import { cn } from "@/lib/cn";
 import { useCreateProjectDialogStore } from "@/stores/create-project-dialog-store";
 import { selectIsAuthenticated, useSessionStore } from "@/stores/session-store";
 import { type Project } from "@/types/domain";
+
+/**
+ * Figma draws the Create project plus (the "Math" icon) at 18px with a 0.8475px stroke, thinner
+ * than the other menu icons; that is 0.753 in the 16px grid of our `plus` icon.
+ */
+const CREATE_PROJECT_ICON_STROKE = 0.753;
 
 interface ProjectListProps {
   projects: Project[];
@@ -86,7 +95,7 @@ function ProjectList({ projects, activeId, onSelect }: ProjectListProps) {
       tabIndex={0}
       aria-activedescendant={projects[cursor] ? optionId(cursor) : undefined}
       onKeyDown={onKeyDown}
-      className="max-h-60 overflow-y-auto outline-none"
+      className="flex max-h-60 flex-col gap-0.5 overflow-y-auto outline-none"
     >
       {projects.map((project, index) => {
         const selected = project.id === activeId;
@@ -99,13 +108,13 @@ function ProjectList({ projects, activeId, onSelect }: ProjectListProps) {
             onMouseMove={() => setCursor(index)}
             onClick={() => onSelect(project)}
             className={cn(
-              dropdownRowClasses,
+              accountMenuItemClasses,
               "justify-between",
               index === cursor && "bg-hover text-primary",
             )}
           >
             <span className="min-w-0 truncate">{project.name}</span>
-            {selected && <Icon name="check" size="sm" className="shrink-0 text-primary" />}
+            {selected && <Icon name="check" size={MENU_ICON_SIZE} className="text-primary" />}
           </li>
         );
       })}
@@ -208,9 +217,10 @@ function ProjectSwitcher({ collapsed }: { collapsed?: boolean }) {
           handingOffToDialog.current = false;
           event.preventDefault();
         }}
-        className="w-(--radix-popover-trigger-width) min-w-64"
+        surface="account"
+        className="w-(--radix-popover-trigger-width) min-w-62.5"
       >
-        <p className={dropdownLabelClasses}>Projects</p>
+        <p className={accountGroupLabelClasses}>Projects</p>
 
         {loading && (
           <div aria-busy="true" aria-label="Loading projects" className="flex flex-col gap-2 p-2">
@@ -240,17 +250,24 @@ function ProjectSwitcher({ collapsed }: { collapsed?: boolean }) {
           />
         )}
 
-        <div role="separator" className="my-1 h-px bg-menu-line" />
+        <div role="separator" className={accountSeparatorSoftClasses} />
 
         <PopoverClose asChild>
-          <Link href={routes.projects} className={dropdownRowClasses}>
-            <Icon name="layers-subtract" size="sm" />
-            Manage Projects
-          </Link>
-        </PopoverClose>
-        <PopoverClose asChild>
-          <button type="button" onClick={openCreateProject} className={dropdownRowClasses}>
-            <Icon name="plus" size="sm" />
+          <button
+            type="button"
+            onClick={openCreateProject}
+            className={cn(
+              accountMenuItemClasses,
+              "hover:bg-hover hover:text-primary focus-visible:bg-hover focus-visible:text-primary",
+            )}
+          >
+            {/* Figma top-aligns this row's content, like the account menu's Logout row. */}
+            <Icon
+              name="plus"
+              size={MENU_ICON_SIZE}
+              strokeWidth={CREATE_PROJECT_ICON_STROKE}
+              className="self-start"
+            />
             Create project
           </button>
         </PopoverClose>

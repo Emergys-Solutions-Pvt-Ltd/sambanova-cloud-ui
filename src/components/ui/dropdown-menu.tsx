@@ -5,13 +5,16 @@ import { type ComponentPropsWithRef } from "react";
 
 import { cn } from "@/lib/cn";
 
-import { menuSurface } from "./popover";
+import { accountMenuSurface, menuSurface } from "./popover";
 
 export const DropdownMenu = MenuPrimitive.Root;
 export const DropdownMenuTrigger = MenuPrimitive.Trigger;
 export const DropdownMenuGroup = MenuPrimitive.Group;
 export const DropdownMenuRadioGroup = MenuPrimitive.RadioGroup;
 export const DropdownMenuRadioItem = MenuPrimitive.RadioItem;
+
+/** Figma "Dropdown Menu" row icons are drawn at 18px (the 20px icon set scaled, strokes 1.125). */
+export const MENU_ICON_SIZE = 18;
 
 export type DropdownMenuSurface = "menu" | "flat" | "compact" | "account";
 
@@ -23,9 +26,7 @@ export type DropdownMenuSurface = "menu" | "flat" | "compact" | "account";
  */
 const surfaceClasses: Record<DropdownMenuSurface, string> = {
   menu: cn(menuSurface, "min-w-56 outline-none"),
-  account:
-    "z-dropdown flex flex-col gap-0.5 rounded-lg bg-menu p-1 text-primary shadow-lg " +
-    "data-[state=open]:animate-pop-in outline-none",
+  account: accountMenuSurface,
   flat: "z-dropdown rounded-lg bg-surface-raised p-1 text-primary shadow-lg data-[state=open]:animate-pop-in outline-none",
   compact:
     "z-dropdown flex flex-col gap-2.5 rounded-lg bg-surface-raised p-2.5 text-primary shadow-lg " +
@@ -75,10 +76,13 @@ export function DropdownMenuLabel({
 
 /**
  * Account menu divider (Figma Line 4): takes no height of its own, so the 2px gaps around it stay,
- * and its 1px line is drawn 1px above its position.
+ * and its 1px line is drawn 1px above its position. The project dropdown's divider is the softer
+ * gray-700 version (Figma Line 3).
  */
-const accountSeparatorClasses =
-  "relative h-0 w-full after:absolute after:inset-x-0 after:-top-px after:h-px after:bg-menu-line";
+const accountSeparatorBase =
+  "relative h-0 w-full after:absolute after:inset-x-0 after:-top-px after:h-px";
+const accountSeparatorClasses = `${accountSeparatorBase} after:bg-menu-line`;
+export const accountSeparatorSoftClasses = `${accountSeparatorBase} after:bg-menu-line-soft`;
 
 export function DropdownMenuSeparator({
   className,
@@ -102,6 +106,10 @@ export const dropdownRowClasses =
   "text-body leading-5 font-medium text-menu-item outline-none select-none " +
   "data-[highlighted]:bg-hover data-[highlighted]:text-primary " +
   "data-[disabled]:pointer-events-none data-[disabled]:text-disabled";
+
+/** Group heading of the project dropdown (Figma Label): 28px row, text 8px from the top, 15px left, 12px Medium capitals. */
+export const accountGroupLabelClasses =
+  "block h-7 truncate pt-2 pr-4 pl-3.75 text-caption leading-5 font-medium text-menu-label uppercase";
 
 /** Group heading of the Figma "Dropdown Menu": 28px row, 12px Medium capitals. */
 export const dropdownLabelClasses =

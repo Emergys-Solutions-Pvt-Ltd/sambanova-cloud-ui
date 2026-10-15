@@ -19,6 +19,15 @@ const menuSurfaceBase =
  */
 export const menuSurface = `z-dropdown ${menuSurfaceBase}`;
 
+/**
+ * Sidebar menus (Figma "Dropdown Menu": account menu 11661:24414 and project dropdown 1907:196446):
+ * menu fill (neutral-800), no stroke, radius 12, 4px padding, 2px gaps, large shadow. Rows inset with
+ * radius 10 (see `accountMenuItemClasses`).
+ */
+export const accountMenuSurface =
+  "z-dropdown flex flex-col gap-0.5 rounded-lg bg-menu p-1 text-primary shadow-lg " +
+  "data-[state=open]:animate-pop-in outline-none";
+
 /** Same surface layered above modal dialogs, for menus that open from inside one (e.g. a Select in a form). */
 export const menuSurfaceAboveModal = `z-popover ${menuSurfaceBase}`;
 
@@ -37,10 +46,11 @@ export const panelSurface =
   "z-popover rounded-md border border-default bg-input px-4 py-5 text-primary shadow-sm " +
   "data-[state=open]:animate-pop-in";
 
-type PopoverSurface = "menu" | "dropdown" | "panel";
+type PopoverSurface = "menu" | "dropdown" | "panel" | "account";
 
 const surfaces: Record<PopoverSurface, string> = {
   menu: menuSurface,
+  account: accountMenuSurface,
   dropdown: dropdownSurface,
   panel: panelSurface,
 };

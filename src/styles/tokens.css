@@ -350,6 +350,9 @@
   /* Menus and popovers (Figma: account menu, project dropdown) */
   --sn-bg-menu: var(--sn-neutral-800);
   --sn-border-menu: var(--sn-gray-600);
+  --sn-border-menu-soft: var(
+    --sn-gray-700
+  ); /* Figma: project dropdown divider (the account menu uses gray-600) */
   --sn-text-menu-label: var(--sn-gray-500);
   --sn-bg-dropdown: var(--sn-neutral-875); /* audit: Figma #1A1A1A is #1D1D1D */
   --sn-text-menu-item: var(--sn-gray-200); /* Figma: Dropdown Menu option */
@@ -639,6 +642,7 @@
 
   --sn-bg-menu: var(--sn-neutral-0);
   --sn-border-menu: var(--sn-gray-200); /* GUESS: no light menu in Figma */
+  --sn-border-menu-soft: var(--sn-gray-200); /* GUESS */
   --sn-text-menu-label: var(--sn-gray-500);
   --sn-bg-dropdown: var(--sn-neutral-0); /* GUESS: Figma shows dark only */
   --sn-text-menu-item: var(--sn-gray-700); /* GUESS: Figma shows dark only */
@@ -918,6 +922,7 @@
 
     --sn-bg-menu: var(--sn-neutral-0);
     --sn-border-menu: var(--sn-gray-200); /* GUESS: no light menu in Figma */
+    --sn-border-menu-soft: var(--sn-gray-200); /* GUESS */
     --sn-text-menu-label: var(--sn-gray-500);
     --sn-bg-dropdown: var(--sn-neutral-0); /* GUESS: Figma shows dark only */
     --sn-text-menu-item: var(--sn-gray-700); /* GUESS: Figma shows dark only */

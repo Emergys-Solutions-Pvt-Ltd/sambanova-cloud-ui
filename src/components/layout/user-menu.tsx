@@ -13,6 +13,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  MENU_ICON_SIZE,
 } from "@/components/ui/dropdown-menu";
 import { Icon } from "@/components/ui/icon/icon";
 import { Tooltip } from "@/components/ui/tooltip";
@@ -30,9 +31,6 @@ import {
 } from "@/stores/theme-store";
 
 import { themeOptions, themePillClasses, themeSegmentClasses } from "./theme-switcher";
-
-/** Figma "Dropdown Menu" row icons are drawn at 18px (the 20px icon set scaled, strokes 1.125). */
-const MENU_ICON_SIZE = 18;
 
 /** Signed-in account card at the bottom of the sidebar, with the account menu (Figma: Dropdown Menu). */
 export function UserMenu({ user, collapsed }: { user: User; collapsed?: boolean }) {
