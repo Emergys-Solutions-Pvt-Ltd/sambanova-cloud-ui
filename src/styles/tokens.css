@@ -423,14 +423,19 @@
   --sn-callout-icon-fg: var(--sn-purple-300);
   --sn-border-selected: rgb(255 255 255 / 0.3);
   --sn-radio-off: var(--sn-gray-700);
-  --sn-toast-success-fg: var(--sn-green-500);
-  --sn-toast-success-line: var(--sn-green-400);
+  /* Figma Toast Component: text, icon and 1px border share one colour per variant, on an 8% tint. */
+  --sn-toast-success-fg: #00c965;
+  --sn-toast-success-line: var(--sn-toast-success-fg);
+  --sn-toast-success-bg: rgb(0 201 101 / 0.08);
   --sn-toast-error-fg: var(--sn-red-500);
-  --sn-toast-error-line: var(--sn-red-400); /* GUESS */
-  --sn-toast-warning-fg: var(--sn-yellow-400);
-  --sn-toast-warning-line: var(--sn-yellow-400); /* GUESS */
-  --sn-toast-info-fg: var(--sn-blue-300);
-  --sn-toast-info-line: var(--sn-blue-500); /* GUESS */
+  --sn-toast-error-line: var(--sn-toast-error-fg);
+  --sn-toast-error-bg: rgb(240 82 82 / 0.08);
+  --sn-toast-warning-fg: #faca15;
+  --sn-toast-warning-line: var(--sn-toast-warning-fg);
+  --sn-toast-warning-bg: rgb(250 202 21 / 0.08);
+  --sn-toast-info-fg: #5699ff;
+  --sn-toast-info-line: var(--sn-toast-info-fg);
+  --sn-toast-info-bg: rgb(86 153 255 / 0.08);
   --sn-border-card-hover: var(--sn-gray-700);
   --sn-border-brand-hover: var(--sn-purple-900);
   --sn-button-glass-fg: var(--sn-neutral-0);
@@ -700,12 +705,16 @@
     --sn-green-700
   ); /* GUESS: toasts are dark only in the dashboard flow */
   --sn-toast-success-line: var(--sn-green-500); /* GUESS */
+  --sn-toast-success-bg: var(--sn-status-success-bg); /* GUESS */
   --sn-toast-error-fg: var(--sn-red-700); /* GUESS */
   --sn-toast-error-line: var(--sn-red-500); /* GUESS */
+  --sn-toast-error-bg: var(--sn-status-error-bg); /* GUESS */
   --sn-toast-warning-fg: var(--sn-amber-700); /* GUESS */
   --sn-toast-warning-line: var(--sn-yellow-400); /* GUESS */
+  --sn-toast-warning-bg: var(--sn-status-warning-bg); /* GUESS */
   --sn-toast-info-fg: var(--sn-blue-700); /* GUESS */
   --sn-toast-info-line: var(--sn-blue-500); /* GUESS */
+  --sn-toast-info-bg: var(--sn-status-info-bg); /* GUESS */
   --sn-border-card-hover: var(--sn-purple-300); /* GUESS: Figma shows dark only */
   --sn-border-brand-hover: var(--sn-purple-400); /* GUESS */
   --sn-button-glass-fg: var(--sn-purple-900);
@@ -975,12 +984,16 @@
       --sn-green-700
     ); /* GUESS: toasts are dark only in the dashboard flow */
     --sn-toast-success-line: var(--sn-green-500); /* GUESS */
+    --sn-toast-success-bg: var(--sn-status-success-bg); /* GUESS */
     --sn-toast-error-fg: var(--sn-red-700); /* GUESS */
     --sn-toast-error-line: var(--sn-red-500); /* GUESS */
+    --sn-toast-error-bg: var(--sn-status-error-bg); /* GUESS */
     --sn-toast-warning-fg: var(--sn-amber-700); /* GUESS */
     --sn-toast-warning-line: var(--sn-yellow-400); /* GUESS */
+    --sn-toast-warning-bg: var(--sn-status-warning-bg); /* GUESS */
     --sn-toast-info-fg: var(--sn-blue-700); /* GUESS */
     --sn-toast-info-line: var(--sn-blue-500); /* GUESS */
+    --sn-toast-info-bg: var(--sn-status-info-bg); /* GUESS */
     --sn-border-card-hover: var(--sn-purple-300); /* GUESS: Figma shows dark only */
     --sn-border-brand-hover: var(--sn-purple-400); /* GUESS */
     --sn-button-glass-fg: var(--sn-purple-900);

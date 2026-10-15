@@ -189,14 +189,18 @@
   --color-info: var(--sn-status-info-text);
   --color-info-bg: var(--sn-status-info-bg);
   --color-info-border: var(--sn-status-info-border);
-  --color-toast-success-fg: var(--sn-toast-success-fg);
+  --color-toast-success-bg: var(--sn-toast-success-bg);
   --color-toast-success-line: var(--sn-toast-success-line);
-  --color-toast-error-fg: var(--sn-toast-error-fg);
+  --color-toast-success-fg: var(--sn-toast-success-fg);
+  --color-toast-error-bg: var(--sn-toast-error-bg);
   --color-toast-error-line: var(--sn-toast-error-line);
-  --color-toast-warning-fg: var(--sn-toast-warning-fg);
+  --color-toast-error-fg: var(--sn-toast-error-fg);
+  --color-toast-warning-bg: var(--sn-toast-warning-bg);
   --color-toast-warning-line: var(--sn-toast-warning-line);
-  --color-toast-info-fg: var(--sn-toast-info-fg);
+  --color-toast-warning-fg: var(--sn-toast-warning-fg);
+  --color-toast-info-bg: var(--sn-toast-info-bg);
   --color-toast-info-line: var(--sn-toast-info-line);
+  --color-toast-info-fg: var(--sn-toast-info-fg);
 
   --color-chart-input: var(--sn-chart-input);
   --color-chart-output: var(--sn-chart-output);

@@ -14,7 +14,8 @@ export type IconButtonVariant =
   | "composer"
   | "send"
   | "header"
-  | "bare";
+  | "bare"
+  | "current";
 export type IconButtonSize =
   | "2xs"
   | "xs"
@@ -28,7 +29,8 @@ export type IconButtonSize =
   | "composer"
   | "send"
   | "code"
-  | "reply";
+  | "reply"
+  | "toast";
 
 /** Each variant owns its disabled colour, so `send` can stay on its fill at 40 % (Figma: empty composer). */
 const variants: Record<IconButtonVariant, string> = {
@@ -55,6 +57,8 @@ const variants: Record<IconButtonVariant, string> = {
     "border border-button-icon bg-button-icon text-button-ghost-fg hover:bg-button-secondary-hover data-[state=open]:bg-button-secondary-hover disabled:text-disabled",
   /** Glyph only (Figma: code-card and reply copy icons). */
   bare: "text-copy-icon hover:opacity-80",
+  /** Glyph in the surrounding text colour (Figma: toast close, drawn in the variant colour). */
+  current: "text-current hover:opacity-70",
 };
 
 const sizes: Record<IconButtonSize, { box: string; icon: number }> = {
@@ -81,6 +85,8 @@ const sizes: Record<IconButtonSize, { box: string; icon: number }> = {
   code: { box: "size-6 rounded-xs -m-0.75", icon: 18 },
   /** 20px glyph with a 32px hit area pulled back by 6px. */
   reply: { box: "size-8 rounded-sm -m-1.5", icon: 20 },
+  /** 16px glyph with a 24px hit area pulled back by 4px (toast close). */
+  toast: { box: "size-6 rounded-sm -m-1", icon: 16 },
 };
 
 export interface IconButtonProps extends Omit<ComponentPropsWithRef<"button">, "children"> {

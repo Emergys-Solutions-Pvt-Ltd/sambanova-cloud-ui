@@ -659,6 +659,26 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M11 12a1 1 0 0 0 1.7.7A1 1 0 0 0 12 11a1 1 0 0 0-1 1"/><path d="M12 7a5 5 0 1 0 5 5"/><path d="M13 3.06A9 9 0 1 0 20.94 11"/><path d="M15 6v3h3l3-3h-3V3zm0 3-3 3"/>',
   },
+  "toast-attention": {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    body: '<path fill="currentColor" fill-rule="evenodd" d="M.75 9a8.25 8.25 0 1 1 16.5 0A8.25 8.25 0 0 1 .75 9m7.5 3v1.5h1.5V12zm0-.75h1.5v-6h-1.5z"/>',
+  },
+  "toast-close": {
+    viewBox: "0 0 16 16",
+    fill: "none",
+    body: '<path fill="currentColor" fill-rule="evenodd" d="m12.67 4.27-.94-.94L8 7.06 4.27 3.33l-.94.94L7.06 8l-3.73 3.73.94.94L8 8.94l3.73 3.73.94-.94L8.94 8z"/>',
+  },
+  "toast-error": {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    body: '<path fill="currentColor" fill-rule="evenodd" d="M9 17.25A8.25 8.25 0 1 0 9 .75a8.25 8.25 0 0 0 0 16.5m3.96-5.46-1.17 1.17L9 10.16l-2.8 2.8-1.16-1.17L7.84 9l-2.8-2.8 1.17-1.16L9 7.84l2.8-2.8 1.16 1.17L10.16 9z"/>',
+  },
+  "toast-success": {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    body: '<path fill="currentColor" fill-rule="evenodd" d="M9 17.25A8.25 8.25 0 1 0 9 .75a8.25 8.25 0 0 0 0 16.5m-.7-4.9L5.46 9.53l1.06-1.06 1.68 1.68 3.97-4.64 1.14.98z"/>',
+  },
   trash: {
     viewBox: "0 0 18 18",
     fill: "none",
