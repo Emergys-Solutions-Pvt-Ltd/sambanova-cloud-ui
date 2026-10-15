@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { type KeyboardEvent, useEffect, useId, useMemo, useRef, useState } from "react";
+import { type KeyboardEvent, useEffect, useId, useRef, useState } from "react";
 
 import { Avatar } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -24,24 +24,19 @@ interface ProjectListProps {
 }
 
 /**
- * Search box + options using the combobox pattern: focus stays in the input,
- * ArrowUp/Down move `aria-activedescendant`, Enter picks, Escape closes the
- * popover (handled by Radix).
+ * Project options using the listbox pattern: focus stays on the list, ArrowUp/Down move
+ * `aria-activedescendant`, Home/End jump, Enter picks, Escape closes the popover (handled by Radix).
+ * The list is the first tabbable element, so Radix focuses it when the popover opens, with the
+ * active project highlighted.
  */
 function ProjectList({ projects, activeId, onSelect }: ProjectListProps) {
   const listId = useId();
-  const [query, setQuery] = useState("");
   const [cursor, setCursor] = useState(() =>
     Math.max(
       0,
       projects.findIndex((project) => project.id === activeId),
     ),
   );
-
-  const filtered = useMemo(() => {
-    const needle = query.trim().toLowerCase();
-    return needle ? projects.filter((p) => p.name.toLowerCase().includes(needle)) : projects;
-  }, [projects, query]);
 
   const optionId = (index: number) => `${listId}-option-${index}`;
 
@@ -50,8 +45,8 @@ function ProjectList({ projects, activeId, onSelect }: ProjectListProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps -- optionId only depends on listId
   }, [cursor, listId]);
 
-  const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    const last = filtered.length - 1;
+  const onKeyDown = (event: KeyboardEvent<HTMLUListElement>) => {
+    const last = projects.length - 1;
     switch (event.key) {
       case "ArrowDown":
         event.preventDefault();
@@ -69,72 +64,52 @@ function ProjectList({ projects, activeId, onSelect }: ProjectListProps) {
         event.preventDefault();
         setCursor(Math.max(0, last));
         break;
-      case "Enter": {
+      case "Enter":
+      case " ": {
         event.preventDefault();
-        const project = filtered[cursor];
+        const project = projects[cursor];
         if (project) onSelect(project);
         break;
       }
     }
   };
 
-  return (
-    <>
-      <div className="relative px-2 pb-1">
-        <Icon
-          name="search"
-          size="sm"
-          className="pointer-events-none absolute top-1/2 left-4 -translate-y-1/2 text-muted"
-        />
-        <input
-          autoFocus
-          type="text"
-          role="combobox"
-          aria-label="Search projects"
-          aria-expanded="true"
-          aria-controls={listId}
-          aria-autocomplete="list"
-          aria-activedescendant={filtered[cursor] ? optionId(cursor) : undefined}
-          placeholder="Search projects"
-          value={query}
-          onChange={(event) => {
-            setQuery(event.target.value);
-            setCursor(0);
-          }}
-          onKeyDown={onKeyDown}
-          className="h-9 w-full rounded-sm border border-default bg-input pr-3 pl-9 text-body text-primary outline-none placeholder:text-muted focus-visible:border-focus"
-        />
-      </div>
+  if (projects.length === 0) {
+    return <p className="px-4 py-3 text-body-sm text-muted">No projects yet.</p>;
+  }
 
-      <ul id={listId} role="listbox" aria-label="Projects" className="max-h-60 overflow-y-auto">
-        {filtered.map((project, index) => {
-          const selected = project.id === activeId;
-          return (
-            <li
-              key={project.id}
-              id={optionId(index)}
-              role="option"
-              aria-selected={selected}
-              onMouseMove={() => setCursor(index)}
-              onClick={() => onSelect(project)}
-              className={cn(
-                dropdownRowClasses,
-                "justify-between",
-                index === cursor && "bg-hover text-primary",
-              )}
-            >
-              <span className="min-w-0 truncate">{project.name}</span>
-              {selected && <Icon name="check" size="sm" className="shrink-0 text-primary" />}
-            </li>
-          );
-        })}
-        {filtered.length === 0 && (
-          <li role="presentation" className="px-4 py-3 text-body-sm text-muted">
-            No projects match “{query.trim()}”.
+  return (
+    <ul
+      id={listId}
+      role="listbox"
+      aria-label="Projects"
+      tabIndex={0}
+      aria-activedescendant={projects[cursor] ? optionId(cursor) : undefined}
+      onKeyDown={onKeyDown}
+      className="max-h-60 overflow-y-auto outline-none"
+    >
+      {projects.map((project, index) => {
+        const selected = project.id === activeId;
+        return (
+          <li
+            key={project.id}
+            id={optionId(index)}
+            role="option"
+            aria-selected={selected}
+            onMouseMove={() => setCursor(index)}
+            onClick={() => onSelect(project)}
+            className={cn(
+              dropdownRowClasses,
+              "justify-between",
+              index === cursor && "bg-hover text-primary",
+            )}
+          >
+            <span className="min-w-0 truncate">{project.name}</span>
+            {selected && <Icon name="check" size="sm" className="shrink-0 text-primary" />}
           </li>
-        )}
-      </ul>
-    </>
+        );
+      })}
+    </ul>
   );
 }
 
