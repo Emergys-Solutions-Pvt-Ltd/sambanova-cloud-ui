@@ -426,6 +426,15 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M3.75 3h3L9 5.25h5.25a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1-1.5 1.5H3.75a1.5 1.5 0 0 1-1.5-1.5V4.5A1.5 1.5 0 0 1 3.75 3"/>',
   },
+  folders: {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.13",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M6.75 3H9l1.5 1.5h3.75a1.5 1.5 0 0 1 1.5 1.5v5.25a1.5 1.5 0 0 1-1.5 1.5h-7.5a1.5 1.5 0 0 1-1.5-1.5V4.5A1.5 1.5 0 0 1 6.75 3"/><path d="M12.75 12.75v1.5a1.5 1.5 0 0 1-1.5 1.5h-7.5a1.5 1.5 0 0 1-1.5-1.5V7.5A1.5 1.5 0 0 1 3.75 6h1.5"/>',
+  },
   help: {
     viewBox: "0 0 18 18",
     fill: "none",
