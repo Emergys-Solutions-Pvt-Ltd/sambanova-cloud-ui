@@ -13,6 +13,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
+  MENU_ICON_SIZE,
 } from "@/components/ui/dropdown-menu";
 import { Icon } from "@/components/ui/icon/icon";
 import { Tooltip } from "@/components/ui/tooltip";
@@ -74,22 +75,24 @@ export function UserMenu({ user, collapsed }: { user: User; collapsed?: boolean 
       )}
 
       <DropdownMenuContent
+        surface="account"
         side={collapsed ? "right" : "top"}
         align={collapsed ? "end" : "start"}
         className="w-(--radix-dropdown-menu-trigger-width) min-w-62.5"
       >
-        <DropdownMenuLabel className="truncate font-medium">{user.email}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
+        <DropdownMenuLabel variant="account">{user.email}</DropdownMenuLabel>
+        <DropdownMenuSeparator variant="account" />
 
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem variant="account" asChild>
           <Link href={routes.projects}>
-            <Icon name="layers-subtract" size="sm" />
+            {/* Figma draws this one icon in gray-300, the others in gray-200 like the label. */}
+            <Icon name="folders" size={MENU_ICON_SIZE} className="text-secondary" />
             Manage Projects
           </Link>
         </DropdownMenuItem>
 
-        <div className="flex min-h-11 items-center gap-2 py-1 pr-2 pl-4 text-body text-secondary">
-          <Icon name="palette" size="sm" />
+        <div className="flex min-h-9 items-center gap-2 py-1 pr-2 pl-4 text-body leading-5 text-menu-item">
+          <Icon name="palette" size={MENU_ICON_SIZE} />
           <span id="account-theme-label" className="flex-1">
             Theme
           </span>
@@ -115,24 +118,25 @@ export function UserMenu({ user, collapsed }: { user: User; collapsed?: boolean 
           </DropdownMenuRadioGroup>
         </div>
 
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem variant="account" asChild>
           <a href={externalLinks.documentation} target="_blank" rel="noopener noreferrer">
-            <Icon name="book" size="sm" />
+            <Icon name="book" size={MENU_ICON_SIZE} />
             <span className="flex-1">Documentation</span>
             <Icon name="external-link" size="md" className="text-muted" />
           </a>
         </DropdownMenuItem>
-        <DropdownMenuItem asChild>
+        <DropdownMenuItem variant="account" asChild>
           <a href={externalLinks.helpCenter} target="_blank" rel="noopener noreferrer">
-            <Icon name="help" size="sm" />
+            <Icon name="help" size={MENU_ICON_SIZE} />
             <span className="flex-1">Help Center</span>
             <Icon name="external-link" size="md" className="text-muted" />
           </a>
         </DropdownMenuItem>
 
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onSelect={logout}>
-          <Icon name="logout" size="sm" />
+        <DropdownMenuSeparator variant="account" />
+        <DropdownMenuItem variant="account" onSelect={logout}>
+          {/* Figma top-aligns this row's content, so its icon sits 1px above the other rows'. */}
+          <Icon name="logout" size={MENU_ICON_SIZE} className="self-start" />
           Logout
         </DropdownMenuItem>
       </DropdownMenuContent>

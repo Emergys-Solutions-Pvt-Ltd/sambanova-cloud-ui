@@ -4,6 +4,7 @@ import { type ComponentPropsWithRef, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 
 import { Icon, type IconName } from "./icon/icon";
+import { MarqueeArrow } from "./marquee-arrow";
 
 /**
  * Variants follow Figma › Components › Buttons (Active / Hover / Disable):
@@ -46,18 +47,18 @@ const variants: Record<ButtonVariant, string> = {
     "disabled:bg-button-primary-disabled disabled:text-button-primary-disabled-fg " +
     "aria-disabled:bg-button-primary-disabled aria-disabled:text-button-primary-disabled-fg",
   secondary:
-    "rounded-sm border border-button-outline bg-button-secondary font-medium text-button-outline-fg " +
+    "rounded-sm border border-button-secondary-border bg-button-secondary font-medium text-button-secondary-fg " +
     "hover:bg-button-secondary-hover " +
-    "disabled:border-disabled disabled:bg-transparent disabled:text-disabled " +
-    "aria-disabled:border-disabled aria-disabled:bg-transparent aria-disabled:text-disabled",
+    "disabled:border-disabled disabled:bg-transparent disabled:text-button-disabled-fg " +
+    "aria-disabled:border-disabled aria-disabled:bg-transparent aria-disabled:text-button-disabled-fg",
   tertiary:
-    "rounded-xs font-medium text-secondary hover:text-primary disabled:text-disabled aria-disabled:text-disabled",
+    "rounded-xs font-medium text-button-tertiary-fg hover:text-primary disabled:text-button-disabled-fg aria-disabled:text-button-disabled-fg",
   link:
-    "rounded-xs text-body-sm font-bold text-link underline underline-offset-4 hover:text-link-hover " +
-    "disabled:text-disabled aria-disabled:text-disabled",
+    "rounded-xs text-body-sm font-bold text-link underline underline-offset-4 hover:text-button-link-hover " +
+    "disabled:text-button-link-disabled-fg aria-disabled:text-button-link-disabled-fg",
   cancel:
     "rounded-sm border border-current font-semibold text-muted hover:bg-hover " +
-    "disabled:border-disabled disabled:text-disabled aria-disabled:border-disabled aria-disabled:text-disabled",
+    "disabled:border-disabled disabled:text-button-cancel-disabled-fg aria-disabled:border-disabled aria-disabled:text-button-cancel-disabled-fg",
   destructive:
     "rounded-sm bg-button-destructive font-medium text-button-destructive-fg hover:bg-button-destructive-hover " +
     "disabled:bg-button-destructive-disabled disabled:text-button-destructive-disabled-fg " +
@@ -101,6 +102,11 @@ interface CommonProps {
   size?: ButtonSize;
   leftIcon?: IconName;
   rightIcon?: IconName;
+  /**
+   * "marquee" (Figma: hero banner buttons) slides `rightIcon` through a clipped 20px box when the
+   * button is hovered. The box overhangs by 2px on each side, so the button keeps its size.
+   */
+  rightIconMotion?: "marquee";
   /** Pixel size of `leftIcon` / `rightIcon`. Default 16. */
   iconSize?: number;
   fullWidth?: boolean;
@@ -139,6 +145,7 @@ export function Button(props: ButtonProps) {
     size = "md",
     leftIcon,
     rightIcon,
+    rightIconMotion,
     iconSize = 16,
     fullWidth,
     radius = "sm",
@@ -153,6 +160,7 @@ export function Button(props: ButtonProps) {
     radius === "md" ? variants[variant].replace("rounded-sm", "rounded-md") : variants[variant],
     sizeClasses(variant, size),
     fullWidth && "w-full",
+    rightIconMotion === "marquee" && "group/button",
     className,
   );
 
@@ -160,7 +168,13 @@ export function Button(props: ButtonProps) {
     <>
       {loading ? <Spinner /> : leftIcon && <Icon name={leftIcon} size={iconSize} />}
       {children}
-      {!loading && rightIcon && <Icon name={rightIcon} size={iconSize} />}
+      {!loading &&
+        rightIcon &&
+        (rightIconMotion === "marquee" ? (
+          <MarqueeArrow trigger="button" icon={rightIcon} className="-m-0.5" />
+        ) : (
+          <Icon name={rightIcon} size={iconSize} />
+        ))}
     </>
   );
 

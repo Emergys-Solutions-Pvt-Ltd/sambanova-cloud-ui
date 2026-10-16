@@ -11,10 +11,22 @@ export const PopoverAnchor = PopoverPrimitive.Anchor;
 export const PopoverClose = PopoverPrimitive.Close;
 
 const menuSurfaceBase =
-  "rounded-lg border border-subtle bg-menu p-1 text-primary shadow-lg data-[state=open]:animate-pop-in";
+  "overflow-hidden rounded-lg border border-dropdown bg-dropdown pt-2 pb-1.5 text-primary shadow-lg data-[state=open]:animate-pop-in";
 
-/** Surface shared with DropdownMenuContent: Figma "Dropdown Menu" (r12, raised, large shadow). */
+/**
+ * Surface shared with DropdownMenuContent: Figma "Dropdown Menu" (r12, near-black fill, gray-800 stroke,
+ * large shadow, 8px above the first row and 6px below the last; rows run edge to edge).
+ */
 export const menuSurface = `z-dropdown ${menuSurfaceBase}`;
+
+/**
+ * Sidebar menus (Figma "Dropdown Menu": account menu 11661:24414 and project dropdown 1907:196446):
+ * menu fill (neutral-800), no stroke, radius 12, 4px padding, 2px gaps, large shadow. Rows inset with
+ * radius 10 (see `accountMenuItemClasses`).
+ */
+export const accountMenuSurface =
+  "z-dropdown flex flex-col gap-0.5 rounded-lg bg-menu p-1 text-primary shadow-lg " +
+  "data-[state=open]:animate-pop-in outline-none";
 
 /** Same surface layered above modal dialogs, for menus that open from inside one (e.g. a Select in a form). */
 export const menuSurfaceAboveModal = `z-popover ${menuSurfaceBase}`;
@@ -24,9 +36,9 @@ export const fieldDropdownSurface =
   "z-popover rounded-md border border-field bg-input p-0.5 text-primary shadow-lg " +
   "data-[state=open]:animate-pop-in";
 
-/** Flat dropdown on the page surface (Figma: Compare Models picker): r8, page color; z-popover so it clears modal dialogs. */
+/** Flat dropdown on the page surface (Figma: Compare Models picker): r8, page color, no stroke, soft shadow; z-popover so it clears modal dialogs. */
 export const dropdownSurface =
-  "z-popover rounded-md border border-default bg-surface p-1 text-primary shadow-lg " +
+  "z-popover rounded-md bg-surface p-1 text-primary shadow-picker " +
   "data-[state=open]:animate-pop-in";
 
 /** Content panel with its own layout (Figma: Datepicker Dropdown): input fill, r8, small shadow, 16/20px padding. */
@@ -34,10 +46,11 @@ export const panelSurface =
   "z-popover rounded-md border border-default bg-input px-4 py-5 text-primary shadow-sm " +
   "data-[state=open]:animate-pop-in";
 
-type PopoverSurface = "menu" | "dropdown" | "panel";
+type PopoverSurface = "menu" | "dropdown" | "panel" | "account";
 
 const surfaces: Record<PopoverSurface, string> = {
   menu: menuSurface,
+  account: accountMenuSurface,
   dropdown: dropdownSurface,
   panel: panelSurface,
 };

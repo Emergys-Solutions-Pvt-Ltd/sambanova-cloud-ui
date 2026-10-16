@@ -68,7 +68,7 @@ export function Combobox({
           type="button"
           aria-label={`${ariaLabel}: ${selected?.label ?? "none"}`}
           className={cn(
-            "flex h-10.5 w-full items-center justify-between gap-2.5 rounded-md border border-input bg-surface px-4",
+            "flex h-10.5 w-full items-center justify-between gap-2.5 rounded-md border border-field bg-surface px-4",
             "text-body-lg text-primary transition-colors duration-(--sn-duration-fast) ease-standard hover:bg-hover",
             className,
           )}
@@ -182,7 +182,7 @@ function OptionList({
 
   return (
     <>
-      <div className="flex items-center gap-2 border-b border-default px-4 py-2.5">
+      <div className="flex items-center gap-2 border-b border-panel px-4 py-2.5">
         <Icon name="search" size="md" className="shrink-0 text-muted" />
         <input
           autoFocus

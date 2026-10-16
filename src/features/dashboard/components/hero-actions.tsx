@@ -17,6 +17,7 @@ export function HeroActions() {
         onClick={guardLink(routes.playground)}
         variant="glass"
         rightIcon="arrow-right"
+        rightIconMotion="marquee"
       >
         Open Playground
       </Button>
@@ -25,12 +26,14 @@ export function HeroActions() {
         onClick={guardLink(routes.apiKeys)}
         variant="glass"
         rightIcon="arrow-right"
+        rightIconMotion="marquee"
       >
         Create API Key
       </Button>
       <Button
         variant="glass"
         rightIcon="arrow-right"
+        rightIconMotion="marquee"
         onClick={guardAction(openAddCredits)}
         aria-haspopup="dialog"
       >
