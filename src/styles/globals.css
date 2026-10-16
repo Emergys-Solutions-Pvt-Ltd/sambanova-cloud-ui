@@ -28,7 +28,6 @@
   --background-color-overlay: var(--sn-bg-overlay);
   --background-color-inverse: var(--sn-bg-inverse);
   --background-color-menu: var(--sn-bg-menu);
-  --background-color-menu-line-soft: var(--sn-border-menu-soft);
   --background-color-menu-line: var(--sn-border-menu);
   --background-color-profile: var(--sn-bg-profile);
   --background-color-chip: var(--sn-bg-chip);
@@ -56,6 +55,7 @@
   --border-color-control: var(--sn-border-control);
   --border-color-focus: var(--sn-border-focus);
   --border-color-menu: var(--sn-border-menu);
+  --border-color-menu-soft: var(--sn-border-menu-soft);
   --border-color-dropdown: var(--sn-border-dropdown);
   --border-color-panel: var(--sn-border-panel);
   --border-color-panel-line: var(--sn-border-panel-line);

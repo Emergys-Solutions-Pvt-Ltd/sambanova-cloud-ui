@@ -75,14 +75,17 @@ export function DropdownMenuLabel({
 }
 
 /**
- * Account menu divider (Figma Line 4): takes no height of its own, so the 2px gaps around it stay,
- * and its 1px line is drawn 1px above its position. The project dropdown's divider is the softer
- * gray-700 version (Figma Line 3).
+ * Account menu dividers (Figma Line 4 under the email, Line 3 above Logout: both 242px, 1px, gray-600):
+ * they take no height of their own, so the 2px gaps around them stay, and the 1px line is drawn 1px
+ * above their position. The line is a border, not a background: borders are snapped to whole device
+ * pixels, so every divider is the same crisp 1px line at any display scale (a 1px background fell
+ * between pixels at 125% and one divider came out blurrier than the other). The project dropdown's
+ * divider is the softer gray-700 version (Figma 1907:196469).
  */
 const accountSeparatorBase =
-  "relative h-0 w-full after:absolute after:inset-x-0 after:-top-px after:h-px";
-const accountSeparatorClasses = `${accountSeparatorBase} after:bg-menu-line`;
-export const accountSeparatorSoftClasses = `${accountSeparatorBase} after:bg-menu-line-soft`;
+  "relative h-0 w-full after:absolute after:inset-x-0 after:-top-px after:border-t";
+const accountSeparatorClasses = `${accountSeparatorBase} after:border-menu`;
+export const accountSeparatorSoftClasses = `${accountSeparatorBase} after:border-menu-soft`;
 
 export function DropdownMenuSeparator({
   className,
@@ -92,7 +95,7 @@ export function DropdownMenuSeparator({
   return (
     <MenuPrimitive.Separator
       className={cn(
-        variant === "account" ? accountSeparatorClasses : "my-1 h-px bg-menu-line",
+        variant === "account" ? accountSeparatorClasses : "my-1 h-0 border-t border-menu",
         className,
       )}
       {...rest}
