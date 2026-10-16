@@ -51,16 +51,23 @@ The pre-commit hook runs `lint-staged`: ESLint (`--fix`, zero warnings) and Pret
 
 Copy `.env.example` to `.env.local`. Public variables are validated with Zod in `src/config/env.ts`; the app fails fast with a readable message if one is missing or malformed. Always read them through `env` from `@/config/env`, never through `process.env` directly.
 
-| Variable                     | Scope  | Description                                                                              |
-| ---------------------------- | ------ | ---------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_API_BASE_URL`   | public | API base URL. An absolute URL, or a path such as `/api` when mocking.                    |
-| `NEXT_PUBLIC_QUERY_DEVTOOLS` | public | `true` shows the TanStack Query devtools button in development. Default `false`.         |
-| `NEXT_PUBLIC_USE_MOCKS`      | public | `true` starts the MSW worker and serves all API calls from `src/mocks`. Default `false`. |
-| `AUTH0_DOMAIN`               | server | Auth0 tenant domain. Placeholder, not used until auth is integrated.                     |
-| `AUTH0_CLIENT_ID`            | server | Auth0 application client ID (placeholder).                                               |
-| `AUTH0_CLIENT_SECRET`        | server | Auth0 application client secret (placeholder).                                           |
-| `AUTH0_SECRET`               | server | 32-byte hex secret for encrypting the session cookie (placeholder).                      |
-| `APP_BASE_URL`               | server | Public URL of this app, used for Auth0 callbacks (placeholder).                          |
+| Variable                      | Scope  | Description                                                                                              |
+| ----------------------------- | ------ | -------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_API_BASE_URL`    | public | API base URL. An absolute URL, or a path such as `/api` when mocking.                                    |
+| `NEXT_PUBLIC_DISABLED_ROUTES` | public | Comma-separated routes to switch off, e.g. `/playground,/api-keys,/settings` (see below). Default empty. |
+| `NEXT_PUBLIC_QUERY_DEVTOOLS`  | public | `true` shows the TanStack Query devtools button in development. Default `false`.                         |
+| `NEXT_PUBLIC_USE_MOCKS`       | public | `true` starts the MSW worker and serves all API calls from `src/mocks`. Default `false`.                 |
+| `AUTH0_DOMAIN`                | server | Auth0 tenant domain. Placeholder, not used until auth is integrated.                                     |
+| `AUTH0_CLIENT_ID`             | server | Auth0 application client ID (placeholder).                                                               |
+| `AUTH0_CLIENT_SECRET`         | server | Auth0 application client secret (placeholder).                                                           |
+| `AUTH0_SECRET`                | server | 32-byte hex secret for encrypting the session cookie (placeholder).                                      |
+| `APP_BASE_URL`                | server | Public URL of this app, used for Auth0 callbacks (placeholder).                                          |
+
+### Disabling routes
+
+Set `NEXT_PUBLIC_DISABLED_ROUTES` to a comma-separated list of routes, for example `/playground,/api-keys,/settings`. A listed route also disables everything beneath it (`/settings` covers `/settings/billing`). Opening the URL, by typing it or by following a link, shows the 404 page (enforced in `src/proxy.ts`, for guests and signed-in users). Sidebar items, hero buttons and the model cards keep their normal look; there is no disabled styling.
+
+The value is inlined at build time, so restart `npm run dev` (or rebuild and redeploy) after changing it. Leave it empty to enable every route. `isRouteDisabled(href)` from `@/config/disabled-routes` tells whether a path is switched off.
 
 `NEXT_PUBLIC_*` values are inlined at build time, so changing them requires a rebuild (or a dev-server restart).
 

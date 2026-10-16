@@ -7,6 +7,30 @@ import { z } from "zod";
  * `process.env.NEXT_PUBLIC_X` expressions, so each one is listed explicitly
  * here instead of passing `process.env` wholesale.
  */
+
+/**
+ * Comma-separated route prefixes to switch off, e.g. "/playground, /api-keys/".
+ * Entries are trimmed, given a leading slash and stripped of a trailing slash, query or hash;
+ * blanks and duplicates are dropped (a lone "/" is ignored: it would disable the whole app).
+ */
+const routeList = z
+  .string()
+  .default("")
+  .transform((value) => [
+    ...new Set(
+      value
+        .split(",")
+        .map((entry) =>
+          entry
+            .trim()
+            .replace(/[?#].*$/, "")
+            .replace(/\/+$/, ""),
+        )
+        .filter(Boolean)
+        .map((entry) => (entry.startsWith("/") ? entry : `/${entry}`)),
+    ),
+  ]);
+
 const publicEnvSchema = z.object({
   NEXT_PUBLIC_API_BASE_URL: z
     .string()
@@ -22,12 +46,14 @@ const publicEnvSchema = z.object({
     .enum(["true", "false"])
     .default("false")
     .transform((value) => value === "true"),
+  NEXT_PUBLIC_DISABLED_ROUTES: routeList,
 });
 
 const parsed = publicEnvSchema.safeParse({
   NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
   NEXT_PUBLIC_USE_MOCKS: process.env.NEXT_PUBLIC_USE_MOCKS,
   NEXT_PUBLIC_QUERY_DEVTOOLS: process.env.NEXT_PUBLIC_QUERY_DEVTOOLS,
+  NEXT_PUBLIC_DISABLED_ROUTES: process.env.NEXT_PUBLIC_DISABLED_ROUTES,
 });
 
 if (!parsed.success) {
@@ -40,5 +66,6 @@ export const env = {
   apiBaseUrl: parsed.data.NEXT_PUBLIC_API_BASE_URL.replace(/\/+$/, ""),
   useMocks: parsed.data.NEXT_PUBLIC_USE_MOCKS,
   queryDevtools: parsed.data.NEXT_PUBLIC_QUERY_DEVTOOLS,
+  disabledRoutes: parsed.data.NEXT_PUBLIC_DISABLED_ROUTES,
   isDev: process.env.NODE_ENV === "development",
 } as const;
