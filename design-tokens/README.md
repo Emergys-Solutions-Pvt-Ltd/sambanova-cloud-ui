@@ -64,6 +64,11 @@ Reference frames: dark **Dashboard** `1907:196249`, light **Light** `1907:204371
 | `#1D1D1D` (`bg-surface-raised`)                                                         | `#1A1A1A`                                             | Project Settings: row ⋮ menus (`flat` menu surface)                                                                                                |
 | `#E5E7EB` (`text-content`), `#FFFFFF` (`text-primary`)                                  | `#F9FAFB`                                             | Project Settings: table header text, rate-limit values, permission info icons                                                                      |
 | radius 6 (`rounded-sm`), 10 (`rounded-item`)                                            | radius 6.47, 9.7                                      | Members segmented control (scaled instance)                                                                                                        |
+| `#FAFAFA` (`text-emphasis`)                                                             | `#F3F4F6`, `#F9FAFB`                                  | Billing: card names, Auto Recharge values, "My Cards" title, "Credit Card Details"; ΔE<1                                                           |
+| `#E5E7EB` (`text-table-header`)                                                         | `#FFFFFF`                                             | Billing › Invoices header text (the other tables' header colour)                                                                                   |
+| `#1D1D1D` (`bg-surface-raised`), `text-error`                                           | `#1A1A1A`, `#FF6666`                                  | Billing card ⋮ menu surface and "Remove card"                                                                                                      |
+| white 8% (`bg-card-row`)                                                                | white 6%                                              | Billing: the last My Cards row is drawn at 6%, the others at 8%                                                                                    |
+| `text-tiny` (10px)                                                                      | 10.22px                                               | Billing Autopay badge (scaled instance)                                                                                                            |
 
 ## Values I had to guess (please confirm with design)
 
@@ -104,10 +109,14 @@ Marked `GUESS` in `tokens.css` and on `/dev/tokens`.
 | Playground `history-item-hover`                                                                                                                                                                                | `#262626` (Figma)                                                                        | black 4%                                                                                                              | No light History panel                                                                                                         |
 | Project Settings: every new token (`bg-field-strong`, `bg-role-icon`, `border-role-divider`, `bg-badge-accent`, `text-capability`, `border-danger-zone`, `button-danger-soft-*`, `tier-*`, `text-tier-active`) | from Figma                                                                               | **all guessed** (white fields, red-50/200/700 danger, gray-100/200 idle tiers, P 600/800 active tier)                 | Project Settings is drawn in dark only                                                                                         |
 | Project Settings `button-danger-soft-hover`                                                                                                                                                                    | red 10%                                                                                  | red 10%                                                                                                               | No hover state for "Delete Project"                                                                                            |
+| Billing `gradient-credits-card`, `gradient-credits-border`, `text-credits-description`                                                                                                                         | from Figma                                                                               | **guessed**: P 50 → white → P 100 wash, P 300 → amber 300 → P 400 hairline, gray-600 text                             | Billing is drawn in dark only                                                                                                  |
+| Billing `divider-soft`                                                                                                                                                                                         | white 12% (Figma)                                                                        | black 10%                                                                                                             | Auto Recharge divider and card-menu separator; no light Billing                                                                |
+| Billing `switch-success`                                                                                                                                                                                       | `#0E9F6E` (Figma)                                                                        | same                                                                                                                  | No light Auto Recharge card                                                                                                    |
+| Billing My Cards (`gradient-cards-panel`, `bg-card-row`, `bg-cards-add`, `autopay-*`)                                                                                                                          | from Figma                                                                               | none: the panel renders with `data-theme="dark"`                                                                      | It is card art on a dark purple gradient; a light version isn't designed                                                       |
 
 ## Inconsistencies found in Figma
 
-1. **Four different "success" greens** for the same badge role: `#31C48D` on 8% (Billing table), `#00E91F` on `#CDFFD6`@20% (Project Settings), `#00FF09` on `#00FF08`@12% (Billing balance), and light `#00C91B` on `#CAFFD4` (Playground). All are mapped to `status-success`.
+1. **Four different "success" greens** for the same badge role: `#31C48D` on 8% (Billing table), `#00E91F` on `#CDFFD6`@20% (Project Settings), `#00FF09` on `#00FF08`@12% (Billing Autopay badge), and light `#00C91B` on `#CAFFD4` (Playground). All map to `status-success` except the Autopay badge, which keeps its own `autopay-*` tokens because it sits on the purple card art. The Auto Recharge switch adds a fifth green, `#0E9F6E` (`switch-success`).
 2. **Two error reds**: `#F05252` (destructive buttons, danger zone) vs `#FF5959` (badges, error drawer). Kept as border/icon vs text, but they should probably be one.
 3. **Light headings use five colors**: `#1F2A37`, `#262626`, `#232220`, `#0A0A0A`, `#374151` for the same section- and card-title role. All are mapped to `text-primary` (`#1F2A37`).
 4. **Light links use three purples**: `#6F3099`, `#8335BB`, `#622B86`. Mapped to `text-link` (`#6F3099`). Dark links are plain white.
@@ -138,6 +147,9 @@ Marked `GUESS` in `tokens.css` and on `/dev/tokens`.
 29. **Project Settings: destructive menu row `#FF6666`** and confirmation glyph `#FF6565` are off-palette; mapped to `text-error` / `red-400`.
 30. **Project Settings: status chips** use a full-strength 0.5px stroke (`#E3A008`, `#FF5959`) unlike the app's 30% status borders; implemented as drawn with the text colour as stroke.
 31. **Project Settings: tab underline** is white (1px) while other tab bars in the app use brand purple; implemented as `border-current` so it follows the text colour in both themes.
+32. **Billing: off-scale type.** The balance is 28px Bold and the card art prints its expiry at 9.28px (the back cards at 8.34 / 7.07, scaled). Two tokens were added (`heading-2xl`, `card-art`); the back cards are the front card scaled down, so their sizes follow.
+33. **Billing: form label weight.** Enable Auto Recharge labels are Regular while Add Payment Details and Add Credits labels are Medium; the shared form label (Medium) is used for both.
+34. **Billing: zero-state description is SemiBold** gray-400, while every other empty state uses Regular. Implemented as drawn.
 
 Module-level gaps (missing states, copy, data and rules) are tracked in the "Project Settings — Assumptions, Gaps & Audit Log" doc rather than here.
 
@@ -150,6 +162,7 @@ Module-level gaps (missing states, copy, data and rules) are tracked in the "Pro
 | Token                  | Size / line height                | Weight    | Figma usage           |
 | ---------------------- | --------------------------------- | --------- | --------------------- |
 | `display`              | 42 / 1.2, −2%                     | 600       | Playground hero       |
+| `heading-2xl`          | 28 / 1.2                          | 700       | Billing balance       |
 | `heading-xl`           | 24 / 1.25                         | 400       | Hero banner title     |
 | `heading-lg`           | 22 / 1.3                          | 600       | Page titles           |
 | `heading-md`           | 20 / 1.4                          | 600       | Card and modal titles |
@@ -163,6 +176,7 @@ Module-level gaps (missing states, copy, data and rules) are tracked in the "Pro
 | `overline`             | 12 / 23px, uppercase              | 500       | Model-card labels     |
 | `micro`                | 11 / 1.2                          | 600       | Badges                |
 | `tiny`                 | 10 / 1.5                          | 400       | Sidebar email         |
+| `card-art`             | 9.28 / 1.2                        | 400       | Billing card expiry   |
 | `table` / `table-head` | 14 / 1.5 · 12 / 1.5 uppercase +4% | 400 · 500 | Tables                |
 | `code`                 | 14 / 1.5 (Lato)                   | 400       | Code samples          |
 
@@ -180,6 +194,7 @@ Module-level gaps (missing states, copy, data and rules) are tracked in the "Pro
   - Colors are `currentColor`.
   - `plus` was redrawn because it's library-locked.
   - `chevron-up` was derived from `chevron-down`, because the export lost the parent rotation.
-- **Illustrations** (WebP @2x, about 1.1 MB of PNG → 84 KB): hero wave (dark/light), four onboarding-step visuals (dark/light), API-keys empty state, credit-card art.
+- **Illustrations** (WebP @2x, about 1.1 MB of PNG → 84 KB): hero wave (dark/light), four onboarding-step visuals (dark/light), API-keys empty state, credit-card art (Billing zero state).
+- **Billing** (`public/billing`, `billingArt` and `cardBrandLogos` in `src/config/assets.ts`): the notched card body, VISA wordmark, glows and Auto Recharge icon as Figma SVG; chip, Mastercard mark and the four brand logos as WebP @2x, cropped exactly as Figma crops its image fills.
 - **Brand**: the SambaNova mark (same in both themes) and the wordmark (`currentColor`: white on dark, `#333233` on light).
 - **Not exported yet**: partner and model logos and the webinar image. They're dashboard content and will be exported with the Dashboard feature.

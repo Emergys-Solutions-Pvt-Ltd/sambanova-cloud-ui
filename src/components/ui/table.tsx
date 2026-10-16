@@ -29,15 +29,29 @@ export function TableCard({ children, footer, radius = "lg", className }: TableC
   );
 }
 
+const minWidths = {
+  /** 600px: few short columns (Billing › Invoices). */
+  sm: "min-w-150",
+  /** 760px: the default. */
+  md: "min-w-190",
+  /** 960px: tables with long values such as emails (Members, Invitations). */
+  lg: "min-w-240",
+} as const;
+
 interface TableProps extends ComponentPropsWithRef<"table"> {
   /** Screen-reader name of the table. */
   caption: string;
+  /** Width below which the card scrolls sideways instead of squeezing the columns. */
+  minWidth?: keyof typeof minWidths;
 }
 
 /** Semantic table with Figma's header band and row dividers (last row has none). */
-export function Table({ caption, className, children, ...rest }: TableProps) {
+export function Table({ caption, minWidth = "md", className, children, ...rest }: TableProps) {
   return (
-    <table className={cn("w-full min-w-190 border-collapse text-body", className)} {...rest}>
+    <table
+      className={cn("w-full border-collapse text-body", minWidths[minWidth], className)}
+      {...rest}
+    >
       <caption className="sr-only">{caption}</caption>
       {children}
     </table>
@@ -69,10 +83,19 @@ export function TableHeaderCell({ className, ...rest }: ComponentPropsWithRef<"t
   );
 }
 
-export function TableCell({ className, ...rest }: ComponentPropsWithRef<"td">) {
+/** secondary = gray-300 cell text (default); muted = gray-400 (Figma: Billing › Invoices). */
+export function TableCell({
+  className,
+  tone = "secondary",
+  ...rest
+}: ComponentPropsWithRef<"td"> & { tone?: "secondary" | "muted" }) {
   return (
     <td
-      className={cn("h-13.5 border-b border-default px-4 py-0 text-body text-secondary", className)}
+      className={cn(
+        "h-13.5 border-b border-default px-4 py-0 text-body",
+        tone === "secondary" ? "text-secondary" : "text-muted",
+        className,
+      )}
       {...rest}
     />
   );

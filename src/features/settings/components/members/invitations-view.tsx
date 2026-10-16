@@ -166,7 +166,7 @@ export function InvitationsView() {
             <PaginationFooter result={data} onPageChange={setPage} label="Invitations pages" />
           }
         >
-          <Table caption="Invitations" className="min-w-240 table-fixed" aria-busy={firstLoad}>
+          <Table caption="Invitations" minWidth="lg" className="table-fixed" aria-busy={firstLoad}>
             <colgroup>
               <col className="w-[24.6%]" />
               <col className="w-[12.2%]" />

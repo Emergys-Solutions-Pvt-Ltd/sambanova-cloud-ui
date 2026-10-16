@@ -515,6 +515,37 @@
   --sn-tier-idle-bg: var(--sn-ink-tier);
   --sn-tier-idle-border: var(--sn-ink-tier-border);
   --sn-text-tier-active: var(--sn-purple-300);
+
+  /* Billing (Figma: Project Settings › Billing). */
+  --sn-gradient-credits-card: linear-gradient(
+    90deg,
+    rgb(60 32 79 / 0.3) 0%,
+    rgb(19 19 19 / 0.3) 35.1%,
+    rgb(98 43 134 / 0.3) 100%
+  );
+  --sn-gradient-credits-border: linear-gradient(
+    95deg,
+    rgb(203 144 255 / 0.3) 0%,
+    rgb(254 210 75 / 0.3) 43.3%,
+    rgb(173 103 229 / 0.3) 100%
+  );
+  --sn-shadow-credits-card: inset 0 1px 48.3px -2px rgb(152 79 208 / 0.08);
+  --sn-text-credits-description: rgb(255 255 255 / 0.6);
+  /* My Cards panel: renders in the dark theme everywhere (it is card art), so no light values. */
+  --sn-gradient-cards-panel: linear-gradient(
+    180deg,
+    var(--sn-purple-900) 0%,
+    var(--sn-neutral-1000) 41.4%,
+    #260b36 100%
+  );
+  --sn-bg-card-row: rgb(255 255 255 / 0.08);
+  --sn-bg-cards-add: rgb(255 255 255 / 0.2);
+  --sn-autopay-bg: rgb(0 255 8 / 0.12);
+  --sn-autopay-fg: #00ff09;
+  --sn-switch-success: var(--sn-green-500); /* Auto Recharge toggle */
+  --sn-border-divider-soft: rgb(
+    255 255 255 / 0.12
+  ); /* Auto Recharge divider, card menu separator */
 }
 
 /* ---------------------------------------------------------------------- */
@@ -779,6 +810,24 @@
   --sn-tier-idle-bg: var(--sn-gray-100);
   --sn-tier-idle-border: var(--sn-gray-200);
   --sn-text-tier-active: var(--sn-purple-800);
+
+  /* Billing: Figma is dark only, every value below is a GUESS. */
+  --sn-gradient-credits-card: linear-gradient(
+    90deg,
+    var(--sn-purple-50) 0%,
+    var(--sn-neutral-0) 35.1%,
+    var(--sn-purple-100) 100%
+  );
+  --sn-gradient-credits-border: linear-gradient(
+    95deg,
+    var(--sn-purple-300) 0%,
+    var(--sn-amber-300) 43.3%,
+    var(--sn-purple-400) 100%
+  );
+  --sn-shadow-credits-card: inset 0 1px 48.3px -2px rgb(152 79 208 / 0.08);
+  --sn-text-credits-description: var(--sn-gray-600);
+  --sn-switch-success: var(--sn-green-500);
+  --sn-border-divider-soft: rgb(0 0 0 / 0.1); /* GUESS */
 }
 
 @media (prefers-color-scheme: light) {
@@ -1038,6 +1087,24 @@
     --sn-tier-idle-bg: var(--sn-gray-100);
     --sn-tier-idle-border: var(--sn-gray-200);
     --sn-text-tier-active: var(--sn-purple-800);
+
+    /* Billing: Figma is dark only, every value below is a GUESS. */
+    --sn-gradient-credits-card: linear-gradient(
+      90deg,
+      var(--sn-purple-50) 0%,
+      var(--sn-neutral-0) 35.1%,
+      var(--sn-purple-100) 100%
+    );
+    --sn-gradient-credits-border: linear-gradient(
+      95deg,
+      var(--sn-purple-300) 0%,
+      var(--sn-amber-300) 43.3%,
+      var(--sn-purple-400) 100%
+    );
+    --sn-shadow-credits-card: inset 0 1px 48.3px -2px rgb(152 79 208 / 0.08);
+    --sn-text-credits-description: var(--sn-gray-600);
+    --sn-switch-success: var(--sn-green-500);
+    --sn-border-divider-soft: rgb(0 0 0 / 0.1); /* GUESS */
   }
 }
 

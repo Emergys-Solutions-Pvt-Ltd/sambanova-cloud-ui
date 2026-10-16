@@ -12,6 +12,7 @@ import {
 
 import { getMockConfig } from "../config";
 import { chargeCredits, findAccountBySession } from "../db/accounts";
+import { runAutoRechargeFor } from "../db/billing";
 import {
   deleteConversationFor,
   getConversationFor,
@@ -196,7 +197,9 @@ export const playgroundHandlers = [
       // Runs once the stream completes, errors or is cancelled: charge for what was generated.
       finalize(async () => {
         const cost = replyCost(model.pricing, promptTokens, estimateTokens(streamedChars));
-        if (cost > 0) await chargeCredits(account.id, cost);
+        if (cost <= 0) return;
+        await chargeCredits(account.id, cost);
+        await runAutoRechargeFor(account.id);
       });
 
       return new HttpResponse(stream, {

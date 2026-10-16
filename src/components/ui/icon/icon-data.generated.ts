@@ -598,6 +598,15 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M15 8.25a6.1 6.1 0 0 0-5.24-5.19 6.1 6.1 0 0 0-6.38 3.69m-.38-3v3h3m-3 3a6.1 6.1 0 0 0 5.24 5.19 6.1 6.1 0 0 0 6.39-3.69m.37 3v-3h-3"/>',
   },
+  repeat: {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M21.01 5.95H7.4a4 4 0 0 0-4 4v.77"/><path d="m18.01 8.95 3-3-3-3M5.99 20.55l-3-3 3-3"/><path d="M2.99 17.55H17a4 4 0 0 0 4-4v-1.23"/>',
+  },
   rocket: {
     viewBox: "0 0 18 18",
     fill: "none",

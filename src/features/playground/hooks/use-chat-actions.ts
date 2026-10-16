@@ -241,6 +241,8 @@ async function streamReply(
   } finally {
     releaseRun(runId, controller);
     void context.queryClient.invalidateQueries({ queryKey: queryKeys.session.me() });
+    // The charge can trigger Auto Recharge, which adds an invoice.
+    void context.queryClient.invalidateQueries({ queryKey: queryKeys.billing.invoices() });
     maybeSave(context, turnId, slot, runId);
   }
 }

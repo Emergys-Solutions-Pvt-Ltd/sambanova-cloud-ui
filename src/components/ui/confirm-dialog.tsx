@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import { isApiError } from "@/lib/api";
 
@@ -13,7 +13,8 @@ interface ConfirmDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: string;
-  description: string;
+  /** Text, or text with emphasis (Figma: Switch Auto Recharge Card bolds the card numbers). */
+  description: ReactNode;
   icon?: IconName;
   /** "danger" gives a red icon and a destructive confirm button (deletions). */
   tone?: "warning" | "danger";

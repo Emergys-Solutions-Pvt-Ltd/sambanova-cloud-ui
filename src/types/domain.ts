@@ -50,8 +50,60 @@ export interface CardDetails {
 export interface PurchaseCreditsInput {
   /** Whole US dollars. */
   amount: number;
-  billingAddress: BillingAddress;
+  /** Dashboard asks for it; Billing doesn't (the API falls back to the saved address). */
+  billingAddress?: BillingAddress;
   card: CardDetails;
+}
+
+/* ---- Billing (account level, shown under Project Settings › Billing) ---- */
+
+export type CardBrand = "visa" | "mastercard" | "amex" | "discover";
+
+/** A saved card. Only the brand, last 4 digits and expiry are ever stored or returned. */
+export interface PaymentMethod {
+  id: string;
+  brand: CardBrand;
+  last4: string;
+  /** 1-12. */
+  expMonth: number;
+  /** Four digits. */
+  expYear: number;
+  createdAt: string;
+}
+
+export interface AddPaymentMethodInput {
+  card: CardDetails;
+}
+
+/** Auto Recharge: when the balance drops below `threshold`, buy `amount` with the chosen card. */
+export interface AutoRechargeSettings {
+  enabled: boolean;
+  /** Whole US dollars; `null` until first set up. */
+  threshold: number | null;
+  amount: number | null;
+  paymentMethodId: string | null;
+}
+
+/** PUT /billing/auto-recharge. Enabling needs all three values; disabling keeps them. */
+export interface UpdateAutoRechargeInput {
+  enabled: boolean;
+  threshold?: number;
+  amount?: number;
+  paymentMethodId?: string;
+}
+
+export type InvoiceStatus = "completed" | "failed";
+
+export interface Invoice {
+  id: string;
+  /** Display number, e.g. "Inv-0212". */
+  number: string;
+  createdAt: string;
+  /** US dollars. */
+  amount: number;
+  status: InvoiceStatus;
+  /** What it was for: a manual purchase or an automatic recharge. */
+  source: "purchase" | "auto-recharge";
 }
 
 export interface CreditPurchase {

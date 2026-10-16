@@ -21,6 +21,11 @@ export const queryKeys = {
   billing: {
     all: ["billing"] as const,
     address: () => [...queryKeys.billing.all, "address"] as const,
+    paymentMethods: () => [...queryKeys.billing.all, "payment-methods"] as const,
+    autoRecharge: () => [...queryKeys.billing.all, "auto-recharge"] as const,
+    invoices: () => [...queryKeys.billing.all, "invoices"] as const,
+    invoiceList: (params: Required<PaginationParams>) =>
+      [...queryKeys.billing.invoices(), params] as const,
   },
   projects: {
     all: ["projects"] as const,

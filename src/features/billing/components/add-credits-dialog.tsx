@@ -6,22 +6,29 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent } from "@/components/ui/dialog";
-import { Icon } from "@/components/ui/icon/icon";
 import { FormField, TextField } from "@/components/ui/input";
 import { Select } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
 import { isApiError } from "@/lib/api";
-import { digitsOnly, formatCardNumber, formatExpiry } from "@/lib/card";
+import { digitsOnly } from "@/lib/card";
 import { formatUsd } from "@/lib/format";
-import { useAddCreditsDialogStore } from "@/stores/add-credits-dialog-store";
+import {
+  type AddCreditsDialogVariant,
+  useAddCreditsDialogStore,
+} from "@/stores/add-credits-dialog-store";
 import { selectUser, useSessionStore } from "@/stores/session-store";
 import { toast } from "@/stores/toast-store";
 import { type BillingAddress } from "@/types/domain";
 
 import { useBillingAddress, useBuyCredits } from "../hooks/use-billing";
 import { countries } from "../lib/countries";
-import { type AddCreditsValues, addCreditsSchema } from "../schemas";
+import {
+  type AddCreditsValues,
+  addCreditsSchema,
+  addCreditsWithoutAddressSchema,
+} from "../schemas";
 import { AmountPicker } from "./amount-picker";
+import { CardDetailsFields } from "./card-details-fields";
 
 const FORM_ID = "add-credits-form";
 const TITLE = "Add Credits";
@@ -40,8 +47,18 @@ const apiFields: Record<string, keyof AddCreditsValues> = {
   cvc: "cvc",
 };
 
-/** Owns the form so the Buy button can live in the dialog's pinned footer, outside the scrolling body. */
-function AddCreditsDialogContent({ defaultAddress }: { defaultAddress: BillingAddress | null }) {
+/**
+ * Owns the form so the Buy button can live in the dialog's pinned footer, outside the scrolling body.
+ * The Billing variant has no address section (Figma: Billing › Add Credits); the API reuses the saved one.
+ */
+function AddCreditsDialogContent({
+  defaultAddress,
+  variant,
+}: {
+  defaultAddress: BillingAddress | null;
+  variant: AddCreditsDialogVariant;
+}) {
+  const withAddress = variant === "default";
   const countryId = useId();
   const close = useAddCreditsDialogStore((state) => state.close);
   const buyCredits = useBuyCredits();
@@ -55,7 +72,7 @@ function AddCreditsDialogContent({ defaultAddress }: { defaultAddress: BillingAd
     clearErrors,
     formState: { errors, isValid },
   } = useForm<AddCreditsValues>({
-    resolver: zodResolver(addCreditsSchema),
+    resolver: zodResolver(withAddress ? addCreditsSchema : addCreditsWithoutAddressSchema),
     mode: "onTouched",
     defaultValues: {
       amount: null,
@@ -76,11 +93,13 @@ function AddCreditsDialogContent({ defaultAddress }: { defaultAddress: BillingAd
     buyCredits.mutate(
       {
         amount: values.amount!,
-        billingAddress: {
-          fullName: values.fullName.trim(),
-          country: values.country,
-          address: values.address.trim(),
-        },
+        ...(withAddress && {
+          billingAddress: {
+            fullName: values.fullName.trim(),
+            country: values.country,
+            address: values.address.trim(),
+          },
+        }),
         card: { number: digitsOnly(values.cardNumber), expiry: values.expiry, cvc: values.cvc },
       },
       {
@@ -121,7 +140,13 @@ function AddCreditsDialogContent({ defaultAddress }: { defaultAddress: BillingAd
         </>
       }
     >
-      <form id={FORM_ID} noValidate onSubmit={onSubmit} className="flex flex-col gap-5 p-0.5">
+      {/* 36px under the description, as in Figma (16px header padding + 20px here). */}
+      <form
+        id={FORM_ID}
+        noValidate
+        onSubmit={onSubmit}
+        className="flex flex-col gap-5 px-0.5 pt-5 pb-0.5"
+      >
         <Controller
           control={control}
           name="amount"
@@ -139,137 +164,67 @@ function AddCreditsDialogContent({ defaultAddress }: { defaultAddress: BillingAd
 
         <hr className="border-t border-default" />
 
-        <section aria-labelledby="billing-address-title" className="flex flex-col gap-4">
-          <h3 id="billing-address-title" className="text-body-lg font-semibold">
-            Billing Address
-          </h3>
-          <div className="flex flex-col gap-2">
-            <TextField
-              label="Full name"
-              fieldSize="sm"
-              bordered="input"
-              autoComplete="name"
-              placeholder="Enter"
-              error={errors.fullName?.message}
-              {...register("fullName")}
-            />
-            <div className="grid gap-2 sm:grid-cols-2">
-              <Controller
-                control={control}
-                name="country"
-                render={({ field, fieldState }) => (
-                  <FormField
-                    label="Country or region"
-                    htmlFor={countryId}
-                    error={fieldState.error?.message}
-                  >
-                    <Select
-                      id={countryId}
-                      variant="field"
-                      aria-label="Country or region"
-                      placeholder="Select"
-                      groups={countryGroups}
-                      value={field.value}
-                      onValueChange={(next) => {
-                        field.onChange(next);
-                        field.onBlur();
-                      }}
-                      onBlur={field.onBlur}
-                      invalid={Boolean(fieldState.error)}
-                    />
-                  </FormField>
-                )}
-              />
+        {withAddress && (
+          <section aria-labelledby="billing-address-title" className="flex flex-col gap-4">
+            <h3 id="billing-address-title" className="text-body-lg font-semibold">
+              Billing Address
+            </h3>
+            <div className="flex flex-col gap-2">
               <TextField
-                label="Address"
+                label="Full name"
                 fieldSize="sm"
                 bordered="input"
-                autoComplete="street-address"
+                autoComplete="name"
                 placeholder="Enter"
-                error={errors.address?.message}
-                {...register("address")}
+                error={errors.fullName?.message}
+                {...register("fullName")}
               />
+              <div className="grid gap-2 sm:grid-cols-2">
+                <Controller
+                  control={control}
+                  name="country"
+                  render={({ field, fieldState }) => (
+                    <FormField
+                      label="Country or region"
+                      htmlFor={countryId}
+                      error={fieldState.error?.message}
+                    >
+                      <Select
+                        id={countryId}
+                        variant="field"
+                        aria-label="Country or region"
+                        placeholder="Select"
+                        groups={countryGroups}
+                        value={field.value}
+                        onValueChange={(next) => {
+                          field.onChange(next);
+                          field.onBlur();
+                        }}
+                        onBlur={field.onBlur}
+                        invalid={Boolean(fieldState.error)}
+                      />
+                    </FormField>
+                  )}
+                />
+                <TextField
+                  label="Address"
+                  fieldSize="sm"
+                  bordered="input"
+                  autoComplete="street-address"
+                  placeholder="Enter"
+                  error={errors.address?.message}
+                  {...register("address")}
+                />
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <section aria-labelledby="card-details-title" className="flex flex-col gap-4">
           <h3 id="card-details-title" className="text-body-lg font-semibold">
             Credit Card Details
           </h3>
-          <div className="flex flex-col gap-2">
-            <Controller
-              control={control}
-              name="cardNumber"
-              render={({ field, fieldState }) => (
-                <TextField
-                  label="Card Number"
-                  fieldSize="sm"
-                  bordered="input"
-                  inputMode="numeric"
-                  autoComplete="cc-number"
-                  placeholder="1234 1234 1234 1234"
-                  error={fieldState.error?.message}
-                  trailing={
-                    fieldState.error ? (
-                      <Icon name="credit-card-off" size={18} className="shrink-0 text-error" />
-                    ) : null
-                  }
-                  value={field.value}
-                  onChange={(event) => field.onChange(formatCardNumber(event.target.value))}
-                  onBlur={field.onBlur}
-                  ref={field.ref}
-                  name={field.name}
-                />
-              )}
-            />
-            <div className="grid gap-2 sm:grid-cols-2">
-              <Controller
-                control={control}
-                name="expiry"
-                render={({ field, fieldState }) => (
-                  <TextField
-                    label="Expiry date"
-                    fieldSize="sm"
-                    bordered="input"
-                    inputMode="numeric"
-                    autoComplete="cc-exp"
-                    placeholder="MM/YY"
-                    error={fieldState.error?.message}
-                    value={field.value}
-                    onChange={(event) => field.onChange(formatExpiry(event.target.value))}
-                    onBlur={field.onBlur}
-                    ref={field.ref}
-                    name={field.name}
-                  />
-                )}
-              />
-              <Controller
-                control={control}
-                name="cvc"
-                render={({ field, fieldState }) => (
-                  <TextField
-                    label="Security code"
-                    fieldSize="sm"
-                    bordered="input"
-                    inputMode="numeric"
-                    autoComplete="cc-csc"
-                    placeholder="CVC"
-                    maxLength={4}
-                    error={fieldState.error?.message}
-                    trailing={
-                      <Icon name="credit-card" size={18} className="shrink-0 text-secondary" />
-                    }
-                    value={field.value}
-                    onChange={(event) => field.onChange(digitsOnly(event.target.value))}
-                    onBlur={field.onBlur}
-                    ref={field.ref}
-                    name={field.name}
-                  />
-                )}
-              />
-            </div>
-          </div>
+          <CardDetailsFields control={control} />
         </section>
 
         {errors.root?.message && (
@@ -298,19 +253,28 @@ function AddCreditsDialogLoading() {
   );
 }
 
-/** "Add Credits" modal (Figma: Dashboard › Add Credits). Credits belong to the user, not a project. */
+/**
+ * "Add Credits" modal (Figma: Dashboard › Add Credits, Billing › Add Credits). Credits belong to the
+ * user, not a project.
+ */
 export function AddCreditsDialog() {
   const open = useAddCreditsDialogStore((state) => state.open);
   const session = useAddCreditsDialogStore((state) => state.session);
   const close = useAddCreditsDialogStore((state) => state.close);
+  const variant = useAddCreditsDialogStore((state) => state.variant);
   const address = useBillingAddress();
 
   return (
     <Dialog open={open} onOpenChange={(next) => !next && close()}>
-      {address.isPending ? (
+      {/* Billing doesn't ask for the address, so it needn't wait for it. */}
+      {variant === "default" && address.isPending ? (
         <AddCreditsDialogLoading />
       ) : (
-        <AddCreditsDialogContent key={session} defaultAddress={address.data ?? null} />
+        <AddCreditsDialogContent
+          key={session}
+          variant={variant}
+          defaultAddress={address.data ?? null}
+        />
       )}
     </Dialog>
   );

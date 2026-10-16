@@ -220,6 +220,8 @@ export function SwitchDemo() {
         Sampling {checked ? "on" : "off"}
       </span>
       <Switch defaultChecked disabled aria-label="Disabled example" />
+      <Switch tone="success" defaultChecked aria-label="Success tone (Billing Auto Recharge)" />
+      <Switch tone="success" aria-label="Success tone, off" />
     </div>
   );
 }

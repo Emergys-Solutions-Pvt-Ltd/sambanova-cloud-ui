@@ -134,6 +134,24 @@ export function formatShortDateTime(iso: string) {
   return `${formatShortDate(iso)} ${formatTime(iso).toLowerCase()}`;
 }
 
+const ordinalRules = new Intl.PluralRules("en-US", { type: "ordinal" });
+const ordinalSuffix: Record<Intl.LDMLPluralRule, string> = {
+  zero: "th",
+  one: "st",
+  two: "nd",
+  few: "rd",
+  many: "th",
+  other: "th",
+};
+const monthShortFormat = new Intl.DateTimeFormat("en-US", { month: "short" });
+
+/** "2026-06-12T11:30:00" → "Jun 12th, 2026" (Figma: Billing › Invoices). */
+export function formatOrdinalDate(iso: string) {
+  const date = new Date(iso);
+  const day = date.getDate();
+  return `${monthShortFormat.format(date)} ${day}${ordinalSuffix[ordinalRules.select(day)]}, ${date.getFullYear()}`;
+}
+
 const trimZero = (value: number) => String(Number(value.toFixed(1)));
 
 /** 2_000_000 → "2M tok", 128_000 → "128K tok". */

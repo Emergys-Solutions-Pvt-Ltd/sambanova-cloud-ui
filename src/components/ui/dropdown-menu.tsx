@@ -60,11 +60,18 @@ export function DropdownMenuLabel({
   );
 }
 
+/** menu = grey rule (bordered menus); soft = 12 % white rule (Figma: Billing card menu). */
 export function DropdownMenuSeparator({
   className,
+  tone = "menu",
   ...rest
-}: ComponentPropsWithRef<typeof MenuPrimitive.Separator>) {
-  return <MenuPrimitive.Separator className={cn("my-1 h-px bg-menu-line", className)} {...rest} />;
+}: ComponentPropsWithRef<typeof MenuPrimitive.Separator> & { tone?: "menu" | "soft" }) {
+  return (
+    <MenuPrimitive.Separator
+      className={cn("my-1 h-px", tone === "menu" ? "bg-menu-line" : "bg-divider-soft", className)}
+      {...rest}
+    />
+  );
 }
 
 /** Row geometry from Figma: 36px high, r10, 16px left / 8px right padding, 8px gap. */

@@ -239,7 +239,12 @@ export function MembersView() {
           className="bg-surface"
           footer={<PaginationFooter result={data} onPageChange={setPage} label="Members pages" />}
         >
-          <Table caption="Project members" className="min-w-240 table-fixed" aria-busy={firstLoad}>
+          <Table
+            caption="Project members"
+            minWidth="lg"
+            className="table-fixed"
+            aria-busy={firstLoad}
+          >
             <colgroup>
               <col className="w-[17%]" />
               <col className="w-[24.5%]" />
