@@ -408,6 +408,15 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M11.67 14a2.32 2.32 0 0 0 3.98 1.65 2.3 2.3 0 0 0 0-3.3 2.3 2.3 0 0 0-3.3 0 2.3 2.3 0 0 0-.68 1.65"/><path d="M24.5 14q-4.2 7-10.5 7T3.5 14Q7.7 7 14 7t10.5 7"/>',
   },
+  "featured-alert-triangle": {
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M12 8v4m0 4zM10.29 2.86 1.82 17a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 2.86a2 2 0 0 0-3.42 0"/>',
+  },
   "file-text": {
     viewBox: "0 0 20 20",
     fill: "none",

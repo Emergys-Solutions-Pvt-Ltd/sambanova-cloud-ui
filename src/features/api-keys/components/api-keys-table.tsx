@@ -79,10 +79,11 @@ export function ApiKeysTable({ result, filtered, onPageChange, loadingMore }: Ap
           {rows.map((key) => (
             <TableRow key={key.id}>
               <TableCell>
-                <div className="flex items-center gap-4">
+                {/* Figma cell: name and tag are top-aligned, 16px apart (the tag is 22px high, the name line 21px). */}
+                <div className="flex items-start gap-4">
                   {key.name}
                   {key.renamedAt && (
-                    <Badge variant="neutral" shape="rounded">
+                    <Badge variant="edited" size="xl" shape="rounded">
                       Edited
                     </Badge>
                   )}
