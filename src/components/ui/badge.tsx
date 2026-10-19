@@ -7,7 +7,13 @@ export type BadgeVariant =
 export type BadgeSize = "sm" | "md" | "lg" | "xl";
 export type BadgeShape = "pill" | "rounded" | "capsule";
 
-const variants: Record<BadgeVariant, string> = {
+/**
+ * Colours per variant, in two complete sets so that no element ever carries two classes for the same
+ * property (`cn()` only joins names, the CSS order would decide): `pill` badges use the soft tinted
+ * border; `rounded` and `capsule` badges (Figma status chips) draw their hairline at full strength in
+ * the text colour (Figma: stroke = text colour, e.g. the Active badge has green-400 on green-400 text).
+ */
+const softColors: Record<BadgeVariant, string> = {
   success: "border-success-border bg-success-bg text-success",
   error: "border-error-border bg-error-bg text-error",
   warning: "border-warning-border bg-warning-bg text-warning",
@@ -16,6 +22,16 @@ const variants: Record<BadgeVariant, string> = {
   brand: "border-transparent bg-brand text-on-brand",
   /** Figma "Edited" tag (API Keys table): muted text and hairline over the 8% green tint of the success badge. */
   edited: "border-(--sn-text-muted) bg-success-bg text-muted",
+};
+
+const hairlineColors: Record<BadgeVariant, string> = {
+  success: "border-current bg-success-bg text-success",
+  error: "border-current bg-error-bg text-error",
+  warning: "border-current bg-warning-bg text-warning",
+  info: "border-current bg-info-bg text-info",
+  neutral: "border-current bg-hover text-muted",
+  brand: softColors.brand,
+  edited: softColors.edited,
 };
 
 /**
@@ -47,14 +63,6 @@ const shapes: Record<BadgeShape, string> = {
   capsule: "rounded-full border-(length:--sn-border-thin)",
 };
 
-const strongBorders: Partial<Record<BadgeVariant, string>> = {
-  success: "border-toast-success-line",
-  error: "border-toast-error-line",
-  warning: "border-toast-warning-line",
-  info: "border-toast-info-line",
-  neutral: "border-(--sn-text-muted) text-muted",
-};
-
 export function Badge({
   variant = "neutral",
   size = "md",
@@ -67,8 +75,7 @@ export function Badge({
       className={cn(
         "inline-flex shrink-0 items-center border whitespace-nowrap",
         shapes[shape],
-        variants[variant],
-        shape !== "pill" && strongBorders[variant],
+        shape === "pill" ? softColors[variant] : hairlineColors[variant],
         shape === "capsule" && size !== "lg"
           ? "h-4.5 px-2.5 text-caption leading-none"
           : sizes[size],

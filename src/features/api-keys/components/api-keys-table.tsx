@@ -23,7 +23,7 @@ export const maskedKeyId = (key: ApiKey) => `sdk_live...........${key.lastFour}`
 
 function StatusBadge({ status }: { status: ApiKey["status"] }) {
   return (
-    <Badge variant={status === "active" ? "success" : "error"} shape="rounded">
+    <Badge variant={status === "active" ? "success" : "error"} size="xl" shape="rounded">
       {status === "active" ? "Active" : "Disabled"}
     </Badge>
   );
