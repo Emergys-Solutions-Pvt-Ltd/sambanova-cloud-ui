@@ -3,7 +3,7 @@ import { type ComponentPropsWithRef } from "react";
 import { cn } from "@/lib/cn";
 
 export type BadgeVariant = "success" | "error" | "warning" | "info" | "neutral" | "brand";
-export type BadgeSize = "sm" | "md";
+export type BadgeSize = "sm" | "md" | "lg";
 export type BadgeShape = "pill" | "rounded" | "capsule";
 
 const variants: Record<BadgeVariant, string> = {
@@ -15,10 +15,11 @@ const variants: Record<BadgeVariant, string> = {
   brand: "border-transparent bg-brand text-on-brand",
 };
 
-/** sm = 10px credit pill in the sidebar; md = 12px status chip in tables. */
+/** sm = 10px credit pill in the sidebar; md = 12px status chip in tables; lg = 22px, 11px text (Compare Models highlight). */
 const sizes: Record<BadgeSize, string> = {
   sm: "px-1.5 py-0.5 text-tiny font-medium",
   md: "px-2 py-0.5 text-caption",
+  lg: "h-5.5 px-[7.7px] text-micro font-medium",
 };
 
 export interface BadgeProps extends ComponentPropsWithRef<"span"> {
@@ -59,7 +60,7 @@ export function Badge({
         shapes[shape],
         variants[variant],
         shape !== "pill" && strongBorders[variant],
-        shape === "capsule" ? "h-4.5 px-2.5 text-caption" : sizes[size],
+        shape === "capsule" && size !== "lg" ? "h-4.5 px-2.5 text-caption" : sizes[size],
         className,
       )}
       {...rest}

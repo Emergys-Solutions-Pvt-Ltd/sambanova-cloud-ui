@@ -1,6 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 
 import { RETURN_TO_PARAM, SESSION_COOKIE_NAME } from "@/config/auth";
+import { isRouteDisabled } from "@/config/disabled-routes";
 import { protectedRoutePrefixes, routes } from "@/config/routes";
 
 /**
@@ -17,6 +18,11 @@ const isProtected = (pathname: string) =>
 
 export function proxy(request: NextRequest) {
   const { pathname, search } = request.nextUrl;
+
+  // Routes listed in NEXT_PUBLIC_DISABLED_ROUTES answer with the 404 page, for guests and users alike.
+  if (isRouteDisabled(pathname)) {
+    return NextResponse.rewrite(new URL("/404", request.url), { status: 404 });
+  }
 
   if (isProtected(pathname) && !hasSession(request)) {
     const loginUrl = new URL(routes.login, request.url);

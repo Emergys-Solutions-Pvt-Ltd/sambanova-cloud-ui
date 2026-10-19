@@ -18,6 +18,7 @@
   --background-color-canvas: var(--sn-bg-canvas);
   --background-color-surface: var(--sn-bg-surface);
   --background-color-surface-raised: var(--sn-bg-surface-raised);
+  --background-color-dropdown: var(--sn-bg-dropdown);
   --background-color-sidebar: var(--sn-bg-sidebar);
   --background-color-input: var(--sn-bg-input);
   --background-color-code: var(--sn-bg-code);
@@ -32,7 +33,7 @@
   --background-color-chip: var(--sn-bg-chip);
   --background-color-tint-promo: var(--sn-tint-promo);
   --background-color-scrollbar: var(--sn-bg-scrollbar);
-  --background-color-dot: var(--sn-border-strong);
+  --background-color-dot: var(--sn-bg-dot);
   /* Playground */
   --background-color-chat-hero: var(--sn-bg-chat-hero);
   --background-color-composer: var(--sn-bg-composer);
@@ -54,6 +55,10 @@
   --border-color-control: var(--sn-border-control);
   --border-color-focus: var(--sn-border-focus);
   --border-color-menu: var(--sn-border-menu);
+  --border-color-menu-soft: var(--sn-border-menu-soft);
+  --border-color-dropdown: var(--sn-border-dropdown);
+  --border-color-panel: var(--sn-border-panel);
+  --border-color-panel-line: var(--sn-border-panel-line);
   --border-color-profile: var(--sn-border-profile);
   --border-color-disabled: var(--sn-border-disabled);
   --border-color-input: var(--sn-border-input);
@@ -106,6 +111,8 @@
   --text-color-on-brand: var(--sn-text-on-brand);
   --text-color-nav-active: var(--sn-text-nav-active);
   --text-color-menu-label: var(--sn-text-menu-label);
+  --text-color-menu-item: var(--sn-text-menu-item); /* Dropdown Menu option */
+  --text-color-model-meta: var(--sn-text-model-meta); /* Recommended Model description and meta */
   --text-color-disabled: var(--sn-text-disabled);
   --text-color-accent: var(--sn-text-accent);
   --text-color-error-strong: var(--sn-text-error-strong);
@@ -158,6 +165,13 @@
   --color-button-primary-disabled-fg: var(--sn-button-primary-disabled-fg);
   --color-button-secondary: var(--sn-button-secondary-bg);
   --color-button-secondary-hover: var(--sn-button-secondary-hover-bg);
+  --color-button-disabled-fg: var(--sn-button-disabled-fg);
+  --color-button-secondary-border: var(--sn-button-secondary-border);
+  --color-button-secondary-fg: var(--sn-button-secondary-fg);
+  --color-button-tertiary-fg: var(--sn-button-tertiary-fg);
+  --color-button-link-hover: var(--sn-button-link-hover);
+  --color-button-link-disabled-fg: var(--sn-button-link-disabled-fg);
+  --color-button-cancel-disabled-fg: var(--sn-button-cancel-disabled-fg);
   --color-button-destructive: var(--sn-button-destructive-bg);
   --color-button-destructive-fg: var(--sn-button-destructive-fg);
   --color-button-destructive-hover: var(--sn-button-destructive-hover);
@@ -176,14 +190,18 @@
   --color-info: var(--sn-status-info-text);
   --color-info-bg: var(--sn-status-info-bg);
   --color-info-border: var(--sn-status-info-border);
-  --color-toast-success-fg: var(--sn-toast-success-fg);
+  --color-toast-success-bg: var(--sn-toast-success-bg);
   --color-toast-success-line: var(--sn-toast-success-line);
-  --color-toast-error-fg: var(--sn-toast-error-fg);
+  --color-toast-success-fg: var(--sn-toast-success-fg);
+  --color-toast-error-bg: var(--sn-toast-error-bg);
   --color-toast-error-line: var(--sn-toast-error-line);
-  --color-toast-warning-fg: var(--sn-toast-warning-fg);
+  --color-toast-error-fg: var(--sn-toast-error-fg);
+  --color-toast-warning-bg: var(--sn-toast-warning-bg);
   --color-toast-warning-line: var(--sn-toast-warning-line);
-  --color-toast-info-fg: var(--sn-toast-info-fg);
+  --color-toast-warning-fg: var(--sn-toast-warning-fg);
+  --color-toast-info-bg: var(--sn-toast-info-bg);
   --color-toast-info-line: var(--sn-toast-info-line);
+  --color-toast-info-fg: var(--sn-toast-info-fg);
 
   --color-chart-input: var(--sn-chart-input);
   --color-chart-output: var(--sn-chart-output);
@@ -316,6 +334,8 @@
   --shadow-md: var(--sn-shadow-md);
   --shadow-lg: var(--sn-shadow-lg);
   --shadow-card-inset: var(--sn-shadow-card-inset);
+  --shadow-card-glow: var(--sn-shadow-card-glow);
+  --shadow-picker: var(--sn-shadow-picker);
   --shadow-glow-brand: var(--sn-glow-brand);
   --shadow-glow-focus: var(--sn-glow-focus);
   /* Playground. A "no shadow" --sn-shadow-* value is a transparent zero shadow
@@ -597,6 +617,49 @@
   background-image: var(--sn-gradient-stat-card);
 }
 
+/* Sidebar icon parts (see components/layout/nav-icon.tsx): every moving part rests at --nav-rest and
+   eases to --nav-hover while its `data-nav-animate` link is hovered (Figma: 0.3s ease-out). */
+.nav-icon-part {
+  transform: var(--nav-rest);
+  transform-origin: 0 0;
+  transition: transform var(--sn-duration-nav-icon) var(--sn-ease-out);
+}
+.nav-icon-part-fixed path {
+  vector-effect: non-scaling-stroke;
+}
+.nav-icon-fill {
+  fill: currentColor;
+  fill-opacity: 0;
+  transition: fill-opacity var(--sn-duration-nav-icon) var(--sn-ease-out);
+}
+[data-nav-animate]:hover .nav-icon-part {
+  transform: var(--nav-hover);
+}
+[data-nav-animate]:hover .nav-icon-fill {
+  fill-opacity: 0.85;
+}
+
+/* Cuts an element down to its padding ring: give it `p-px` (or a thicker padding) and a background. */
+@utility ring-mask {
+  -webkit-mask:
+    linear-gradient(currentColor 0 0) content-box,
+    linear-gradient(currentColor 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(currentColor 0 0) content-box exclude,
+    linear-gradient(currentColor 0 0);
+}
+
+/* "Earn Free Credits" hover outline: the stroke gradient. */
+@utility bg-promo-border {
+  background-image: var(--sn-gradient-promo-border);
+}
+
+/* Rim light of a Figma glass circle (the rocket chip). */
+@utility bg-glass-rim {
+  background-image: var(--sn-gradient-glass-rim);
+}
+
 /* Gradient-filled text, e.g. "Sambanova." in the hero title. */
 @utility text-hero-accent {
   background-image: var(--sn-gradient-hero-accent);
@@ -627,6 +690,13 @@
     0 calc(50% - var(--sn-steps-pill-width) / 2) calc(100% - var(--sn-steps-pill-height))
       calc(50% - var(--sn-steps-pill-width) / 2) round var(--sn-radius-full)
   );
+}
+
+/* Onboarding step connector: the Figma dashed wave with its arrowhead, filled with the themed token. */
+@utility steps-connector {
+  background-color: var(--sn-steps-connector);
+  -webkit-mask: url("/illustrations/onboarding-connector.svg") center / 100% 100% no-repeat;
+  mask: url("/illustrations/onboarding-connector.svg") center / 100% 100% no-repeat;
 }
 
 /* Recommended-model card glow: the curved wedge from Figma ("Vector 38"), 179.5 x 202.5, drawn from the top right. */

@@ -13,41 +13,50 @@ const steps = [
     title: "Explore Playground",
     description: "Test Prompts, Compare models, and experience blazing-fast inference or free",
     art: illustrations.onboardingPlayground,
+    artOffset: { x: -4.16, y: 0.26 },
+    connector: { left: 116.5, top: 31.78 },
   },
   {
     title: "Add Credits",
     description: "Add credits to your account to unlock higher usage and advanced capabilities.",
     art: illustrations.onboardingCredits,
+    artOffset: { x: -8.3, y: 0.02 },
+    connector: { left: 107.5, top: 34.5 },
   },
   {
     title: "Create API Key",
     description: "Generate your API key to access our powerful models programmatically.",
     art: illustrations.onboardingApiKey,
+    artOffset: { x: -4.27, y: 0.61 },
+    connector: { left: 119.5, top: 34.75 },
   },
   {
     title: "Build Your First App",
     description: "Integrate the API into your application and bring your AI ideas to life.",
     art: illustrations.onboardingBuildApp,
+    artOffset: { x: -4.06, y: -0.39 },
+    connector: null,
   },
 ] as const;
 
-/** Dotted curve between two steps. Decorative; only drawn where there is room (xl and up). */
-function Connector() {
+/** Figma places each illustration by hand, a few px off its column; offsets are from the column's top left, in px. */
+const px = (value: number) => `calc(var(--spacing) * ${value / 4})`;
+
+/**
+ * Dashed wave with an arrowhead pointing to the next step (Figma: Line 44, 160 x 17). Its box sits
+ * at a slightly different spot after each icon, so the offsets come from the design; decorative and
+ * only drawn where there is room (xl and up).
+ */
+function Connector({ left, top }: { left: number; top: number }) {
   return (
-    <svg
+    <span
       aria-hidden="true"
-      viewBox="0 0 160 16"
-      fill="none"
-      className="pointer-events-none absolute top-7 left-29 hidden h-4 w-40 text-muted xl:block"
-    >
-      <path
-        d="M1 12.5C28 5 46 15 80 9C112 3.5 134 6 159 9.5"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        strokeLinecap="round"
-        strokeDasharray="0.5 5"
-      />
-    </svg>
+      style={{
+        left: px(left),
+        top: px(top),
+      }}
+      className="pointer-events-none absolute hidden h-[17.072px] w-[160.272px] steps-connector xl:block"
+    />
   );
 }
 
@@ -147,27 +156,27 @@ export function OnboardingSteps() {
         <section
           aria-labelledby="onboarding-title"
           inert={hidden}
-          className="px-4 pt-4 pb-6 sm:px-7.5"
+          className="relative px-4 pt-5.75 pb-6.5 sm:px-7.5"
         >
-          <div className="flex items-center justify-between gap-4">
-            <h2 id="onboarding-title" className="sr-only">
-              Get started in four steps
-            </h2>
-            <span aria-hidden="true" />
-            <button
-              type="button"
-              onClick={() => toggle(true)}
-              className="flex items-center gap-1.5 rounded-xs text-caption font-medium text-primary hover:text-secondary"
-            >
-              <Icon name="collapse" size={14} />
-              Hide Steps
-            </button>
-          </div>
+          <h2 id="onboarding-title" className="sr-only">
+            Get started in four steps
+          </h2>
+          <button
+            type="button"
+            onClick={() => toggle(true)}
+            className="absolute top-3.25 right-3.75 z-raised flex items-center gap-1.5 rounded-xs text-caption font-medium text-primary hover:text-secondary"
+          >
+            <Icon name="collapse" size={14} />
+            Hide Steps
+          </button>
 
-          <ol className="mt-4 grid gap-8 sm:grid-cols-2 xl:grid-cols-4 xl:gap-x-23.5">
+          <ol className="grid gap-8 sm:grid-cols-2 xl:grid-cols-4 xl:gap-x-23.5">
             {steps.map((step, index) => (
-              <li key={step.title} className="relative flex flex-col gap-2">
-                <div className="flex h-15.75 items-end">
+              <li key={step.title} className="relative flex flex-col">
+                <div
+                  style={{ translate: `${px(step.artOffset.x)} ${px(step.artOffset.y)}` }}
+                  className="flex h-16.5 items-start"
+                >
                   <Image
                     src={step.art.dark}
                     alt=""
@@ -185,16 +194,16 @@ export function OnboardingSteps() {
                     className="show-in-light"
                   />
                 </div>
-                {index < steps.length - 1 && <Connector />}
-                <p aria-hidden="true" className="mt-2 text-body-sm font-semibold text-secondary">
+                {step.connector && <Connector {...step.connector} />}
+                <p aria-hidden="true" className="mb-2 text-body-sm font-semibold text-secondary">
                   {String(index + 1).padStart(2, "0")}
                 </p>
                 <div className="flex flex-col gap-1.5">
-                  <h3 className="text-body-sm font-semibold text-secondary">
+                  <h3 className="h-[13.888px] text-body-sm leading-[1.2] font-semibold text-secondary">
                     <span className="sr-only">Step {index + 1}: </span>
                     {step.title}
                   </h3>
-                  <p className="max-w-50 text-tiny text-muted">{step.description}</p>
+                  <p className="max-w-50 text-tiny leading-3.5 text-muted">{step.description}</p>
                 </div>
               </li>
             ))}

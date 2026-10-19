@@ -15,9 +15,12 @@ export const themeOptions: readonly { value: ThemePreference; label: string; ico
   { value: "dark", label: "Dark", icon: "moon" },
 ];
 
-/** Pill container, shared by this switcher and the radio items inside the account menu. */
+/**
+ * Pill container, shared by this switcher and the radio items inside the account menu. Figma
+ * (Component 98): 82x28, 1px border inside, three 22px segments 4px apart, 3px / 2px inner padding.
+ */
 export const themePillClasses =
-  "inline-flex items-center gap-1 rounded-full border border-switcher-border bg-switcher px-1 py-0.75";
+  "inline-flex items-center gap-1 rounded-full border border-switcher-border bg-switcher px-0.75 py-0.5";
 
 export const themeSegmentClasses =
   "flex size-5.5 items-center justify-center rounded-full text-muted outline-none " +

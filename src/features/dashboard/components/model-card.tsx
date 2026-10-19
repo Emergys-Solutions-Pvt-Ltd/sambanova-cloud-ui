@@ -20,8 +20,10 @@ export function ModelCard({ model }: { model: RecommendedModel }) {
     <Card
       as="article"
       radius="xl"
+      padding="none"
       className={cn(
-        "group/card relative flex h-full flex-col gap-5 overflow-hidden",
+        // 274 x 376 like Figma: content 15px in from the stroke on the left, right and top, and 17px from the bottom.
+        "group/card relative flex h-full min-h-94 flex-col gap-4 overflow-hidden pt-3.75 pr-3.75 pb-4.25 pl-3.75 shadow-card-inset",
         // Figma hover (smart-animate, 0.3s ease-out): stronger border, glow drifts in, button outline lights up.
         "transition-colors duration-(--sn-duration-slow) ease-out hover:border-card-hover",
       )}
@@ -42,15 +44,17 @@ export function ModelCard({ model }: { model: RecommendedModel }) {
         />
       </span>
 
-      <div className="relative flex flex-col gap-4">
+      <div className="relative flex flex-col gap-4.5">
         <ModelLogo brand={model.brand} name={model.name} size={44} />
-        <div className="flex flex-col gap-4">
-          <h3 className="text-heading-xs">{model.name}</h3>
-          <p className="min-h-13.75 text-body-sm text-muted">{model.description}</p>
+        <div className="flex flex-col gap-[15.83px]">
+          <h3 className="text-heading-xs leading-[normal]">{model.name}</h3>
+          <p className="min-h-[54.28px] text-body-sm leading-[18.093px] text-model-meta">
+            {model.description}
+          </p>
         </div>
       </div>
 
-      <dl className="relative flex flex-col gap-0.5 border-t border-strong pt-4 text-overline text-muted uppercase">
+      <dl className="relative mb-1 flex flex-col gap-0.5 border-t border-strong pt-3.75 text-overline text-model-meta uppercase">
         <div className="flex items-center justify-between gap-4">
           <dt>Reasoning</dt>
           <dd>

@@ -70,6 +70,14 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M3.67 11.92h4.58M11 14.67V7.33h2.75q.75.02 1.3.54c.34.34.53.81.53 1.3v.91a1.84 1.84 0 0 1-1.83 1.84H11m7.33-4.59v7.34m-10.08 0V9.62a2.3 2.3 0 0 0-2.29-2.29 2.3 2.3 0 0 0-2.29 2.29v5.05"/>',
   },
+  "arrow-left-short": {
+    viewBox: "0 0 20 20",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    body: '<path d="M10 5.33 5.33 10 10 14.67M5.33 10h9.34"/>',
+  },
   "arrow-left-wide": {
     viewBox: "0 0 20 20",
     fill: "none",
@@ -96,6 +104,14 @@ export const iconData = {
     strokeLinecap: "round",
     strokeLinejoin: "round",
     body: '<path d="M3.75 9h10.5m-3 3 3-3m-3-3 3 3"/>',
+  },
+  "arrow-right-short": {
+    viewBox: "0 0 20 20",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    body: '<path d="M10 14.67 14.67 10 10 5.33M14.67 10H5.33"/>',
   },
   "arrow-right-wide": {
     viewBox: "0 0 20 20",
@@ -410,6 +426,15 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M3.75 3h3L9 5.25h5.25a1.5 1.5 0 0 1 1.5 1.5v6a1.5 1.5 0 0 1-1.5 1.5H3.75a1.5 1.5 0 0 1-1.5-1.5V4.5A1.5 1.5 0 0 1 3.75 3"/>',
   },
+  folders: {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.13",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    body: '<path d="M6.75 3H9l1.5 1.5h3.75a1.5 1.5 0 0 1 1.5 1.5v5.25a1.5 1.5 0 0 1-1.5 1.5h-7.5a1.5 1.5 0 0 1-1.5-1.5V4.5A1.5 1.5 0 0 1 6.75 3"/><path d="M12.75 12.75v1.5a1.5 1.5 0 0 1-1.5 1.5h-7.5a1.5 1.5 0 0 1-1.5-1.5V7.5A1.5 1.5 0 0 1 3.75 6h1.5"/>',
+  },
   help: {
     viewBox: "0 0 18 18",
     fill: "none",
@@ -571,6 +596,11 @@ export const iconData = {
     strokeLinejoin: "round",
     body: '<path d="M15 8.25a6.1 6.1 0 0 0-5.24-5.19 6.1 6.1 0 0 0-6.38 3.69m-.38-3v3h3m-3 3a6.1 6.1 0 0 0 5.24 5.19 6.1 6.1 0 0 0 6.39-3.69m.37 3v-3h-3"/>',
   },
+  "rocket-solid": {
+    viewBox: "0 0 20.99 20.98",
+    fill: "none",
+    body: '<path fill="currentColor" d="M19.48 0h.1c.26 0 1.1.02 1.23.19.24.31.19 1.47.15 1.85-.34 3.49-2.46 7.75-4.8 10.3q-.7.76-1.52 1.44l-.9.7.03.82c.07 3.06-2.28 4.91-5.03 5.55-.44.1-1.26.37-1.2-.4l.13-1.33.3-2.72c-.53-.02-1.05.03-1.48-.32-.35-.36-1.66-1.55-1.79-1.92-.13-.34-.1-.78-.11-1.14-.28.01-.73.07-1.03.1l-1.98.23q-.55.07-1.1.11a.44.44 0 0 1-.47-.52 7.7 7.7 0 0 1 2.2-4.49c1.27-1.17 2.68-1.3 4.32-1.21A15 15 0 0 1 9.63 4c2.55-1.98 6.58-3.86 9.85-4m-5.34 9.34a2.25 2.25 0 1 0-.55-4.45 2.25 2.25 0 0 0 .55 4.45"/><path fill="currentColor" d="M3.43 14.28q.17-.05.3.01c.12.15.04.29-.04.43-.42.81-.63 1.73.08 2.46.6.63 1.43.58 2.2.29.17-.07.45-.3.63-.3.32.15-.05.99-.17 1.2-.42.81-1.04 1.09-1.86 1.36-1.35.36-2.45.45-3.83.53.07-1.42.23-3.75 1.03-5a2.6 2.6 0 0 1 1.66-.98"/>',
+  },
   rocket: {
     viewBox: "0 0 18 18",
     fill: "none",
@@ -637,6 +667,26 @@ export const iconData = {
     strokeLinecap: "round",
     strokeLinejoin: "round",
     body: '<path d="M11 12a1 1 0 0 0 1.7.7A1 1 0 0 0 12 11a1 1 0 0 0-1 1"/><path d="M12 7a5 5 0 1 0 5 5"/><path d="M13 3.06A9 9 0 1 0 20.94 11"/><path d="M15 6v3h3l3-3h-3V3zm0 3-3 3"/>',
+  },
+  "toast-attention": {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    body: '<path fill="currentColor" fill-rule="evenodd" d="M.75 9a8.25 8.25 0 1 1 16.5 0A8.25 8.25 0 0 1 .75 9m7.5 3v1.5h1.5V12zm0-.75h1.5v-6h-1.5z"/>',
+  },
+  "toast-close": {
+    viewBox: "0 0 16 16",
+    fill: "none",
+    body: '<path fill="currentColor" fill-rule="evenodd" d="m12.67 4.27-.94-.94L8 7.06 4.27 3.33l-.94.94L7.06 8l-3.73 3.73.94.94L8 8.94l3.73 3.73.94-.94L8.94 8z"/>',
+  },
+  "toast-error": {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    body: '<path fill="currentColor" fill-rule="evenodd" d="M9 17.25A8.25 8.25 0 1 0 9 .75a8.25 8.25 0 0 0 0 16.5m3.96-5.46-1.17 1.17L9 10.16l-2.8 2.8-1.16-1.17L7.84 9l-2.8-2.8 1.17-1.16L9 7.84l2.8-2.8 1.16 1.17L10.16 9z"/>',
+  },
+  "toast-success": {
+    viewBox: "0 0 18 18",
+    fill: "none",
+    body: '<path fill="currentColor" fill-rule="evenodd" d="M9 17.25A8.25 8.25 0 1 0 9 .75a8.25 8.25 0 0 0 0 16.5m-.7-4.9L5.46 9.53l1.06-1.06 1.68 1.68 3.97-4.64 1.14.98z"/>',
   },
   trash: {
     viewBox: "0 0 18 18",

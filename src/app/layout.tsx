@@ -23,7 +23,7 @@ const lato = localFont({
 export const metadata: Metadata = {
   title: {
     default: "SambaNova Cloud",
-    template: "%s · SambaNova Cloud",
+    template: "%s | SambaNova Cloud",
   },
   description: "Build AI applications faster with SambaNova. Blazing fast inference.",
 };
