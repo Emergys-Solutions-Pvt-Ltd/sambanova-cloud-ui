@@ -13,12 +13,15 @@ interface CalloutProps {
   className?: string;
 }
 
-/** Tinted help banner (Figma: "Need help in getting started?"): round icon, text and one action. */
+/**
+ * Tinted help banner (Figma: "Need help in getting started?"): round icon, text and one action.
+ * Figma draws the 1px border inside its 24px padding, so the padding here is 23px (the card is 90px high).
+ */
 export function Callout({ icon, title, description, action, className }: CalloutProps) {
   return (
     <aside
       className={cn(
-        "flex flex-wrap items-center justify-between gap-x-6 gap-y-4 rounded-lg border border-callout bg-callout p-6",
+        "flex flex-wrap items-center justify-between gap-x-6 gap-y-4 rounded-lg border border-callout bg-callout p-5.75",
         className,
       )}
     >

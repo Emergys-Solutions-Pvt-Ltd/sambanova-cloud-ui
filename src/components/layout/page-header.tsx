@@ -15,11 +15,14 @@ interface PageHeaderProps {
 /**
  * Page title bar from Figma (e.g. "API Keys" with its subtitle and actions).
  * Renders the page's single <h1>. From `sm` up the bar is 85px tall, set by the 37px action
- * row; the two-line title block is centred on it and overhangs by a few pixels, as in Figma.
+ * row (24px padding above, 23px below plus the 1px bottom border, like Figma's inside stroke);
+ * the two-line title block is centred on it and overhangs by a few pixels, as in Figma.
  */
 export function PageHeader({ title, subtitle, leading, actions, className }: PageHeaderProps) {
   return (
-    <header className={cn("border-b border-header px-4 py-4 sm:px-6 sm:py-6", className)}>
+    <header
+      className={cn("border-b border-header px-4 py-4 sm:px-6 sm:pt-6 sm:pb-5.75", className)}
+    >
       <div className="flex flex-wrap items-center justify-between gap-x-6 gap-y-4 sm:h-9.25 sm:flex-nowrap">
         <div className="flex min-w-0 items-center gap-3">
           {leading}
