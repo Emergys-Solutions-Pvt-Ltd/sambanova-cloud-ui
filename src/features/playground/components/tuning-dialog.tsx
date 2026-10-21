@@ -83,8 +83,9 @@ export function TuningDialog({ onCloseAutoFocus }: PlaygroundDialogBodyProps) {
         </>
       }
     >
-      {/* Figma body pt 12 below the 24px header gap; pb-1 + the footer gap = 24. */}
-      <div className="flex flex-col gap-6 pt-3 pb-1">
+      {/* Figma body pt 12 below the 24px header gap; the slider's 24px bottom padding and the
+          24px gap above the buttons = pb-8 + the 20px footer gap. */}
+      <div className="flex flex-col gap-6 pt-3 pb-8">
         <div className="flex flex-col gap-3">
           <div className={rowClasses}>
             <div className="flex max-w-107.75 flex-col gap-1">

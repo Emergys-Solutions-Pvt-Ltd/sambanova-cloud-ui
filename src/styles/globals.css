@@ -345,6 +345,7 @@
   --shadow-icon-halo: var(--sn-shadow-icon-halo);
   --shadow-knob: var(--sn-shadow-knob);
   --shadow-badge: var(--sn-shadow-badge);
+  --shadow-history-item: var(--sn-shadow-history-item);
 
   --ease-*: initial;
   --ease-standard: var(--sn-ease-standard);

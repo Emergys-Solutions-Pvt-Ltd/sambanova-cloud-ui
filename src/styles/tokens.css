@@ -546,6 +546,8 @@
   --sn-role-writer: var(--sn-green-400);
   --sn-role-pm: var(--sn-amber-500);
   --sn-history-item-hover: var(--sn-neutral-800);
+  /* History item: Figma's inside stroke as an inset ring (adds no height) + its drop shadow */
+  --sn-shadow-history-item: inset 0 0 0 1px var(--sn-border-subtle), 0 2px 10px rgb(0 0 0 / 0.08);
 }
 
 /* ---------------------------------------------------------------------- */
@@ -831,6 +833,8 @@
   --sn-role-writer: var(--sn-green-700); /* GUESS */
   --sn-role-pm: var(--sn-amber-700); /* GUESS */
   --sn-history-item-hover: rgb(0 0 0 / 0.04); /* GUESS */
+  --sn-shadow-history-item:
+    inset 0 0 0 1px var(--sn-border-subtle), 0 2px 10px rgb(0 0 0 / 0.08); /* GUESS */
 }
 
 @media (prefers-color-scheme: light) {
@@ -1111,6 +1115,8 @@
     --sn-role-writer: var(--sn-green-700); /* GUESS */
     --sn-role-pm: var(--sn-amber-700); /* GUESS */
     --sn-history-item-hover: rgb(0 0 0 / 0.04); /* GUESS */
+    --sn-shadow-history-item:
+      inset 0 0 0 1px var(--sn-border-subtle), 0 2px 10px rgb(0 0 0 / 0.08); /* GUESS */
   }
 }
 
