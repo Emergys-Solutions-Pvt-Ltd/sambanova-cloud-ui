@@ -105,7 +105,7 @@ export function InvoicesTable() {
                     </TableCell>
                     <TableCell tone="muted">{formatUsdPrecise(invoice.amount)}</TableCell>
                     <TableCell>
-                      <Badge variant={status.variant} shape="rounded" size="lg">
+                      <Badge variant={status.variant} shape="rounded" size="status">
                         {status.label}
                       </Badge>
                     </TableCell>

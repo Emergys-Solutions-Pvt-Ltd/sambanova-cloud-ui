@@ -30,7 +30,7 @@ export const illustrations = {
   heroWave: {
     dark: "/illustrations/hero-wave-dark.webp",
     light: "/illustrations/hero-wave-light.webp",
-    width: 819,
+    width: 881,
     height: 154,
     lightWidth: 704,
     lightHeight: 174,
@@ -60,6 +60,15 @@ export const illustrations = {
     height: 61,
   },
 } satisfies Record<string, ThemedImage>;
+
+/**
+ * Dashboard hero glows (Figma `1907:196252` and `1907:196264`): blurred purple shapes drawn
+ * behind and over the wave, dark theme only. Sizes include the blur margin baked into the SVG.
+ */
+export const heroGlows = {
+  left: { src: "/illustrations/hero-glow-left.svg", width: 498, height: 386 },
+  right: { src: "/illustrations/hero-glow-right.svg", width: 891, height: 373 },
+} satisfies Record<string, StaticImage>;
 
 export const emptyStates = {
   apiKeys: { src: "/illustrations/empty-api-keys.webp", width: 210, height: 132 },

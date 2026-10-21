@@ -14,7 +14,8 @@ export type IconButtonVariant =
   | "composer"
   | "send"
   | "header"
-  | "bare";
+  | "bare"
+  | "current";
 export type IconButtonSize =
   | "2xs"
   | "xs"
@@ -30,7 +31,8 @@ export type IconButtonSize =
   | "composer"
   | "send"
   | "code"
-  | "reply";
+  | "reply"
+  | "toast";
 
 /** Each variant owns its disabled colour, so `send` can stay on its fill at 40 % (Figma: empty composer). */
 const variants: Record<IconButtonVariant, string> = {
@@ -58,6 +60,8 @@ const variants: Record<IconButtonVariant, string> = {
     "border border-button-icon bg-button-icon text-button-ghost-fg hover:bg-button-secondary-hover data-[state=open]:bg-button-secondary-hover disabled:text-disabled",
   /** Glyph only (Figma: code-card and reply copy icons). */
   bare: "text-copy-icon hover:opacity-80",
+  /** Glyph in the surrounding text colour (Figma: toast close, drawn in the variant colour). */
+  current: "text-current hover:opacity-70",
 };
 
 const sizes: Record<IconButtonSize, { box: string; icon: number }> = {
@@ -74,8 +78,8 @@ const sizes: Record<IconButtonSize, { box: string; icon: number }> = {
   /** 38px box, 24px glyph (Figma: Project Settings edit and copy buttons). */
   "field-lg": { box: "size-9.5 rounded-sm", icon: 24 },
   lg: { box: "size-11 rounded-sm", icon: 20 },
-  /** Carousel arrows (Figma: webinar card): 32px target, 22px arrow. */
-  carousel: { box: "size-8 rounded-sm", icon: 22 },
+  /** Carousel arrows (Figma: webinar card): 20px glyph with a 30px hit area pulled back by 5px. */
+  carousel: { box: "size-7.5 rounded-sm -m-1.25", icon: 20 },
   /** Playground 37px icon buttons (new thread, compare close). */
   chat: { box: "size-9.25 rounded-md", icon: 20 },
   /** Same box with a 24px glyph (History panel close). */
@@ -88,6 +92,8 @@ const sizes: Record<IconButtonSize, { box: string; icon: number }> = {
   code: { box: "size-6 rounded-xs -m-0.75", icon: 18 },
   /** 20px glyph with a 32px hit area pulled back by 6px. */
   reply: { box: "size-8 rounded-sm -m-1.5", icon: 20 },
+  /** 16px glyph with a 24px hit area pulled back by 4px (toast close). */
+  toast: { box: "size-6 rounded-sm -m-1", icon: 16 },
 };
 
 export interface IconButtonProps extends Omit<ComponentPropsWithRef<"button">, "children"> {

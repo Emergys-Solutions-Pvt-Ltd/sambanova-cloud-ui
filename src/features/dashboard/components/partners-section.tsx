@@ -13,17 +13,34 @@ import { type CloudPartner } from "@/types/domain";
 
 import { usePartners } from "../hooks/use-dashboard-data";
 
-/** Artwork and logo files per partner (exported from Figma, shown at 1x size). */
+/**
+ * Artwork and logo files per partner. The art files are the Figma crop of each picture, transparent
+ * margin included, exported at 2x; `width` / `height` are the Figma box in CSS px, `position` is
+ * where that box sits (right edge at -1px, vertically centred or 11.9px from the top).
+ */
 const artwork: Record<
   CloudPartner["id"],
-  { art: { src: string; width: number; height: number }; logo: React.ReactNode }
+  {
+    art: { src: string; width: number; height: number; position: string };
+    logo: React.ReactNode;
+  }
 > = {
   infercom: {
-    art: { src: "/dashboard/partner-infercom-art.webp", width: 130, height: 138 },
+    art: {
+      src: "/dashboard/partner-infercom-card-art.webp",
+      width: 130.18,
+      height: 138.39,
+      position: "top-1/2 -translate-y-1/2",
+    },
     logo: <InfercomLogo aria-hidden="true" className="h-6 w-auto text-primary" />,
   },
   argylldata: {
-    art: { src: "/dashboard/partner-argylldata-art.webp", width: 130, height: 138 },
+    art: {
+      src: "/dashboard/partner-argylldata-card-art.webp",
+      width: 130,
+      height: 137.89,
+      position: "top-[11.9px]",
+    },
     logo: (
       <>
         <Image
@@ -44,7 +61,12 @@ const artwork: Record<
     ),
   },
   scx: {
-    art: { src: "/dashboard/partner-scx-art.webp", width: 130, height: 138 },
+    art: {
+      src: "/dashboard/partner-scx-card-art.webp",
+      width: 121.96,
+      height: 131.77,
+      position: "top-1/2 -translate-y-1/2",
+    },
     logo: (
       <>
         <Image
@@ -74,24 +96,25 @@ function PartnerCard({ partner }: { partner: CloudPartner }) {
       as="article"
       padding="lg"
       className={cn(
-        "group/card relative flex min-h-41.75 flex-col justify-between gap-4 overflow-hidden",
+        "group/card relative flex h-full min-h-41.75 flex-col justify-between gap-4 overflow-hidden",
         // Figma hover (slow smart-animate): the border turns brand purple and the arrow slides through.
         "transition-colors duration-(--sn-duration-marquee) ease-standard hover:border-brand-hover motion-reduce:transition-none",
       )}
     >
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-3.5 right-0 hidden sm:block"
+        className={cn("pointer-events-none absolute -right-px hidden sm:block", art.position)}
       >
         <Image
           src={art.src}
           alt=""
           width={art.width}
           height={art.height}
-          style={{ height: art.height }}
+          style={{ width: art.width, height: art.height }}
         />
       </div>
-      <div className="relative flex max-w-55 flex-col gap-4">
+      {/* 220px like Figma, but never into the artwork when the card is narrower than 370px. */}
+      <div className="relative flex max-w-55 flex-col gap-4 sm:max-w-[min(13.75rem,calc(100%-6.75rem))]">
         <h3 className="sr-only">{partner.name}</h3>
         <div className="flex h-7.5 items-center">{logo}</div>
         <p className="text-body-sm text-muted">{partner.description}</p>

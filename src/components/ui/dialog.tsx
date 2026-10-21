@@ -50,6 +50,8 @@ interface DialogContentProps extends Omit<
    * 24px header gap).
    */
   variant?: DialogVariant;
+  /** Body starts 16px under the header bar instead of 24px (Figma: Modal body of Compare Models). Bar header only. */
+  tightBody?: boolean;
 }
 
 type DialogVariant = "default" | "muted" | "subtle";
@@ -86,6 +88,7 @@ export function DialogContent({
   size = "lg",
   footer,
   variant = "default",
+  tightBody,
   className,
   children,
   ...rest
@@ -144,7 +147,7 @@ export function DialogContent({
         <div
           className={cn(
             "min-h-0 flex-1 scrollbar-thin overflow-y-auto px-6",
-            barHeader ? "pt-6" : "",
+            barHeader ? (tightBody ? "pt-4" : "pt-6") : "",
             footer ? "mb-5" : "pb-6",
           )}
         >

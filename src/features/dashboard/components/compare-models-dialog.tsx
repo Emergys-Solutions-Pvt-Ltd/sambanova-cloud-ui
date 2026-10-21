@@ -45,7 +45,7 @@ function PriceRow({
 
 function FeatureRow({ label, children }: { label: string; children: ReactNode }) {
   return (
-    <div className="flex min-h-12.5 items-center justify-between gap-4 border-b border-strong last:border-b-0">
+    <div className="flex min-h-12.5 items-center justify-between gap-4 border-b border-panel-line last:border-b-0">
       <dt className="text-body-lg">{label}</dt>
       <dd className="flex items-center text-body-lg font-semibold">{children}</dd>
     </div>
@@ -88,7 +88,7 @@ function ComparePanel({
   return (
     <section
       aria-label={label}
-      className="flex flex-col gap-4 rounded-lg border border-default bg-input p-5"
+      className="flex flex-col gap-4 rounded-lg border border-panel bg-input p-5"
     >
       <Combobox
         aria-label={`${label} selection`}
@@ -100,12 +100,12 @@ function ComparePanel({
 
       {kind === "cost" ? (
         <>
-          <dl className="flex flex-col gap-2 border-t border-strong pt-4">
+          <dl className="flex flex-col gap-2 border-t border-panel-line pt-4">
             <PriceRow emphasis label="Input" value={mtok(pricing.input)} />
             <PriceRow emphasis label="Output" value={mtok(pricing.output)} />
           </dl>
 
-          <div className="flex flex-col gap-2 border-t border-strong pt-4">
+          <div className="flex flex-col gap-2 border-t border-panel-line pt-4">
             <h4 className="text-body-lg text-muted">Prompt Caching</h4>
             <dl className="flex flex-col gap-1">
               <PriceRow label="Write" value={mtok(pricing.promptCaching.write)} />
@@ -113,7 +113,7 @@ function ComparePanel({
             </dl>
           </div>
 
-          <div className="flex flex-col gap-2 border-t border-strong pt-4">
+          <div className="flex flex-col gap-2 border-t border-panel-line pt-4">
             <h4 className="text-body-lg text-muted">Fast Mode</h4>
             <dl className="flex flex-col gap-1">
               <PriceRow label="Input" value={mtok(pricing.fastMode.input)} />
@@ -122,13 +122,13 @@ function ComparePanel({
           </div>
 
           {pricing.badge && (
-            <Badge variant="info" size="md" className="w-fit">
+            <Badge variant="info" shape="capsule" size="lg" className="w-fit">
               {pricing.badge}
             </Badge>
           )}
         </>
       ) : (
-        <dl className="flex flex-col border-t border-strong">
+        <dl className="flex flex-col border-t border-panel-line">
           <FeatureRow label="Context Window">{formatTokenCount(features.contextWindow)}</FeatureRow>
           <FeatureRow label="Max Output">{formatTokenCount(features.maxOutput)}</FeatureRow>
           <FeatureRow label="Reasoning">
@@ -228,7 +228,7 @@ export function CompareModelsDialog({ open, onOpenChange }: CompareModelsDialogP
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent title="Compare Models" size="lg">
+      <DialogContent title="Compare Models" size="lg" tightBody>
         <Tabs defaultValue="cost" className="flex flex-col gap-5" id={tabsId}>
           <TabsList aria-label="Comparison type" className="w-fit">
             <TabsTrigger value="cost">Cost</TabsTrigger>

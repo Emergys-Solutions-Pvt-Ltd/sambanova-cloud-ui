@@ -205,6 +205,8 @@
   --sn-duration-slow: 320ms;
   --sn-duration-toast: 300ms; /* Figma: toast move-in, ease out */
   --sn-duration-marquee: 1250ms; /* Figma: partner card hover, slow smart-animate */
+  --sn-duration-quick: 744ms; /* Figma: Free Credits card hover, quick smart-animate */
+  --sn-duration-nav-icon: 300ms; /* Figma: sidebar icon hover, smart animate ease-out */
   --sn-duration-collapse: 400ms; /* Figma smart-animate: Steps Animation */
   --sn-duration-loader: 1500ms; /* Figma: Playground loader cycle (3 steps x 500ms, linear) */
   --sn-ease-standard: cubic-bezier(0.2, 0, 0, 1);
@@ -278,7 +280,7 @@
   /* Buttons */
   --sn-button-primary-bg: var(--sn-neutral-50);
   --sn-button-primary-fg: var(--sn-neutral-1000);
-  --sn-button-primary-hover: var(--sn-gray-200); /* GUESS */
+  --sn-button-primary-hover: #e0dae6; /* Figma: Primary Button, Hover */
   --sn-button-outline-border: rgb(229 231 235 / 0.2);
   --sn-button-outline-fg: var(--sn-neutral-0);
 
@@ -312,15 +314,18 @@
   --sn-code-keyword: var(--sn-syntax-purple-dark);
 
   /* Gradients */
-  --sn-gradient-hero: linear-gradient(90deg, #131313 0%, #070614 33%, #070714 100%);
-  --sn-gradient-hero-accent: linear-gradient(104deg, #ebab0e 0%, #c881ff 100%);
-  --sn-gradient-promo: radial-gradient(
-    120% 140% at 15% 0%,
-    #3d115a 0%,
-    #090110 31%,
-    #16032c 100%
-  ); /* "Earn Free Credits" card; Figma uses a diamond gradient */
-  --sn-gradient-badge: linear-gradient(90deg, #9f36fb 0%, #6705f1 100%);
+  --sn-gradient-hero: linear-gradient(89.77deg, #131313 0%, #070614 32.68%, #070714 99.96%);
+  --sn-gradient-hero-accent: linear-gradient(138.56deg, #ebab0e 6.81%, #c881ff 46.8%);
+  /* "Earn Free Credits" card: Figma diamond gradient (Component 110), drawn as an SVG that stretches with the card. */
+  --sn-gradient-promo: url("data:image/svg+xml;utf8,<svg viewBox='0 0 392 239' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><g transform='matrix(40.95 25.326 -41.54 67.165 -17.5 -20.5)'><rect height='26.005' width='95.884' fill='url(%23g)' id='q' shape-rendering='crispEdges'/><use href='%23q' transform='scale(1 -1)'/><use href='%23q' transform='scale(-1 1)'/><use href='%23q' transform='scale(-1 -1)'/></g><defs><linearGradient id='g' gradientUnits='userSpaceOnUse' x2='5' y2='5'><stop stop-color='rgb(61,17,90)' offset='0'/><stop stop-color='rgb(35,9,53)' offset='0.15702'/><stop stop-color='rgb(22,5,34)' offset='0.23553'/><stop stop-color='rgb(9,1,16)' offset='0.31404'/><stop stop-color='rgb(22,3,44)' offset='1'/></linearGradient></defs></svg>");
+  /* Hover outline of the same card: Figma stroke gradient at 30%, left to right with a slight tilt. */
+  --sn-gradient-promo-border: linear-gradient(
+    84.7deg,
+    rgb(203 144 255 / 0.3) 0%,
+    rgb(254 210 75 / 0.3) 50%,
+    rgb(173 103 229 / 0.3) 100%
+  );
+  --sn-gradient-badge: linear-gradient(180deg, #9f36fb 0%, #6705f1 100%);
   --sn-gradient-playground:
     radial-gradient(60% 55% at 30% 0%, rgb(152 71 214 / 0.35) 0%, transparent 70%),
     radial-gradient(55% 50% at 80% 10%, rgb(253 185 19 / 0.18) 0%, transparent 70%), #000000;
@@ -329,8 +334,9 @@
   --sn-shadow-xs: 0 1px 2px rgb(0 0 0 / 0.08);
   --sn-shadow-sm: 0 1px 3px rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --sn-shadow-md: 0 4px 8px -2px rgb(10 13 18 / 0.1), 0 2px 4px -2px rgb(10 13 18 / 0.06);
-  --sn-shadow-lg: 0 3px 19px 8px rgb(0 0 0 / 0.25);
-  --sn-shadow-card-inset: inset 0 0 11px 6px rgb(37 30 46 / 0.8);
+  --sn-shadow-lg: 0 3px 19.3px 8px rgb(0 0 0 / 0.25);
+  --sn-shadow-card-inset: inset 0 0 11.3px 6px rgb(37 30 46 / 0.8); /* Figma: model cards, inner purple shadow */
+  --sn-shadow-card-glow: inset 0 1px 48.3px -2px rgb(152 79 208 / 0.08); /* Figma: webinar and Free Credits cards */
 
   /* Glows */
   --sn-glow-brand: 0 0 48px -2px rgb(152 79 208 / 0.08) inset;
@@ -349,7 +355,14 @@
   /* Menus and popovers (Figma: account menu, project dropdown) */
   --sn-bg-menu: var(--sn-neutral-800);
   --sn-border-menu: var(--sn-gray-600);
+  --sn-border-menu-soft: var(
+    --sn-gray-700
+  ); /* Figma: project dropdown divider (the account menu uses gray-600) */
   --sn-text-menu-label: var(--sn-gray-500);
+  --sn-bg-dropdown: var(--sn-neutral-875); /* audit: Figma #1A1A1A is #1D1D1D */
+  --sn-text-menu-item: var(--sn-gray-200); /* Figma: Dropdown Menu option */
+  --sn-text-model-meta: #9c9c9c; /* Figma: Recommended Model description and meta rows (neutral gray, not the cool muted gray) */
+  --sn-border-dropdown: var(--sn-gray-800); /* Figma: Dropdown Menu stroke */
 
   /* Sidebar profile card: faint lavender wash with a purple hairline */
   --sn-bg-profile: rgb(234 218 250 / 0.06);
@@ -360,10 +373,25 @@
   --sn-border-disabled: var(--sn-neutral-700);
 
   /* Buttons: states from Figma Components (Active/Hover/Disable) */
-  --sn-button-primary-disabled-bg: var(--sn-gray-500);
-  --sn-button-primary-disabled-fg: var(--sn-neutral-700);
+  --sn-button-primary-disabled-bg: var(
+    --sn-button-disabled-fg
+  ); /* Figma: Primary Button, Disable (#6F6F6F) */
+  --sn-button-primary-disabled-fg: #333333; /* Figma: Primary Button, Disable */
   --sn-button-secondary-bg: rgb(255 255 255 / 0.04);
   --sn-button-secondary-hover-bg: rgb(255 255 255 / 0.08);
+  --sn-button-disabled-fg: #6f6f6f; /* Figma: Secondary and Tertiary Button, Disable (#6F6F6F / #6F6F70) */
+  --sn-button-secondary-border: rgb(
+    255 255 255 / 0.2
+  ); /* Figma: Secondary Button, Active and Hover */
+  --sn-button-secondary-fg: var(--sn-neutral-50); /* Figma: Secondary Button */
+  --sn-button-tertiary-fg: var(--sn-neutral-50); /* Figma: Tertiary Button, Active */
+  --sn-button-link-hover: var(
+    --sn-neutral-50
+  ); /* Figma: Link Button, Hover has the same color as Active */
+  --sn-button-link-disabled-fg: #585858; /* Figma: Link Button, Disable */
+  --sn-button-cancel-disabled-fg: var(
+    --sn-neutral-700
+  ); /* Figma: Cancel Button, Disable (#3C3E41, merged into neutral-700 like its stroke) */
   --sn-button-destructive-bg: var(--sn-red-500);
   --sn-button-destructive-fg: var(--sn-neutral-1000);
   --sn-button-destructive-hover: var(--sn-red-400); /* GUESS: no hover in Figma */
@@ -374,9 +402,16 @@
   --sn-text-accent: var(--sn-purple-500);
   --sn-border-input: var(--sn-ink-stroke-2);
   --sn-border-dashed: var(--sn-gray-800);
+  --sn-steps-connector: var(--sn-gray-700); /* Figma: onboarding step connector */
+  --sn-bg-dot: #412257; /* Figma: webinar carousel, inactive dot */
   --sn-border-pill: var(--sn-purple-800);
   --sn-border-social: var(--sn-gray-600);
   --sn-border-field: var(--sn-gray-800);
+  --sn-border-panel: var(--sn-gray-800); /* Figma: Compare Models panels and the picker divider */
+  --sn-border-panel-line: var(
+    --sn-gray-600
+  ); /* Figma: dividers inside the Compare Models panels (#4B5563) */
+  --sn-shadow-picker: 0 3px 9.65px rgb(0 0 0 / 0.25); /* Figma: picker dropdown, no stroke */
   --sn-featured-warning-bg: rgb(172 156 0 / 0.3);
   --sn-featured-warning-ring: rgb(255 255 0 / 0.1);
   --sn-featured-warning-fg: #ff9500;
@@ -396,19 +431,36 @@
   --sn-callout-icon-fg: var(--sn-purple-300);
   --sn-border-selected: rgb(255 255 255 / 0.3);
   --sn-radio-off: var(--sn-gray-700);
-  --sn-toast-success-fg: var(--sn-green-500);
-  --sn-toast-success-line: var(--sn-green-400);
+  /* Figma Toast Component: text, icon and 1px border share one colour per variant, on an 8% tint. */
+  --sn-toast-success-fg: #00c965;
+  --sn-toast-success-line: var(--sn-toast-success-fg);
+  --sn-toast-success-bg: rgb(0 201 101 / 0.08);
   --sn-toast-error-fg: var(--sn-red-500);
-  --sn-toast-error-line: var(--sn-red-400); /* GUESS */
-  --sn-toast-warning-fg: var(--sn-yellow-400);
-  --sn-toast-warning-line: var(--sn-yellow-400); /* GUESS */
-  --sn-toast-info-fg: var(--sn-blue-300);
-  --sn-toast-info-line: var(--sn-blue-500); /* GUESS */
+  --sn-toast-error-line: var(--sn-toast-error-fg);
+  --sn-toast-error-bg: rgb(240 82 82 / 0.08);
+  --sn-toast-warning-fg: #faca15;
+  --sn-toast-warning-line: var(--sn-toast-warning-fg);
+  --sn-toast-warning-bg: rgb(250 202 21 / 0.08);
+  --sn-toast-info-fg: #5699ff;
+  --sn-toast-info-line: var(--sn-toast-info-fg);
+  --sn-toast-info-bg: rgb(86 153 255 / 0.08);
   --sn-border-card-hover: var(--sn-gray-700);
   --sn-border-brand-hover: var(--sn-purple-900);
   --sn-button-glass-fg: var(--sn-neutral-0);
   --sn-button-outline-strong-border: var(--sn-neutral-0);
   --sn-bg-chip: rgb(244 234 253 / 0.2);
+  --sn-gradient-glass-rim: conic-gradient(
+    from 0deg,
+    rgb(255 255 255 / 0.14) 0deg,
+    rgb(255 255 255 / 0.3) 45deg,
+    rgb(255 255 255 / 0.13) 90deg,
+    rgb(255 255 255 / 0.02) 135deg,
+    rgb(255 255 255 / 0.09) 180deg,
+    rgb(255 255 255 / 0.31) 225deg,
+    rgb(255 255 255 / 0.26) 270deg,
+    rgb(255 255 255 / 0.03) 315deg,
+    rgb(255 255 255 / 0.14) 360deg
+  ); /* Figma: Glass effect of the rocket circle; rim light measured every 45deg, strongest bottom left */
   --sn-bg-scrollbar: rgb(255 255 255 / 0.22); /* thumb of thin scrollbars (Figma dropdown) */
 
   /* API key usage (Figma: View API Key Usage, Request Details drawer, Datepicker) */
@@ -623,7 +675,7 @@
   --sn-code-keyword: var(--sn-syntax-purple-light);
 
   --sn-gradient-hero: linear-gradient(90deg, #ffffff 0%, #f5ebfe 25%, #f3ebfe 100%);
-  --sn-gradient-hero-accent: linear-gradient(104deg, #db7504 0%, #8335bb 100%);
+  --sn-gradient-hero-accent: linear-gradient(138.56deg, #db7504 6.81%, #8335bb 46.8%);
   --sn-gradient-promo: linear-gradient(110deg, #ffffff 0%, #ead8ff 100%);
   --sn-gradient-playground:
     radial-gradient(60% 55% at 30% 0%, rgb(152 71 214 / 0.14) 0%, transparent 70%),
@@ -634,6 +686,7 @@
   --sn-shadow-md: 0 4px 8px -2px rgb(10 13 18 / 0.08), 0 2px 4px -2px rgb(10 13 18 / 0.04);
   --sn-shadow-lg: 0 3px 19px 8px rgb(0 0 0 / 0.08); /* GUESS: dark value is too heavy on white */
   --sn-shadow-card-inset: inset 0 0 11px 6px rgb(255 255 255 / 0.8);
+  --sn-shadow-card-glow: inset 0 1px 48.3px -2px rgb(152 79 208 / 0.08); /* GUESS: Figma shows dark only */
 
   --sn-switcher-bg: rgb(0 0 0 / 0.04);
   --sn-switcher-border: rgb(0 0 0 / 0.08);
@@ -641,7 +694,12 @@
 
   --sn-bg-menu: var(--sn-neutral-0);
   --sn-border-menu: var(--sn-gray-200); /* GUESS: no light menu in Figma */
+  --sn-border-menu-soft: var(--sn-gray-200); /* GUESS */
   --sn-text-menu-label: var(--sn-gray-500);
+  --sn-bg-dropdown: var(--sn-neutral-0); /* GUESS: Figma shows dark only */
+  --sn-text-menu-item: var(--sn-gray-700); /* GUESS: Figma shows dark only */
+  --sn-text-model-meta: var(--sn-text-muted); /* GUESS: Figma shows dark only; unchanged */
+  --sn-border-dropdown: var(--sn-border-subtle); /* GUESS */
 
   --sn-bg-profile: rgb(170 85 255 / 0.06);
   --sn-border-profile: rgb(152 71 214 / 0.3); /* GUESS: no signed-in light sidebar */
@@ -653,6 +711,15 @@
   --sn-button-primary-disabled-fg: var(--sn-gray-400); /* GUESS */
   --sn-button-secondary-bg: transparent; /* GUESS: Figma components are dark only */
   --sn-button-secondary-hover-bg: rgb(98 43 134 / 0.06); /* GUESS */
+  --sn-button-disabled-fg: var(
+    --sn-text-disabled
+  ); /* GUESS: Figma buttons are dark only; unchanged */
+  --sn-button-secondary-border: var(--sn-button-outline-border);
+  --sn-button-secondary-fg: var(--sn-button-outline-fg);
+  --sn-button-tertiary-fg: var(--sn-text-secondary);
+  --sn-button-link-hover: var(--sn-text-link-hover);
+  --sn-button-link-disabled-fg: var(--sn-text-disabled);
+  --sn-button-cancel-disabled-fg: var(--sn-text-disabled);
   --sn-button-destructive-bg: var(--sn-red-500);
   --sn-button-destructive-fg: var(--sn-neutral-0); /* GUESS */
   --sn-button-destructive-hover: var(--sn-red-700); /* GUESS */
@@ -662,9 +729,15 @@
   --sn-text-accent: var(--sn-purple-700);
   --sn-border-input: var(--sn-gray-300);
   --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-steps-connector: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-bg-dot: var(--sn-border-strong); /* GUESS: Figma shows dark only */
   --sn-border-pill: var(--sn-purple-400); /* GUESS */
   --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
   --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+  --sn-border-panel: var(--sn-border-default); /* GUESS: Figma shows dark only; unchanged */
+  --sn-border-panel-line: var(--sn-border-strong); /* GUESS: Figma shows dark only; unchanged */
+  --sn-shadow-picker:
+    0 0 0 1px var(--sn-purple-200), 0 3px 19px 8px rgb(0 0 0 / 0.08); /* GUESS: light keeps its outline, drawn as a ring */
   --sn-featured-warning-bg: var(--sn-amber-100); /* GUESS: dark only in Figma */
   --sn-featured-warning-ring: var(--sn-amber-50); /* GUESS */
   --sn-featured-warning-fg: var(--sn-amber-600); /* GUESS */
@@ -688,17 +761,33 @@
     --sn-green-700
   ); /* GUESS: toasts are dark only in the dashboard flow */
   --sn-toast-success-line: var(--sn-green-500); /* GUESS */
+  --sn-toast-success-bg: var(--sn-status-success-bg); /* GUESS */
   --sn-toast-error-fg: var(--sn-red-700); /* GUESS */
   --sn-toast-error-line: var(--sn-red-500); /* GUESS */
+  --sn-toast-error-bg: var(--sn-status-error-bg); /* GUESS */
   --sn-toast-warning-fg: var(--sn-amber-700); /* GUESS */
   --sn-toast-warning-line: var(--sn-yellow-400); /* GUESS */
+  --sn-toast-warning-bg: var(--sn-status-warning-bg); /* GUESS */
   --sn-toast-info-fg: var(--sn-blue-700); /* GUESS */
   --sn-toast-info-line: var(--sn-blue-500); /* GUESS */
+  --sn-toast-info-bg: var(--sn-status-info-bg); /* GUESS */
   --sn-border-card-hover: var(--sn-purple-300); /* GUESS: Figma shows dark only */
   --sn-border-brand-hover: var(--sn-purple-400); /* GUESS */
   --sn-button-glass-fg: var(--sn-purple-900);
   --sn-button-outline-strong-border: var(--sn-purple-400);
-  --sn-bg-chip: rgb(255 255 255 / 0.2);
+  --sn-bg-chip: rgb(152 71 214 / 0.12); /* GUESS: Figma shows dark only */
+  --sn-gradient-glass-rim: conic-gradient(
+    from 0deg,
+    rgb(152 71 214 / 0.21) 0deg,
+    rgb(152 71 214 / 0.45) 45deg,
+    rgb(152 71 214 / 0.2) 90deg,
+    rgb(152 71 214 / 0.03) 135deg,
+    rgb(152 71 214 / 0.14) 180deg,
+    rgb(152 71 214 / 0.47) 225deg,
+    rgb(152 71 214 / 0.39) 270deg,
+    rgb(152 71 214 / 0.05) 315deg,
+    rgb(152 71 214 / 0.21) 360deg
+  ); /* GUESS: Figma shows dark only; purple rim so the circle reads on the light card */
   --sn-bg-scrollbar: rgb(0 0 0 / 0.12); /* Figma light thumb (#e1e1e1 on white) */
 
   /* API key usage: no light screens in Figma, all GUESS */
@@ -900,7 +989,7 @@
     --sn-code-keyword: var(--sn-syntax-purple-light);
 
     --sn-gradient-hero: linear-gradient(90deg, #ffffff 0%, #f5ebfe 25%, #f3ebfe 100%);
-    --sn-gradient-hero-accent: linear-gradient(104deg, #db7504 0%, #8335bb 100%);
+    --sn-gradient-hero-accent: linear-gradient(138.56deg, #db7504 6.81%, #8335bb 46.8%);
     --sn-gradient-promo: linear-gradient(110deg, #ffffff 0%, #ead8ff 100%);
     --sn-gradient-playground:
       radial-gradient(60% 55% at 30% 0%, rgb(152 71 214 / 0.14) 0%, transparent 70%),
@@ -911,6 +1000,7 @@
     --sn-shadow-md: 0 4px 8px -2px rgb(10 13 18 / 0.08), 0 2px 4px -2px rgb(10 13 18 / 0.04);
     --sn-shadow-lg: 0 3px 19px 8px rgb(0 0 0 / 0.08);
     --sn-shadow-card-inset: inset 0 0 11px 6px rgb(255 255 255 / 0.8);
+    --sn-shadow-card-glow: inset 0 1px 48.3px -2px rgb(152 79 208 / 0.08); /* GUESS: Figma shows dark only */
 
     --sn-switcher-bg: rgb(0 0 0 / 0.04);
     --sn-switcher-border: rgb(0 0 0 / 0.08);
@@ -918,7 +1008,12 @@
 
     --sn-bg-menu: var(--sn-neutral-0);
     --sn-border-menu: var(--sn-gray-200); /* GUESS: no light menu in Figma */
+    --sn-border-menu-soft: var(--sn-gray-200); /* GUESS */
     --sn-text-menu-label: var(--sn-gray-500);
+    --sn-bg-dropdown: var(--sn-neutral-0); /* GUESS: Figma shows dark only */
+    --sn-text-menu-item: var(--sn-gray-700); /* GUESS: Figma shows dark only */
+    --sn-text-model-meta: var(--sn-text-muted); /* GUESS: Figma shows dark only; unchanged */
+    --sn-border-dropdown: var(--sn-border-subtle); /* GUESS */
 
     --sn-bg-profile: rgb(170 85 255 / 0.06);
     --sn-border-profile: rgb(152 71 214 / 0.3); /* GUESS: no signed-in light sidebar */
@@ -930,6 +1025,15 @@
     --sn-button-primary-disabled-fg: var(--sn-gray-400); /* GUESS */
     --sn-button-secondary-bg: transparent; /* GUESS: Figma components are dark only */
     --sn-button-secondary-hover-bg: rgb(98 43 134 / 0.06); /* GUESS */
+    --sn-button-disabled-fg: var(
+      --sn-text-disabled
+    ); /* GUESS: Figma buttons are dark only; unchanged */
+    --sn-button-secondary-border: var(--sn-button-outline-border);
+    --sn-button-secondary-fg: var(--sn-button-outline-fg);
+    --sn-button-tertiary-fg: var(--sn-text-secondary);
+    --sn-button-link-hover: var(--sn-text-link-hover);
+    --sn-button-link-disabled-fg: var(--sn-text-disabled);
+    --sn-button-cancel-disabled-fg: var(--sn-text-disabled);
     --sn-button-destructive-bg: var(--sn-red-500);
     --sn-button-destructive-fg: var(--sn-neutral-0); /* GUESS */
     --sn-button-destructive-hover: var(--sn-red-700); /* GUESS */
@@ -939,9 +1043,15 @@
     --sn-text-accent: var(--sn-purple-700);
     --sn-border-input: var(--sn-gray-300);
     --sn-border-dashed: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-steps-connector: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-bg-dot: var(--sn-border-strong); /* GUESS: Figma shows dark only */
     --sn-border-pill: var(--sn-purple-400); /* GUESS */
     --sn-border-social: var(--sn-gray-300); /* GUESS: Figma shows dark only */
     --sn-border-field: var(--sn-gray-300); /* GUESS: Figma shows dark only */
+    --sn-border-panel: var(--sn-border-default); /* GUESS: Figma shows dark only; unchanged */
+    --sn-border-panel-line: var(--sn-border-strong); /* GUESS: Figma shows dark only; unchanged */
+    --sn-shadow-picker:
+      0 0 0 1px var(--sn-purple-200), 0 3px 19px 8px rgb(0 0 0 / 0.08); /* GUESS: light keeps its outline, drawn as a ring */
     --sn-featured-warning-bg: var(--sn-amber-100); /* GUESS: dark only in Figma */
     --sn-featured-warning-ring: var(--sn-amber-50); /* GUESS */
     --sn-featured-warning-fg: var(--sn-amber-600); /* GUESS */
@@ -965,17 +1075,33 @@
       --sn-green-700
     ); /* GUESS: toasts are dark only in the dashboard flow */
     --sn-toast-success-line: var(--sn-green-500); /* GUESS */
+    --sn-toast-success-bg: var(--sn-status-success-bg); /* GUESS */
     --sn-toast-error-fg: var(--sn-red-700); /* GUESS */
     --sn-toast-error-line: var(--sn-red-500); /* GUESS */
+    --sn-toast-error-bg: var(--sn-status-error-bg); /* GUESS */
     --sn-toast-warning-fg: var(--sn-amber-700); /* GUESS */
     --sn-toast-warning-line: var(--sn-yellow-400); /* GUESS */
+    --sn-toast-warning-bg: var(--sn-status-warning-bg); /* GUESS */
     --sn-toast-info-fg: var(--sn-blue-700); /* GUESS */
     --sn-toast-info-line: var(--sn-blue-500); /* GUESS */
+    --sn-toast-info-bg: var(--sn-status-info-bg); /* GUESS */
     --sn-border-card-hover: var(--sn-purple-300); /* GUESS: Figma shows dark only */
     --sn-border-brand-hover: var(--sn-purple-400); /* GUESS */
     --sn-button-glass-fg: var(--sn-purple-900);
     --sn-button-outline-strong-border: var(--sn-purple-400);
-    --sn-bg-chip: rgb(255 255 255 / 0.2);
+    --sn-bg-chip: rgb(152 71 214 / 0.12); /* GUESS: Figma shows dark only */
+    --sn-gradient-glass-rim: conic-gradient(
+      from 0deg,
+      rgb(152 71 214 / 0.21) 0deg,
+      rgb(152 71 214 / 0.45) 45deg,
+      rgb(152 71 214 / 0.2) 90deg,
+      rgb(152 71 214 / 0.03) 135deg,
+      rgb(152 71 214 / 0.14) 180deg,
+      rgb(152 71 214 / 0.47) 225deg,
+      rgb(152 71 214 / 0.39) 270deg,
+      rgb(152 71 214 / 0.05) 315deg,
+      rgb(152 71 214 / 0.21) 360deg
+    ); /* GUESS: Figma shows dark only; purple rim so the circle reads on the light card */
     --sn-bg-scrollbar: rgb(0 0 0 / 0.12); /* Figma light thumb (#e1e1e1 on white) */
 
     /* API key usage: no light screens in Figma, all GUESS */
@@ -1115,6 +1241,8 @@
     --sn-duration-slow: 0ms;
     --sn-duration-collapse: 0ms;
     --sn-duration-marquee: 0ms;
+    --sn-duration-quick: 0ms;
+    --sn-duration-nav-icon: 0ms;
     --sn-duration-toast: 0ms;
   }
 }
