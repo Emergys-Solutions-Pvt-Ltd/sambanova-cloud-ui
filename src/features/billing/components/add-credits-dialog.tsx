@@ -125,12 +125,13 @@ function AddCreditsDialogContent({
   return (
     <DialogContent
       size="xl"
+      variant="muted"
       title={TITLE}
       description={DESCRIPTION}
       footer={
         <>
           <DialogClose asChild>
-            <Button type="button" variant="cancel">
+            <Button type="button" variant="cancel" className="w-22.5">
               Cancel
             </Button>
           </DialogClose>
@@ -174,6 +175,7 @@ function AddCreditsDialogContent({
                 label="Full name"
                 fieldSize="sm"
                 bordered="input"
+                placeholderTone="subtle"
                 autoComplete="name"
                 placeholder="Enter"
                 error={errors.fullName?.message}
@@ -194,6 +196,7 @@ function AddCreditsDialogContent({
                         variant="field"
                         aria-label="Country or region"
                         placeholder="Select"
+                        placeholderTone="subtle"
                         groups={countryGroups}
                         value={field.value}
                         onValueChange={(next) => {
@@ -210,6 +213,7 @@ function AddCreditsDialogContent({
                   label="Address"
                   fieldSize="sm"
                   bordered="input"
+                  placeholderTone="subtle"
                   autoComplete="street-address"
                   placeholder="Enter"
                   error={errors.address?.message}
@@ -243,7 +247,7 @@ function AddCreditsDialogContent({
 /** Same frame while the saved billing address loads. */
 function AddCreditsDialogLoading() {
   return (
-    <DialogContent size="xl" title={TITLE} description={DESCRIPTION}>
+    <DialogContent size="xl" variant="muted" title={TITLE} description={DESCRIPTION}>
       <div aria-busy="true" aria-label="Loading billing details" className="flex flex-col gap-5">
         <Skeleton className="h-13.5" />
         <Skeleton className="h-13.5" />

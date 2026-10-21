@@ -52,7 +52,12 @@ export function InvoicesTable() {
         radius="md"
         footer={
           result && result.totalPages > 1 ? (
-            <PaginationFooter result={result} onPageChange={setPage} label="Invoice pages" />
+            <PaginationFooter
+              result={result}
+              onPageChange={setPage}
+              label="Invoice pages"
+              summaryTone="muted"
+            />
           ) : undefined
         }
       >
@@ -100,7 +105,7 @@ export function InvoicesTable() {
                     </TableCell>
                     <TableCell tone="muted">{formatUsdPrecise(invoice.amount)}</TableCell>
                     <TableCell>
-                      <Badge variant={status.variant} shape="rounded">
+                      <Badge variant={status.variant} shape="rounded" size="lg">
                         {status.label}
                       </Badge>
                     </TableCell>

@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Limits · Project Settings" };
 
 export default function SettingsLimitsPage() {
   return (
-    <PageContent className="pt-8.5">
+    <PageContent className="pt-8.25">
       <LimitsView />
     </PageContent>
   );

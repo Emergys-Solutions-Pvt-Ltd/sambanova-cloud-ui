@@ -132,7 +132,12 @@ function AutoRechargeForm({ mode, cards, settings, cardId, onDone }: AutoRecharg
         control={control}
         name="paymentMethodId"
         render={({ field, fieldState }) => (
-          <FormField label="Payment Method" htmlFor={ids.card} error={fieldState.error?.message}>
+          <FormField
+            label="Payment Method"
+            htmlFor={ids.card}
+            error={fieldState.error?.message}
+            labelClassName="font-normal"
+          >
             <Select
               id={ids.card}
               variant="form"
@@ -157,6 +162,7 @@ function AutoRechargeForm({ mode, cards, settings, cardId, onDone }: AutoRecharg
               label="Recharge when balance falls below"
               htmlFor={ids.threshold}
               error={fieldState.error?.message}
+              labelClassName="font-normal"
             >
               <NumberInput
                 id={ids.threshold}
@@ -182,6 +188,7 @@ function AutoRechargeForm({ mode, cards, settings, cardId, onDone }: AutoRecharg
               label="Automatically Add"
               htmlFor={ids.amount}
               error={fieldState.error?.message}
+              labelClassName="font-normal"
             >
               <NumberInput
                 id={ids.amount}
@@ -236,7 +243,12 @@ interface AutoRechargeDialogProps extends Omit<AutoRechargeFormProps, "onDone"> 
 export function AutoRechargeDialog({ open, onOpenChange, ...form }: AutoRechargeDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent size="md" title={copy[form.mode].title} description={DESCRIPTION}>
+      <DialogContent
+        size="md"
+        variant="muted"
+        title={copy[form.mode].title}
+        description={DESCRIPTION}
+      >
         <AutoRechargeForm {...form} onDone={() => onOpenChange(false)} />
       </DialogContent>
     </Dialog>

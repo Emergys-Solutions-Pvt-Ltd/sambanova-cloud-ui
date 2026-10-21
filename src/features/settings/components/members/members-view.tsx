@@ -237,7 +237,14 @@ export function MembersView() {
       ) : (
         <TableCard
           className="bg-surface"
-          footer={<PaginationFooter result={data} onPageChange={setPage} label="Members pages" />}
+          footer={
+            <PaginationFooter
+              result={data}
+              onPageChange={setPage}
+              label="Members pages"
+              summaryTone="muted"
+            />
+          }
         >
           <Table
             caption="Project members"

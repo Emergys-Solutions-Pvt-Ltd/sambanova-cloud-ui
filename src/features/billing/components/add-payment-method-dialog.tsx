@@ -60,6 +60,7 @@ function AddPaymentMethodContent({ onDone }: { onDone: () => void }) {
   return (
     <DialogContent
       size="xl"
+      variant="muted"
       title="Add Payment Details"
       description="This card will be saved to your account and can be removed at any time."
       footer={

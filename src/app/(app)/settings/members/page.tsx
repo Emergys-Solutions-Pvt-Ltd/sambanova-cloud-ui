@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Members · Project Settings" };
 
 export default function SettingsMembersPage() {
   return (
-    <PageContent className="pt-8.5">
+    <PageContent className="pt-8.25">
       <MembersView />
     </PageContent>
   );

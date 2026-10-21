@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "General · Project Settings" };
 
 export default function SettingsGeneralPage() {
   return (
-    <PageContent className="pt-8.5">
+    <PageContent className="pt-8.25">
       <ProjectGeneralView />
     </PageContent>
   );

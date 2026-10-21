@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Roles · Project Settings" };
 
 export default function SettingsRolesPage() {
   return (
-    <PageContent className="pt-8.5">
+    <PageContent className="pt-8.25">
       <RolesView />
     </PageContent>
   );

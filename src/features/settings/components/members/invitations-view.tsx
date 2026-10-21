@@ -163,7 +163,12 @@ export function InvitationsView() {
         <TableCard
           className="bg-surface"
           footer={
-            <PaginationFooter result={data} onPageChange={setPage} label="Invitations pages" />
+            <PaginationFooter
+              result={data}
+              onPageChange={setPage}
+              label="Invitations pages"
+              summaryTone="muted"
+            />
           }
         >
           <Table caption="Invitations" minWidth="lg" className="table-fixed" aria-busy={firstLoad}>

@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "Billing · Project Settings" };
 
 export default function SettingsBillingPage() {
   return (
-    <PageContent>
+    <PageContent className="pt-8.25">
       <BillingView />
     </PageContent>
   );

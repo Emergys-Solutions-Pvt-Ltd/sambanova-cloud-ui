@@ -43,8 +43,11 @@ export interface SelectProps {
   id?: string;
   onBlur?: () => void;
   invalid?: boolean;
-  /** Color of the placeholder text: "muted" (default) or "primary" (Figma: Grace Period shows white "Select"). */
-  placeholderTone?: "muted" | "primary";
+  /**
+   * Color of the placeholder text: "muted" (default), "subtle" (gray-500, Figma: Add Credits) or
+   * "primary" (Figma: Grace Period shows white "Select").
+   */
+  placeholderTone?: "muted" | "subtle" | "primary";
   /** Controlled open state; omit for Radix's own. */
   open?: boolean;
   defaultOpen?: boolean;
@@ -132,6 +135,7 @@ export function Select({
           "transition-colors duration-(--sn-duration-fast) ease-standard hover:bg-hover",
           "disabled:cursor-not-allowed disabled:text-disabled",
           placeholderTone === "muted" && "data-[placeholder]:text-muted",
+          placeholderTone === "subtle" && "data-[placeholder]:text-subtle",
           className,
         )}
       >
