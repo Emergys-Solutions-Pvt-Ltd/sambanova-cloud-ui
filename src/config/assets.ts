@@ -115,3 +115,32 @@ export const playgroundArt = {
   /** Ellipse 187 behind the "Blazing-fast Inference" badge bolt; both themes. */
   badgeGlow: { src: "/playground/badge-glow.svg", width: 35, height: 44 },
 } satisfies Record<string, StaticImage | ThemedImage>;
+
+/**
+ * Project Settings › Billing art (Figma `1387:67354`). The card shape, wordmark and glows are the
+ * Figma SVG exports; the chip, Mastercard mark and logos are WebP at 2x (sizes are 1x).
+ */
+export const billingArt = {
+  /** Auto Recharge card icon ("image 38"). */
+  autoRecharge: { src: "/billing/auto-recharge.svg", width: 46, height: 46 },
+  /** Notched card body of the front card; the cards behind it are the same art scaled down. */
+  card: { src: "/billing/card.svg", width: 265.776, height: 149.898 },
+  /** White VISA wordmark on the card. */
+  cardVisa: { src: "/billing/card-visa.svg", width: 49, height: 17 },
+  /** Mastercard circles on the card. */
+  cardMastercard: { src: "/billing/card-mastercard.webp", width: 27.5, height: 17 },
+  cardChip: { src: "/billing/card-chip.webp", width: 45.334, height: 35.098 },
+  /** Blurred purple streaks behind the cards, drawn unrotated with their blur margin. */
+  glowRight: { src: "/billing/cards-glow-right.svg", width: 371.154, height: 461.264 },
+  glowLeft: { src: "/billing/cards-glow-left.svg", width: 371.154, height: 461.264 },
+  /** Visa, Mastercard, Amex and Discover in the empty card-number field. */
+  acceptedCards: { src: "/billing/card-brands.webp", width: 112.5, height: 18.5 },
+} satisfies Record<string, StaticImage>;
+
+/** Card logos in the My Cards list (36px wide) and the card-number field. */
+export const cardBrandLogos = {
+  visa: { src: "/billing/brand-visa.webp", width: 36, height: 27 },
+  mastercard: { src: "/billing/brand-mastercard.webp", width: 36, height: 27 },
+  discover: { src: "/billing/brand-discover.webp", width: 36, height: 24 },
+  amex: { src: "/billing/brand-amex.webp", width: 36, height: 23.5 },
+} satisfies Record<string, StaticImage>;

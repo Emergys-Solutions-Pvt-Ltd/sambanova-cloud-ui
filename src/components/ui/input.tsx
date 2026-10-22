@@ -4,6 +4,10 @@ import { cn } from "@/lib/cn";
 
 const fieldSizes = { sm: "h-9.25", md: "h-10.5", lg: "h-11.25" } as const;
 const borders = { field: "border-field", input: "border-input" } as const;
+const placeholderTones = {
+  muted: "placeholder:text-muted",
+  subtle: "placeholder:text-subtle",
+} as const;
 
 interface FormFieldProps {
   label: string;
@@ -55,6 +59,8 @@ export interface TextFieldProps extends Omit<ComponentPropsWithRef<"input">, "id
   fieldSize?: "sm" | "md" | "lg";
   /** Solid field with a visible border (modal forms) instead of the borderless translucent one. "input" uses the softer input stroke. */
   bordered?: boolean | "field" | "input";
+  /** "muted" = gray-400 placeholder; "subtle" = gray-500 (Figma: Add Credits and Add Payment Details). */
+  placeholderTone?: keyof typeof placeholderTones;
   labelClassName?: string;
   className?: string;
 }
@@ -66,6 +72,7 @@ export function TextField({
   trailing,
   fieldSize = "md",
   bordered,
+  placeholderTone = "muted",
   labelClassName,
   className,
   type = "text",
@@ -100,7 +107,10 @@ export function TextField({
           type={type}
           aria-invalid={error ? true : undefined}
           aria-describedby={error ? errorId : undefined}
-          className="min-w-0 flex-1 bg-transparent text-body text-primary outline-none placeholder:text-muted"
+          className={cn(
+            "min-w-0 flex-1 bg-transparent text-body text-primary outline-none",
+            placeholderTones[placeholderTone],
+          )}
           {...rest}
         />
         {trailing}

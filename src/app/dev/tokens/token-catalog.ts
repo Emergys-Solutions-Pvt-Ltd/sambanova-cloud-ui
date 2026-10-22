@@ -180,6 +180,32 @@ export const semanticGroups: Record<string, string[]> = {
     "role-writer",
     "role-pm",
   ],
+  "Project Settings": [
+    "bg-table-head",
+    "bg-field-strong",
+    "bg-role-icon",
+    "border-role-divider",
+    "bg-badge-accent",
+    "text-capability",
+    "border-danger-zone",
+    "button-danger-soft-bg",
+    "button-danger-soft-fg",
+    "button-danger-soft-hover",
+    "tier-active-bg",
+    "tier-active-border",
+    "tier-idle-bg",
+    "tier-idle-border",
+    "text-tier-active",
+  ],
+  Billing: [
+    "text-credits-description",
+    "switch-success",
+    "border-divider-soft",
+    "bg-card-row",
+    "bg-cards-add",
+    "autopay-bg",
+    "autopay-fg",
+  ],
 };
 
 /** Semantic tokens that are a GUESS in at least one theme (not in Figma). */
@@ -222,10 +248,30 @@ export const guessedTokens = new Set([
   "role-writer",
   "role-pm",
   "history-item-hover",
+  "button-danger-soft-hover",
+  // Project Settings: Figma is dark only, so every light value is a GUESS.
+  "bg-table-head",
+  "bg-field-strong",
+  "bg-role-icon",
+  "border-role-divider",
+  "bg-badge-accent",
+  "text-capability",
+  "border-danger-zone",
+  "button-danger-soft-bg",
+  "button-danger-soft-fg",
+  "tier-active-bg",
+  "tier-active-border",
+  "tier-idle-bg",
+  "tier-idle-border",
+  "text-tier-active",
+  // Billing: Figma is dark only (the My Cards panel stays dark by design).
+  "text-credits-description",
+  "border-divider-soft",
 ]);
 
 export const typeScale = [
   { token: "display", className: "text-display", sample: "Start Exploring With AI" },
+  { token: "heading-2xl", className: "text-heading-2xl", sample: "$125.00" },
   { token: "heading-xl", className: "text-heading-xl", sample: "Build AI applications faster" },
   { token: "heading-lg", className: "text-heading-lg", sample: "Manage Projects" },
   { token: "heading-md", className: "text-heading-md", sample: "Earn Free Credits" },
@@ -243,6 +289,7 @@ export const typeScale = [
   { token: "overline", className: "text-overline uppercase", sample: "Context" },
   { token: "micro", className: "text-micro", sample: "Upcoming Webinar" },
   { token: "tiny", className: "text-tiny", sample: "john.michaels@company.com" },
+  { token: "card-art", className: "text-card-art", sample: "09/28" },
   { token: "table", className: "text-table", sample: "org-GxPIAAjHFpWtgsswT0aI" },
   { token: "table-head", className: "text-table-head uppercase", sample: "Last updated" },
   {
@@ -280,6 +327,7 @@ export const shadows = [
   { name: "badge", className: "shadow-badge" },
   { name: "prompt-chip", className: "shadow-prompt-chip" },
   { name: "icon-halo", className: "shadow-icon-halo" },
+  { name: "credits-card", className: "shadow-credits-card" },
 ] as const;
 export const gradients = [
   "hero",
@@ -290,6 +338,9 @@ export const gradients = [
   "playground-title",
   "inference-badge",
   "stat-card",
+  "credits-card",
+  "credits-border",
+  "cards-panel",
 ] as const;
 export const zLayers = [
   "base",

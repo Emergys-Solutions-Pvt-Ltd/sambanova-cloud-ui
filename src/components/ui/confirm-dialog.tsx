@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 
 import { isApiError } from "@/lib/api";
 
@@ -13,19 +13,26 @@ interface ConfirmDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   title: string;
-  description: string;
+  /** Text, or text with emphasis (Figma: Switch Auto Recharge Card bolds the card numbers). */
+  description: ReactNode;
   icon?: IconName;
   /** "danger" gives a red icon and a destructive confirm button (deletions). */
   tone?: "warning" | "danger";
   confirmLabel?: string;
   /**
-   * Runs when the user confirms. Close the dialog (and show a toast) when it succeeds; throw an
-   * ApiError to show a message above the buttons and keep the dialog open.
+   * Runs when the user confirms. Either return a promise: close the dialog (and show a toast) when
+   * it succeeds, throw an ApiError to show a message above the buttons and keep the dialog open.
+   * Or start the work yourself and report it through `pending`.
    */
-  onConfirm: () => Promise<unknown>;
+  onConfirm: () => Promise<unknown> | void;
+  /** Spinner driven by the caller, for an `onConfirm` that doesn't return a promise. */
+  pending?: boolean;
 }
 
-/** Centred confirmation modal with an icon, text, Cancel and Confirm (Figma: Disable Key). */
+/**
+ * Centred confirmation modal with an icon, text, Cancel and Confirm (Figma: Disable Key, Remove
+ * Member, Delete Project). Escape, outside clicks and Cancel are blocked while it is busy.
+ */
 export function ConfirmDialog({
   open,
   onOpenChange,
@@ -35,19 +42,21 @@ export function ConfirmDialog({
   tone = "warning",
   confirmLabel = "Confirm",
   onConfirm,
+  pending = false,
 }: ConfirmDialogProps) {
-  const [pending, setPending] = useState(false);
+  const [running, setRunning] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const busy = pending || running;
 
   const confirm = async () => {
-    setPending(true);
+    setRunning(true);
     setError(null);
     try {
       await onConfirm();
     } catch (failure) {
       setError(isApiError(failure) ? failure.message : "Something went wrong. Try again.");
     } finally {
-      setPending(false);
+      setRunning(false);
     }
   };
 
@@ -55,6 +64,7 @@ export function ConfirmDialog({
     <Dialog
       open={open}
       onOpenChange={(next) => {
+        if (busy) return;
         if (!next) setError(null);
         onOpenChange(next);
       }}
@@ -79,7 +89,7 @@ export function ConfirmDialog({
 
         <div className="flex w-full gap-4">
           <DialogClose asChild>
-            <Button type="button" variant="cancel" className="flex-1">
+            <Button type="button" variant="cancel" className="flex-1" disabled={busy}>
               Cancel
             </Button>
           </DialogClose>
@@ -87,7 +97,7 @@ export function ConfirmDialog({
             type="button"
             variant={tone === "danger" ? "destructive" : "primary"}
             className="flex-1"
-            loading={pending}
+            loading={busy}
             onClick={() => void confirm()}
           >
             {confirmLabel}

@@ -61,7 +61,8 @@ export function ApiKeyRequestsTable({
       <Table
         caption="API request logs"
         aria-busy={loadingMore || !result || undefined}
-        className="min-w-286 table-fixed"
+        minWidth="xl"
+        className="table-fixed"
       >
         <TableHead>
           <TableRow>

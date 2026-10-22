@@ -39,7 +39,8 @@ export function ModelPricingTable({ result, onPageChange, loadingMore }: ModelPr
       <Table
         caption="Model pricing"
         aria-busy={loadingMore || !result || undefined}
-        className="min-w-250 table-fixed"
+        minWidth="lg"
+        className="table-fixed"
       >
         <TableHead>
           <TableRow>

@@ -23,7 +23,7 @@ export const maskedKeyId = (key: ApiKey) => `sdk_live...........${key.lastFour}`
 
 function StatusBadge({ status }: { status: ApiKey["status"] }) {
   return (
-    <Badge variant={status === "active" ? "success" : "error"} size="xl" shape="rounded">
+    <Badge variant={status === "active" ? "success" : "error"} size="status" shape="rounded">
       {status === "active" ? "Active" : "Disabled"}
     </Badge>
   );
@@ -85,7 +85,7 @@ export function ApiKeysTable({ result, filtered, onPageChange, loadingMore }: Ap
                 <div className="flex items-start gap-4">
                   {key.name}
                   {key.renamedAt && (
-                    <Badge variant="edited" size="xl" shape="rounded">
+                    <Badge variant="edited" size="status" shape="rounded">
                       Edited
                     </Badge>
                   )}

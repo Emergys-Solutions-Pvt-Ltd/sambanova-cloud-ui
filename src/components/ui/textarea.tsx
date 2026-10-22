@@ -6,8 +6,9 @@ import { cn } from "@/lib/cn";
 
 export type TextareaProps = ComponentPropsWithRef<"textarea"> & { "aria-label"?: string };
 
+/** Shared by both textareas. No background here: `cn` does not merge, so the field's `bg-input` would lose to it. */
 const bareClasses =
-  "w-full resize-none bg-transparent text-primary outline-none placeholder:text-muted field-sizing-content scrollbar-thin";
+  "w-full resize-none text-primary outline-none placeholder:text-muted field-sizing-content scrollbar-thin";
 
 /** Grows the box with its content where `field-sizing: content` is unsupported (Firefox, Safari < 18.4). */
 function growFallback(event: FormEvent<HTMLTextAreaElement>) {
@@ -24,7 +25,7 @@ function growFallback(event: FormEvent<HTMLTextAreaElement>) {
 export function Textarea({ className, onInput, ...rest }: TextareaProps) {
   return (
     <textarea
-      className={cn(bareClasses, className)}
+      className={cn(bareClasses, "bg-transparent", className)}
       onInput={(event) => {
         growFallback(event);
         onInput?.(event);

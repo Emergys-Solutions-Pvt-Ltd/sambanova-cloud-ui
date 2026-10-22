@@ -8,6 +8,8 @@ export const routes = {
   settings: "/settings",
   settingsGeneral: "/settings/general",
   settingsMembers: "/settings/members",
+  settingsInvitations: "/settings/members/invitations",
+  settingsRoles: "/settings/members/roles",
   settingsLimits: "/settings/limits",
   settingsBilling: "/settings/billing",
   projects: "/projects",
@@ -34,4 +36,11 @@ export const settingsTabs = [
   { label: "Members", href: routes.settingsMembers },
   { label: "Limits", href: routes.settingsLimits },
   { label: "Billing", href: routes.settingsBilling },
+] as const;
+
+/** Sub-views of Project Settings › Members (Figma: All Members / Invitations / Roles). */
+export const membersTabs = [
+  { label: "All Members", href: routes.settingsMembers },
+  { label: "Invitations", href: routes.settingsInvitations },
+  { label: "Roles", href: routes.settingsRoles },
 ] as const;

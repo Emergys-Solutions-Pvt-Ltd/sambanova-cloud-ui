@@ -17,7 +17,6 @@ export function PricingView() {
       <PageHeader
         title="Pricing"
         subtitle="Compare model pricing, and choose the best option for your AI workloads."
-        subtitleSize="md"
       />
 
       {/* Figma's table card has its 1px stroke outside the box, so it starts 29px under the header. */}

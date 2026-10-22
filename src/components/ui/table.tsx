@@ -2,32 +2,58 @@ import { type ComponentPropsWithRef, type ReactNode } from "react";
 
 import { cn } from "@/lib/cn";
 
+import { Skeleton } from "./skeleton";
+
 interface TableCardProps {
   children: ReactNode;
   /** Bar under the table, e.g. "Showing 1-10 of 1000" and the pagination. */
   footer?: ReactNode;
+  /** Corner radius: r12 by default, r8 for the Project Settings › Limits table. */
+  radius?: "md" | "lg";
   className?: string;
 }
 
-/** Bordered card around a table (r12) with an optional footer; scrolls sideways on narrow screens. */
-export function TableCard({ children, footer, className }: TableCardProps) {
+/** Bordered card around a table with an optional footer; scrolls sideways on narrow screens. */
+export function TableCard({ children, footer, radius = "lg", className }: TableCardProps) {
   return (
-    <div className={cn("overflow-hidden rounded-lg border border-default", className)}>
+    <div
+      className={cn(
+        "overflow-hidden border border-default",
+        radius === "lg" ? "rounded-lg" : "rounded-md",
+        className,
+      )}
+    >
       <div className="scrollbar-thin overflow-x-auto">{children}</div>
       {footer && <div className="border-t border-default">{footer}</div>}
     </div>
   );
 }
 
+const minWidths = {
+  /** 600px: few short columns (Billing › Invoices). */
+  sm: "min-w-150",
+  /** 760px: the default. */
+  md: "min-w-190",
+  /** 960px: tables with long values such as emails (Members, Invitations) and the Usage and Pricing tables. */
+  lg: "min-w-240",
+  /** 1144px: the request log, whose columns have Figma's fixed widths. */
+  xl: "min-w-286",
+} as const;
+
 interface TableProps extends ComponentPropsWithRef<"table"> {
   /** Screen-reader name of the table. */
   caption: string;
+  /** Width below which the card scrolls sideways instead of squeezing the columns. */
+  minWidth?: keyof typeof minWidths;
 }
 
 /** Semantic table with Figma's header band and row dividers (last row has none). */
-export function Table({ caption, className, children, ...rest }: TableProps) {
+export function Table({ caption, minWidth = "md", className, children, ...rest }: TableProps) {
   return (
-    <table className={cn("w-full min-w-190 border-collapse text-body", className)} {...rest}>
+    <table
+      className={cn("w-full border-collapse text-body", minWidths[minWidth], className)}
+      {...rest}
+    >
       <caption className="sr-only">{caption}</caption>
       {children}
     </table>
@@ -50,21 +76,21 @@ export function TableRow(props: ComponentPropsWithRef<"tr">) {
 const headerAlignments = { left: "text-left", center: "text-center", right: "text-right" } as const;
 
 /**
- * Text colours of the two Figma table looks. "default" is API Keys, request log and Usage (gray
- * heading, softer body); "bright" is Pricing (white heading, near-white body). One class each, for
- * the same reason as the alignments.
+ * Text colours of the Figma table looks, one class each (for the same reason as the alignments).
+ * Headings: "default" is gray-200 (API Keys, request log, Usage, Project Settings), "bright" is
+ * white (Pricing). Cells: "secondary" is gray-300 (the default), "muted" is gray-400 (Billing ›
+ * Invoices, and the message of an empty table), "bright" is near-white (Pricing).
  */
 export type TableHeaderTone = "default" | "bright";
-/** Cells also have "muted", for the message of an empty table. */
-export type TableCellTone = TableHeaderTone | "muted";
+export type TableCellTone = "secondary" | "muted" | "bright";
 const headerTones: Record<TableHeaderTone, string> = {
   default: "text-table-header",
   bright: "text-primary",
 };
 const cellTones: Record<TableCellTone, string> = {
-  default: "text-secondary",
-  bright: "text-primary",
+  secondary: "text-secondary",
   muted: "text-muted",
+  bright: "text-primary",
 };
 
 interface TableHeaderCellProps extends ComponentPropsWithRef<"th"> {
@@ -97,7 +123,7 @@ interface TableCellProps extends ComponentPropsWithRef<"td"> {
   tone?: TableCellTone;
 }
 
-export function TableCell({ tone = "default", className, ...rest }: TableCellProps) {
+export function TableCell({ tone = "secondary", className, ...rest }: TableCellProps) {
   return (
     <td
       className={cn(
@@ -108,4 +134,28 @@ export function TableCell({ tone = "default", className, ...rest }: TableCellPro
       {...rest}
     />
   );
+}
+
+/** Full-width row for empty and no-results messages. */
+export function TableMessageRow({ colSpan, children }: { colSpan: number; children: ReactNode }) {
+  return (
+    <tr>
+      <td colSpan={colSpan} className="h-27 px-4 text-center text-body text-muted">
+        {children}
+      </td>
+    </tr>
+  );
+}
+
+/** Placeholder rows while the first page loads. */
+export function TableSkeletonRows({ rows = 5, columns }: { rows?: number; columns: number }) {
+  return Array.from({ length: rows }, (_, row) => (
+    <tr key={row} aria-hidden="true">
+      {Array.from({ length: columns }, (_, column) => (
+        <TableCell key={column}>
+          <Skeleton className="h-4 w-3/5" />
+        </TableCell>
+      ))}
+    </tr>
+  ));
 }

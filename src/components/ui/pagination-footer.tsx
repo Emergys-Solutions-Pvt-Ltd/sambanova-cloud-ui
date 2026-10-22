@@ -1,20 +1,22 @@
+import { cn } from "@/lib/cn";
+
 import { Pagination } from "./pagination";
 import { Skeleton } from "./skeleton";
 
 /**
- * Colours of "Showing **1-10** of **1000**" in the Figma footers: "default" is all secondary (API
- * Keys); "muted" dims the words and keeps the numbers secondary (Usage); "bright" dims the words
- * and makes the numbers near-white (Pricing).
+ * Colours of "Showing **1-10** of **1000**" in the Figma footers: "secondary" is all gray-300 (API
+ * Keys); "muted" dims the words to gray-400 and keeps the numbers gray-300 (Usage, Project Settings);
+ * "bright" dims the words and makes the numbers near-white (Pricing).
  */
-export type SummaryTone = "default" | "muted" | "bright";
+export type SummaryTone = "secondary" | "muted" | "bright";
 
 const wordTones: Record<SummaryTone, string> = {
-  default: "text-secondary",
+  secondary: "text-secondary",
   muted: "text-muted",
   bright: "text-muted",
 };
 const numberTones: Record<SummaryTone, string> = {
-  default: "font-semibold",
+  secondary: "font-semibold",
   muted: "font-semibold text-secondary",
   bright: "font-semibold text-primary",
 };
@@ -30,11 +32,12 @@ function RangeSummary({
   total: number;
   tone: SummaryTone;
 }) {
-  if (total === 0) return <p className={`text-body ${wordTones[tone]}`}>Showing 0 of 0</p>;
+  const className = cn("text-body", wordTones[tone]);
+  if (total === 0) return <p className={className}>Showing 0 of 0</p>;
   const start = (page - 1) * pageSize + 1;
   const end = Math.min(page * pageSize, total);
   return (
-    <p className={`text-body ${wordTones[tone]}`}>
+    <p className={className}>
       Showing <strong className={numberTones[tone]}>{`${start}-${end}`}</strong> of{" "}
       <strong className={numberTones[tone]}>{total}</strong>
     </p>
@@ -45,7 +48,9 @@ interface PaginationFooterProps {
   /** `undefined` while the first page loads. */
   result: { page: number; pageSize: number; total: number; totalPages: number } | undefined;
   onPageChange: (page: number) => void;
-  /** Colour of the "Showing 1-10 of 1000" text. Default "default". */
+  /** Accessible name of the page buttons, e.g. "Members pages". */
+  label?: string;
+  /** Colour of the "Showing 1-10 of 1000" text. Default "secondary". */
   summaryTone?: SummaryTone;
 }
 
@@ -57,7 +62,8 @@ interface PaginationFooterProps {
 export function PaginationFooter({
   result,
   onPageChange,
-  summaryTone = "default",
+  label,
+  summaryTone = "secondary",
 }: PaginationFooterProps) {
   return (
     <div className="flex flex-wrap items-center justify-between gap-4 px-4 pt-3.75 pb-4">
@@ -73,6 +79,7 @@ export function PaginationFooter({
             page={result.page}
             totalPages={result.totalPages}
             onPageChange={onPageChange}
+            label={label}
           />
         </>
       ) : (

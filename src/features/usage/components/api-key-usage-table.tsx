@@ -54,7 +54,8 @@ export function ApiKeyUsageTable({
       <Table
         caption="API key usage"
         aria-busy={loadingMore || !result || undefined}
-        className="min-w-250 table-fixed"
+        minWidth="lg"
+        className="table-fixed"
       >
         <TableHead>
           <TableRow>

@@ -87,15 +87,22 @@ const accountSeparatorBase =
 const accountSeparatorClasses = `${accountSeparatorBase} after:border-menu`;
 export const accountSeparatorSoftClasses = `${accountSeparatorBase} after:border-menu-soft`;
 
+/** tone: menu = grey rule (bordered menus); soft = 12 % white rule (Figma: Billing card menu). */
 export function DropdownMenuSeparator({
   className,
   variant = "menu",
+  tone = "menu",
   ...rest
-}: ComponentPropsWithRef<typeof MenuPrimitive.Separator> & { variant?: DropdownMenuSurface }) {
+}: ComponentPropsWithRef<typeof MenuPrimitive.Separator> & {
+  variant?: DropdownMenuSurface;
+  tone?: "menu" | "soft";
+}) {
   return (
     <MenuPrimitive.Separator
       className={cn(
-        variant === "account" ? accountSeparatorClasses : "my-1 h-0 border-t border-menu",
+        variant === "account"
+          ? accountSeparatorClasses
+          : cn("my-1 h-0 border-t", tone === "menu" ? "border-menu" : "border-divider-soft"),
         className,
       )}
       {...rest}
@@ -157,7 +164,10 @@ export function DropdownMenuItem({
   ...rest
 }: ComponentPropsWithRef<typeof MenuPrimitive.Item> & {
   variant?: DropdownMenuSurface;
-  /** Red text for irreversible actions (Figma: "Delete Key"). Works with every variant. */
+  /**
+   * Red text for irreversible actions (Figma: "Delete Key", "Remove Member", "Cancel Invitation").
+   * Works with every variant.
+   */
   destructive?: boolean;
 }) {
   const classes = destructive

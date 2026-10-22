@@ -126,6 +126,10 @@ export function endSession(token: string) {
   write(SESSIONS_KEY, rest);
 }
 
+export async function findAccountById(accountId: string) {
+  return (await loadAccounts()).find((account) => account.id === accountId) ?? null;
+}
+
 export async function findAccountBySession(token: string | null) {
   if (!token) return null;
   const accountId = read<Record<string, string>>(SESSIONS_KEY, {})[token];

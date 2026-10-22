@@ -4,7 +4,7 @@ import { cn } from "@/lib/cn";
 
 export type BadgeVariant =
   "success" | "error" | "warning" | "info" | "neutral" | "brand" | "edited";
-export type BadgeSize = "sm" | "md" | "lg" | "xl";
+export type BadgeSize = "sm" | "md" | "lg" | "status";
 export type BadgeShape = "pill" | "rounded" | "capsule";
 
 /**
@@ -35,16 +35,18 @@ const hairlineColors: Record<BadgeVariant, string> = {
 };
 
 /**
- * sm = 10px credit pill in the sidebar; md = 12px status chip in tables; lg = 22px, 11px text (Compare
- * Models highlight); xl = 22px, 12px Medium text on an 18px line (API Keys "Edited" tag). Each size
- * sets its own line height, so none of them depends on a shared `leading-*` class.
- * xl: Figma pads 10 / 2 with the 0.5px stroke outside (54x22 box); the 1px border counts inside here, so 9 / 1.
+ * sm = 10px credit pill in the sidebar; md = 12px status chip in tables; lg = 22px, 11px text
+ * (Compare Models highlight); status = the 22px high chip of Figma's "Badge" (API Keys Active,
+ * Disabled and Edited; Project Settings Invoices), 12px Medium text on an 18px line. Each size sets
+ * its own line height, so none of them depends on a shared `leading-*` class.
+ * status: Figma pads 10 / 2 with the 0.5px stroke outside (54x22 box); the 1px border counts
+ * inside here, so the padding is 9 / 1.
  */
 const sizes: Record<BadgeSize, string> = {
   sm: "px-1.5 py-0.5 text-tiny font-medium leading-none",
   md: "px-2 py-0.5 text-caption leading-none",
   lg: "h-5.5 px-[7.7px] text-micro font-medium leading-none",
-  xl: "px-2.25 py-0.25 text-caption font-medium leading-normal",
+  status: "px-2.25 py-0.25 text-caption font-medium leading-normal",
 };
 
 export interface BadgeProps extends ComponentPropsWithRef<"span"> {
