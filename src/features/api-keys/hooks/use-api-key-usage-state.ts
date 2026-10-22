@@ -50,6 +50,23 @@ function parseSelection(searchParams: URLSearchParams, today: Date): DateRangeSe
 }
 
 /**
+ * Writes a selection into `params` as `?range=` (a shortcut) or `?from=&to=`; the default shortcut
+ * is left out. Pass the current params to keep the rest of the query; the result is `params`.
+ */
+export function applySelection(params: URLSearchParams, value: DateRangeSelection) {
+  params.delete("range");
+  params.delete("from");
+  params.delete("to");
+  if (value.kind === "preset") {
+    if (value.preset !== DEFAULT_DATE_RANGE_PRESET) params.set("range", value.preset);
+  } else {
+    params.set("from", toISODate(value.range.from));
+    params.set("to", toISODate(value.range.to));
+  }
+  return params;
+}
+
+/**
  * The usage page's date range and log page live in the URL (`?range=last-7-days` or
  * `?from=2026-06-01&to=2026-06-20`, plus `&page=2`), so they survive a reload and the back button.
  * Defaults are left out, and changing the range returns to page 1.
@@ -75,17 +92,8 @@ export function useApiKeyUsageState() {
 
   const setSelection = useCallback(
     (value: DateRangeSelection) => {
-      const next = new URLSearchParams(searchParams.toString());
-      next.delete("range");
-      next.delete("from");
-      next.delete("to");
+      const next = applySelection(new URLSearchParams(searchParams.toString()), value);
       next.delete("page");
-      if (value.kind === "preset") {
-        if (value.preset !== DEFAULT_DATE_RANGE_PRESET) next.set("range", value.preset);
-      } else {
-        next.set("from", toISODate(value.range.from));
-        next.set("to", toISODate(value.range.to));
-      }
       replace(next);
     },
     [replace, searchParams],

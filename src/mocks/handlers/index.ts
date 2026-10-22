@@ -46,6 +46,7 @@ import {
   withScenario,
   withSession,
 } from "./shared";
+import { usageHandlers } from "./usage";
 
 const MIN_PURCHASE = 5;
 const MAX_PURCHASE = 1000;
@@ -318,5 +319,6 @@ export const handlers = [
   ),
 
   ...apiKeyHandlers,
+  ...usageHandlers,
   ...playgroundHandlers,
 ];

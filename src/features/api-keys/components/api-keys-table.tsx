@@ -53,7 +53,9 @@ export function ApiKeysTable({ result, filtered, onPageChange, loadingMore }: Ap
             <TableHeaderCell>Created On</TableHeaderCell>
             <TableHeaderCell>Last Used</TableHeaderCell>
             <TableHeaderCell className="w-23.25">Status</TableHeaderCell>
-            <TableHeaderCell className="w-33.75 text-center">Actions</TableHeaderCell>
+            <TableHeaderCell align="center" className="w-33.75">
+              Actions
+            </TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody className={loadingMore ? "opacity-60 transition-opacity" : undefined}>

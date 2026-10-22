@@ -153,6 +153,24 @@ export interface ApiKeyUsageSeries {
   points: ApiKeyUsageSeriesPoint[];
 }
 
+/** One line of the Usage page's "API Key Usage" table: a key and what it did in the range. */
+export interface ApiKeyUsageRow {
+  id: string;
+  name: string;
+  createdAt: string;
+  lastUsedAt: string | null;
+  totalRequests: number;
+  /** In USD. */
+  estimatedSpend: number;
+}
+
+/** Table state sent to `GET /projects/:projectId/usage/api-keys`. */
+export interface ApiKeyUsageRowsParams extends UsageRangeParams {
+  /** 1-based. */
+  page: number;
+  pageSize: number;
+}
+
 export type ApiKeyRequestStatus = "success" | "error";
 
 export interface ApiKeyRequestError {

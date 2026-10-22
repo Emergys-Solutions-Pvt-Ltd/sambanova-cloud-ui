@@ -2,6 +2,7 @@ import { type PaginationParams } from "@/lib/api";
 import {
   type ApiKeyListParams,
   type ApiKeyRequestsParams,
+  type ApiKeyUsageRowsParams,
   type UsageRangeParams,
 } from "@/types/domain";
 
@@ -50,6 +51,13 @@ export const queryKeys = {
       [...queryKeys.apiKeys.all(projectId), "usage-series", keyId, range] as const,
     requests: (projectId: string, keyId: string, params: ApiKeyRequestsParams) =>
       [...queryKeys.apiKeys.all(projectId), "requests", keyId, params] as const,
+    // The Usage page adds up the project's keys, so changing a key refreshes it as well.
+    projectUsage: (projectId: string, range: UsageRangeParams) =>
+      [...queryKeys.apiKeys.all(projectId), "project-usage", range] as const,
+    projectUsageSeries: (projectId: string, range: UsageRangeParams) =>
+      [...queryKeys.apiKeys.all(projectId), "project-usage-series", range] as const,
+    projectKeyUsage: (projectId: string, params: ApiKeyUsageRowsParams) =>
+      [...queryKeys.apiKeys.all(projectId), "project-key-usage", params] as const,
   },
   usageOverview: (projectId: string) =>
     [...queryKeys.project(projectId), "usage-overview"] as const,

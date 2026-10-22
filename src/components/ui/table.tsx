@@ -46,12 +46,21 @@ export function TableRow(props: ComponentPropsWithRef<"tr">) {
   return <tr {...props} />;
 }
 
-export function TableHeaderCell({ className, ...rest }: ComponentPropsWithRef<"th">) {
+/** One class per alignment: `cn()` does not resolve a base `text-left` against a passed `text-center`. */
+const headerAlignments = { left: "text-left", center: "text-center", right: "text-right" } as const;
+
+interface TableHeaderCellProps extends ComponentPropsWithRef<"th"> {
+  /** Text alignment of the heading (Figma centres "Actions" and right-aligns token counts). Default left. */
+  align?: keyof typeof headerAlignments;
+}
+
+export function TableHeaderCell({ align = "left", className, ...rest }: TableHeaderCellProps) {
   return (
     <th
       scope="col"
       className={cn(
-        "h-12.5 px-4 py-0 text-left text-body font-semibold whitespace-nowrap text-table-header",
+        "h-12.5 px-4 py-0 text-body font-semibold whitespace-nowrap text-table-header",
+        headerAlignments[align],
         className,
       )}
       {...rest}

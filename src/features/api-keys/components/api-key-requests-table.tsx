@@ -69,10 +69,18 @@ export function ApiKeyRequestsTable({
             <TableHeaderCell className="w-48.75">Time</TableHeaderCell>
             <TableHeaderCell className="w-42.25">Model</TableHeaderCell>
             <TableHeaderCell className="w-30.25">Response Time</TableHeaderCell>
-            <TableHeaderCell className="w-33 text-right">Input Tokens</TableHeaderCell>
-            <TableHeaderCell className="w-33 text-right">Output Tokens</TableHeaderCell>
-            <TableHeaderCell className="w-26.75 text-center">Status</TableHeaderCell>
-            <TableHeaderCell className="w-37.75 text-center">Action</TableHeaderCell>
+            <TableHeaderCell align="right" className="w-33">
+              Input Tokens
+            </TableHeaderCell>
+            <TableHeaderCell align="right" className="w-33">
+              Output Tokens
+            </TableHeaderCell>
+            <TableHeaderCell align="center" className="w-26.75">
+              Status
+            </TableHeaderCell>
+            <TableHeaderCell align="center" className="w-37.75">
+              Action
+            </TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody className={loadingMore ? "opacity-60 transition-opacity" : undefined}>

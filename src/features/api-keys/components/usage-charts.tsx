@@ -24,15 +24,25 @@ interface UsageChartsProps {
   rangeLabel: string;
   /** Dims the charts while a new range loads. */
   refreshing?: boolean;
+  /** Also shows the Cached Tokens and Prompt Input Tokens charts. The project Usage page has only the first. Default true. */
+  showCacheCharts?: boolean;
 }
 
 /**
- * The three token charts of the usage page (Figma: BarLineChart): Input & Output Tokens, Cached
- * Tokens and Prompt Input Tokens (input that was not served from cache), for the chosen range.
+ * The token charts of the usage pages (Figma: BarLineChart): Input & Output Tokens, and (per key)
+ * Cached Tokens and Prompt Input Tokens (input that was not served from cache), for the chosen range.
  */
-export function UsageCharts({ points, rangeLabel, refreshing }: UsageChartsProps) {
+export function UsageCharts({
+  points,
+  rangeLabel,
+  refreshing,
+  showCacheCharts = true,
+}: UsageChartsProps) {
   const wide = useMemo(() => (points ? bucketUsage(points, WIDE_MAX_POINTS) : []), [points]);
-  const compact = useMemo(() => (points ? bucketUsage(points, COMPACT_MAX_POINTS) : []), [points]);
+  const compact = useMemo(
+    () => (points && showCacheCharts ? bucketUsage(points, COMPACT_MAX_POINTS) : []),
+    [points, showCacheCharts],
+  );
 
   const wideCategories = useMemo(
     () => wide.map((bucket) => ({ label: bucketLabel(bucket), title: bucketTitle(bucket) })),
@@ -94,65 +104,67 @@ export function UsageCharts({ points, rangeLabel, refreshing }: UsageChartsProps
         )}
       </ChartCard>
 
-      <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
-        <ChartCard
-          compact
-          title="Cached Tokens"
-          legend={
-            <ChartLegend items={[{ label: rangeLabel, tone: "cached" }]} labelTone="primary" />
-          }
-        >
-          {loading ? (
-            placeholder
-          ) : (
-            <LineChart
-              label="Cached tokens over the selected dates"
-              variant="compact"
-              categories={compactCategories}
-              series={[
-                {
-                  id: "cached",
-                  label: "Cached Tokens",
-                  tone: "cached",
-                  values: compact.map((bucket) => bucket.cachedTokens),
-                },
-              ]}
-              formatTick={formatTokens}
-              formatValue={formatTokens}
-            />
-          )}
-        </ChartCard>
+      {showCacheCharts && (
+        <div className="grid grid-cols-1 gap-6 xl:grid-cols-2">
+          <ChartCard
+            compact
+            title="Cached Tokens"
+            legend={
+              <ChartLegend items={[{ label: rangeLabel, tone: "cached" }]} labelTone="primary" />
+            }
+          >
+            {loading ? (
+              placeholder
+            ) : (
+              <LineChart
+                label="Cached tokens over the selected dates"
+                variant="compact"
+                categories={compactCategories}
+                series={[
+                  {
+                    id: "cached",
+                    label: "Cached Tokens",
+                    tone: "cached",
+                    values: compact.map((bucket) => bucket.cachedTokens),
+                  },
+                ]}
+                formatTick={formatTokens}
+                formatValue={formatTokens}
+              />
+            )}
+          </ChartCard>
 
-        <ChartCard
-          compact
-          title="Prompt Input Tokens"
-          legend={
-            <ChartLegend items={[{ label: rangeLabel, tone: "prompt" }]} labelTone="primary" />
-          }
-        >
-          {loading ? (
-            placeholder
-          ) : (
-            <LineChart
-              label="Prompt input tokens over the selected dates"
-              variant="compact"
-              categories={compactCategories}
-              series={[
-                {
-                  id: "prompt",
-                  label: "Prompt Input Tokens",
-                  tone: "prompt",
-                  values: compact.map((bucket) =>
-                    Math.max(0, bucket.inputTokens - bucket.cachedTokens),
-                  ),
-                },
-              ]}
-              formatTick={formatTokens}
-              formatValue={formatTokens}
-            />
-          )}
-        </ChartCard>
-      </div>
+          <ChartCard
+            compact
+            title="Prompt Input Tokens"
+            legend={
+              <ChartLegend items={[{ label: rangeLabel, tone: "prompt" }]} labelTone="primary" />
+            }
+          >
+            {loading ? (
+              placeholder
+            ) : (
+              <LineChart
+                label="Prompt input tokens over the selected dates"
+                variant="compact"
+                categories={compactCategories}
+                series={[
+                  {
+                    id: "prompt",
+                    label: "Prompt Input Tokens",
+                    tone: "prompt",
+                    values: compact.map((bucket) =>
+                      Math.max(0, bucket.inputTokens - bucket.cachedTokens),
+                    ),
+                  },
+                ]}
+                formatTick={formatTokens}
+                formatValue={formatTokens}
+              />
+            )}
+          </ChartCard>
+        </div>
+      )}
     </div>
   );
 }

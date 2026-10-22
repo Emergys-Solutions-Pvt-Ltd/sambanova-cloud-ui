@@ -1,17 +1,16 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
-import { ComingSoon } from "@/components/layout/coming-soon";
-import { PageContent, PageHeader } from "@/components/layout/page-header";
+import { UsageView } from "@/features/usage";
 
 export const metadata: Metadata = { title: "Usage" };
 
 export default function UsagePage() {
+  // The date range and the table page live in the URL (?range=&from=&to=&page=), which needs a
+  // Suspense boundary.
   return (
-    <>
-      <PageHeader title="Usage" />
-      <PageContent>
-        <ComingSoon>Token usage charts and the per-key breakdown.</ComingSoon>
-      </PageContent>
-    </>
+    <Suspense fallback={null}>
+      <UsageView />
+    </Suspense>
   );
 }
