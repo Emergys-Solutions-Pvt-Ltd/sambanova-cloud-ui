@@ -80,7 +80,7 @@ export function HistoryItem({ item, active, onOpen, onRequestDelete }: HistoryIt
   return (
     <li
       aria-current={active || undefined}
-      className="group relative flex flex-col items-start gap-2.5 rounded-md border border-subtle p-3 transition-colors duration-(--sn-duration-fast) ease-standard hover:bg-history-item-hover has-[[data-state=open]]:bg-history-item-hover aria-[current=true]:bg-history-item-hover motion-reduce:transition-none"
+      className="group relative flex flex-col items-start gap-2.5 rounded-md p-3 shadow-history-item transition-colors duration-(--sn-duration-fast) ease-standard hover:bg-history-item-hover has-[[data-state=open]]:bg-history-item-hover aria-[current=true]:bg-history-item-hover motion-reduce:transition-none"
     >
       <div className="flex w-full items-center gap-3">
         {renaming ? (

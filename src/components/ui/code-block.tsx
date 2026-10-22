@@ -26,8 +26,9 @@ const kindClasses: Record<CodeTokenKind, string> = {
 export type CodeBlockVariant = "panel" | "bare";
 
 const variantClasses: Record<CodeBlockVariant, string> = {
+  // 17px lines: Figma's auto line height for Lato 14 (Quickstart and View Code panels are 329px tall).
   panel:
-    "overflow-x-auto rounded-sm border border-strong bg-code p-5 font-code text-code leading-tight whitespace-pre",
+    "overflow-x-auto rounded-sm border border-strong bg-code p-5 font-code text-code leading-4.25 whitespace-pre",
   // The base layer gives <code> the Lato code font, so the inner element inherits the mono stack.
   bare: "overflow-x-auto font-mono text-code leading-4 whitespace-pre-wrap break-words [&>code]:font-[inherit]",
 };

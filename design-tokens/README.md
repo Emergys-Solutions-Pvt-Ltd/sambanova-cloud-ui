@@ -96,6 +96,7 @@ Marked `GUESS` in `tokens.css` and on `/dev/tokens`.
 | Playground `shadow-badge`                                                           | black 15% (Figma)                                                                        | black 10%                                                                                                             | No light System Prompt dialog                                                                                                  |
 | Playground `role-developer`, `role-writer`, `role-pm`                               | violet `#8B5CF6`, green `#31C48D`, amber `#F79C09`                                       | `#7C3AED`, `#046C4E`, `#B65107`                                                                                       | Role icons drawn on dark only                                                                                                  |
 | Playground `history-item-hover`                                                     | `#262626` (Figma)                                                                        | black 4%                                                                                                              | No light History panel                                                                                                         |
+| Playground `shadow-history-item`                                                    | 1px inset `#21192C` (Stroke Dark 1) + `0 2px 10px` black 8% (Figma)                      | 1px inset `border-subtle` + the same shadow                                                                           | No light History panel; the stroke is an inset ring so it adds no height, like Figma's inside stroke                           |
 
 ## Inconsistencies found in Figma
 
@@ -125,6 +126,7 @@ Marked `GUESS` in `tokens.css` and on `/dev/tokens`.
 24. **API key usage: two greens for "Active".** The key card chip is `#22C55E` on 12%, the table badge `#31C48D` on 8%. Both map to the status success tokens (`#31C48D`), as in the merge table above.
 25. **API key usage: prototype quirks.** The eye action of five log rows navigates to another copy of the page instead of opening the Request Details drawer (only two rows open it), and the datepicker draws every day enabled, including days after "today" (the build disables them).
 26. **API key usage: charts' sample data** is not consistent with the cards (18,742 requests but 120 log rows; one dot per day in the main chart but 11 dots, one every 3 days, in the small ones).
+27. **Playground: two disabled primary buttons.** The Primary Button component's Disable state is `#6F6F6F` with a `#333333` label, but the Playground dialogs (Tuning Parameters, System Prompt) draw Save as the white button at 40% opacity, which leaves the label almost black. The component values are used everywhere.
 
 **Rule:** `--sn-shadow-*` tokens wired into `--shadow-*` use `0 0 #0000` for no shadow, never `none`. Tailwind composes every shadow utility into one `box-shadow` list, and a `none` inside it invalidates the whole declaration (for example, it would drop a ring on the same element).
 

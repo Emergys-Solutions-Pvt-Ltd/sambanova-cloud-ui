@@ -74,7 +74,8 @@ export function ChatComposer({
           onKeyDown={onKeyDown}
           className="max-h-36 min-h-10.5 text-body leading-5 placeholder:leading-[normal]"
         />
-        <div className="flex items-end justify-between gap-4">
+        {/* No gap: in Figma only the 12px pr-3 separates the model picker from send. */}
+        <div className="flex items-end justify-between">
           <div className="flex min-w-0 flex-1 items-center justify-between gap-2 pr-3">
             <div className="flex items-center gap-1.5">{toolbarStart}</div>
             {toolbarEnd}

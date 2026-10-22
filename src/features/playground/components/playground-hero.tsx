@@ -14,7 +14,8 @@ export function PlaygroundHero({ composer }: { composer: ReactNode }) {
       <HeroBackdrop />
       {/* The backdrop stays outside the scroller so it always covers the visible area. */}
       <div className="relative flex min-h-0 flex-1 scrollbar-thin flex-col overflow-y-auto">
-        <div className="flex shrink-0 grow items-center justify-center px-4 py-8 md:px-6">
+        {/* px-4 keeps the 864px block whole beside History (Figma: 19px margins in the 902px column). */}
+        <div className="flex shrink-0 grow items-center justify-center px-4 py-8">
           <div className="flex w-full max-w-216 flex-col gap-7.5">
             <div className="flex flex-col items-center gap-10 md:gap-14">
               <div className="flex flex-col items-center gap-4 text-center">

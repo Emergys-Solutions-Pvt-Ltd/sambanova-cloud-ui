@@ -24,8 +24,8 @@ export interface SliderProps {
 /**
  * Single-thumb slider with an always-visible value bubble (Figma: Tuning Parameters "Max Tokens").
  * A native range input, so arrows, Page Up / Down and Home / End work without extra code; the
- * `range-slider` utility draws the 4px brand track and the 12px knob. The top padding reserves
- * room for the bubble, so the block is 63px tall like Figma.
+ * `range-slider` utility draws the 4px brand track and the 12px knob. As in Figma, the bubble
+ * overhangs the top edge by 16px, so the parent leaves that much room above the slider.
  */
 export function Slider({
   value,
@@ -45,7 +45,7 @@ export function Slider({
   const display = value.toLocaleString("en-US");
 
   return (
-    <div className={cn("flex w-full flex-col pt-5.5", className)}>
+    <div className={cn("flex w-full flex-col pt-0.75", className)}>
       <div className="relative">
         <input
           id={id}
@@ -78,7 +78,7 @@ export function Slider({
       {(minLabel !== undefined || maxLabel !== undefined) && (
         <div
           aria-hidden="true"
-          className="mt-2 flex justify-between text-caption leading-tight font-normal text-content"
+          className="mt-0.5 flex justify-between text-caption leading-tight font-normal text-content"
         >
           <span>{minLabel}</span>
           <span>{maxLabel}</span>
