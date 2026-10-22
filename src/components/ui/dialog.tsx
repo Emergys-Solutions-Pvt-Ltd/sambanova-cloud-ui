@@ -44,13 +44,17 @@ interface DialogContentProps extends Omit<
   size?: DialogSize;
   /** Pinned below the scrolling body (action buttons), so they stay visible in long forms. */
   footer?: ReactNode;
-  /** default = app modals; subtle = Playground dialogs (subtle border, muted description, 24px header gap). */
+  /**
+   * default = app modals; muted = default layout with a gray-400 description and the 20px muted
+   * close (Figma: Billing modals); subtle = Playground dialogs (subtle border, muted description,
+   * 24px header gap).
+   */
   variant?: DialogVariant;
   /** Body starts 16px under the header bar instead of 24px (Figma: Modal body of Compare Models). Bar header only. */
   tightBody?: boolean;
 }
 
-type DialogVariant = "default" | "subtle";
+type DialogVariant = "default" | "muted" | "subtle";
 
 /** Per-variant shell classes; kept as separate maps so no variant overrides another through `className`. */
 const variantClasses: Record<
@@ -62,6 +66,12 @@ const variantClasses: Record<
     header: "pb-4",
     heading: "gap-1",
     description: "text-body-sm text-secondary",
+  },
+  muted: {
+    border: "border-default",
+    header: "pb-4",
+    heading: "gap-1",
+    description: "text-body-sm text-muted",
   },
   subtle: {
     border: "border-subtle",
@@ -86,7 +96,7 @@ export function DialogContent({
   const styles = variantClasses[variant];
   // Without a description the default header is a 64px bar with the title centred (Figma: Create
   // API key). The subtle (Playground) dialogs keep their own header whatever they contain.
-  const barHeader = !description && variant === "default";
+  const barHeader = !description && variant !== "subtle";
   return (
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay className={overlayClasses} />
@@ -120,7 +130,7 @@ export function DialogContent({
             )}
           </div>
           <DialogPrimitive.Close asChild>
-            {variant === "subtle" ? (
+            {variant !== "default" ? (
               // -m-2 keeps the 20px glyph on the 24px header corner; IconButton never sets margin.
               <IconButton
                 icon="close"

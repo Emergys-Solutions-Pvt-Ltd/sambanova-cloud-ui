@@ -20,6 +20,8 @@ import { MarqueeArrow } from "./marquee-arrow";
  *   brand        brand-purple fill; form submit in the auth dialog (40% opacity when disabled)
  *   ghost        text button with a hover fill (Figma: Playground header "Compare Models")
  *   cta          high-contrast fill (Figma: Playground header "Code")
+ *   danger-soft  red text on a faint red fill (Figma: Project Settings "Delete Project")
+ *   bordered     hairline outline, no fill, r8 (Figma: "View Members", role "Edit Permissions")
  */
 export type ButtonVariant =
   | "primary"
@@ -33,7 +35,9 @@ export type ButtonVariant =
   | "outline"
   | "brand"
   | "ghost"
-  | "cta";
+  | "cta"
+  | "danger-soft"
+  | "bordered";
 export type ButtonSize = "md" | "sm";
 
 const base =
@@ -79,6 +83,12 @@ const variants: Record<ButtonVariant, string> = {
   ghost:
     "rounded-xs py-2 pr-2 pl-3 font-medium text-button-ghost-fg hover:bg-hover aria-pressed:bg-transparent",
   cta: "rounded-sm bg-button-cta font-semibold text-button-cta-fg hover:bg-button-cta-hover",
+  "danger-soft":
+    "rounded-md border border-error-border bg-button-danger-soft font-medium text-button-danger-soft-fg " +
+    "hover:bg-button-danger-soft-hover disabled:opacity-40 aria-disabled:opacity-40",
+  bordered:
+    "rounded-md border border-button-outline font-medium text-button-outline-fg hover:bg-button-secondary-hover " +
+    "disabled:border-disabled disabled:text-disabled aria-disabled:border-disabled aria-disabled:text-disabled",
 };
 
 /** Heights: md = 37px (Figma buttons), sm = 34px (project selector, sign-up card). */

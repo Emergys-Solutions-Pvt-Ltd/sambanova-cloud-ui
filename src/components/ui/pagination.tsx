@@ -8,19 +8,28 @@ interface PaginationProps {
   page: number;
   totalPages: number;
   onPageChange: (page: number) => void;
+  /** Accessible name of the nav, e.g. "Members pages". */
+  label?: string;
   className?: string;
 }
 
+/** No background here: `cn` doesn't merge, so the active page's tint must not compete with one. */
 const itemClasses =
-  "flex items-center justify-center px-3 py-1.5 text-body font-medium bg-pagination-item " +
+  "flex items-center justify-center px-3 py-1.5 text-body font-medium " +
   "transition-colors duration-(--sn-duration-fast) ease-standard";
 
 /** Previous / page numbers / next (Figma: Pagination). Pages are `aria-current` when active. */
-export function Pagination({ page, totalPages, onPageChange, className }: PaginationProps) {
+export function Pagination({
+  page,
+  totalPages,
+  onPageChange,
+  label = "Pagination",
+  className,
+}: PaginationProps) {
   const items = getPageItems(page, totalPages);
 
   return (
-    <nav aria-label="Pagination" className={className}>
+    <nav aria-label={label} className={className}>
       <ul className="flex items-stretch overflow-hidden rounded-xs border border-default">
         <li className="flex">
           <button
@@ -28,7 +37,10 @@ export function Pagination({ page, totalPages, onPageChange, className }: Pagina
             aria-label="Previous page"
             disabled={page <= 1}
             onClick={() => onPageChange(page - 1)}
-            className={cn(itemClasses, "text-secondary hover:bg-hover disabled:text-disabled")}
+            className={cn(
+              itemClasses,
+              "bg-pagination-item text-secondary hover:bg-hover disabled:text-disabled",
+            )}
           >
             <Icon name="chevron-left" size="md" />
           </button>
@@ -46,13 +58,16 @@ export function Pagination({ page, totalPages, onPageChange, className }: Pagina
                   itemClasses,
                   item === page
                     ? "bg-pagination-active text-pagination-active"
-                    : "text-tab-inactive hover:bg-hover hover:text-primary",
+                    : "bg-pagination-item text-tab-inactive hover:bg-hover hover:text-primary",
                 )}
               >
                 {item}
               </button>
             ) : (
-              <span aria-hidden="true" className={cn(itemClasses, "text-tab-inactive")}>
+              <span
+                aria-hidden="true"
+                className={cn(itemClasses, "bg-pagination-item text-tab-inactive")}
+              >
                 ...
               </span>
             )}
@@ -65,7 +80,10 @@ export function Pagination({ page, totalPages, onPageChange, className }: Pagina
             aria-label="Next page"
             disabled={page >= totalPages}
             onClick={() => onPageChange(page + 1)}
-            className={cn(itemClasses, "text-secondary hover:bg-hover disabled:text-disabled")}
+            className={cn(
+              itemClasses,
+              "bg-pagination-item text-secondary hover:bg-hover disabled:text-disabled",
+            )}
           >
             <Icon name="chevron-right" size="md" />
           </button>

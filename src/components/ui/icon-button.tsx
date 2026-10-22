@@ -21,7 +21,9 @@ export type IconButtonSize =
   | "xs"
   | "sm"
   | "md"
+  | "row"
   | "field"
+  | "field-lg"
   | "lg"
   | "carousel"
   | "chat"
@@ -35,8 +37,9 @@ export type IconButtonSize =
 /** Each variant owns its disabled colour, so `send` can stay on its fill at 40 % (Figma: empty composer). */
 const variants: Record<IconButtonVariant, string> = {
   ghost: "text-secondary hover:bg-hover hover:text-primary disabled:text-disabled",
-  /** Full-strength icon at rest (Figma: the eye in the request log, copy icons). */
-  contrast: "text-primary hover:bg-hover disabled:text-disabled",
+  /** Full-strength icon at rest (Figma: the eye in the request log, copy icons, table row ⋮). */
+  contrast:
+    "text-primary hover:bg-hover data-[state=open]:bg-hover disabled:text-disabled disabled:hover:bg-transparent",
   outline:
     "border border-button-outline text-secondary hover:bg-button-secondary-hover hover:text-primary disabled:text-disabled",
   solid:
@@ -68,8 +71,12 @@ const sizes: Record<IconButtonSize, { box: string; icon: number }> = {
   xs: { box: "size-6 rounded-sm", icon: 18 },
   sm: { box: "size-8 rounded-sm", icon: 16 },
   md: { box: "size-9 rounded-sm", icon: 20 },
+  /** 18px glyph in a 32px target (Figma: table row ⋮). */
+  row: { box: "size-8 rounded-sm", icon: 18 },
   /** Same height as a 38px form field. */
   field: { box: "size-9.5 rounded-sm", icon: 22 },
+  /** 38px box, 24px glyph (Figma: Project Settings edit and copy buttons). */
+  "field-lg": { box: "size-9.5 rounded-sm", icon: 24 },
   lg: { box: "size-11 rounded-sm", icon: 20 },
   /** Carousel arrows (Figma: webinar card): 20px glyph with a 30px hit area pulled back by 5px. */
   carousel: { box: "size-7.5 rounded-sm -m-1.25", icon: 20 },

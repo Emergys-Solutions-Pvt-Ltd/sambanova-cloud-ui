@@ -1,0 +1,22 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="371.154" height="461.264" viewBox="0 0 371.154 461.264" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Group 1171276687" filter="url(#filter0_f_0_41)">
+<path id="Rectangle 39377" d="M102.681 76.5L150.726 84.4033L76.5 252.789L102.681 76.5Z" fill="#A778E8"/>
+<path id="Rectangle 39378" d="M145.04 80.6554L193.084 88.5587L107.893 291.871L145.04 80.6554Z" fill="#A778E8"/>
+<path id="Rectangle 39379" d="M176.481 92.3143L224.525 100.218L144.252 287.867L176.481 92.3143Z" fill="#A778E8"/>
+<g id="Rectangle 39380" filter="url(#filter1_f_0_41)">
+<path d="M216.362 92.3108L278.413 102.518L163.466 380.772L216.362 92.3108Z" fill="#A778E8"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_0_41" x="0" y="-8.95059e-07" width="354.913" height="457.272" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="38.25" result="effect1_foregroundBlur_0_41"/>
+</filter>
+<filter id="filter1_f_0_41" x="91.3661" y="20.2108" width="259.147" height="432.661" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="36.05" result="effect1_foregroundBlur_0_41"/>
+</filter>
+</defs>
+</svg>

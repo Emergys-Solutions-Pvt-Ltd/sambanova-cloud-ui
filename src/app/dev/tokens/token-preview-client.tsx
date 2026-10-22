@@ -4,13 +4,15 @@ import { useEffect, useId, useRef, useState } from "react";
 
 import { BackButton } from "@/components/ui/back-button";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { ChartCard, ChartLegend } from "@/components/ui/chart-card";
+import { Combobox } from "@/components/ui/combobox";
+import { ConfirmDialog } from "@/components/ui/confirm-dialog";
 import { CopyButton } from "@/components/ui/copy-button";
 import { DateRangePicker } from "@/components/ui/date-range-picker";
 import { Icon } from "@/components/ui/icon/icon";
 import { iconNames } from "@/components/ui/icon/icon-data.generated";
 import { LineChart } from "@/components/ui/line-chart";
-import { Combobox } from "@/components/ui/combobox";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -20,6 +22,9 @@ import {
 import { IconButton } from "@/components/ui/icon-button";
 import { NumberInput } from "@/components/ui/number-input";
 import { OptionMenu } from "@/components/ui/option-menu";
+import { Pagination } from "@/components/ui/pagination";
+import { PillRadioGroup } from "@/components/ui/pill-radio-group";
+import { SearchField } from "@/components/ui/search-field";
 import { Select, type SelectGroup } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
@@ -215,6 +220,8 @@ export function SwitchDemo() {
         Sampling {checked ? "on" : "off"}
       </span>
       <Switch defaultChecked disabled aria-label="Disabled example" />
+      <Switch tone="success" defaultChecked aria-label="Success tone (Billing Auto Recharge)" />
+      <Switch tone="success" aria-label="Success tone, off" />
     </div>
   );
 }
@@ -371,6 +378,99 @@ export function TooltipSurfaceDemo() {
         </Tooltip>
       </div>
     </TooltipProvider>
+  );
+}
+
+/**
+ * Project Settings primitives: pill radio group, search field, pagination, inline select,
+ * row ⋮ with a danger item, 38px edit/copy buttons and the destructive confirmation.
+ */
+export function ProjectSettingsDemo() {
+  const [level, setLevel] = useState<"manage" | "view" | "none">("view");
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(3);
+  const [role, setRole] = useState("developer");
+  const [confirming, setConfirming] = useState(false);
+
+  return (
+    <div className="flex flex-col gap-3">
+      <div className="flex flex-wrap items-center gap-3">
+        <PillRadioGroup
+          aria-label="API Keys access"
+          value={level}
+          onValueChange={setLevel}
+          options={[
+            { value: "manage", label: "Manage" },
+            { value: "view", label: "View Only" },
+            { value: "none", label: "No Access" },
+          ]}
+        />
+        <SearchField
+          aria-label="Search members"
+          placeholder="Search members"
+          value={search}
+          onChange={(event) => setSearch(event.target.value)}
+          onClear={() => setSearch("")}
+          className="w-70.25"
+        />
+      </div>
+      <div className="flex flex-wrap items-center gap-3">
+        <Pagination page={page} totalPages={12} onPageChange={setPage} label="Example pages" />
+        <Select
+          variant="inline"
+          aria-label="Role"
+          value={role}
+          onValueChange={setRole}
+          className="w-47.75"
+          groups={[
+            {
+              options: [
+                { value: "admin", label: "Admin" },
+                { value: "developer", label: "Developer" },
+                { value: "viewer", label: "Viewer" },
+              ],
+            },
+          ]}
+        />
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <IconButton
+              icon="dots-vertical"
+              variant="contrast"
+              size="row"
+              aria-label="Row actions"
+            />
+          </DropdownMenuTrigger>
+          <DropdownMenuContent surface="flat" align="end" sideOffset={4} className="min-w-43">
+            <DropdownMenuItem variant="flat">Change Role</DropdownMenuItem>
+            <DropdownMenuItem variant="flat">Edit Permissions</DropdownMenuItem>
+            <DropdownMenuItem variant="flat" destructive>
+              Remove Member
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <IconButton icon="pencil-line" size="field-lg" aria-label="Edit name" />
+        <IconButton icon="layers-subtract" size="field-lg" aria-label="Copy ID" />
+        <Button
+          variant="danger-soft"
+          leftIcon="trash"
+          iconSize={20}
+          onClick={() => setConfirming(true)}
+        >
+          Delete Project
+        </Button>
+        <ConfirmDialog
+          open={confirming}
+          onOpenChange={setConfirming}
+          tone="danger"
+          icon="warning"
+          title="Delete Project"
+          description="This project and all associated resources will be permanently deleted."
+          confirmLabel="Delete Project"
+          onConfirm={() => setConfirming(false)}
+        />
+      </div>
+    </div>
   );
 }
 

@@ -1,20 +1,16 @@
 import { http, HttpResponse } from "msw";
 
 import { type PaginatedResponse } from "@/lib/api/types";
-import { checkExpiry, digitsOnly, isValidCardNumber, isValidSecurityCode } from "@/lib/card";
 import {
   type AuthResponse,
   type CreateExampleItemInput,
   type CreateProjectInput,
-  type PurchaseCreditsInput,
-  type PurchaseCreditsResponse,
   type ExampleItem,
   type LoginInput,
   type SignupInput,
 } from "@/types/domain";
 
 import {
-  addCreditsTo,
   createSession,
   endSession,
   findAccountBySession,
@@ -22,7 +18,6 @@ import {
   toUser,
   verifyCredentials,
 } from "../db/accounts";
-import { getBillingAddress, recordPurchase } from "../db/billing";
 import { createProjectFor, listProjectsFor } from "../db/projects";
 import { clearSessionCookie, readSessionToken, writeSessionCookie } from "../db/session-cookie";
 import { exampleItemsByProject } from "../fixtures";
@@ -35,7 +30,9 @@ import {
 } from "../fixtures/dashboard";
 
 import { apiKeyHandlers } from "./api-keys";
+import { billingHandlers } from "./billing";
 import { playgroundHandlers } from "./playground";
+import { projectSettingsHandlers } from "./project-settings";
 import {
   api,
   errorBody,
@@ -46,10 +43,6 @@ import {
   withScenario,
   withSession,
 } from "./shared";
-
-const MIN_PURCHASE = 5;
-const MAX_PURCHASE = 1000;
-const DECLINED_TEST_CARD = "4000000000000002";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -127,70 +120,6 @@ export const handlers = [
   ),
 
   http.get(
-    api("/billing/address"),
-    withSession(async () => {
-      const account = await findAccountBySession(readSessionToken());
-      return HttpResponse.json(getBillingAddress(account!.id));
-    }),
-  ),
-
-  http.post(
-    api("/billing/credits"),
-    withSession(async ({ request }) => {
-      const account = await findAccountBySession(readSessionToken());
-      const input = (await request.json()) as Partial<PurchaseCreditsInput>;
-      const { amount, billingAddress, card } = input;
-
-      if (!Number.isInteger(amount) || amount! < MIN_PURCHASE || amount! > MAX_PURCHASE) {
-        return validationError("Enter an amount between $5 and $1,000.", { field: "amount" });
-      }
-      if (!billingAddress?.fullName?.trim()) {
-        return validationError("Enter your full name.", { field: "fullName" });
-      }
-      if (!billingAddress.country) {
-        return validationError("Select your country or region.", { field: "country" });
-      }
-      if (!billingAddress.address?.trim()) {
-        return validationError("Enter your address.", { field: "address" });
-      }
-      if (!card || !isValidCardNumber(card.number ?? "")) {
-        return validationError("Your Card number is invalid", { field: "cardNumber" });
-      }
-      const expiry = checkExpiry(card.expiry ?? "");
-      if (expiry !== "valid") {
-        return validationError(
-          expiry === "expired"
-            ? "Your card's expiry date is in the past"
-            : "Your card's expiry date is invalid",
-          { field: "expiry" },
-        );
-      }
-      if (!isValidSecurityCode(card.cvc ?? "")) {
-        return validationError("Your card's security code is incomplete", { field: "cvc" });
-      }
-
-      // Test card that the payment provider always declines.
-      if (digitsOnly(card.number) === DECLINED_TEST_CARD) {
-        return HttpResponse.json(
-          {
-            error: {
-              code: "PAYMENT_DECLINED",
-              message: "Your card was declined",
-              details: { field: "cardNumber" },
-            },
-          },
-          { status: 402 },
-        );
-      }
-
-      const purchase = recordPurchase(account!.id, amount!, billingAddress);
-      const balance = (await addCreditsTo(account!.id, amount!)) ?? 0;
-      const body: PurchaseCreditsResponse = { balance, purchase };
-      return HttpResponse.json(body, { status: 201 });
-    }),
-  ),
-
-  http.get(
     api("/projects"),
     withSession(async () => {
       const account = await findAccountBySession(readSessionToken());
@@ -223,14 +152,6 @@ export const handlers = [
         );
       }
       return HttpResponse.json(project, { status: 201 });
-    }),
-  ),
-
-  http.get(
-    api("/projects/:projectId"),
-    withSession<{ projectId: string }>(async ({ params }) => {
-      const project = await findOwnProject(params.projectId);
-      return project ? HttpResponse.json(project) : notFound("Project");
     }),
   ),
 
@@ -318,5 +239,7 @@ export const handlers = [
   ),
 
   ...apiKeyHandlers,
+  ...billingHandlers,
   ...playgroundHandlers,
+  ...projectSettingsHandlers,
 ];

@@ -236,6 +236,31 @@
   --color-role-writer: var(--sn-role-writer);
   --color-role-pm: var(--sn-role-pm);
 
+  /* Project Settings */
+  --background-color-field-strong: var(--sn-bg-field-strong);
+  --background-color-role-icon: var(--sn-bg-role-icon);
+  --background-color-role-divider: var(--sn-border-role-divider);
+  --background-color-badge-accent: var(--sn-bg-badge-accent);
+  --text-color-capability: var(--sn-text-capability);
+  --border-color-danger-zone: var(--sn-border-danger-zone);
+  --color-button-danger-soft: var(--sn-button-danger-soft-bg);
+  --color-button-danger-soft-fg: var(--sn-button-danger-soft-fg);
+  --color-button-danger-soft-hover: var(--sn-button-danger-soft-hover);
+  --color-tier-active: var(--sn-tier-active-bg);
+  --color-tier-active-border: var(--sn-tier-active-border);
+  --color-tier-idle: var(--sn-tier-idle-bg);
+  --color-tier-idle-border: var(--sn-tier-idle-border);
+  --text-color-tier-active: var(--sn-text-tier-active);
+
+  /* Billing */
+  --text-color-credits-description: var(--sn-text-credits-description);
+  --background-color-card-row: var(--sn-bg-card-row);
+  --background-color-cards-add: var(--sn-bg-cards-add);
+  --color-autopay: var(--sn-autopay-bg);
+  --text-color-autopay: var(--sn-autopay-fg);
+  --color-switch-success: var(--sn-switch-success);
+  --color-divider-soft: var(--sn-border-divider-soft);
+
   /* ---- Typography -------------------------------------------------------- */
   --font-*: initial;
   --font-sans: var(--sn-font-sans);
@@ -255,6 +280,9 @@
   --text-display--line-height: 1.2;
   --text-display--font-weight: 600;
   --text-display--letter-spacing: -0.02em;
+  --text-heading-2xl: 1.75rem; /* 28px: Billing credit balance */
+  --text-heading-2xl--line-height: 1.2;
+  --text-heading-2xl--font-weight: 700;
   --text-heading-xl: 1.5rem; /* 24px: banner titles */
   --text-heading-xl--line-height: 1.25;
   --text-heading-xl--font-weight: 400;
@@ -293,6 +321,8 @@
   --text-micro--font-weight: 600;
   --text-tiny: 0.625rem; /* 10px: sidebar email, step captions */
   --text-tiny--line-height: 1.5;
+  --text-card-art: 0.58rem; /* 9.28px: expiry printed on the Billing card art */
+  --text-card-art--line-height: 1.2;
   --text-table: 0.875rem; /* 14px: table cells */
   --text-table--line-height: 1.5;
   --text-table-head: 0.75rem; /* 12px: table headers, uppercase */
@@ -346,6 +376,7 @@
   --shadow-knob: var(--sn-shadow-knob);
   --shadow-badge: var(--sn-shadow-badge);
   --shadow-history-item: var(--sn-shadow-history-item);
+  --shadow-credits-card: var(--sn-shadow-credits-card);
 
   --ease-*: initial;
   --ease-standard: var(--sn-ease-standard);
@@ -611,6 +642,23 @@
 
 @utility bg-badge-gradient {
   background-image: var(--sn-gradient-badge);
+}
+
+/*
+ * Billing › Credits card: a translucent purple wash with a purple-gold gradient hairline. The
+ * hairline is a border-box gradient behind a padding-box canvas layer, so the wash stays clean.
+ */
+@utility bg-credits-card {
+  border: 1px solid transparent;
+  background:
+    var(--sn-gradient-credits-card) padding-box,
+    linear-gradient(var(--sn-bg-canvas), var(--sn-bg-canvas)) padding-box,
+    var(--sn-gradient-credits-border) border-box;
+}
+
+/* Billing › My Cards panel: purple at the top fading through black. */
+@utility bg-cards-panel {
+  background-image: var(--sn-gradient-cards-panel);
 }
 
 /* API key usage stat cards: faint purple wash from the bottom right. */

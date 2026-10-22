@@ -40,6 +40,7 @@ export function ApiKeysView() {
       <PageHeader
         title="API Keys"
         subtitle="Create and manage API keys to securely access the Sambanova API."
+        subtitleVariant="compact"
         actions={
           <>
             <Button
