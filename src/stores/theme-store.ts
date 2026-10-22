@@ -14,7 +14,8 @@ interface ThemeState {
 export const useThemeStore = create<ThemeState>()(
   persist(
     (set) => ({
-      theme: "system",
+      // Dark is the default (the OS setting is only followed when "system" is picked).
+      theme: "dark",
       setTheme: (theme) => set({ theme }),
     }),
     {

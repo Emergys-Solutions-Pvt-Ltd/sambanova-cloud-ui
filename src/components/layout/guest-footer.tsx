@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Icon } from "@/components/ui/icon/icon";
 import { IconButton } from "@/components/ui/icon-button";
 import { Tooltip } from "@/components/ui/tooltip";
+import { env } from "@/config/env";
 import { routes } from "@/config/routes";
 import { cn } from "@/lib/cn";
 import { useAuthDialogStore } from "@/stores/auth-dialog-store";
@@ -14,7 +15,11 @@ import { selectSetTheme, selectTheme, useThemeStore } from "@/stores/theme-store
 
 import { themeOptions, ThemeSwitcher } from "./theme-switcher";
 
-/** Signed-out footer: "Sign Up for Free" + the Theme row (Figma: guest sidebar, dark and light). */
+/**
+ * Signed-out footer: "Sign Up for Free" + the Theme row (Figma: guest sidebar, dark and light).
+ * The Theme row, and the theme button of the icon rail, only show while
+ * NEXT_PUBLIC_ENABLE_THEME_SWITCHER is on.
+ */
 export function GuestFooter({ collapsed }: { collapsed?: boolean }) {
   const theme = useThemeStore(selectTheme);
   const setTheme = useThemeStore(selectSetTheme);
@@ -26,7 +31,7 @@ export function GuestFooter({ collapsed }: { collapsed?: boolean }) {
   };
 
   if (collapsed) {
-    // Icon rail: sign-up link and a button that cycles System → Light → Dark.
+    // Icon rail: sign-up link and, with the switcher on, a button that cycles System → Light → Dark.
     const index = themeOptions.findIndex((option) => option.value === theme);
     const next = themeOptions[(index + 1) % themeOptions.length]!;
     const current = themeOptions[index]!;
@@ -45,14 +50,16 @@ export function GuestFooter({ collapsed }: { collapsed?: boolean }) {
             <Icon name="user" size="md" />
           </Link>
         </Tooltip>
-        <Tooltip content={`Theme: ${current.label}`}>
-          <IconButton
-            icon={current.icon}
-            size="lg"
-            aria-label={`Theme: ${current.label}. Switch to ${next.label}`}
-            onClick={() => setTheme(next.value)}
-          />
-        </Tooltip>
+        {env.themeSwitcher && (
+          <Tooltip content={`Theme: ${current.label}`}>
+            <IconButton
+              icon={current.icon}
+              size="lg"
+              aria-label={`Theme: ${current.label}. Switch to ${next.label}`}
+              onClick={() => setTheme(next.value)}
+            />
+          </Tooltip>
+        )}
       </div>
     );
   }
@@ -62,10 +69,12 @@ export function GuestFooter({ collapsed }: { collapsed?: boolean }) {
       <Button href={routes.signup} onClick={openSignup} variant="control" size="sm" fullWidth>
         Sign Up for Free
       </Button>
-      <div className="flex items-center justify-between gap-4 border-t border-default pt-3">
-        <span className="text-body-lg text-secondary">Theme</span>
-        <ThemeSwitcher />
-      </div>
+      {env.themeSwitcher && (
+        <div className="flex items-center justify-between gap-4 border-t border-default pt-3">
+          <span className="text-body-lg text-secondary">Theme</span>
+          <ThemeSwitcher />
+        </div>
+      )}
     </div>
   );
 }

@@ -47,6 +47,10 @@ const publicEnvSchema = z.object({
     .default("false")
     .transform((value) => value === "true"),
   NEXT_PUBLIC_DISABLED_ROUTES: routeList,
+  NEXT_PUBLIC_ENABLE_THEME_SWITCHER: z
+    .enum(["true", "false"])
+    .default("false")
+    .transform((value) => value === "true"),
 });
 
 const parsed = publicEnvSchema.safeParse({
@@ -54,6 +58,7 @@ const parsed = publicEnvSchema.safeParse({
   NEXT_PUBLIC_USE_MOCKS: process.env.NEXT_PUBLIC_USE_MOCKS,
   NEXT_PUBLIC_QUERY_DEVTOOLS: process.env.NEXT_PUBLIC_QUERY_DEVTOOLS,
   NEXT_PUBLIC_DISABLED_ROUTES: process.env.NEXT_PUBLIC_DISABLED_ROUTES,
+  NEXT_PUBLIC_ENABLE_THEME_SWITCHER: process.env.NEXT_PUBLIC_ENABLE_THEME_SWITCHER,
 });
 
 if (!parsed.success) {
@@ -67,5 +72,7 @@ export const env = {
   useMocks: parsed.data.NEXT_PUBLIC_USE_MOCKS,
   queryDevtools: parsed.data.NEXT_PUBLIC_QUERY_DEVTOOLS,
   disabledRoutes: parsed.data.NEXT_PUBLIC_DISABLED_ROUTES,
+  /** Shows the System / Light / Dark switcher. Off: the app is dark and has no theme options. */
+  themeSwitcher: parsed.data.NEXT_PUBLIC_ENABLE_THEME_SWITCHER,
   isDev: process.env.NODE_ENV === "development",
 } as const;

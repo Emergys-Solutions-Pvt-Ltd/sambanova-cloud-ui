@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Icon } from "@/components/ui/icon/icon";
 import { Tooltip } from "@/components/ui/tooltip";
+import { env } from "@/config/env";
 import { externalLinks } from "@/config/links";
 import { routes } from "@/config/routes";
 import { useLogout } from "@/features/session";
@@ -32,7 +33,10 @@ import {
 
 import { themeOptions, themePillClasses, themeSegmentClasses } from "./theme-switcher";
 
-/** Signed-in account card at the bottom of the sidebar, with the account menu (Figma: Dropdown Menu). */
+/**
+ * Signed-in account card at the bottom of the sidebar, with the account menu (Figma: Dropdown Menu).
+ * The menu's Theme row only shows while NEXT_PUBLIC_ENABLE_THEME_SWITCHER is on.
+ */
 export function UserMenu({ user, collapsed }: { user: User; collapsed?: boolean }) {
   const theme = useThemeStore(selectTheme);
   const setTheme = useThemeStore(selectSetTheme);
@@ -91,32 +95,34 @@ export function UserMenu({ user, collapsed }: { user: User; collapsed?: boolean 
           </Link>
         </DropdownMenuItem>
 
-        <div className="flex min-h-9 items-center gap-2 py-1 pr-2 pl-4 text-body leading-5 text-menu-item">
-          <Icon name="palette" size={MENU_ICON_SIZE} />
-          <span id="account-theme-label" className="flex-1">
-            Theme
-          </span>
-          <DropdownMenuRadioGroup
-            aria-labelledby="account-theme-label"
-            value={theme}
-            onValueChange={(value) => setTheme(value as ThemePreference)}
-            className={themePillClasses}
-          >
-            {themeOptions.map((option) => (
-              <DropdownMenuRadioItem
-                key={option.value}
-                value={option.value}
-                aria-label={option.label}
-                title={option.label}
-                // Keep the menu open so the change is visible.
-                onSelect={(event) => event.preventDefault()}
-                className={themeSegmentClasses}
-              >
-                <Icon name={option.icon} size={14} />
-              </DropdownMenuRadioItem>
-            ))}
-          </DropdownMenuRadioGroup>
-        </div>
+        {env.themeSwitcher && (
+          <div className="flex min-h-9 items-center gap-2 py-1 pr-2 pl-4 text-body leading-5 text-menu-item">
+            <Icon name="palette" size={MENU_ICON_SIZE} />
+            <span id="account-theme-label" className="flex-1">
+              Theme
+            </span>
+            <DropdownMenuRadioGroup
+              aria-labelledby="account-theme-label"
+              value={theme}
+              onValueChange={(value) => setTheme(value as ThemePreference)}
+              className={themePillClasses}
+            >
+              {themeOptions.map((option) => (
+                <DropdownMenuRadioItem
+                  key={option.value}
+                  value={option.value}
+                  aria-label={option.label}
+                  title={option.label}
+                  // Keep the menu open so the change is visible.
+                  onSelect={(event) => event.preventDefault()}
+                  className={themeSegmentClasses}
+                >
+                  <Icon name={option.icon} size={14} />
+                </DropdownMenuRadioItem>
+              ))}
+            </DropdownMenuRadioGroup>
+          </div>
+        )}
 
         <DropdownMenuItem variant="account" asChild>
           <a href={externalLinks.documentation} target="_blank" rel="noopener noreferrer">

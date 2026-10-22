@@ -37,14 +37,21 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  colorScheme: "dark light",
+  // Dark by default: the browser draws its own UI (scrollbars, form controls) dark before the CSS loads.
+  colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    // data-theme is set by the theme-init script before paint, so the server
-    // markup and the client DOM differ on purpose.
-    <html lang="en" className={`${lato.variable} h-full antialiased`} suppressHydrationWarning>
+    // Dark is the default, also without JavaScript. The theme-init script sets data-theme before
+    // paint (a saved Light or System choice, when the switcher is on), so the server markup and
+    // the client DOM can differ on purpose.
+    <html
+      lang="en"
+      data-theme="dark"
+      className={`${lato.variable} h-full antialiased`}
+      suppressHydrationWarning
+    >
       <body className="flex min-h-full flex-col">
         {/* Applies the saved theme synchronously, before first paint (no flash). */}
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />

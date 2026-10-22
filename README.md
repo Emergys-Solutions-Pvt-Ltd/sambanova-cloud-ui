@@ -51,23 +51,28 @@ The pre-commit hook runs `lint-staged`: ESLint (`--fix`, zero warnings) and Pret
 
 Copy `.env.example` to `.env.local`. Public variables are validated with Zod in `src/config/env.ts`; the app fails fast with a readable message if one is missing or malformed. Always read them through `env` from `@/config/env`, never through `process.env` directly.
 
-| Variable                      | Scope  | Description                                                                                              |
-| ----------------------------- | ------ | -------------------------------------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_API_BASE_URL`    | public | API base URL. An absolute URL, or a path such as `/api` when mocking.                                    |
-| `NEXT_PUBLIC_DISABLED_ROUTES` | public | Comma-separated routes to switch off, e.g. `/playground,/api-keys,/settings` (see below). Default empty. |
-| `NEXT_PUBLIC_QUERY_DEVTOOLS`  | public | `true` shows the TanStack Query devtools button in development. Default `false`.                         |
-| `NEXT_PUBLIC_USE_MOCKS`       | public | `true` starts the MSW worker and serves all API calls from `src/mocks`. Default `false`.                 |
-| `AUTH0_DOMAIN`                | server | Auth0 tenant domain. Placeholder, not used until auth is integrated.                                     |
-| `AUTH0_CLIENT_ID`             | server | Auth0 application client ID (placeholder).                                                               |
-| `AUTH0_CLIENT_SECRET`         | server | Auth0 application client secret (placeholder).                                                           |
-| `AUTH0_SECRET`                | server | 32-byte hex secret for encrypting the session cookie (placeholder).                                      |
-| `APP_BASE_URL`                | server | Public URL of this app, used for Auth0 callbacks (placeholder).                                          |
+| Variable                            | Scope  | Description                                                                                              |
+| ----------------------------------- | ------ | -------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_API_BASE_URL`          | public | API base URL. An absolute URL, or a path such as `/api` when mocking.                                    |
+| `NEXT_PUBLIC_DISABLED_ROUTES`       | public | Comma-separated routes to switch off, e.g. `/playground,/api-keys,/settings` (see below). Default empty. |
+| `NEXT_PUBLIC_ENABLE_THEME_SWITCHER` | public | `true` shows the System / Light / Dark switcher (see below). Default `false`: the app is dark.           |
+| `NEXT_PUBLIC_QUERY_DEVTOOLS`        | public | `true` shows the TanStack Query devtools button in development. Default `false`.                         |
+| `NEXT_PUBLIC_USE_MOCKS`             | public | `true` starts the MSW worker and serves all API calls from `src/mocks`. Default `false`.                 |
+| `AUTH0_DOMAIN`                      | server | Auth0 tenant domain. Placeholder, not used until auth is integrated.                                     |
+| `AUTH0_CLIENT_ID`                   | server | Auth0 application client ID (placeholder).                                                               |
+| `AUTH0_CLIENT_SECRET`               | server | Auth0 application client secret (placeholder).                                                           |
+| `AUTH0_SECRET`                      | server | 32-byte hex secret for encrypting the session cookie (placeholder).                                      |
+| `APP_BASE_URL`                      | server | Public URL of this app, used for Auth0 callbacks (placeholder).                                          |
 
 ### Disabling routes
 
 Set `NEXT_PUBLIC_DISABLED_ROUTES` to a comma-separated list of routes, for example `/playground,/api-keys,/settings`. A listed route also disables everything beneath it (`/settings` covers `/settings/billing`). Opening the URL, by typing it or by following a link, shows the 404 page (enforced in `src/proxy.ts`, for guests and signed-in users). Sidebar items, hero buttons and the model cards keep their normal look; there is no disabled styling.
 
 The value is inlined at build time, so restart `npm run dev` (or rebuild and redeploy) after changing it. Leave it empty to enable every route. `isRouteDisabled(href)` from `@/config/disabled-routes` tells whether a path is switched off.
+
+### Theme switcher
+
+The theme switcher is hidden for now. Set `NEXT_PUBLIC_ENABLE_THEME_SWITCHER=true` to bring it back: the Theme row of the signed-out sidebar footer (and the theme button of the collapsed icon rail), and the Theme row of the signed-in account menu. While it is off the app is always dark: the OS setting and any saved Light or System choice are ignored (the saved choice stays in storage and applies again when the switcher is turned on). When it is on, the default is dark too; System follows the OS only when someone picks it.
 
 `NEXT_PUBLIC_*` values are inlined at build time, so changing them requires a rebuild (or a dev-server restart).
 
@@ -110,10 +115,10 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 ## Design system
 
 - **Tokens** live in `src/styles/tokens.css` as CSS variables. **Primitives** (`--sn-purple-500`, …) are the raw palette. **Semantic** tokens (`--sn-bg-canvas`, `--sn-text-muted`, …) say what a color is for and change per theme.
-  - Dark is the default. `[data-theme="light"]` switches to light, and `prefers-color-scheme` applies when no theme is set.
+  - Dark is the default (also without JavaScript: `<html data-theme="dark">`). `[data-theme="light"]` switches to light; `prefers-color-scheme` only applies to a page with no `data-theme` at all.
 - **Tailwind** is wired to semantic tokens only (`src/styles/globals.css`). The default palette and type scale are removed. Use utilities like `bg-surface`, `text-muted`, `border-default`, `text-heading-sm` and `rounded-lg`.
   - **Never write a color value in a component.** `npm run check:tokens` enforces this.
-- **Theme**: `useThemeStore` holds `system | light | dark` (persisted). An inline script at the top of `<body>` applies it before first paint, so the wrong theme never flashes. `ThemeSync` keeps `<html data-theme>` in sync with the store and the OS setting.
+- **Theme**: `useThemeStore` holds `system | light | dark` (persisted, default `dark`). An inline script at the top of `<body>` applies it before first paint, so the wrong theme never flashes. `ThemeSync` keeps `<html data-theme>` in sync with the store and the OS setting. With `NEXT_PUBLIC_ENABLE_THEME_SWITCHER` off (the default) the script and `ThemeSync` just lock the app to dark and no switcher is shown.
 - **Typography**: Lato 2.0, self-hosted (`src/styles/fonts/lato`, SIL OFL) at 400/500/600/700.
 - **Icons**: `<Icon name="api-keys" size="md" color="muted" />`. Icons inherit `currentColor`. Add an SVG to `assets/icons/`, then run `npm run icons`.
 - **Illustrations**: `public/illustrations` and `public/brand`, mapped in `src/config/assets.ts`. Use `show-in-dark` / `show-in-light` to swap themed variants.
@@ -132,7 +137,7 @@ Import with the `@/` alias (`@/lib/api`, `@/features/projects`). Code outside a 
 
 - **Sidebar**: logo, project selector, navigation (active state follows the route, with `aria-current="page"`), account area. Items live in `src/config/navigation.ts`.
 - **Project selector**: popover with search (combobox: type, ArrowUp/Down, Enter, Escape), a checkmark on the active project, Manage Projects and Create project. Switching updates `useProjectStore` and invalidates the previous project’s queries.
-- **Account area**: signed in shows the profile card with credit badge and the account menu (email, Manage Projects, Theme, Documentation, Help Center, Logout). Signed out shows "Sign Up for Free" and the theme switcher. While `GET /me` loads, a placeholder holds the space.
+- **Account area**: signed in shows the profile card with credit badge and the account menu (email, Manage Projects, Theme when the switcher is enabled, Documentation, Help Center, Logout). Signed out shows "Sign Up for Free" (and the theme switcher when it is enabled). While `GET /me` loads, a placeholder holds the space.
 - **Drawer**: overlay, focus trap, Escape, closes on navigation, focus returns to the opener.
 - **Page frame**: use `<PageHeader title subtitle actions />` then `<PageContent>`.
 - **Primitives** (`src/components/ui`): `Button` (primary, secondary, tertiary, link, cancel, destructive, control, brand, ghost, cta), `TextField`, `RadioCardGroup`, `NameDialog`, `ConfirmDialog`, `FeaturedIcon` (warning, danger), `Table`, `Pagination`, `SearchField`, `EmptyState`, `Callout`, `Toast`, `IconButton`, `Badge`, `Avatar`, `Popover`, `DropdownMenu` (menu, flat, compact surfaces), `Tooltip` (inverse, surface, rich), `Drawer` (left navigation sheet, or a right side panel: `panel` for the Playground History, `details` for the API key Request Details), `Skeleton`, `Icon`, for the Playground `Switch`, `Slider` (native range with a value bubble), `NumberInput` (spinbutton with a stepper), `Textarea` / `TextareaField` (auto-growing) and `OptionMenu` (listbox menu on a custom trigger), and for the API key usage page `DateRangePicker` with `RangeCalendar`, `BackButton`, `PaginationFooter`, `LineChart` with `ChartCard` and `ChartLegend`, and for Project Settings `PillRadioGroup` (pill segmented radio group), `TableSkeletonRows` / `TableMessageRow`, Button variants `danger-soft` and `bordered`, IconButton sizes `row` / `field-lg`, Select variants `form` / `inline`, a clearable `SearchField` (`onClear`) and `ConfirmDialog` driven by a caller's `pending`. Radix UI supplies behaviour only. All of them are shown in both themes at `/dev/tokens`.
@@ -229,7 +234,7 @@ To reproduce the Figma compare screen, compare DeepSeek V3.1 with MiniMax M2.7 a
 | ------------------------- | ------------------------------------------------------------------- | -------------------------- |
 | `useProjectStore`         | Active project id                                                   | yes                        |
 | `useSessionStore`         | Session status (`loading`/`authenticated`/`guest`), user            | no (synced from `GET /me`) |
-| `useThemeStore`           | `system` / `light` / `dark`                                         | yes                        |
+| `useThemeStore`           | `system` / `light` / `dark` (default `dark`)                        | yes                        |
 | `useUIStore`              | Sidebar collapsed, mobile nav open, onboarding hidden               | yes, except mobile nav     |
 | `usePlaygroundPrefsStore` | Playground model, compare pair, system prompt, tuning, History open | yes (`sn:playground`)      |
 | `usePlaygroundChatStore`  | The open Playground thread (turns, replies, mode, models)           | no                         |

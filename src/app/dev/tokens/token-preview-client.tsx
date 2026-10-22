@@ -30,6 +30,7 @@ import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
 import { Textarea, TextareaField } from "@/components/ui/textarea";
 import { Tooltip, TooltipProvider } from "@/components/ui/tooltip";
+import { env } from "@/config/env";
 import { cn } from "@/lib/cn";
 import { type DateRangeSelection, startOfDay } from "@/lib/date-range";
 import { formatCompactNumber } from "@/lib/format";
@@ -46,10 +47,21 @@ const OPTIONS: { value: ThemePreference; label: string; icon: "monitor" | "sun" 
   { value: "dark", label: "Dark", icon: "moon" },
 ];
 
-/** Switches the whole app theme through useThemeStore (persisted). */
+/**
+ * Switches the whole app theme through useThemeStore (persisted). While the app's theme switcher is
+ * off (NEXT_PUBLIC_ENABLE_THEME_SWITCHER) the app stays dark, so this shows a note instead.
+ */
 export function ThemeSwitch() {
   const theme = useThemeStore(selectTheme);
   const setTheme = useThemeStore(selectSetTheme);
+
+  if (!env.themeSwitcher) {
+    return (
+      <p className="max-w-60 text-caption text-muted">
+        App theme is locked to dark (theme switcher off). The panels still show both themes.
+      </p>
+    );
+  }
 
   return (
     <div
