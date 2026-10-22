@@ -33,6 +33,8 @@ export const queryKeys = {
     all: ["models"] as const,
     catalog: () => [...queryKeys.models.all, "catalog"] as const,
     recommended: () => [...queryKeys.models.all, "recommended"] as const,
+    pricing: (params: Required<PaginationParams>) =>
+      [...queryKeys.models.all, "pricing", params] as const,
   },
   marketing: {
     all: ["marketing"] as const,

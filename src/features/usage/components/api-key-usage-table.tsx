@@ -82,7 +82,7 @@ export function ApiKeyUsageTable({
 
           {result && rows.length === 0 && (
             <TableRow>
-              <TableCell colSpan={COLUMNS} className="h-24 text-center text-muted">
+              <TableCell colSpan={COLUMNS} tone="muted" className="h-24 text-center">
                 No API keys yet.
               </TableCell>
             </TableRow>

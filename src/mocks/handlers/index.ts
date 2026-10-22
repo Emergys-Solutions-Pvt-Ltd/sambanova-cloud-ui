@@ -36,6 +36,7 @@ import {
 
 import { apiKeyHandlers } from "./api-keys";
 import { playgroundHandlers } from "./playground";
+import { pricingHandlers } from "./pricing";
 import {
   api,
   errorBody,
@@ -320,5 +321,6 @@ export const handlers = [
 
   ...apiKeyHandlers,
   ...usageHandlers,
+  ...pricingHandlers,
   ...playgroundHandlers,
 ];

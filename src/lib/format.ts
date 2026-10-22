@@ -15,6 +15,17 @@ export function formatUsdPrecise(amount: number) {
   return usdWithCents.format(amount);
 }
 
+/**
+ * A price per million tokens as the Figma Pricing table writes it: 0.6 → "0.60 USD", 3 → "3 USD".
+ * Prices with more than two decimals keep them (0.075 → "0.075 USD", up to four).
+ */
+export function formatUsdPrice(amount: number) {
+  const rounded = Number(amount.toFixed(4));
+  if (Number.isInteger(rounded)) return `${rounded} USD`;
+  const decimals = Math.max(2, (String(rounded).split(".")[1] ?? "").length);
+  return `${rounded.toFixed(decimals)} USD`;
+}
+
 const integer = new Intl.NumberFormat("en-US");
 
 /** 1234567 → "1,234,567". */

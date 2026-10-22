@@ -72,7 +72,7 @@ export function ApiKeysTable({ result, filtered, onPageChange, loadingMore }: Ap
 
           {result && rows.length === 0 && (
             <TableRow>
-              <TableCell colSpan={6} className="h-24 text-center text-muted">
+              <TableCell colSpan={6} tone="muted" className="h-24 text-center">
                 {filtered ? "No API keys match your search or filter." : "No API keys yet."}
               </TableCell>
             </TableRow>

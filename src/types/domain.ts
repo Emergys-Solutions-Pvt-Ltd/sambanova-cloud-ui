@@ -244,6 +244,18 @@ export interface ModelPricing {
   badge?: string;
 }
 
+/** One line of the Pricing table (`GET /models/pricing`); prices are USD per million tokens. */
+export interface ModelPriceRow {
+  id: string;
+  name: string;
+  /** Tokens the model can read in one request. */
+  contextWindow: number;
+  /** Price of cached input tokens; `null` for a model without prompt caching ("N/A"). */
+  cachedInputPrice: number | null;
+  inputPrice: number;
+  outputPrice: number;
+}
+
 export interface ModelFeatures {
   /** Tokens the model can read in one request. */
   contextWindow: number;

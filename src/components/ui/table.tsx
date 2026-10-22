@@ -49,17 +49,42 @@ export function TableRow(props: ComponentPropsWithRef<"tr">) {
 /** One class per alignment: `cn()` does not resolve a base `text-left` against a passed `text-center`. */
 const headerAlignments = { left: "text-left", center: "text-center", right: "text-right" } as const;
 
+/**
+ * Text colours of the two Figma table looks. "default" is API Keys, request log and Usage (gray
+ * heading, softer body); "bright" is Pricing (white heading, near-white body). One class each, for
+ * the same reason as the alignments.
+ */
+export type TableHeaderTone = "default" | "bright";
+/** Cells also have "muted", for the message of an empty table. */
+export type TableCellTone = TableHeaderTone | "muted";
+const headerTones: Record<TableHeaderTone, string> = {
+  default: "text-table-header",
+  bright: "text-primary",
+};
+const cellTones: Record<TableCellTone, string> = {
+  default: "text-secondary",
+  bright: "text-primary",
+  muted: "text-muted",
+};
+
 interface TableHeaderCellProps extends ComponentPropsWithRef<"th"> {
   /** Text alignment of the heading (Figma centres "Actions" and right-aligns token counts). Default left. */
   align?: keyof typeof headerAlignments;
+  tone?: TableHeaderTone;
 }
 
-export function TableHeaderCell({ align = "left", className, ...rest }: TableHeaderCellProps) {
+export function TableHeaderCell({
+  align = "left",
+  tone = "default",
+  className,
+  ...rest
+}: TableHeaderCellProps) {
   return (
     <th
       scope="col"
       className={cn(
-        "h-12.5 px-4 py-0 text-body font-semibold whitespace-nowrap text-table-header",
+        "h-12.5 px-4 py-0 text-body font-semibold whitespace-nowrap",
+        headerTones[tone],
         headerAlignments[align],
         className,
       )}
@@ -68,10 +93,18 @@ export function TableHeaderCell({ align = "left", className, ...rest }: TableHea
   );
 }
 
-export function TableCell({ className, ...rest }: ComponentPropsWithRef<"td">) {
+interface TableCellProps extends ComponentPropsWithRef<"td"> {
+  tone?: TableCellTone;
+}
+
+export function TableCell({ tone = "default", className, ...rest }: TableCellProps) {
   return (
     <td
-      className={cn("h-13.5 border-b border-default px-4 py-0 text-body text-secondary", className)}
+      className={cn(
+        "h-13.5 border-b border-default px-4 py-0 text-body",
+        cellTones[tone],
+        className,
+      )}
       {...rest}
     />
   );

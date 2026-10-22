@@ -97,7 +97,7 @@ export function ApiKeyRequestsTable({
 
           {result && rows.length === 0 && (
             <TableRow>
-              <TableCell colSpan={COLUMNS} className="h-24 text-center text-muted">
+              <TableCell colSpan={COLUMNS} tone="muted" className="h-24 text-center">
                 No requests were made with this key in the selected dates.
               </TableCell>
             </TableRow>
