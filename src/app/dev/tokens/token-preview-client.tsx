@@ -233,7 +233,8 @@ export function NumberInputSliderDemo() {
   const [value, setValue] = useState(0);
   const labelId = useId();
   return (
-    <div className="flex w-full max-w-120 flex-col gap-3">
+    // gap-6 as in the Tuning dialog: the slider's value bubble overhangs its top edge.
+    <div className="flex w-full max-w-120 flex-col gap-6">
       <div className="flex items-center justify-between gap-4">
         <span id={labelId} className="text-body-lg font-semibold text-primary">
           Max Tokens
