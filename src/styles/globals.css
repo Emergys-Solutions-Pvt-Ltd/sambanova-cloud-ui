@@ -462,6 +462,36 @@
   display: var(--sn-only-light);
 }
 
+/*
+ * Fades an element out over its left, top and bottom edges (20px), so artwork that is drawn on its
+ * own opaque background blends into what is behind it instead of showing a box edge (the Dashboard
+ * hero's light wave: its background is a shade off the banner gradient around it). The right edge
+ * is left alone: the hero clips it. Keep the fade inside the artwork's empty margin (29px at the top).
+ */
+@utility fade-edges {
+  --fade-edges-size: 20px;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, currentColor var(--fade-edges-size)),
+    linear-gradient(
+      to bottom,
+      transparent,
+      currentColor var(--fade-edges-size),
+      currentColor calc(100% - var(--fade-edges-size)),
+      transparent
+    );
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, currentColor var(--fade-edges-size)),
+    linear-gradient(
+      to bottom,
+      transparent,
+      currentColor var(--fade-edges-size),
+      currentColor calc(100% - var(--fade-edges-size)),
+      transparent
+    );
+  mask-composite: intersect;
+}
+
 /* ---- Motion ---------------------------------------------------------------
    Durations and easing come from tokens (and drop to 0ms under
    prefers-reduced-motion). Used with Radix data-state attributes. */

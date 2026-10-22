@@ -17,7 +17,11 @@ export function HeroBanner() {
       {/*
         Decorative artwork, hidden below desktop width. Dark theme (Figma `1907:196251`): a glow
         behind the title, the wave and a second glow over it; each layer keeps its Figma box (the
-        glows include their blur margin). Light theme keeps its own wave.
+        glows include their blur margin). Light theme keeps its own wave. Both waves are images on
+        their own opaque background, which is a shade off the banner around it and would show as a
+        box edge behind the buttons (SCRUM-126). Dark: the wave's background is never brighter than
+        what is behind it, so a `lighten` blend lets the banner show through there and keeps the
+        strands. Light: the wave fades out over its left, top and bottom edges.
       */}
       <div
         aria-hidden="true"
@@ -27,7 +31,7 @@ export function HeroBanner() {
       </div>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-2.75 -right-15.5 hidden lg:show-in-dark"
+        className="pointer-events-none absolute top-2.75 -right-15.5 hidden mix-blend-lighten lg:show-in-dark"
       >
         <Image
           src={wave.dark}
@@ -40,7 +44,7 @@ export function HeroBanner() {
       </div>
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute top-3 right-0 hidden lg:show-in-light"
+        className="pointer-events-none absolute top-3 right-0 hidden fade-edges lg:show-in-light"
       >
         <Image
           src={wave.light}
