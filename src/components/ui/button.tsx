@@ -99,11 +99,24 @@ const sizes: Record<ButtonSize, string> = {
 
 const bareSizes = "px-2 py-2 text-body";
 
+/**
+ * Figma draws the 1px border of these variants inside the padding (Secondary and Cancel are 37px high
+ * with padding 12 / 8), so the md padding is 1px smaller here to keep the border from adding 2px.
+ */
+const borderedVariants: ReadonlySet<ButtonVariant> = new Set([
+  "secondary",
+  "cancel",
+  "outline",
+  "control",
+]);
+const borderedMdSize = "px-2.75 py-1.75 text-body";
+
 /** Link and glass carry their own sizing; ghost only its text size; tertiary is compact; the rest follow `size`. */
 function sizeClasses(variant: ButtonVariant, size: ButtonSize) {
   if (variant === "link" || variant === "glass") return "";
   if (variant === "ghost") return "text-body";
   if (variant === "tertiary") return bareSizes;
+  if (size === "md" && borderedVariants.has(variant)) return borderedMdSize;
   return sizes[size];
 }
 

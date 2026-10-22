@@ -205,6 +205,24 @@ export interface ApiKeyUsageSeries {
   points: ApiKeyUsageSeriesPoint[];
 }
 
+/** One line of the Usage page's "API Key Usage" table: a key and what it did in the range. */
+export interface ApiKeyUsageRow {
+  id: string;
+  name: string;
+  createdAt: string;
+  lastUsedAt: string | null;
+  totalRequests: number;
+  /** In USD. */
+  estimatedSpend: number;
+}
+
+/** Table state sent to `GET /projects/:projectId/usage/api-keys`. */
+export interface ApiKeyUsageRowsParams extends UsageRangeParams {
+  /** 1-based. */
+  page: number;
+  pageSize: number;
+}
+
 export type ApiKeyRequestStatus = "success" | "error";
 
 export interface ApiKeyRequestError {
@@ -398,6 +416,18 @@ export interface ModelPricing {
   fastMode: { input: number; output: number };
   /** Short highlight shown under the price table, for example "Best for Coding". */
   badge?: string;
+}
+
+/** One line of the Pricing table (`GET /models/pricing`); prices are USD per million tokens. */
+export interface ModelPriceRow {
+  id: string;
+  name: string;
+  /** Tokens the model can read in one request. */
+  contextWindow: number;
+  /** Price of cached input tokens; `null` for a model without prompt caching ("N/A"). */
+  cachedInputPrice: number | null;
+  inputPrice: number;
+  outputPrice: number;
 }
 
 export interface ModelFeatures {

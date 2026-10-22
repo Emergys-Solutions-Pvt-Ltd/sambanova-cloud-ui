@@ -32,6 +32,7 @@ import {
 import { apiKeyHandlers } from "./api-keys";
 import { billingHandlers } from "./billing";
 import { playgroundHandlers } from "./playground";
+import { pricingHandlers } from "./pricing";
 import { projectSettingsHandlers } from "./project-settings";
 import {
   api,
@@ -43,6 +44,7 @@ import {
   withScenario,
   withSession,
 } from "./shared";
+import { usageHandlers } from "./usage";
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -239,6 +241,8 @@ export const handlers = [
   ),
 
   ...apiKeyHandlers,
+  ...usageHandlers,
+  ...pricingHandlers,
   ...billingHandlers,
   ...playgroundHandlers,
   ...projectSettingsHandlers,

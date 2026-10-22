@@ -96,6 +96,11 @@ export function queryApiKeys(
   };
 }
 
+/** Every key of the project in list order, for what adds up over all of them (project usage). */
+export function listApiKeysFor(accountId: string, projectId: string) {
+  return allKeys(accountId, projectId);
+}
+
 /** One key of the project, or `undefined` when it does not exist (or was deleted). */
 export function findApiKeyFor(accountId: string, projectId: string, keyId: string) {
   return allKeys(accountId, projectId).find((key) => key.id === keyId);

@@ -34,8 +34,10 @@ const minWidths = {
   sm: "min-w-150",
   /** 760px: the default. */
   md: "min-w-190",
-  /** 960px: tables with long values such as emails (Members, Invitations). */
+  /** 960px: tables with long values such as emails (Members, Invitations) and the Usage and Pricing tables. */
   lg: "min-w-240",
+  /** 1144px: the request log, whose columns have Figma's fixed widths. */
+  xl: "min-w-286",
 } as const;
 
 interface TableProps extends ComponentPropsWithRef<"table"> {
@@ -70,12 +72,46 @@ export function TableRow(props: ComponentPropsWithRef<"tr">) {
   return <tr {...props} />;
 }
 
-export function TableHeaderCell({ className, ...rest }: ComponentPropsWithRef<"th">) {
+/** One class per alignment: `cn()` does not resolve a base `text-left` against a passed `text-center`. */
+const headerAlignments = { left: "text-left", center: "text-center", right: "text-right" } as const;
+
+/**
+ * Text colours of the Figma table looks, one class each (for the same reason as the alignments).
+ * Headings: "default" is gray-200 (API Keys, request log, Usage, Project Settings), "bright" is
+ * white (Pricing). Cells: "secondary" is gray-300 (the default), "muted" is gray-400 (Billing ›
+ * Invoices, and the message of an empty table), "bright" is near-white (Pricing).
+ */
+export type TableHeaderTone = "default" | "bright";
+export type TableCellTone = "secondary" | "muted" | "bright";
+const headerTones: Record<TableHeaderTone, string> = {
+  default: "text-table-header",
+  bright: "text-primary",
+};
+const cellTones: Record<TableCellTone, string> = {
+  secondary: "text-secondary",
+  muted: "text-muted",
+  bright: "text-primary",
+};
+
+interface TableHeaderCellProps extends ComponentPropsWithRef<"th"> {
+  /** Text alignment of the heading (Figma centres "Actions" and right-aligns token counts). Default left. */
+  align?: keyof typeof headerAlignments;
+  tone?: TableHeaderTone;
+}
+
+export function TableHeaderCell({
+  align = "left",
+  tone = "default",
+  className,
+  ...rest
+}: TableHeaderCellProps) {
   return (
     <th
       scope="col"
       className={cn(
-        "h-12.5 px-4 py-0 text-left text-body font-semibold whitespace-nowrap text-table-header",
+        "h-12.5 px-4 py-0 text-body font-semibold whitespace-nowrap",
+        headerTones[tone],
+        headerAlignments[align],
         className,
       )}
       {...rest}
@@ -83,17 +119,16 @@ export function TableHeaderCell({ className, ...rest }: ComponentPropsWithRef<"t
   );
 }
 
-/** secondary = gray-300 cell text (default); muted = gray-400 (Figma: Billing › Invoices). */
-export function TableCell({
-  className,
-  tone = "secondary",
-  ...rest
-}: ComponentPropsWithRef<"td"> & { tone?: "secondary" | "muted" }) {
+interface TableCellProps extends ComponentPropsWithRef<"td"> {
+  tone?: TableCellTone;
+}
+
+export function TableCell({ tone = "secondary", className, ...rest }: TableCellProps) {
   return (
     <td
       className={cn(
         "h-13.5 border-b border-default px-4 py-0 text-body",
-        tone === "secondary" ? "text-secondary" : "text-muted",
+        cellTones[tone],
         className,
       )}
       {...rest}

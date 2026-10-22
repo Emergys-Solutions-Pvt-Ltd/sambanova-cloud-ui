@@ -75,7 +75,7 @@ export function InvoicesTable() {
               <TableHeaderCell>Date</TableHeaderCell>
               <TableHeaderCell>Amount</TableHeaderCell>
               <TableHeaderCell>Status</TableHeaderCell>
-              <TableHeaderCell className="text-center">Action</TableHeaderCell>
+              <TableHeaderCell align="center">Action</TableHeaderCell>
             </tr>
           </TableHead>
           <TableBody>

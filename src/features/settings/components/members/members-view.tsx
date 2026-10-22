@@ -265,7 +265,7 @@ export function MembersView() {
                 <TableHeaderCell>Email</TableHeaderCell>
                 <TableHeaderCell>Role</TableHeaderCell>
                 <TableHeaderCell>Joined On</TableHeaderCell>
-                <TableHeaderCell className="text-center">Action</TableHeaderCell>
+                <TableHeaderCell align="center">Action</TableHeaderCell>
               </tr>
             </TableHead>
             <TableBody>

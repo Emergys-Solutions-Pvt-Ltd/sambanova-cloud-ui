@@ -61,7 +61,8 @@ export function ApiKeyRequestsTable({
       <Table
         caption="API request logs"
         aria-busy={loadingMore || !result || undefined}
-        className="min-w-286 table-fixed"
+        minWidth="xl"
+        className="table-fixed"
       >
         <TableHead>
           <TableRow>
@@ -69,10 +70,18 @@ export function ApiKeyRequestsTable({
             <TableHeaderCell className="w-48.75">Time</TableHeaderCell>
             <TableHeaderCell className="w-42.25">Model</TableHeaderCell>
             <TableHeaderCell className="w-30.25">Response Time</TableHeaderCell>
-            <TableHeaderCell className="w-33 text-right">Input Tokens</TableHeaderCell>
-            <TableHeaderCell className="w-33 text-right">Output Tokens</TableHeaderCell>
-            <TableHeaderCell className="w-26.75 text-center">Status</TableHeaderCell>
-            <TableHeaderCell className="w-37.75 text-center">Action</TableHeaderCell>
+            <TableHeaderCell align="right" className="w-33">
+              Input Tokens
+            </TableHeaderCell>
+            <TableHeaderCell align="right" className="w-33">
+              Output Tokens
+            </TableHeaderCell>
+            <TableHeaderCell align="center" className="w-26.75">
+              Status
+            </TableHeaderCell>
+            <TableHeaderCell align="center" className="w-37.75">
+              Action
+            </TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody className={loadingMore ? "opacity-60 transition-opacity" : undefined}>
@@ -89,7 +98,7 @@ export function ApiKeyRequestsTable({
 
           {result && rows.length === 0 && (
             <TableRow>
-              <TableCell colSpan={COLUMNS} className="h-24 text-center text-muted">
+              <TableCell colSpan={COLUMNS} tone="muted" className="h-24 text-center">
                 No requests were made with this key in the selected dates.
               </TableCell>
             </TableRow>

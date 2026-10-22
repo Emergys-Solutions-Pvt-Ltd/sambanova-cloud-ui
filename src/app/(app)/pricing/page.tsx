@@ -1,20 +1,15 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
-import { ComingSoon } from "@/components/layout/coming-soon";
-import { PageContent, PageHeader } from "@/components/layout/page-header";
+import { PricingView } from "@/features/pricing";
 
 export const metadata: Metadata = { title: "Pricing" };
 
 export default function PricingPage() {
+  // The table page lives in the URL (?page=), which needs a Suspense boundary.
   return (
-    <>
-      <PageHeader
-        title="Pricing"
-        subtitle="Compare model pricing, and choose the best option for your AI workload"
-      />
-      <PageContent>
-        <ComingSoon />
-      </PageContent>
-    </>
+    <Suspense fallback={null}>
+      <PricingView />
+    </Suspense>
   );
 }

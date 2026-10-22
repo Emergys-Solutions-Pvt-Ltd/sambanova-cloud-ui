@@ -23,7 +23,7 @@ export const maskedKeyId = (key: ApiKey) => `sdk_live...........${key.lastFour}`
 
 function StatusBadge({ status }: { status: ApiKey["status"] }) {
   return (
-    <Badge variant={status === "active" ? "success" : "error"} shape="rounded">
+    <Badge variant={status === "active" ? "success" : "error"} size="status" shape="rounded">
       {status === "active" ? "Active" : "Disabled"}
     </Badge>
   );
@@ -53,7 +53,9 @@ export function ApiKeysTable({ result, filtered, onPageChange, loadingMore }: Ap
             <TableHeaderCell>Created On</TableHeaderCell>
             <TableHeaderCell>Last Used</TableHeaderCell>
             <TableHeaderCell className="w-23.25">Status</TableHeaderCell>
-            <TableHeaderCell className="w-33.75 text-center">Actions</TableHeaderCell>
+            <TableHeaderCell align="center" className="w-33.75">
+              Actions
+            </TableHeaderCell>
           </TableRow>
         </TableHead>
         <TableBody className={loadingMore ? "opacity-60 transition-opacity" : undefined}>
@@ -70,7 +72,7 @@ export function ApiKeysTable({ result, filtered, onPageChange, loadingMore }: Ap
 
           {result && rows.length === 0 && (
             <TableRow>
-              <TableCell colSpan={6} className="h-24 text-center text-muted">
+              <TableCell colSpan={6} tone="muted" className="h-24 text-center">
                 {filtered ? "No API keys match your search or filter." : "No API keys yet."}
               </TableCell>
             </TableRow>
@@ -79,10 +81,11 @@ export function ApiKeysTable({ result, filtered, onPageChange, loadingMore }: Ap
           {rows.map((key) => (
             <TableRow key={key.id}>
               <TableCell>
-                <div className="flex items-center gap-4">
+                {/* Figma cell: name and tag are top-aligned, 16px apart (the tag is 22px high, the name line 21px). */}
+                <div className="flex items-start gap-4">
                   {key.name}
                   {key.renamedAt && (
-                    <Badge variant="neutral" shape="rounded">
+                    <Badge variant="edited" size="status" shape="rounded">
                       Edited
                     </Badge>
                   )}

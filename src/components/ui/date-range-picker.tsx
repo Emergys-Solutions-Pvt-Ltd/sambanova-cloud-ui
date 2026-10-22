@@ -51,8 +51,9 @@ export function DateRangePicker({
         <button
           type="button"
           aria-label={`${ariaLabel}: ${label}`}
+          // Figma draws the 1px border inside the 16px padding, so the padding is 15px here.
           className={cn(
-            "flex h-9.25 w-full items-center gap-2.5 rounded-md border border-field bg-input px-4 text-left text-body text-primary",
+            "flex h-9.25 w-full items-center gap-2.5 rounded-md border border-field bg-input px-3.75 text-left text-body text-primary",
             "transition-colors duration-(--sn-duration-fast) ease-standard hover:bg-hover",
             className,
           )}

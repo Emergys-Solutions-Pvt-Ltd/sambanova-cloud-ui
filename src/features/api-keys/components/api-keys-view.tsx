@@ -71,13 +71,15 @@ export function ApiKeysView() {
             title="No API keys yet"
             description="Create your first API key to start building with Sambanova’s high-performance inference API."
             action={
-              <Button variant="primary" leftIcon="plus" onClick={createKey} className="px-4">
+              <Button variant="primary" onClick={createKey} className="px-4">
+                {/* Figma: the plus is 18px with a 1.125px stroke (1 in the icon's 16px grid). */}
+                <Icon name="plus" size={18} strokeWidth={1} />
                 Create your first API Key
               </Button>
             }
           />
           <Callout
-            className="w-full"
+            className="w-full max-w-256"
             icon="document"
             title="Need help in getting started?"
             description="Check our documentation to integrate the Sambanova API in your application."

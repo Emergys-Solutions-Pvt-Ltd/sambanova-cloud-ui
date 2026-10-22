@@ -38,7 +38,7 @@ export function ConfirmDialog({
   onOpenChange,
   title,
   description,
-  icon = "alert-triangle",
+  icon = "featured-alert-triangle",
   tone = "warning",
   confirmLabel = "Confirm",
   onConfirm,

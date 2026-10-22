@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { type ComponentPropsWithRef } from "react";
 
 import { cn } from "@/lib/cn";
@@ -96,6 +97,9 @@ const sizes: Record<IconButtonSize, { box: string; icon: number }> = {
   toast: { box: "size-6 rounded-sm -m-1", icon: 16 },
 };
 
+const baseClasses =
+  "inline-flex shrink-0 items-center justify-center transition-colors duration-(--sn-duration-fast) ease-standard";
+
 export interface IconButtonProps extends Omit<ComponentPropsWithRef<"button">, "children"> {
   icon: IconName;
   /** Required: icon-only controls have no visible text. */
@@ -119,13 +123,7 @@ export function IconButton({
   return (
     <button
       type={type}
-      className={cn(
-        "inline-flex shrink-0 items-center justify-center",
-        "transition-colors duration-(--sn-duration-fast) ease-standard disabled:cursor-not-allowed",
-        box,
-        variants[variant],
-        className,
-      )}
+      className={cn(baseClasses, "disabled:cursor-not-allowed", box, variants[variant], className)}
       {...rest}
     >
       <Icon
@@ -135,5 +133,29 @@ export function IconButton({
         {...(iconStrokeWidth === undefined ? {} : { strokeWidth: iconStrokeWidth })}
       />
     </button>
+  );
+}
+
+export interface IconLinkProps extends Omit<ComponentPropsWithRef<typeof Link>, "children"> {
+  icon: IconName;
+  /** Required: icon-only links have no visible text. */
+  "aria-label": string;
+  variant?: IconButtonVariant;
+  size?: IconButtonSize;
+}
+
+/** An icon that navigates (Figma: the eye in the Usage table). Looks like `IconButton`, is a real link. */
+export function IconLink({
+  icon,
+  variant = "ghost",
+  size = "md",
+  className,
+  ...rest
+}: IconLinkProps) {
+  const { box, icon: iconSize } = sizes[size];
+  return (
+    <Link className={cn(baseClasses, box, variants[variant], className)} {...rest}>
+      <Icon name={icon} size={iconSize} />
+    </Link>
   );
 }

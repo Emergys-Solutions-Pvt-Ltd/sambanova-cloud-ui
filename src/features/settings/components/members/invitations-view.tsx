@@ -187,7 +187,7 @@ export function InvitationsView() {
                 <TableHeaderCell>Invited On</TableHeaderCell>
                 <TableHeaderCell>Expires On</TableHeaderCell>
                 <TableHeaderCell>Status</TableHeaderCell>
-                <TableHeaderCell className="text-center">Action</TableHeaderCell>
+                <TableHeaderCell align="center">Action</TableHeaderCell>
               </tr>
             </TableHead>
             <TableBody>

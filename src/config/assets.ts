@@ -71,7 +71,7 @@ export const heroGlows = {
 } satisfies Record<string, StaticImage>;
 
 export const emptyStates = {
-  apiKeys: { src: "/illustrations/empty-api-keys.webp", width: 210, height: 132 },
+  apiKeys: { src: "/illustrations/empty-api-keys.webp", width: 210, height: 131.04 },
   creditCard: { src: "/illustrations/credit-card.webp", width: 251, height: 138 },
 } satisfies Record<string, StaticImage>;
 
