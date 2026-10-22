@@ -315,7 +315,8 @@
 
   /* Gradients */
   --sn-gradient-hero: linear-gradient(89.77deg, #131313 0%, #070614 32.68%, #070714 99.96%);
-  --sn-gradient-hero-accent: linear-gradient(138.56deg, #ebab0e 6.81%, #c881ff 46.8%);
+  /* "Sambanova." text. The first stop is negative on purpose: the Figma fill starts outside the 132x30 text box (SCRUM-125). */
+  --sn-gradient-hero-accent: linear-gradient(138.56deg, #ebab0e -6.81%, #c881ff 46.8%);
   /* "Earn Free Credits" card: Figma diamond gradient (Component 110), drawn as an SVG that stretches with the card. */
   --sn-gradient-promo: url("data:image/svg+xml;utf8,<svg viewBox='0 0 392 239' xmlns='http://www.w3.org/2000/svg' preserveAspectRatio='none'><g transform='matrix(40.95 25.326 -41.54 67.165 -17.5 -20.5)'><rect height='26.005' width='95.884' fill='url(%23g)' id='q' shape-rendering='crispEdges'/><use href='%23q' transform='scale(1 -1)'/><use href='%23q' transform='scale(-1 1)'/><use href='%23q' transform='scale(-1 -1)'/></g><defs><linearGradient id='g' gradientUnits='userSpaceOnUse' x2='5' y2='5'><stop stop-color='rgb(61,17,90)' offset='0'/><stop stop-color='rgb(35,9,53)' offset='0.15702'/><stop stop-color='rgb(22,5,34)' offset='0.23553'/><stop stop-color='rgb(9,1,16)' offset='0.31404'/><stop stop-color='rgb(22,3,44)' offset='1'/></linearGradient></defs></svg>");
   /* Hover outline of the same card: Figma stroke gradient at 30%, left to right with a slight tilt. */
@@ -677,7 +678,7 @@
   --sn-code-keyword: var(--sn-syntax-purple-light);
 
   --sn-gradient-hero: linear-gradient(90deg, #ffffff 0%, #f5ebfe 25%, #f3ebfe 100%);
-  --sn-gradient-hero-accent: linear-gradient(138.56deg, #db7504 6.81%, #8335bb 46.8%);
+  --sn-gradient-hero-accent: linear-gradient(138.56deg, #db7504 -6.81%, #8335bb 46.8%);
   --sn-gradient-promo: linear-gradient(110deg, #ffffff 0%, #ead8ff 100%);
   --sn-gradient-playground:
     radial-gradient(60% 55% at 30% 0%, rgb(152 71 214 / 0.14) 0%, transparent 70%),
@@ -993,7 +994,7 @@
     --sn-code-keyword: var(--sn-syntax-purple-light);
 
     --sn-gradient-hero: linear-gradient(90deg, #ffffff 0%, #f5ebfe 25%, #f3ebfe 100%);
-    --sn-gradient-hero-accent: linear-gradient(138.56deg, #db7504 6.81%, #8335bb 46.8%);
+    --sn-gradient-hero-accent: linear-gradient(138.56deg, #db7504 -6.81%, #8335bb 46.8%);
     --sn-gradient-promo: linear-gradient(110deg, #ffffff 0%, #ead8ff 100%);
     --sn-gradient-playground:
       radial-gradient(60% 55% at 30% 0%, rgb(152 71 214 / 0.14) 0%, transparent 70%),
