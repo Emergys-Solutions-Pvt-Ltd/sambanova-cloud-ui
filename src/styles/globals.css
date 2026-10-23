@@ -445,6 +445,11 @@
     cursor: not-allowed;
   }
 
+  /* Edge adds its own "reveal password" eye; the password field already has its own show/hide toggle (SCRUM-171). */
+  input[type="password"]::-ms-reveal {
+    display: none;
+  }
+
   code,
   kbd,
   pre,
