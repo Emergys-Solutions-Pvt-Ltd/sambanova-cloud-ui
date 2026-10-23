@@ -73,6 +73,9 @@ function AuthDialog({ open, mode, onClose, onModeChange }: AuthDialogProps) {
             {text.prompt}{" "}
             <button
               type="button"
+              // Pressing here would blur the focused field, whose validation message pushes this link down
+              // before the button is released, so the click is lost (SCRUM-96). Keep the focus where it is.
+              onMouseDown={(event) => event.preventDefault()}
               onClick={() => onModeChange(mode === "login" ? "signup" : "login")}
               className="rounded-xs font-medium text-accent hover:underline"
             >
