@@ -132,7 +132,13 @@ function NameForm({
 export function NameDialog({ open, onOpenChange, title, description, ...form }: NameDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent size="md" title={title} description={description}>
+      <DialogContent
+        size="md"
+        // Figma: the Create New Project description is gray-400; the Create / Edit API key bar headers have none.
+        variant={description ? "muted" : "default"}
+        title={title}
+        description={description}
+      >
         <NameForm {...form} />
       </DialogContent>
     </Dialog>

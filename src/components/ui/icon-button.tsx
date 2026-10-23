@@ -16,7 +16,8 @@ export type IconButtonVariant =
   | "send"
   | "header"
   | "bare"
-  | "current";
+  | "current"
+  | "content";
 export type IconButtonSize =
   | "2xs"
   | "xs"
@@ -63,6 +64,8 @@ const variants: Record<IconButtonVariant, string> = {
   bare: "text-copy-icon hover:opacity-80",
   /** Glyph in the surrounding text colour (Figma: toast close, drawn in the variant colour). */
   current: "text-current hover:opacity-70",
+  /** Gray-200 glyph with the ghost hover (Figma: close on the 64px bar-header modals). */
+  content: "text-content hover:bg-hover hover:text-primary disabled:text-disabled",
 };
 
 const sizes: Record<IconButtonSize, { box: string; icon: number }> = {

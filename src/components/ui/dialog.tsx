@@ -45,8 +45,8 @@ interface DialogContentProps extends Omit<
   /** Pinned below the scrolling body (action buttons), so they stay visible in long forms. */
   footer?: ReactNode;
   /**
-   * default = app modals; muted = default layout with a gray-400 description and the 20px muted
-   * close (Figma: Billing modals); subtle = Playground dialogs (subtle border, muted description,
+   * default = app modals; muted = default layout with a gray-400 description (Figma: Billing and
+   * Create New Project modals); subtle = Playground dialogs (subtle border, muted description,
    * 24px header gap).
    */
   variant?: DialogVariant;
@@ -130,18 +130,18 @@ export function DialogContent({
             )}
           </div>
           <DialogPrimitive.Close asChild>
-            {variant !== "default" ? (
-              // -m-2 keeps the 20px glyph on the 24px header corner; IconButton never sets margin.
-              <IconButton
-                icon="close"
-                aria-label="Close"
-                variant="subtle"
-                size="md"
-                className="-m-2"
-              />
-            ) : (
-              <IconButton icon="close" aria-label="Close" size="sm" />
-            )}
+            {/*
+              Figma: a 20px glyph (10px cross, 2px stroke) on the header's 24px corner. The 36px target is
+              pulled back by 8px (-m-2; IconButton never sets margin) so the glyph keeps that position.
+              Bar headers draw it gray-200, headers with a description gray-400.
+            */}
+            <IconButton
+              icon="close"
+              aria-label="Close"
+              variant={barHeader ? "content" : "subtle"}
+              size="md"
+              className="-m-2"
+            />
           </DialogPrimitive.Close>
         </div>
         <div
